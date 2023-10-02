@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.eca;
 
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntity;
+import org.sitenetsoft.framework.entity.GenericEntityException;
 
 import java.util.List;
 import java.util.Map;

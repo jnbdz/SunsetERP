@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.collections;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.service.calendar.TemporalExpressions.Frequency;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilProperties;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.service.calendar.TemporalExpressions.Frequency;
 
 import java.io.Serializable;
 import java.util.*;

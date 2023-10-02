@@ -18,9 +18,9 @@
  */
 package org.sitenetsoft.framework.base.container;
 
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.sitenetsoft.framework.base.util.StringUtil;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.base.util.UtilXml;
 import org.w3c.dom.Element;
 
 import java.util.*;

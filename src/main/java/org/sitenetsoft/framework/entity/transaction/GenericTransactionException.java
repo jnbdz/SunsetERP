@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.transaction;
 
-import org.apache.ofbiz.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericEntityException;
 
 /**
  * GenericTransactionException

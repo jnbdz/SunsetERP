@@ -22,12 +22,12 @@ import org.apache.geronimo.transaction.log.UnrecoverableLog;
 import org.apache.geronimo.transaction.manager.GeronimoTransactionManager;
 import org.apache.geronimo.transaction.manager.TransactionLog;
 import org.apache.geronimo.transaction.manager.XidFactoryImpl;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
-import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.jdbc.ConnectionFactoryLoader;
 
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;

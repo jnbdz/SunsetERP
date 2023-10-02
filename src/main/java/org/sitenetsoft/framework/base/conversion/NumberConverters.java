@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.conversion;
 
-import org.apache.ofbiz.base.util.StringUtil;
+import org.sitenetsoft.framework.base.util.StringUtil;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

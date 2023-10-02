@@ -18,23 +18,23 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.util;
 
-import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.config.GenericConfigException;
-import org.apache.ofbiz.base.config.MainResourceHandler;
-import org.apache.ofbiz.base.config.ResourceHandler;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityConfException;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.config.model.*;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelReader;
-import org.apache.ofbiz.entity.model.ModelUtil;
-import org.apache.ofbiz.entity.model.ModelViewEntity;
+import org.sitenetsoft.framework.base.component.ComponentConfig;
+import org.sitenetsoft.framework.base.config.GenericConfigException;
+import org.sitenetsoft.framework.base.config.MainResourceHandler;
+import org.sitenetsoft.framework.base.config.ResourceHandler;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilDateTime;
+import org.sitenetsoft.framework.base.util.UtilProperties;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntityConfException;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.config.model.*;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelReader;
+import org.sitenetsoft.framework.entity.model.ModelUtil;
+import org.sitenetsoft.framework.entity.model.ModelViewEntity;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 

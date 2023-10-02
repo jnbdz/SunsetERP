@@ -23,7 +23,7 @@ import org.apache.commons.dbcp2.managed.ManagedDataSource;
 import org.apache.commons.dbcp2.managed.TransactionRegistry;
 import org.apache.commons.pool2.ObjectPool;
 import org.apache.commons.pool2.impl.GenericObjectPool;
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.framework.base.util.Debug;
 
 import java.sql.Connection;
 import java.sql.SQLException;

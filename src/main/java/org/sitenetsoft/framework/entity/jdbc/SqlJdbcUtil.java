@@ -18,17 +18,17 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.jdbc;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionParam;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.condition.OrderByList;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.model.*;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.ObjectType;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.*;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityConditionParam;
+import org.sitenetsoft.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.framework.entity.condition.OrderByList;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.model.*;
 
 import javax.sql.rowset.serial.SerialClob;
 import java.io.IOException;

@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.collections;
 
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.framework.base.util.Debug;
 
 import java.util.Locale;
 import java.util.Map;
@@ -95,7 +95,7 @@ public class MapStack<K> extends MapContext<K, Object> {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.base.util.collections.LocalizedMap#get(java.lang.String, java.util.Locale)
+     * @see org.sitenetsoft.framework.base.util.collections.LocalizedMap#get(java.lang.String, java.util.Locale)
      */
     @Override
     public Object get(String name, Locale locale) {

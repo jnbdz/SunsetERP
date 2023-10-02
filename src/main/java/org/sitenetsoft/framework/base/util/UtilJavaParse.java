@@ -18,7 +18,7 @@
  */
 package org.sitenetsoft.framework.base.util;
 
-import org.apache.ofbiz.base.component.ComponentConfig;
+import org.sitenetsoft.framework.base.component.ComponentConfig;
 
 import java.io.File;
 import java.nio.file.Files;

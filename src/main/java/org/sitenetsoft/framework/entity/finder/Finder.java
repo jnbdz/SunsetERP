@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.finder;
 
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.entity.Delegator;
+import org.sitenetsoft.framework.base.util.GeneralException;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.entity.Delegator;
 import org.w3c.dom.Element;
 
 import java.io.Serializable;

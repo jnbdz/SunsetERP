@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.finder;
 
-import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
+import org.sitenetsoft.framework.base.util.collections.FlexibleMapAccessor;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelFieldTypeReader;
 import org.w3c.dom.Element;
 
 import java.util.HashMap;

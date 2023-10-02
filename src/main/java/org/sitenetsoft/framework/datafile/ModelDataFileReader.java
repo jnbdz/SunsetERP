@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.datafile;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.base.util.UtilXml;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.collections;
 
-import org.apache.ofbiz.base.util.UtilObject;
+import org.sitenetsoft.framework.base.util.UtilObject;
 
 import java.util.Map;
 import java.util.Objects;

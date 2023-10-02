@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.collections.test;
 
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.test.GenericTestCaseBase;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.base.lang.SourceMonitored;
+import org.sitenetsoft.framework.base.test.GenericTestCaseBase;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.collections.FlexibleMapAccessor;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
 
 import java.math.BigDecimal;
 import java.util.*;

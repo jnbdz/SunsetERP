@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.model;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.jdbc.SqlJdbcUtil;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.entity.condition.*;
+import org.sitenetsoft.framework.entity.jdbc.SqlJdbcUtil;
+import org.sitenetsoft.framework.entity.util.EntityUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 

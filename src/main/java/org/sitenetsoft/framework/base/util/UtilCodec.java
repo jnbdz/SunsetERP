@@ -20,7 +20,7 @@ package org.sitenetsoft.framework.base.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.StringEscapeUtils;
-import org.apache.ofbiz.base.html.SanitizerCustomPolicy;
+import org.sitenetsoft.framework.base.html.SanitizerCustomPolicy;
 import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
 import org.owasp.esapi.codecs.PercentCodec;
@@ -119,7 +119,7 @@ public class UtilCodec {
          * @param original
          * @param contentTypeId
          * @return sanitized HTML-Code if enabled, original HTML-Code when disabled
-         * @see org.apache.ofbiz.base.html.CustomPermissivePolicy
+         * @see org.sitenetsoft.framework.base.html.CustomPermissivePolicy
          */
         @Override
         public String sanitize(String original, String contentTypeId) {
@@ -465,7 +465,7 @@ public class UtilCodec {
         try {
             Class<?> customPolicyClass = null;
             if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
-                customPolicyClass = Class.forName("org.apache.ofbiz.base.html.CustomSafePolicy");
+                customPolicyClass = Class.forName("org.sitenetsoft.framework.base.html.CustomSafePolicy");
             } else {
                 customPolicyClass = Class.forName(UtilProperties.getPropertyValue("owasp", "sanitizer.custom.safe.policy.class"));
             }

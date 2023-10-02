@@ -19,24 +19,24 @@
  */
 package org.sitenetsoft.framework.entity;
 
-import org.apache.ofbiz.base.concurrent.ConstantFuture;
-import org.apache.ofbiz.base.concurrent.ExecutionPool;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.cache.Cache;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.DelegatorElement;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.datasource.GenericHelper;
-import org.apache.ofbiz.entity.datasource.GenericHelperFactory;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
-import org.apache.ofbiz.entity.eca.EntityEcaHandler;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.entity.serialize.SerializeException;
-import org.apache.ofbiz.entity.serialize.XmlSerializer;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.entity.util.*;
-import org.apache.ofbiz.entityext.eca.EntityEcaUtil;
+import org.sitenetsoft.framework.base.concurrent.ConstantFuture;
+import org.sitenetsoft.framework.base.concurrent.ExecutionPool;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.entity.cache.Cache;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.DelegatorElement;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.datasource.GenericHelper;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperFactory;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.eca.EntityEcaHandler;
+import org.sitenetsoft.framework.entity.model.*;
+import org.sitenetsoft.framework.entity.serialize.SerializeException;
+import org.sitenetsoft.framework.entity.serialize.XmlSerializer;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.entity.util.*;
+import org.sitenetsoft.framework.entityext.eca.EntityEcaUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -286,7 +286,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#initEntityEcaHandler()
+     * @see org.sitenetsoft.framework.entity.Delegator#initEntityEcaHandler()
      */
     @Override
     public synchronized void initEntityEcaHandler() {
@@ -335,7 +335,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getDelegatorName()
+     * @see org.sitenetsoft.framework.entity.Delegator#getDelegatorName()
      */
     @Override
     public String getDelegatorName() {
@@ -343,7 +343,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getDelegatorBaseName()
+     * @see org.sitenetsoft.framework.entity.Delegator#getDelegatorBaseName()
      */
     @Override
     public String getDelegatorBaseName() {
@@ -351,7 +351,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getDelegatorBaseName()
+     * @see org.sitenetsoft.framework.entity.Delegator#getDelegatorBaseName()
      */
     @Override
     public String getDelegatorTenantId() {
@@ -359,7 +359,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getOriginalDelegatorName()
+     * @see org.sitenetsoft.framework.entity.Delegator#getOriginalDelegatorName()
      */
     @Override
     public String getOriginalDelegatorName() {
@@ -367,7 +367,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getModelReader()
+     * @see org.sitenetsoft.framework.entity.Delegator#getModelReader()
      */
     @Override
     public ModelReader getModelReader() {
@@ -375,7 +375,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getModelGroupReader()
+     * @see org.sitenetsoft.framework.entity.Delegator#getModelGroupReader()
      */
     @Override
     public ModelGroupReader getModelGroupReader() {
@@ -383,7 +383,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getModelEntity(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#getModelEntity(java.lang.String)
      */
     @Override
     public ModelEntity getModelEntity(String entityName) {
@@ -396,7 +396,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getEntityGroupName(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#getEntityGroupName(java.lang.String)
      */
     @Override
     public String getEntityGroupName(String entityName) {
@@ -404,7 +404,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getModelEntityMapByGroup(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#getModelEntityMapByGroup(java.lang.String)
      */
     @Override
     public Map<String, ModelEntity> getModelEntityMapByGroup(String groupName) throws GenericEntityException {
@@ -449,7 +449,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getGroupHelperName(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#getGroupHelperName(java.lang.String)
      */
     @Override
     public String getGroupHelperName(String groupName) {
@@ -465,7 +465,7 @@ public class GenericDelegator implements Delegator {
         if (helperBaseName == null) {
             return null;
         }
-        if (UtilValidate.isNotEmpty(this.delegatorTenantId) && "org.apache.ofbiz.tenant".equals(entityGroupName)) {
+        if (UtilValidate.isNotEmpty(this.delegatorTenantId) && "org.sitenetsoft.framework.tenant".equals(entityGroupName)) {
             Debug.logInfo("Can't access entity of entityGroup = " + entityGroupName + " using tenant delegator " + this.getDelegatorName()
                     + ", use base delegator instead", MODULE);
             return null;
@@ -508,7 +508,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getEntityHelperName(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#getEntityHelperName(java.lang.String)
      */
     @Override
     public String getEntityHelperName(String entityName) {
@@ -516,7 +516,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getEntityHelperName(org.apache.ofbiz.entity.model.ModelEntity)
+     * @see org.sitenetsoft.framework.entity.Delegator#getEntityHelperName(org.sitenetsoft.framework.entity.model.ModelEntity)
      */
     @Override
     public String getEntityHelperName(ModelEntity entity) {
@@ -527,7 +527,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getEntityHelper(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#getEntityHelper(java.lang.String)
      */
     @Override
     public GenericHelper getEntityHelper(String entityName) throws GenericEntityException {
@@ -541,7 +541,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getEntityHelper(org.apache.ofbiz.entity.model.ModelEntity)
+     * @see org.sitenetsoft.framework.entity.Delegator#getEntityHelper(org.sitenetsoft.framework.entity.model.ModelEntity)
      */
     @Override
     public GenericHelper getEntityHelper(ModelEntity entity) throws GenericEntityException {
@@ -549,7 +549,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getEntityFieldType(org.apache.ofbiz.entity.model.ModelEntity, java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#getEntityFieldType(org.sitenetsoft.framework.entity.model.ModelEntity, java.lang.String)
      */
     @Override
     public ModelFieldType getEntityFieldType(ModelEntity entity, String type) throws GenericEntityException {
@@ -557,7 +557,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getModelFieldTypeReader(org.apache.ofbiz.entity.model.ModelEntity)
+     * @see org.sitenetsoft.framework.entity.Delegator#getModelFieldTypeReader(org.sitenetsoft.framework.entity.model.ModelEntity)
      */
     @Override
     public ModelFieldTypeReader getModelFieldTypeReader(ModelEntity entity) {
@@ -574,7 +574,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makeValue(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#makeValue(java.lang.String)
      */
     @Override
     public GenericValue makeValue(String entityName) {
@@ -588,7 +588,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makeValue(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#makeValue(java.lang.String, java.lang.Object)
      */
     @Override
     public GenericValue makeValue(String entityName, Object... fields) {
@@ -596,7 +596,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makeValue(java.lang.String, java.util.Map)
+     * @see org.sitenetsoft.framework.entity.Delegator#makeValue(java.lang.String, java.util.Map)
      */
     @Override
     public GenericValue makeValue(String entityName, Map<String, ? extends Object> fields) {
@@ -608,7 +608,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makeValueSingle(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#makeValueSingle(java.lang.String, java.lang.Object)
      */
     @Override
     public GenericValue makeValueSingle(String entityName, Object singlePkValue) {
@@ -620,7 +620,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makeValidValue(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#makeValidValue(java.lang.String, java.lang.Object)
      */
     @Override
     public GenericValue makeValidValue(String entityName, Object... fields) {
@@ -628,7 +628,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makeValidValue(java.lang.String, java.util.Map)
+     * @see org.sitenetsoft.framework.entity.Delegator#makeValidValue(java.lang.String, java.util.Map)
      */
     @Override
     public GenericValue makeValidValue(String entityName, Map<String, ? extends Object> fields) {
@@ -643,7 +643,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makePK(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#makePK(java.lang.String)
      */
     @Override
     public GenericPK makePK(String entityName) {
@@ -651,7 +651,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makePK(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#makePK(java.lang.String, java.lang.Object)
      */
     @Override
     public GenericPK makePK(String entityName, Object... fields) {
@@ -659,7 +659,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makePK(java.lang.String, java.util.Map)
+     * @see org.sitenetsoft.framework.entity.Delegator#makePK(java.lang.String, java.util.Map)
      */
     @Override
     public GenericPK makePK(String entityName, Map<String, ? extends Object> fields) {
@@ -671,7 +671,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makePKSingle(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#makePKSingle(java.lang.String, java.lang.Object)
      */
     @Override
     public GenericPK makePKSingle(String entityName, Object singlePkValue) {
@@ -683,7 +683,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#create(org.apache.ofbiz.entity.GenericPK)
+     * @see org.sitenetsoft.framework.entity.Delegator#create(org.sitenetsoft.framework.entity.GenericPK)
      */
     @Override
     public GenericValue create(GenericPK primaryKey) throws GenericEntityException {
@@ -695,7 +695,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#create(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#create(java.lang.String, java.lang.Object)
      */
     @Override
     public GenericValue create(String entityName, Object... fields) throws GenericEntityException {
@@ -703,7 +703,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#create(java.lang.String, java.util.Map)
+     * @see org.sitenetsoft.framework.entity.Delegator#create(java.lang.String, java.util.Map)
      */
     @Override
     public GenericValue create(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
@@ -717,7 +717,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#createSingle(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#createSingle(java.lang.String, java.lang.Object)
      */
     @Override
     public GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException {
@@ -731,7 +731,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#createSetNextSeqId(org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#createSetNextSeqId(org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public GenericValue createSetNextSeqId(GenericValue value) throws GenericEntityException {
@@ -829,7 +829,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#create(org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#create(org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public GenericValue create(GenericValue value) throws GenericEntityException {
@@ -886,7 +886,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#createOrStore(org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#createOrStore(org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public GenericValue createOrStore(GenericValue value) throws GenericEntityException {
@@ -947,7 +947,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#removeByPrimaryKey(org.apache.ofbiz.entity.GenericPK)
+     * @see org.sitenetsoft.framework.entity.Delegator#removeByPrimaryKey(org.sitenetsoft.framework.entity.GenericPK)
      */
     @Override
     public int removeByPrimaryKey(GenericPK primaryKey) throws GenericEntityException {
@@ -1002,7 +1002,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#removeValue(org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#removeValue(org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public int removeValue(GenericValue value) throws GenericEntityException {
@@ -1062,7 +1062,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#removeByAnd(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#removeByAnd(java.lang.String, java.lang.Object)
      */
     @Override
     public int removeByAnd(String entityName, Object... fields) throws GenericEntityException {
@@ -1070,7 +1070,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#removeByAnd(java.lang.String, java.util.Map)
+     * @see org.sitenetsoft.framework.entity.Delegator#removeByAnd(java.lang.String, java.util.Map)
      */
     @Override
     public int removeByAnd(String entityName, Map<String, ? extends Object> fields) throws GenericEntityException {
@@ -1079,7 +1079,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#removeByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition)
+     * @see org.sitenetsoft.framework.entity.Delegator#removeByCondition(java.lang.String, org.sitenetsoft.framework.entity.condition.EntityCondition)
      */
     @Override
     public int removeByCondition(String entityName, EntityCondition condition) throws GenericEntityException {
@@ -1132,7 +1132,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#removeRelated(java.lang.String, org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#removeRelated(java.lang.String, org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public int removeRelated(String relationName, GenericValue value) throws GenericEntityException {
@@ -1152,7 +1152,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#refresh(org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#refresh(org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public void refresh(GenericValue value) throws GenericEntityException {
@@ -1165,7 +1165,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#refreshFromCache(org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#refreshFromCache(org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public void refreshFromCache(GenericValue value) throws GenericEntityException {
@@ -1175,7 +1175,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#storeByCondition(java.lang.String, java.util.Map, org.apache.ofbiz.entity.condition.EntityCondition)
+     * @see org.sitenetsoft.framework.entity.Delegator#storeByCondition(java.lang.String, java.util.Map, org.sitenetsoft.framework.entity.condition.EntityCondition)
      */
     @Override
     public int storeByCondition(String entityName, Map<String, ? extends Object> fieldsToSet, EntityCondition condition)
@@ -1215,7 +1215,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#store(org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#store(org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public int store(GenericValue value) throws GenericEntityException {
@@ -1268,7 +1268,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#storeAll(java.util.List)
+     * @see org.sitenetsoft.framework.entity.Delegator#storeAll(java.util.List)
      */
     @Override
     public int storeAll(List<GenericValue> values) throws GenericEntityException {
@@ -1276,7 +1276,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#storeAll(java.util.List, org.apache.ofbiz.entity.util.EntityStoreOptions)
+     * @see org.sitenetsoft.framework.entity.Delegator#storeAll(java.util.List, org.sitenetsoft.framework.entity.util.EntityStoreOptions)
      */
     @Override
     public int storeAll(List<GenericValue> values, EntityStoreOptions storeOptions) throws GenericEntityException {
@@ -1357,7 +1357,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#removeAll(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#removeAll(java.lang.String)
      */
     @Override
     public int removeAll(String entityName) throws GenericEntityException {
@@ -1365,7 +1365,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#removeAll(java.util.List)
+     * @see org.sitenetsoft.framework.entity.Delegator#removeAll(java.util.List)
      */
     @Override
     public int removeAll(List<? extends GenericEntity> dummyPKs) throws GenericEntityException {
@@ -1399,7 +1399,7 @@ public class GenericDelegator implements Delegator {
     // ======================================
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findOne(java.lang.String, boolean, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#findOne(java.lang.String, boolean, java.lang.Object)
      */
     @Override
     public GenericValue findOne(String entityName, boolean useCache, Object... fields) throws GenericEntityException {
@@ -1407,7 +1407,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findOne(java.lang.String, java.util.Map, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#findOne(java.lang.String, java.util.Map, boolean)
      */
     @Override
     public GenericValue findOne(String entityName, Map<String, ? extends Object> fields, boolean useCache) throws GenericEntityException {
@@ -1468,7 +1468,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findByPrimaryKeyPartial(org.apache.ofbiz.entity.GenericPK, java.util.Set)
+     * @see org.sitenetsoft.framework.entity.Delegator#findByPrimaryKeyPartial(org.sitenetsoft.framework.entity.GenericPK, java.util.Set)
      */
     @Override
     public GenericValue findByPrimaryKeyPartial(GenericPK primaryKey, Set<String> keys) throws GenericEntityException {
@@ -1511,7 +1511,7 @@ public class GenericDelegator implements Delegator {
 
     /** Finds all Generic entities
      *@param entityName The Name of the Entity as defined in the entity XML file
-     * @see org.apache.ofbiz.entity.Delegator#findAll(String, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#findAll(String, boolean)
      */
     @Override
     public List<GenericValue> findAll(String entityName, boolean useCache) throws GenericEntityException {
@@ -1519,7 +1519,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findByAnd(java.lang.String, java.util.Map, java.util.List, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#findByAnd(java.lang.String, java.util.Map, java.util.List, boolean)
      */
     @Override
     public List<GenericValue> findByAnd(String entityName, Map<String, ? extends Object> fields, List<String> orderBy, boolean useCache)
@@ -1528,8 +1528,8 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#find(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
-     * org.apache.ofbiz.entity.condition.EntityCondition, java.util.Set, java.util.List, org.apache.ofbiz.entity.util.EntityFindOptions)
+     * @see org.sitenetsoft.framework.entity.Delegator#find(java.lang.String, org.sitenetsoft.framework.entity.condition.EntityCondition,
+     * org.sitenetsoft.framework.entity.condition.EntityCondition, java.util.Set, java.util.List, org.sitenetsoft.framework.entity.util.EntityFindOptions)
      */
     @Override
     public EntityListIterator find(String entityName, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition,
@@ -1569,9 +1569,9 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findList(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
-     *  org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.condition.EntityCondition, java.util.Set,
-     *  java.util.List, org.apache.ofbiz.entity.util.EntityFindOptions, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#findList(java.lang.String, org.sitenetsoft.framework.entity.condition.EntityCondition,
+     *  org.sitenetsoft.framework.entity.condition.EntityCondition, org.sitenetsoft.framework.entity.condition.EntityCondition, java.util.Set,
+     *  java.util.List, org.sitenetsoft.framework.entity.util.EntityFindOptions, boolean)
      */
     @Override
     public List<GenericValue> findList(String entityName, EntityCondition entityCondition, Set<String> fieldsToSelect, List<String> orderBy,
@@ -1580,8 +1580,8 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findList(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition, java.util.Set,
-     * java.util.List, org.apache.ofbiz.entity.util.EntityFindOptions, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#findList(java.lang.String, org.sitenetsoft.framework.entity.condition.EntityCondition, java.util.Set,
+     * java.util.List, org.sitenetsoft.framework.entity.util.EntityFindOptions, boolean)
      */
     @Override
     public List<GenericValue> findList(String entityName, EntityCondition entityCondition, EntityCondition havingCondition,
@@ -1627,9 +1627,9 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findListIteratorByCondition(org.apache.ofbiz.entity.model.DynamicViewEntity,
-     * org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.condition.EntityCondition, java.util.Collection, java.util.List,
-     * org.apache.ofbiz.entity.util.EntityFindOptions)
+     * @see org.sitenetsoft.framework.entity.Delegator#findListIteratorByCondition(org.sitenetsoft.framework.entity.model.DynamicViewEntity,
+     * org.sitenetsoft.framework.entity.condition.EntityCondition, org.sitenetsoft.framework.entity.condition.EntityCondition, java.util.Collection, java.util.List,
+     * org.sitenetsoft.framework.entity.util.EntityFindOptions)
      */
     @Override
     public EntityListIterator findListIteratorByCondition(DynamicViewEntity dynamicViewEntity, EntityCondition whereEntityCondition,
@@ -1664,8 +1664,8 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
-     *  org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
+     * @see org.sitenetsoft.framework.entity.Delegator#findCountByCondition(java.lang.String, org.sitenetsoft.framework.entity.condition.EntityCondition,
+     *  org.sitenetsoft.framework.entity.condition.EntityCondition, org.sitenetsoft.framework.entity.util.EntityFindOptions)
      */
     @Override
     public long findCountByCondition(String entityName, EntityCondition whereEntityCondition,
@@ -1674,8 +1674,8 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#findCountByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition,
-     *  java.util.Set, org.apache.ofbiz.entity.condition.EntityCondition, org.apache.ofbiz.entity.util.EntityFindOptions)
+     * @see org.sitenetsoft.framework.entity.Delegator#findCountByCondition(java.lang.String, org.sitenetsoft.framework.entity.condition.EntityCondition,
+     *  java.util.Set, org.sitenetsoft.framework.entity.condition.EntityCondition, org.sitenetsoft.framework.entity.util.EntityFindOptions)
      */
     @Override
     public long findCountByCondition(String entityName, EntityCondition whereEntityCondition, Set<String> fieldsToSelect,
@@ -1727,7 +1727,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getMultiRelation(org.apache.ofbiz.entity.GenericValue, java.lang.String,
+     * @see org.sitenetsoft.framework.entity.Delegator#getMultiRelation(org.sitenetsoft.framework.entity.GenericValue, java.lang.String,
      * java.lang.String, java.util.List)
      */
     @Override
@@ -1762,8 +1762,8 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getRelated(java.lang.String, java.util.Map, java.util.List,
-     * org.apache.ofbiz.entity.GenericValue, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#getRelated(java.lang.String, java.util.Map, java.util.List,
+     * org.sitenetsoft.framework.entity.GenericValue, boolean)
      */
     @Override
     public List<GenericValue> getRelated(String relationName, Map<String, ? extends Object> byAndFields, List<String> orderBy,
@@ -1789,7 +1789,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getRelatedDummyPK(java.lang.String, java.util.Map, org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#getRelatedDummyPK(java.lang.String, java.util.Map, org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public GenericPK getRelatedDummyPK(String relationName, Map<String, ? extends Object> byAndFields, GenericValue value)
@@ -1816,7 +1816,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getRelatedOne(java.lang.String, org.apache.ofbiz.entity.GenericValue, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#getRelatedOne(java.lang.String, org.sitenetsoft.framework.entity.GenericValue, boolean)
      */
     @Override
     public GenericValue getRelatedOne(String relationName, GenericValue value, boolean useCache) throws GenericEntityException {
@@ -1844,7 +1844,7 @@ public class GenericDelegator implements Delegator {
     // ======================================
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearAllCaches()
+     * @see org.sitenetsoft.framework.entity.Delegator#clearAllCaches()
      */
     @Override
     public void clearAllCaches() {
@@ -1852,7 +1852,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearAllCaches(boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearAllCaches(boolean)
      */
     @Override
     public void clearAllCaches(boolean distribute) {
@@ -1871,7 +1871,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLine(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLine(java.lang.String)
      */
     @Override
     public void clearCacheLine(String entityName) {
@@ -1879,7 +1879,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLine(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLine(java.lang.String, java.lang.Object)
      */
     @Override
     public void clearCacheLine(String entityName, Object... fields) {
@@ -1887,7 +1887,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLine(java.lang.String, java.util.Map)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLine(java.lang.String, java.util.Map)
      */
     @Override
     public void clearCacheLine(String entityName, Map<String, ? extends Object> fields) {
@@ -1911,7 +1911,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLineFlexible(org.apache.ofbiz.entity.GenericEntity)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLineFlexible(org.sitenetsoft.framework.entity.GenericEntity)
      */
     @Override
     public void clearCacheLineFlexible(GenericEntity dummyPK) {
@@ -1919,7 +1919,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLineFlexible(org.apache.ofbiz.entity.GenericEntity, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLineFlexible(org.sitenetsoft.framework.entity.GenericEntity, boolean)
      */
     @Override
     public void clearCacheLineFlexible(GenericEntity dummyPK, boolean distribute) {
@@ -1943,7 +1943,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLineByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLineByCondition(java.lang.String, org.sitenetsoft.framework.entity.condition.EntityCondition)
      */
     @Override
     public void clearCacheLineByCondition(String entityName, EntityCondition condition) {
@@ -1951,7 +1951,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLineByCondition(java.lang.String, org.apache.ofbiz.entity.condition.EntityCondition, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLineByCondition(java.lang.String, org.sitenetsoft.framework.entity.condition.EntityCondition, boolean)
      */
     @Override
     public void clearCacheLineByCondition(String entityName, EntityCondition condition, boolean distribute) {
@@ -1975,7 +1975,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLine(org.apache.ofbiz.entity.GenericPK)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLine(org.sitenetsoft.framework.entity.GenericPK)
      */
     @Override
     public void clearCacheLine(GenericPK primaryKey) {
@@ -1983,7 +1983,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLine(org.apache.ofbiz.entity.GenericPK, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLine(org.sitenetsoft.framework.entity.GenericPK, boolean)
      */
     @Override
     public void clearCacheLine(GenericPK primaryKey, boolean distribute) {
@@ -2009,7 +2009,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLine(org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLine(org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public void clearCacheLine(GenericValue value) {
@@ -2017,7 +2017,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearCacheLine(org.apache.ofbiz.entity.GenericValue, boolean)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearCacheLine(org.sitenetsoft.framework.entity.GenericValue, boolean)
      */
     @Override
     public void clearCacheLine(GenericValue value, boolean distribute) {
@@ -2043,7 +2043,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearAllCacheLinesByDummyPK(java.util.Collection)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearAllCacheLinesByDummyPK(java.util.Collection)
      */
     @Override
     public void clearAllCacheLinesByDummyPK(Collection<GenericPK> dummyPKs) {
@@ -2056,7 +2056,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#clearAllCacheLinesByValue(java.util.Collection)
+     * @see org.sitenetsoft.framework.entity.Delegator#clearAllCacheLinesByValue(java.util.Collection)
      */
     @Override
     public void clearAllCacheLinesByValue(Collection<GenericValue> values) {
@@ -2069,7 +2069,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getFromPrimaryKeyCache(org.apache.ofbiz.entity.GenericPK)
+     * @see org.sitenetsoft.framework.entity.Delegator#getFromPrimaryKeyCache(org.sitenetsoft.framework.entity.GenericPK)
      */
     @Override
     public GenericValue getFromPrimaryKeyCache(GenericPK primaryKey) {
@@ -2084,7 +2084,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#putInPrimaryKeyCache(org.apache.ofbiz.entity.GenericPK, org.apache.ofbiz.entity.GenericValue)
+     * @see org.sitenetsoft.framework.entity.Delegator#putInPrimaryKeyCache(org.sitenetsoft.framework.entity.GenericPK, org.sitenetsoft.framework.entity.GenericValue)
      */
     @Override
     public void putInPrimaryKeyCache(GenericPK primaryKey, GenericValue value) {
@@ -2106,7 +2106,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#putAllInPrimaryKeyCache(java.util.List)
+     * @see org.sitenetsoft.framework.entity.Delegator#putAllInPrimaryKeyCache(java.util.List)
      */
     @Override
     public void putAllInPrimaryKeyCache(List<GenericValue> values) {
@@ -2119,7 +2119,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#setDistributedCacheClear(org.apache.ofbiz.entity.util.DistributedCacheClear)
+     * @see org.sitenetsoft.framework.entity.Delegator#setDistributedCacheClear(org.sitenetsoft.framework.entity.util.DistributedCacheClear)
      */
     @Override
     public void setDistributedCacheClear(DistributedCacheClear distributedCacheClear) {
@@ -2128,7 +2128,7 @@ public class GenericDelegator implements Delegator {
 
     // ======= XML Related Methods ========
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#readXmlDocument(java.net.URL)
+     * @see org.sitenetsoft.framework.entity.Delegator#readXmlDocument(java.net.URL)
      */
     @Override
     public List<GenericValue> readXmlDocument(URL url) throws SAXException, ParserConfigurationException, IOException {
@@ -2139,7 +2139,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makeValues(org.w3c.dom.Document)
+     * @see org.sitenetsoft.framework.entity.Delegator#makeValues(org.w3c.dom.Document)
      */
     @Override
     public List<GenericValue> makeValues(Document document) {
@@ -2180,7 +2180,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makePK(org.w3c.dom.Element)
+     * @see org.sitenetsoft.framework.entity.Delegator#makePK(org.w3c.dom.Element)
      */
     @Override
     public GenericPK makePK(Element element) {
@@ -2190,7 +2190,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makeValue(org.w3c.dom.Element)
+     * @see org.sitenetsoft.framework.entity.Delegator#makeValue(org.w3c.dom.Element)
      */
     @Override
     public GenericValue makeValue(Element element) {
@@ -2282,7 +2282,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#setEntityEcaHandler(org.apache.ofbiz.entity.eca.EntityEcaHandler)
+     * @see org.sitenetsoft.framework.entity.Delegator#setEntityEcaHandler(org.sitenetsoft.framework.entity.eca.EntityEcaHandler)
      */
     @Override
     public <T> void setEntityEcaHandler(EntityEcaHandler<T> entityEcaHandler) {
@@ -2291,7 +2291,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getEntityEcaHandler()
+     * @see org.sitenetsoft.framework.entity.Delegator#getEntityEcaHandler()
      */
     @Override
     public <T> EntityEcaHandler<T> getEntityEcaHandler() {
@@ -2305,7 +2305,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getNextSeqId(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#getNextSeqId(java.lang.String)
      */
     @Override
     public String getNextSeqId(String seqName) {
@@ -2313,7 +2313,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getNextSeqId(java.lang.String, long)
+     * @see org.sitenetsoft.framework.entity.Delegator#getNextSeqId(java.lang.String, long)
      */
     @Override
     public String getNextSeqId(String seqName, long staggerMax) {
@@ -2363,7 +2363,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#setSequencer(org.apache.ofbiz.entity.util.SequenceUtil)
+     * @see org.sitenetsoft.framework.entity.Delegator#setSequencer(org.sitenetsoft.framework.entity.util.SequenceUtil)
      */
     @Override
     public void setSequencer(SequenceUtil sequencer) {
@@ -2371,7 +2371,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#refreshSequencer()
+     * @see org.sitenetsoft.framework.entity.Delegator#refreshSequencer()
      */
     @Override
     public void refreshSequencer() {
@@ -2380,7 +2380,7 @@ public class GenericDelegator implements Delegator {
 
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#setNextSubSeqId(org.apache.ofbiz.entity.GenericValue, java.lang.String, int, int)
+     * @see org.sitenetsoft.framework.entity.Delegator#setNextSubSeqId(org.sitenetsoft.framework.entity.GenericValue, java.lang.String, int, int)
      */
     @Override
     public void setNextSubSeqId(GenericValue value, String seqFieldName, int numericPadding, int incrementBy) {
@@ -2458,7 +2458,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#encryptFieldValue(java.lang.String, java.lang.Object)
+     * @see org.sitenetsoft.framework.entity.Delegator#encryptFieldValue(java.lang.String, java.lang.Object)
      */
     @Override
     public Object decryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, String encValue) throws EntityCryptoException {
@@ -2469,7 +2469,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#setEntityCrypto(org.apache.ofbiz.entity.util.EntityCrypto)
+     * @see org.sitenetsoft.framework.entity.Delegator#setEntityCrypto(org.sitenetsoft.framework.entity.util.EntityCrypto)
      */
     @Override
     public void setEntityCrypto(EntityCrypto crypto) {
@@ -2490,7 +2490,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#getCache()
+     * @see org.sitenetsoft.framework.entity.Delegator#getCache()
      */
     @Override
     public Cache getCache() {
@@ -2586,7 +2586,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#cloneDelegator(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#cloneDelegator(java.lang.String)
      */
     @Override
     public Delegator cloneDelegator(String delegatorFullName) {
@@ -2616,7 +2616,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#cloneDelegator()
+     * @see org.sitenetsoft.framework.entity.Delegator#cloneDelegator()
      */
     @Override
     public Delegator cloneDelegator() {
@@ -2624,7 +2624,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#makeTestDelegator(java.lang.String)
+     * @see org.sitenetsoft.framework.entity.Delegator#makeTestDelegator(java.lang.String)
      */
     @Override
     public Delegator makeTestDelegator(String delegatorName) {
@@ -2652,7 +2652,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#rollback()
+     * @see org.sitenetsoft.framework.entity.Delegator#rollback()
      */
     @Override
     public void rollback() {
@@ -2705,7 +2705,7 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.entity.Delegator#initDistributedCacheClear()
+     * @see org.sitenetsoft.framework.entity.Delegator#initDistributedCacheClear()
      */
     @Override
     public void initDistributedCacheClear() {

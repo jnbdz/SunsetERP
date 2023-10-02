@@ -19,11 +19,11 @@
 
 package org.sitenetsoft.framework.common.authentication.example;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.common.authentication.api.Authenticator;
-import org.apache.ofbiz.common.authentication.api.AuthenticatorException;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.service.LocalDispatcher;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.common.authentication.api.Authenticator;
+import org.sitenetsoft.framework.common.authentication.api.AuthenticatorException;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.service.LocalDispatcher;
 
 /**
  * LocalAuthenticator

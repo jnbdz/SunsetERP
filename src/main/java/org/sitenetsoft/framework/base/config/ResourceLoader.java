@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.config;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilURL;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilURL;
+import org.sitenetsoft.framework.base.util.UtilXml;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

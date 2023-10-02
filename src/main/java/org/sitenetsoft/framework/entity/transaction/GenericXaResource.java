@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.transaction;
 
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.framework.base.util.Debug;
 
 import javax.transaction.*;
 import javax.transaction.xa.XAException;

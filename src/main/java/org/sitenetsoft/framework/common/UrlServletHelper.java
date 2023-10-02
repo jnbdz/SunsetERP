@@ -18,17 +18,17 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.webapp.WebAppUtil;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.StringUtil;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.DelegatorFactory;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.util.EntityQuery;
+import org.sitenetsoft.framework.entity.util.EntityUtil;
+import org.sitenetsoft.framework.webapp.WebAppUtil;
+import org.sitenetsoft.framework.webapp.website.WebSiteWorker;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -53,7 +53,7 @@ public final class UrlServletHelper {
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
                 delegator = WebAppUtil.getDelegator(servletContext);
 
-                //Use base delegator for fetching data from entity of entityGroup org.apache.ofbiz.tenant
+                //Use base delegator for fetching data from entity of entityGroup org.sitenetsoft.framework.tenant
                 Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
                 GenericValue tenantDomainName = EntityQuery.use(baseDelegator).from("TenantDomainName").where("domainName", serverName).queryOne();
 

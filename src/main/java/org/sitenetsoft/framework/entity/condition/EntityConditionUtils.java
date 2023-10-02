@@ -18,9 +18,9 @@
  */
 package org.sitenetsoft.framework.entity.condition;
 
-import org.apache.ofbiz.entity.jdbc.SqlJdbcUtil;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.jdbc.SqlJdbcUtil;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
 
 import java.util.List;
 

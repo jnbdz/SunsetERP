@@ -21,7 +21,7 @@ package org.sitenetsoft.framework.base.util;
 
 
 import org.apache.commons.imaging.ImageReadException;
-import org.apache.ofbiz.entity.Delegator;
+import org.sitenetsoft.framework.entity.Delegator;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -270,7 +270,7 @@ public class HttpRequestFileUpload {
                         fos.flush();
 
                         // Check if a webshell is not uploaded
-                        if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileTocheck, fileType, delegator)) {
+                        if (!org.sitenetsoft.framework.security.SecuredUpload.isValidFile(fileTocheck, fileType, delegator)) {
                             return false;
                         }
                     } catch (ImageReadException e) {

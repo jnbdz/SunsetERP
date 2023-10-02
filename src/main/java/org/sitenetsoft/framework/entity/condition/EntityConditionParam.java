@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.condition;
 
-import org.apache.ofbiz.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.model.ModelField;
 
 import java.io.Serializable;
 

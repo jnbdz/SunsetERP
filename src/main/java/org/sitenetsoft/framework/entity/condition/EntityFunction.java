@@ -19,12 +19,12 @@
 
 package org.sitenetsoft.framework.entity.condition;
 
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericModelException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericModelException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
 
 import java.util.List;
 import java.util.Locale;

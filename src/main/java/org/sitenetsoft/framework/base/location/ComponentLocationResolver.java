@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.location;
 
-import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.component.ComponentException;
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.framework.base.component.ComponentConfig;
+import org.sitenetsoft.framework.base.component.ComponentException;
+import org.sitenetsoft.framework.base.util.Debug;
 
 import java.io.File;
 import java.net.MalformedURLException;

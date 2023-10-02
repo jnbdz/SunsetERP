@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.component;
 
-import org.apache.ofbiz.base.config.GenericConfigException;
+import org.sitenetsoft.framework.base.config.GenericConfigException;
 
 /**
  * ComponentException

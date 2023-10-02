@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.transaction;
 
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
 
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;

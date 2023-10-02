@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.jdbc;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.connection.ConnectionFactory;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.connection.ConnectionFactory;
 
 /**
  * ConnectionFactoryLoader - utility class that loads the connection manager and provides to client code a reference to it (ConnectionFactory)

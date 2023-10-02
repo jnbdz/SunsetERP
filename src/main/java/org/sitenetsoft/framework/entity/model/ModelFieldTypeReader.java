@@ -18,15 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.model;
 
-import org.apache.ofbiz.base.config.GenericConfigException;
-import org.apache.ofbiz.base.config.MainResourceHandler;
-import org.apache.ofbiz.base.config.ResourceHandler;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilTimer;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.entity.GenericEntityConfException;
+import org.sitenetsoft.framework.base.config.GenericConfigException;
+import org.sitenetsoft.framework.base.config.MainResourceHandler;
+import org.sitenetsoft.framework.base.config.ResourceHandler;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilTimer;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.base.util.UtilXml;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.entity.GenericEntityConfException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.config.model.FieldType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

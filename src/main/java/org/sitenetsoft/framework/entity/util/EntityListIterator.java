@@ -19,19 +19,19 @@
 
 package org.sitenetsoft.framework.entity.util;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralRuntimeException;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericResultSetClosedException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.datasource.GenericDAO;
-import org.apache.ofbiz.entity.jdbc.SQLProcessor;
-import org.apache.ofbiz.entity.jdbc.SqlJdbcUtil;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.GeneralRuntimeException;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericResultSetClosedException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.datasource.GenericDAO;
+import org.sitenetsoft.framework.entity.jdbc.SQLProcessor;
+import org.sitenetsoft.framework.entity.jdbc.SqlJdbcUtil;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.model.ModelFieldTypeReader;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

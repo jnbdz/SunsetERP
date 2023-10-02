@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.condition;
 
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
+import org.sitenetsoft.framework.entity.util.EntityUtil;
 
 import java.util.Collections;
 import java.util.Iterator;

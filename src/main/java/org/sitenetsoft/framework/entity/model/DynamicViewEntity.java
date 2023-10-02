@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.model;
 
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.model.ModelViewEntity.*;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.base.util.UtilXml;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.model.ModelViewEntity.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -40,7 +40,7 @@ public class DynamicViewEntity {
     private String entityName = "DynamicViewEntity";
 
     /** The package-name of the Entity */
-    private String packageName = "org.apache.ofbiz.dynamicview";
+    private String packageName = "org.sitenetsoft.framework.dynamicview";
 
     /** The default-resource-name of the Entity, used with the getResource call to check for a value in a resource bundle */
     private String defaultResourceName = "";

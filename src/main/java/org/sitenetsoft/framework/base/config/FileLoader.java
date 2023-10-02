@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.config;
 
-import org.apache.ofbiz.base.util.UtilURL;
+import org.sitenetsoft.framework.base.util.UtilURL;
 
 import java.io.InputStream;
 import java.net.URL;

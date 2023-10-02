@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.util;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.transaction.GenericTransactionException;
-import org.apache.ofbiz.entity.transaction.TransactionFactoryLoader;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.transaction.GenericTransactionException;
+import org.sitenetsoft.framework.entity.transaction.TransactionFactoryLoader;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
 
 import javax.transaction.Transaction;
 import java.sql.Connection;

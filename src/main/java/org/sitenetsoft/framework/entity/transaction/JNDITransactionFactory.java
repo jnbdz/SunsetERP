@@ -19,17 +19,17 @@
 
 package org.sitenetsoft.framework.entity.transaction;
 
-import org.apache.ofbiz.base.config.GenericConfigException;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.JNDIContextFactory;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.config.model.JndiJdbc;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
-import org.apache.ofbiz.entity.jdbc.ConnectionFactoryLoader;
+import org.sitenetsoft.framework.base.config.GenericConfigException;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.GeneralException;
+import org.sitenetsoft.framework.base.util.JNDIContextFactory;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.config.model.JndiJdbc;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.jdbc.ConnectionFactoryLoader;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;

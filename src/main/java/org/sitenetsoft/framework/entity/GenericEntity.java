@@ -18,16 +18,16 @@
  */
 package org.sitenetsoft.framework.entity;
 
-import org.apache.ofbiz.base.crypto.HashCrypt;
-import org.apache.ofbiz.base.util.Observable;
-import org.apache.ofbiz.base.util.Observer;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.collections.LocalizedMap;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityFieldMap;
-import org.apache.ofbiz.entity.jdbc.SqlJdbcUtil;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.entity.model.ModelViewEntity.ModelAlias;
+import org.sitenetsoft.framework.base.crypto.HashCrypt;
+import org.sitenetsoft.framework.base.util.Observable;
+import org.sitenetsoft.framework.base.util.Observer;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.base.util.collections.LocalizedMap;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityFieldMap;
+import org.sitenetsoft.framework.entity.jdbc.SqlJdbcUtil;
+import org.sitenetsoft.framework.entity.model.*;
+import org.sitenetsoft.framework.entity.model.ModelViewEntity.ModelAlias;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

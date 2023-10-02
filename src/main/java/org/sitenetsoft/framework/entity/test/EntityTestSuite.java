@@ -18,24 +18,24 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.test;
 
-import org.apache.ofbiz.base.concurrent.ExecutionPool;
-import org.apache.ofbiz.base.util.Observable;
-import org.apache.ofbiz.base.util.Observer;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.testtools.EntityTestCase;
-import org.apache.ofbiz.entity.transaction.GenericTransactionException;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.entity.util.EntityListIterator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntitySaxReader;
-import org.apache.ofbiz.entity.util.SequenceUtil;
+import org.sitenetsoft.framework.base.concurrent.ExecutionPool;
+import org.sitenetsoft.framework.base.util.Observable;
+import org.sitenetsoft.framework.base.util.Observer;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.entity.*;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.testtools.EntityTestCase;
+import org.sitenetsoft.framework.entity.transaction.GenericTransactionException;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.entity.util.EntityListIterator;
+import org.sitenetsoft.framework.entity.util.EntityQuery;
+import org.sitenetsoft.framework.entity.util.EntitySaxReader;
+import org.sitenetsoft.framework.entity.util.SequenceUtil;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.math.BigDecimal;

@@ -19,9 +19,9 @@
 package org.sitenetsoft.framework.base.conversion;
 
 import com.ibm.icu.util.Calendar;
-import org.apache.ofbiz.base.util.TimeDuration;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilValidate;
+import org.sitenetsoft.framework.base.util.TimeDuration;
+import org.sitenetsoft.framework.base.util.UtilDateTime;
+import org.sitenetsoft.framework.base.util.UtilValidate;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;

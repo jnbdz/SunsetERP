@@ -20,10 +20,10 @@
 package org.sitenetsoft.framework.common.uom;
 
 import com.ibm.icu.util.Calendar;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.service.GenericServiceException;
+import org.sitenetsoft.framework.service.LocalDispatcher;
+import org.sitenetsoft.framework.service.ModelService;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

@@ -19,7 +19,7 @@
 package org.sitenetsoft.framework.base.crypto;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.framework.base.util.Debug;
 import org.apache.shiro.crypto.AesCipherService;
 
 public class Main {

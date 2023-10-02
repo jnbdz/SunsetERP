@@ -18,21 +18,21 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.finder;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
-import org.apache.ofbiz.entity.util.EntityListIterator;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.base.util.collections.FlexibleMapAccessor;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.*;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelFieldTypeReader;
+import org.sitenetsoft.framework.entity.util.EntityListIterator;
 import org.w3c.dom.Element;
 
 import java.io.Serializable;
 import java.util.*;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.cast;
+import static org.sitenetsoft.framework.base.util.UtilGenerics.cast;
 
 /**
  * Uses the delegator to find entity values by a condition

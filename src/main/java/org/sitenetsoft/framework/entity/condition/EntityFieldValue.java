@@ -19,23 +19,23 @@
 
 package org.sitenetsoft.framework.entity.condition;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericModelException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.model.ModelViewEntity;
-import org.apache.ofbiz.entity.model.ModelViewEntity.ModelAlias;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntity;
+import org.sitenetsoft.framework.entity.GenericModelException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.model.ModelViewEntity;
+import org.sitenetsoft.framework.entity.model.ModelViewEntity.ModelAlias;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.ofbiz.entity.condition.EntityConditionUtils.getField;
+import static org.sitenetsoft.framework.entity.condition.EntityConditionUtils.getField;
 
 /**
  * Field value expression.

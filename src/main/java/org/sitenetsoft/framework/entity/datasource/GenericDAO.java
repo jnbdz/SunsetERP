@@ -18,22 +18,22 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.datasource;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionParam;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.jdbc.DatabaseUtil;
-import org.apache.ofbiz.entity.jdbc.SQLProcessor;
-import org.apache.ofbiz.entity.jdbc.SqlJdbcUtil;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.entity.util.EntityFindOptions;
-import org.apache.ofbiz.entity.util.EntityListIterator;
-import org.apache.ofbiz.entity.util.EntityQuery;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.*;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityConditionParam;
+import org.sitenetsoft.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.jdbc.DatabaseUtil;
+import org.sitenetsoft.framework.entity.jdbc.SQLProcessor;
+import org.sitenetsoft.framework.entity.jdbc.SqlJdbcUtil;
+import org.sitenetsoft.framework.entity.model.*;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.entity.util.EntityFindOptions;
+import org.sitenetsoft.framework.entity.util.EntityListIterator;
+import org.sitenetsoft.framework.entity.util.EntityQuery;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -316,7 +316,7 @@ public class GenericDAO {
             return 0;
         }
         if (modelEntity instanceof ModelViewEntity) {
-            throw new org.apache.ofbiz.entity.GenericNotImplementedException("Operation updateByCondition not supported yet for view entities");
+            throw new org.sitenetsoft.framework.entity.GenericNotImplementedException("Operation updateByCondition not supported yet for view entities");
         }
 
         StringBuilder sql = new StringBuilder("UPDATE ").append(modelEntity.getTableName(datasource));
@@ -572,7 +572,7 @@ public class GenericDAO {
         ModelEntity modelEntity = entity.getModelEntity();
 
         if (modelEntity instanceof ModelViewEntity) {
-            throw new org.apache.ofbiz.entity.GenericNotImplementedException("Operation partialSelect not supported yet for view entities");
+            throw new org.sitenetsoft.framework.entity.GenericNotImplementedException("Operation partialSelect not supported yet for view entities");
         }
 
         // we don't want to select ALL fields, just the nonpk fields that are in the passed GenericEntity
@@ -1294,7 +1294,7 @@ public class GenericDAO {
         ModelEntity modelEntity = entity.getModelEntity();
 
         if (modelEntity instanceof ModelViewEntity) {
-            throw new org.apache.ofbiz.entity.GenericNotImplementedException("Operation delete not supported yet for view entities");
+            throw new org.sitenetsoft.framework.entity.GenericNotImplementedException("Operation delete not supported yet for view entities");
         }
 
         StringBuilder sql = new StringBuilder().append("DELETE FROM ").append(modelEntity.getTableName(datasource)).append(" WHERE ");
@@ -1341,7 +1341,7 @@ public class GenericDAO {
             return 0;
         }
         if (modelEntity instanceof ModelViewEntity) {
-            throw new org.apache.ofbiz.entity.GenericNotImplementedException("Operation deleteByCondition not supported yet for view entities");
+            throw new org.sitenetsoft.framework.entity.GenericNotImplementedException("Operation deleteByCondition not supported yet for view entities");
         }
 
         StringBuilder sql = new StringBuilder("DELETE FROM ").append(modelEntity.getTableName(this.datasource));

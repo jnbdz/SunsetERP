@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.datafile;
 
-import org.apache.ofbiz.base.util.GeneralException;
+import org.sitenetsoft.framework.base.util.GeneralException;
 
 /**
  * DataFileException

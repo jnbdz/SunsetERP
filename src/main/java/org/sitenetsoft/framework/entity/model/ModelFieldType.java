@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.model;
 
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.entity.jdbc.JdbcValueHandler;
+import org.sitenetsoft.framework.base.util.UtilXml;
+import org.sitenetsoft.framework.entity.jdbc.JdbcValueHandler;
 import org.w3c.dom.Element;
 
 import java.io.Serializable;

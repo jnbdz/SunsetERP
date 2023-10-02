@@ -18,13 +18,13 @@
  */
 package org.sitenetsoft.framework.entity;
 
-import org.apache.ofbiz.entity.cache.Cache;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.datasource.GenericHelper;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
-import org.apache.ofbiz.entity.eca.EntityEcaHandler;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.entity.util.*;
+import org.sitenetsoft.framework.entity.cache.Cache;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.datasource.GenericHelper;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.eca.EntityEcaHandler;
+import org.sitenetsoft.framework.entity.model.*;
+import org.sitenetsoft.framework.entity.util.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;

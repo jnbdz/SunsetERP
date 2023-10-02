@@ -19,15 +19,15 @@
 package org.sitenetsoft.framework.entity.util;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.ofbiz.base.crypto.DesCrypt;
-import org.apache.ofbiz.base.crypto.HashCrypt;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.EntityCryptoException;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.model.ModelField.EncryptMethod;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.base.crypto.DesCrypt;
+import org.sitenetsoft.framework.base.crypto.HashCrypt;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.EntityCryptoException;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.model.ModelField.EncryptMethod;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
 import org.apache.shiro.crypto.AesCipherService;
 import org.apache.shiro.crypto.OperationMode;
 import org.apache.shiro.crypto.PaddingScheme;

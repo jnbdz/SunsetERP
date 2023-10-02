@@ -26,7 +26,7 @@ import org.owasp.html.PolicyFactory;
  * This interface is used to build a custom sanitizer policy which then can be
  * used instead of the default permissive policy. The custom policy will the be
  * used in
- * {@link org.apache.ofbiz.base.util.UtilCodec.HtmlEncoder#sanitize(String, String)}
+ * {@link org.sitenetsoft.framework.base.util.UtilCodec.HtmlEncoder#sanitize(String, String)}
  */
 public interface SanitizerCustomPolicy {
 

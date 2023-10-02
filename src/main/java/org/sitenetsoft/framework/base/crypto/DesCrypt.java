@@ -19,7 +19,7 @@
 package org.sitenetsoft.framework.base.crypto;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.ofbiz.base.util.GeneralException;
+import org.sitenetsoft.framework.base.util.GeneralException;
 
 import javax.crypto.*;
 import javax.crypto.spec.DESedeKeySpec;

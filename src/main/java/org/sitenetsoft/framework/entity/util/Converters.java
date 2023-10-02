@@ -18,18 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.util;
 
-import org.apache.ofbiz.base.conversion.AbstractConverter;
-import org.apache.ofbiz.base.conversion.ConversionException;
-import org.apache.ofbiz.base.conversion.ConverterLoader;
-import org.apache.ofbiz.base.lang.JSON;
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
-import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.model.ModelFieldType;
+import org.sitenetsoft.framework.base.conversion.AbstractConverter;
+import org.sitenetsoft.framework.base.conversion.ConversionException;
+import org.sitenetsoft.framework.base.conversion.ConverterLoader;
+import org.sitenetsoft.framework.base.lang.JSON;
+import org.sitenetsoft.framework.base.util.ObjectType;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.DelegatorFactory;
+import org.sitenetsoft.framework.entity.GenericEntity;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.model.ModelFieldType;
 
 import java.io.IOException;
 import java.util.*;
@@ -149,6 +149,6 @@ public class Converters implements ConverterLoader {
 
     @Override
     public void loadConverters() {
-        org.apache.ofbiz.base.conversion.Converters.loadContainedConverters(Converters.class);
+        org.sitenetsoft.framework.base.conversion.Converters.loadContainedConverters(Converters.class);
     }
 }

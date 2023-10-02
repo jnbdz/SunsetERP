@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.component;
 
-import org.apache.ofbiz.base.config.GenericConfigException;
-import org.apache.ofbiz.base.config.ResourceHandler;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.sitenetsoft.framework.base.config.GenericConfigException;
+import org.sitenetsoft.framework.base.config.ResourceHandler;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilXml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;

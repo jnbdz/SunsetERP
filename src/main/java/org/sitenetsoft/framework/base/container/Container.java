@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.container;
 
-import org.apache.ofbiz.base.start.StartupCommand;
+import org.sitenetsoft.framework.start.StartupCommand;
 
 import java.util.List;
 

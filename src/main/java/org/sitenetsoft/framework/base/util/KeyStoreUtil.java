@@ -19,8 +19,8 @@
 package org.sitenetsoft.framework.base.util;
 
 import org.apache.commons.codec.binary.Base64;
-import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.config.GenericConfigException;
+import org.sitenetsoft.framework.base.component.ComponentConfig;
+import org.sitenetsoft.framework.base.config.GenericConfigException;
 
 import java.io.*;
 import java.net.URL;
