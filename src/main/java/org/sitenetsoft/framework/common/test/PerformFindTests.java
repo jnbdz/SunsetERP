@@ -18,18 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common.test;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityListIterator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilDateTime;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.util.EntityListIterator;
+import org.sitenetsoft.framework.entity.util.EntityQuery;
+import org.sitenetsoft.framework.service.LocalDispatcher;
+import org.sitenetsoft.framework.service.ServiceUtil;
+import org.sitenetsoft.framework.service.testtools.OFBizTestCase;
 
 import java.sql.Timestamp;
 import java.util.HashMap;

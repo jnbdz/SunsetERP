@@ -19,8 +19,8 @@
 package org.sitenetsoft.framework.base.util;
 
 import com.ibm.icu.text.DecimalFormat;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;

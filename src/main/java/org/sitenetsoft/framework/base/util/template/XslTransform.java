@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.template;
 
-import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;

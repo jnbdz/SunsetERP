@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.condition;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericModelException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.minilang.operation.Convert;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntity;
+import org.sitenetsoft.framework.entity.GenericModelException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
+import org.sitenetsoft.framework.minilang.operation.Convert;
 
 import java.io.Serializable;
 import java.util.*;
@@ -77,7 +77,7 @@ public abstract class EntityConditionValue implements Serializable {
         }
 
         @Override
-        public void validateSql(org.apache.ofbiz.entity.model.ModelEntity modelEntity) {
+        public void validateSql(org.sitenetsoft.framework.entity.model.ModelEntity modelEntity) {
         }
     }
 

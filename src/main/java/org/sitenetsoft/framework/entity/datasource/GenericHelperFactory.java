@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.datasource;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;

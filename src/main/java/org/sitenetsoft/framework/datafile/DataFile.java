@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.datafile;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilValidate;
 
 import java.io.*;
 import java.net.URL;

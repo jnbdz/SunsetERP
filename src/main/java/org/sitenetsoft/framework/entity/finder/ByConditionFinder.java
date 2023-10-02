@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.finder;
 
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.finder.EntityFinderUtil.Condition;
-import org.apache.ofbiz.entity.finder.EntityFinderUtil.ConditionExpr;
-import org.apache.ofbiz.entity.finder.EntityFinderUtil.ConditionList;
-import org.apache.ofbiz.entity.finder.EntityFinderUtil.ConditionObject;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
+import org.sitenetsoft.framework.base.util.UtilXml;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.finder.EntityFinderUtil.Condition;
+import org.sitenetsoft.framework.entity.finder.EntityFinderUtil.ConditionExpr;
+import org.sitenetsoft.framework.entity.finder.EntityFinderUtil.ConditionList;
+import org.sitenetsoft.framework.entity.finder.EntityFinderUtil.ConditionObject;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelFieldTypeReader;
 import org.w3c.dom.Element;
 
 import java.util.Map;

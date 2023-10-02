@@ -19,13 +19,13 @@
 
 package org.sitenetsoft.framework.common.authentication.api;
 
-import org.apache.ofbiz.service.LocalDispatcher;
+import org.sitenetsoft.framework.service.LocalDispatcher;
 
 /**
  * Authenticator
  *
  * Classes which implement this interface (directly) will be auto-discovered and loaded as Authenticators
- * as long as isEnabled() returns true. All implementations MUST be in the org.apache.ofbiz top level package in
+ * as long as isEnabled() returns true. All implementations MUST be in the org.sitenetsoft.framework top level package in
  * order to be discovered.
  */
 public interface Authenticator {

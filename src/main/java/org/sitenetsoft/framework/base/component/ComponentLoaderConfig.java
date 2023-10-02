@@ -18,10 +18,10 @@
  */
 package org.sitenetsoft.framework.base.component;
 
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilURL;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.util.UtilURL;
+import org.sitenetsoft.framework.base.util.UtilXml;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;

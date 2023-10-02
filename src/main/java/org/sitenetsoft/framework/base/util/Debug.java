@@ -89,11 +89,11 @@ public final class Debug {
     }
 
     public static void log(int level, Throwable t, String msg, String module) {
-        log(level, t, msg, module, "org.apache.ofbiz.base.util.Debug", EMPTY_PARAMS);
+        log(level, t, msg, module, "org.sitenetsoft.framework.base.util.Debug", EMPTY_PARAMS);
     }
 
     public static void log(int level, Throwable t, String msg, String module, Object... params) {
-        log(level, t, msg, module, "org.apache.ofbiz.base.util.Debug", params);
+        log(level, t, msg, module, "org.sitenetsoft.framework.base.util.Debug", params);
     }
 
     public static void log(int level, Throwable t, String msg, String module, String callingClass) {

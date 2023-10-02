@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.model;
 
-import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.sitenetsoft.framework.base.lang.ThreadSafe;
+import org.sitenetsoft.framework.base.util.StringUtil;
+import org.sitenetsoft.framework.base.util.UtilDateTime;
+import org.sitenetsoft.framework.base.util.UtilXml;
 import org.w3c.dom.Element;
 
 import java.util.Locale;

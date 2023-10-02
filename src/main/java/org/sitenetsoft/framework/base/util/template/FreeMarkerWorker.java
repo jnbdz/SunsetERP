@@ -28,11 +28,11 @@ import freemarker.ext.beans.BeanModel;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.BeansWrapperBuilder;
 import freemarker.template.*;
-import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.widget.model.ModelWidget;
+import org.sitenetsoft.framework.base.component.ComponentConfig;
+import org.sitenetsoft.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.widget.model.ModelWidget;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -76,7 +76,7 @@ public final class FreeMarkerWorker {
         TemplateHashModel staticModels = wrapper.getStaticModels();
         newConfig.setSharedVariable("Static", staticModels);
         try {
-            newConfig.setSharedVariable("EntityQuery", staticModels.get("org.apache.ofbiz.entity.util.EntityQuery"));
+            newConfig.setSharedVariable("EntityQuery", staticModels.get("org.sitenetsoft.framework.entity.util.EntityQuery"));
         } catch (TemplateModelException e) {
             Debug.logError(e, MODULE);
         }

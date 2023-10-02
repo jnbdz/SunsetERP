@@ -18,10 +18,10 @@
  */
 package org.sitenetsoft.framework.entity.model;
 
-import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.entity.jdbc.DatabaseUtil;
+import org.sitenetsoft.framework.base.lang.ThreadSafe;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.base.util.UtilXml;
+import org.sitenetsoft.framework.entity.jdbc.DatabaseUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

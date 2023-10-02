@@ -18,11 +18,11 @@
  */
 package org.sitenetsoft.framework.common.qrcode;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.service.GenericServiceException;
+import org.sitenetsoft.framework.service.LocalDispatcher;
+import org.sitenetsoft.framework.service.ServiceUtil;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;

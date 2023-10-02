@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.jdbc;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.transaction.GenericTransactionException;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.transaction.GenericTransactionException;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
 
 import java.lang.reflect.Method;
 import java.sql.PreparedStatement;

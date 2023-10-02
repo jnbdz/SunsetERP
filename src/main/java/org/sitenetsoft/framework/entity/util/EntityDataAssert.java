@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.util;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericPK;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.model.ModelEntity;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericPK;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;

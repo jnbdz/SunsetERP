@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.conversion;
 
-import org.apache.ofbiz.base.lang.JSON;
-import org.apache.ofbiz.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.lang.JSON;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
 
 import java.io.IOException;
 import java.util.List;

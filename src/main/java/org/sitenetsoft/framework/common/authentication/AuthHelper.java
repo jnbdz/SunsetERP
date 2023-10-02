@@ -19,10 +19,10 @@
 
 package org.sitenetsoft.framework.common.authentication;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.common.authentication.api.Authenticator;
-import org.apache.ofbiz.common.authentication.api.AuthenticatorException;
-import org.apache.ofbiz.service.LocalDispatcher;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.common.authentication.api.Authenticator;
+import org.sitenetsoft.framework.common.authentication.api.AuthenticatorException;
+import org.sitenetsoft.framework.service.LocalDispatcher;
 
 import java.security.AccessController;
 import java.security.PrivilegedAction;
@@ -33,8 +33,10 @@ import java.util.ServiceLoader;
 
 /**
  * AuthHelper
+ * @TODO: Adapt for Quarkus
  */
-public final class AuthHelper {
+public final class AuthHelper {}
+/*public final class AuthHelper {
 
     private static final String MODULE = AuthHelper.class.getName();
     private static List<Authenticator> authenticators = new ArrayList<>();
@@ -128,7 +130,7 @@ public final class AuthHelper {
      * method would have to be public, and then it could be called by any other
      * non-secure source.
      */
-    private static ClassLoader getContextClassLoader() {
+    /*private static ClassLoader getContextClassLoader() {
         return AccessController.doPrivileged(
                 (PrivilegedAction<ClassLoader>) () -> {
                     ClassLoader cl = null;
@@ -140,4 +142,4 @@ public final class AuthHelper {
                     return cl;
                 });
     }
-}
+}*/

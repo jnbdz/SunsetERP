@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.test;
 
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.testtools.EntityTestCase;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.sitenetsoft.framework.base.util.StringUtil;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityExpr;
+import org.sitenetsoft.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.framework.entity.testtools.EntityTestCase;
+import org.sitenetsoft.framework.entity.util.EntityUtil;
 
 import java.util.ArrayList;
 import java.util.List;

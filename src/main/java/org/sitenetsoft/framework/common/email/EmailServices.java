@@ -18,27 +18,28 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common.email;
 
+/*
 import com.sun.mail.smtp.SMTPAddressFailedException;
 import freemarker.template.TemplateException;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.collections.MapStack;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.mail.MimeMessageWrapper;
-import org.apache.ofbiz.webapp.view.ApacheFopWorker;
-import org.apache.ofbiz.widget.model.ThemeFactory;
-import org.apache.ofbiz.widget.renderer.ScreenRenderer;
-import org.apache.ofbiz.widget.renderer.ScreenStringRenderer;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
-import org.apache.ofbiz.widget.renderer.macro.MacroScreenRenderer;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.base.util.collections.MapStack;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.framework.service.DispatchContext;
+import org.sitenetsoft.framework.service.GenericServiceException;
+import org.sitenetsoft.framework.service.LocalDispatcher;
+import org.sitenetsoft.framework.service.ServiceUtil;
+import org.sitenetsoft.framework.service.mail.MimeMessageWrapper;
+import org.sitenetsoft.framework.webapp.view.ApacheFopWorker;
+import org.sitenetsoft.framework.widget.model.ThemeFactory;
+import org.sitenetsoft.framework.widget.renderer.ScreenRenderer;
+import org.sitenetsoft.framework.widget.renderer.ScreenStringRenderer;
+import org.sitenetsoft.framework.widget.renderer.VisualTheme;
+import org.sitenetsoft.framework.widget.renderer.macro.MacroScreenRenderer;
 import org.xml.sax.SAXException;
 
 import javax.activation.DataHandler;
@@ -54,11 +55,13 @@ import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
+ */
 
 /**
  * Email Services
  */
-public class EmailServices {
+public class EmailServices {}
+/*public class EmailServices {
 
     private static final String MODULE = EmailServices.class.getName();
 
@@ -70,7 +73,7 @@ public class EmailServices {
      *@param context Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> sendMail(DispatchContext ctx, Map<String, ? extends Object> context) {
+    /*public static Map<String, Object> sendMail(DispatchContext ctx, Map<String, ? extends Object> context) {
         Delegator delegator = ctx.getDelegator();
         String communicationEventId = (String) context.get("communicationEventId");
         String orderId = (String) context.get("orderId");
@@ -365,7 +368,7 @@ public class EmailServices {
      *@param rcontext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> sendMailFromUrl(DispatchContext ctx, Map<String, ? extends Object> rcontext) {
+    /*public static Map<String, Object> sendMailFromUrl(DispatchContext ctx, Map<String, ? extends Object> rcontext) {
         // pretty simple, get the content and then call the sendMail method below
         Map<String, Object> sendMailContext = UtilMisc.makeMapWritable(rcontext);
         String bodyUrl = (String) sendMailContext.remove("bodyUrl");
@@ -414,7 +417,7 @@ public class EmailServices {
      *@param rServiceContext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> sendMailFromScreen(DispatchContext dctx, Map<String, ? extends Object> rServiceContext) {
+    /*public static Map<String, Object> sendMailFromScreen(DispatchContext dctx, Map<String, ? extends Object> rServiceContext) {
         Map<String, Object> serviceContext = UtilMisc.makeMapWritable(rServiceContext);
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String webSiteId = (String) serviceContext.remove("webSiteId");
@@ -654,7 +657,7 @@ public class EmailServices {
      *@param rServiceContext Map containing the input parameters
      *@return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> sendMailHiddenInLogFromScreen(DispatchContext dctx, Map<String, ? extends Object> rServiceContext) {
+    /*public static Map<String, Object> sendMailHiddenInLogFromScreen(DispatchContext dctx, Map<String, ? extends Object> rServiceContext) {
         Map<String, Object> serviceContext = UtilMisc.makeMapWritable(rServiceContext);
         serviceContext.put("hideInLog", true);
         return sendMailFromScreen(dctx, serviceContext);
@@ -695,7 +698,7 @@ public class EmailServices {
     }
 
     /** class to create a file in memory required for sending as an attachment */
-    public static class StringDataSource implements DataSource {
+    /*public static class StringDataSource implements DataSource {
         private String contentType;
         private ByteArrayOutputStream contentArray;
 
@@ -729,7 +732,7 @@ public class EmailServices {
     }
 
     /** class to create a file in memory required for sending as an attachment */
-    public static class ByteArrayDataSource implements DataSource {
+    /*public static class ByteArrayDataSource implements DataSource {
         private String contentType;
         private byte[] contentArray;
 
@@ -758,4 +761,4 @@ public class EmailServices {
             throw new IOException("Cannot write to this read-only resource");
         }
     }
-}
+}*/

@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util;
 
-import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.common.scripting.ScriptHelperImpl;
+import org.sitenetsoft.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.common.scripting.ScriptHelperImpl;
 import org.codehaus.groovy.runtime.InvokerHelper;
 
 import javax.script.*;

@@ -18,16 +18,16 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.jdbc;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericDataSourceException;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
-import org.apache.ofbiz.entity.transaction.GenericTransactionException;
-import org.apache.ofbiz.entity.transaction.TransactionFactoryLoader;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericDataSourceException;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.transaction.GenericTransactionException;
+import org.sitenetsoft.framework.entity.transaction.TransactionFactoryLoader;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

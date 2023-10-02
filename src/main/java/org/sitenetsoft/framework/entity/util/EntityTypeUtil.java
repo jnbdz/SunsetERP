@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.util;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
 
 import java.util.ArrayList;
 import java.util.Collection;

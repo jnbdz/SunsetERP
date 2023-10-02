@@ -18,28 +18,28 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.entity.util.EntityListIterator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntity;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.*;
+import org.sitenetsoft.framework.entity.model.*;
+import org.sitenetsoft.framework.entity.util.EntityListIterator;
+import org.sitenetsoft.framework.entity.util.EntityQuery;
+import org.sitenetsoft.framework.entity.util.EntityUtil;
+import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.framework.service.DispatchContext;
+import org.sitenetsoft.framework.service.GenericServiceException;
+import org.sitenetsoft.framework.service.LocalDispatcher;
+import org.sitenetsoft.framework.service.ServiceUtil;
 
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.Map.Entry;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
-import static org.apache.ofbiz.base.util.UtilGenerics.checkMap;
+import static org.sitenetsoft.framework.base.util.UtilGenerics.checkCollection;
+import static org.sitenetsoft.framework.base.util.UtilGenerics.checkMap;
 
 /**
  * FindServices Class
@@ -794,7 +794,7 @@ public class FindServices {
     public static Map<String, Object> performFindItem(DispatchContext dctx, Map<String, Object> context) {
         context.put("viewSize", 1);
         context.put("viewIndex", 0);
-        Map<String, Object> result = org.apache.ofbiz.common.FindServices.performFind(dctx, context);
+        Map<String, Object> result = org.sitenetsoft.framework.common.FindServices.performFind(dctx, context);
 
         List<GenericValue> list = null;
         GenericValue item = null;

@@ -20,7 +20,7 @@ package org.sitenetsoft.framework.base.util;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
-import org.apache.ofbiz.base.lang.IsEmpty;
+import org.sitenetsoft.framework.base.lang.IsEmpty;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;

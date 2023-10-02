@@ -21,13 +21,13 @@ package org.sitenetsoft.framework.common;
 
 import freemarker.template.TemplateException;
 import org.apache.commons.io.FileUtils;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.FileUtil;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.FileUtil;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.base.util.UtilProperties;
+import org.sitenetsoft.framework.base.util.template.FreeMarkerWorker;
+import org.sitenetsoft.framework.service.DispatchContext;
+import org.sitenetsoft.framework.service.ServiceUtil;
 
 import java.io.File;
 import java.io.IOException;

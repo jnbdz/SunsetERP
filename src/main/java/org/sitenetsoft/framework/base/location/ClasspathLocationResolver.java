@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.location;
 
-import org.apache.ofbiz.base.util.UtilURL;
+import org.sitenetsoft.framework.base.util.UtilURL;
 
 import java.net.MalformedURLException;
 import java.net.URL;

@@ -20,7 +20,7 @@
 package org.sitenetsoft.framework.entity.testtools;
 
 import junit.framework.TestCase;
-import org.apache.ofbiz.entity.Delegator;
+import org.sitenetsoft.framework.entity.Delegator;
 
 public class EntityTestCase extends TestCase {
 

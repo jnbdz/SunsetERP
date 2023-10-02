@@ -28,18 +28,18 @@
  */
 package org.sitenetsoft.framework.base.metrics;
 
-import org.apache.ofbiz.base.lang.ThreadSafe;
-import org.apache.ofbiz.base.util.Assert;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.base.lang.ThreadSafe;
+import org.sitenetsoft.framework.base.util.Assert;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilProperties;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
 import org.w3c.dom.Element;
 
 import java.util.Collection;
 import java.util.TreeSet;
 
 /**
- * A {@link org.apache.ofbiz.base.metrics.Metrics} factory.
+ * A {@link org.sitenetsoft.framework.base.metrics.Metrics} factory.
  */
 @ThreadSafe
 public final class MetricsFactory {

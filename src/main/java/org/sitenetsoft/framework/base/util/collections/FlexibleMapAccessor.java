@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.collections;
 
-import org.apache.ofbiz.base.lang.IsEmpty;
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.base.util.string.UelUtil;
+import org.sitenetsoft.framework.base.lang.IsEmpty;
+import org.sitenetsoft.framework.base.lang.SourceMonitored;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.base.util.string.UelUtil;
 
 import javax.el.PropertyNotFoundException;
 import java.io.Serializable;

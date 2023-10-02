@@ -21,7 +21,7 @@ package org.sitenetsoft.framework.base.crypto;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.lang.RandomStringUtils;
-import org.apache.ofbiz.base.util.*;
+import org.sitenetsoft.framework.base.util.*;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

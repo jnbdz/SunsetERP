@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.util;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
 
 import java.util.Iterator;
 import java.util.List;

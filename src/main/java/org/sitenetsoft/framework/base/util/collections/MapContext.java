@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.collections;
 
-import org.apache.ofbiz.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
 
 import java.util.*;
 import java.util.function.Function;
@@ -137,7 +137,7 @@ public class MapContext<K, V> implements Map<K, V>, LocalizedMap<V> {
     }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.base.util.collections.LocalizedMap#get(java.lang.String, java.util.Locale)
+     * @see org.sitenetsoft.framework.base.util.collections.LocalizedMap#get(java.lang.String, java.util.Locale)
      */
     @Override
     public V get(String name, Locale locale) {

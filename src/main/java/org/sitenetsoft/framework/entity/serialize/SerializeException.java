@@ -23,7 +23,7 @@ package org.sitenetsoft.framework.entity.serialize;
  *
  */
 @SuppressWarnings("serial")
-public class SerializeException extends org.apache.ofbiz.base.util.GeneralException {
+public class SerializeException extends org.sitenetsoft.framework.base.util.GeneralException {
 
     public SerializeException() {
         super();

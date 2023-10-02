@@ -18,10 +18,10 @@
  */
 package org.sitenetsoft.framework.entity;
 
-import org.apache.ofbiz.base.concurrent.ExecutionPool;
-import org.apache.ofbiz.base.lang.Factory;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilObject;
+import org.sitenetsoft.framework.base.concurrent.ExecutionPool;
+import org.sitenetsoft.framework.base.lang.Factory;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilObject;
 
 import java.util.concurrent.*;
 

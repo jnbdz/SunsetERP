@@ -19,30 +19,30 @@
 
 package org.sitenetsoft.framework.common.login;
 
-import org.apache.ofbiz.base.crypto.HashCrypt;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.common.authentication.AuthHelper;
-import org.apache.ofbiz.common.authentication.api.AuthenticatorException;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityFunction;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.transaction.GenericTransactionException;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.entity.util.EntityListIterator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.security.SecurityUtil;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.webapp.control.LoginWorker;
+/*import org.sitenetsoft.framework.base.crypto.HashCrypt;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.common.authentication.AuthHelper;
+import org.sitenetsoft.framework.common.authentication.api.AuthenticatorException;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityFunction;
+import org.sitenetsoft.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.transaction.GenericTransactionException;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.entity.util.EntityListIterator;
+import org.sitenetsoft.framework.entity.util.EntityQuery;
+import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.framework.security.Security;
+import org.sitenetsoft.framework.security.SecurityUtil;
+import org.sitenetsoft.framework.service.DispatchContext;
+import org.sitenetsoft.framework.service.LocalDispatcher;
+import org.sitenetsoft.framework.service.ModelService;
+import org.sitenetsoft.framework.service.ServiceUtil;
+import org.sitenetsoft.framework.webapp.control.LoginWorker;
 import org.apache.tomcat.util.res.StringManager;
 
 import javax.servlet.ServletException;
@@ -52,12 +52,13 @@ import java.sql.Timestamp;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+import java.util.stream.Collectors;*/
 
 /**
  * <b>Title:</b> Login Services
  */
-public class LoginServices {
+public class LoginServices {}
+/*public class LoginServices {
 
     private static final String MODULE = LoginServices.class.getName();
     private static final String RESOURCE = "SecurityextUiLabels";
@@ -66,7 +67,7 @@ public class LoginServices {
      * Login service to authenticate username and password
      * @return Map of results including (userLogin) GenericValue object
      */
-    public static Map<String, Object> userLogin(DispatchContext ctx, Map<String, ?> context) {
+    /*public static Map<String, Object> userLogin(DispatchContext ctx, Map<String, ?> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = ctx.getDelegator();
@@ -447,7 +448,7 @@ public class LoginServices {
      * @return
      * @throws GenericEntityException
      */
-    private static boolean isGivenPasswordCanBeStored(Delegator delegator, String password)
+    /*private static boolean isGivenPasswordCanBeStored(Delegator delegator, String password)
             throws GenericEntityException {
         ModelEntity modelEntityUserLoginHistory = delegator.getModelEntity("UserLoginHistory");
         ModelField passwordUsedField = modelEntityUserLoginHistory.getField("passwordUsed");
@@ -468,7 +469,7 @@ public class LoginServices {
      * Login service to authenticate a username without password, storing history
      * @return Map of results including (userLogin) GenericValue object
      */
-    public static Map<String, Object> userImpersonate(DispatchContext ctx, Map<String, ?> context) {
+    /*public static Map<String, Object> userImpersonate(DispatchContext ctx, Map<String, ?> context) {
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = ctx.getDelegator();
         Map<String, Object> result = ServiceUtil.returnSuccess();
@@ -544,7 +545,7 @@ public class LoginServices {
      * @param locale
      * @return
      */
-    private static String checkImpersonationControls(Delegator delegator, GenericValue userLogin, GenericValue userLoginToImpersonate,
+    /*private static String checkImpersonationControls(Delegator delegator, GenericValue userLogin, GenericValue userLoginToImpersonate,
             Locale locale) {
         if (userLoginToImpersonate == null) {
             return UtilProperties.getMessage(RESOURCE, "loginservices.username_missing", locale);
@@ -632,7 +633,7 @@ public class LoginServices {
      *            Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> createUserLogin(DispatchContext ctx, Map<String, ?> context) {
+    /*public static Map<String, Object> createUserLogin(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result = new LinkedHashMap<>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
@@ -736,7 +737,7 @@ public class LoginServices {
      *            Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> updatePassword(DispatchContext ctx, Map<String, ?> context) {
+    /*public static Map<String, Object> updatePassword(DispatchContext ctx, Map<String, ?> context) {
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
@@ -874,7 +875,7 @@ public class LoginServices {
      *            Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> updateUserLoginId(DispatchContext ctx, Map<String, ?> context) {
+    /*public static Map<String, Object> updateUserLoginId(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result = new LinkedHashMap<>();
         Delegator delegator = ctx.getDelegator();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
@@ -981,7 +982,7 @@ public class LoginServices {
      *            Map containing the input parameters
      * @return Map with the result of the service, the output parameters
      */
-    public static Map<String, Object> updateUserLoginSecurity(DispatchContext ctx, Map<String, ?> context) {
+    /*public static Map<String, Object> updateUserLoginSecurity(DispatchContext ctx, Map<String, ?> context) {
         Map<String, Object> result = new LinkedHashMap<>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
@@ -1204,4 +1205,4 @@ public class LoginServices {
         }
         return true;
     }
-}
+}*/

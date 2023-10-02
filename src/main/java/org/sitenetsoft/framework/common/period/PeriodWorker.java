@@ -20,12 +20,12 @@
 
 package org.sitenetsoft.framework.common.period;
 
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionList;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
+import org.sitenetsoft.framework.base.util.UtilDateTime;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityConditionList;
+import org.sitenetsoft.framework.entity.condition.EntityExpr;
+import org.sitenetsoft.framework.entity.condition.EntityOperator;
 
 import java.sql.Timestamp;
 

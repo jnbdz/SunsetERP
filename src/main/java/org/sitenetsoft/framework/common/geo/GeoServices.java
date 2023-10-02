@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common.geo;
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.service.DispatchContext;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.service.DispatchContext;
 
 import java.util.HashMap;
 import java.util.Locale;

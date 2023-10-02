@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.jdbc;
 
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.framework.base.util.Debug;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.*;

@@ -19,16 +19,16 @@
 package org.sitenetsoft.framework.common.email;
 
 import freemarker.template.TemplateException;
-import org.apache.ofbiz.base.component.ComponentConfig.WebappInfo;
-import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.template.FreeMarkerWorker;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.service.*;
-import org.apache.ofbiz.webapp.OfbizUrlBuilder;
-import org.apache.ofbiz.webapp.WebAppUtil;
+import org.sitenetsoft.framework.base.component.ComponentConfig.WebappInfo;
+import org.sitenetsoft.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.util.UtilProperties;
+import org.sitenetsoft.framework.base.util.template.FreeMarkerWorker;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.service.*;
+import org.sitenetsoft.framework.webapp.OfbizUrlBuilder;
+import org.sitenetsoft.framework.webapp.WebAppUtil;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -56,7 +56,7 @@ import java.util.Map;
  * <pre>
  * {@code
  * <service name="sendPoPickupNotification" engine="java"
- *         location="org.apache.ofbiz.content.email.NotificationServices"
+ *         location="org.sitenetsoft.framework.content.email.NotificationServices"
  *         invoke="sendNotification">
  *     <description>Sends notification based on a message template</description>
  *     <implements service="sendNotificationInterface"/>

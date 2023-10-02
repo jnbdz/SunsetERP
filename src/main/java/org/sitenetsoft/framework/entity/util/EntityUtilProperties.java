@@ -18,15 +18,15 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.util;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.collections.ResourceBundleMapWrapper;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.base.util.UtilProperties;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.base.util.collections.ResourceBundleMapWrapper;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.DelegatorFactory;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
 
 import java.io.IOException;
 import java.io.InputStream;

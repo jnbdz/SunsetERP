@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util;
 
-import org.apache.ofbiz.base.config.GenericConfigException;
-import org.apache.ofbiz.base.config.JNDIConfigUtil;
-import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.base.config.GenericConfigException;
+import org.sitenetsoft.framework.base.config.JNDIConfigUtil;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

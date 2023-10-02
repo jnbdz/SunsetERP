@@ -19,19 +19,21 @@
 
 package org.sitenetsoft.framework.entity;
 
-import org.apache.ofbiz.base.concurrent.ExecutionPool;
-import org.apache.ofbiz.base.container.Container;
-import org.apache.ofbiz.base.container.ContainerConfig;
-import org.apache.ofbiz.base.container.ContainerException;
-import org.apache.ofbiz.base.start.StartupCommand;
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilValidate;
+/*import org.sitenetsoft.framework.base.concurrent.ExecutionPool;
+import org.sitenetsoft.framework.base.container.Container;
+import org.sitenetsoft.framework.base.container.ContainerConfig;
+import org.sitenetsoft.framework.base.container.ContainerException;
+//import org.sitenetsoft.framework.start.StartupCommand;
+import org.sitenetsoft.framework.base.util.StringUtil;
+import org.sitenetsoft.framework.base.util.UtilValidate;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Future;
+import java.util.concurrent.Future;*/
 
-public class DelegatorContainer implements Container {
+public class DelegatorContainer {}
+
+/*public class DelegatorContainer implements Container {
     private String name;
     private List<String> preloadedDelegatorNames;
 
@@ -65,4 +67,4 @@ public class DelegatorContainer implements Container {
     public String getName() {
         return name;
     }
-}
+}*/

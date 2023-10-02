@@ -19,7 +19,7 @@
 
 package org.sitenetsoft.framework.common.authentication.api;
 
-import org.apache.ofbiz.base.util.GeneralException;
+import org.sitenetsoft.framework.base.util.GeneralException;
 
 import java.util.List;
 

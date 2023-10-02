@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util;
 
-import org.apache.ofbiz.base.conversion.ConversionException;
-import org.apache.ofbiz.base.conversion.Converter;
-import org.apache.ofbiz.base.conversion.Converters;
-import org.apache.ofbiz.base.conversion.LocalizedConverter;
-import org.apache.ofbiz.base.lang.IsEmpty;
-import org.apache.ofbiz.base.lang.SourceMonitored;
+import org.sitenetsoft.framework.base.conversion.ConversionException;
+import org.sitenetsoft.framework.base.conversion.Converter;
+import org.sitenetsoft.framework.base.conversion.Converters;
+import org.sitenetsoft.framework.base.conversion.LocalizedConverter;
+import org.sitenetsoft.framework.base.lang.IsEmpty;
+import org.sitenetsoft.framework.base.lang.SourceMonitored;
 import org.w3c.dom.Node;
 
 import java.io.Serializable;
@@ -68,10 +68,10 @@ public class ObjectType {
         CLASS_ALIAS.put("Map", "java.util.Map");
         CLASS_ALIAS.put("HashMap", "java.util.HashMap");
         CLASS_ALIAS.put("TimeZone", "java.util.TimeZone");
-        CLASS_ALIAS.put("TimeDuration", "org.apache.ofbiz.base.util.TimeDuration");
-        CLASS_ALIAS.put("GenericValue", "org.apache.ofbiz.entity.GenericValue");
-        CLASS_ALIAS.put("GenericPK", "org.apache.ofbiz.entity.GenericPK");
-        CLASS_ALIAS.put("GenericEntity", "org.apache.ofbiz.entity.GenericEntity");
+        CLASS_ALIAS.put("TimeDuration", "org.sitenetsoft.framework.base.util.TimeDuration");
+        CLASS_ALIAS.put("GenericValue", "org.sitenetsoft.framework.entity.GenericValue");
+        CLASS_ALIAS.put("GenericPK", "org.sitenetsoft.framework.entity.GenericPK");
+        CLASS_ALIAS.put("GenericEntity", "org.sitenetsoft.framework.entity.GenericEntity");
         PRIMITIVES.put("boolean", Boolean.TYPE);
         PRIMITIVES.put("short", Short.TYPE);
         PRIMITIVES.put("int", Integer.TYPE);

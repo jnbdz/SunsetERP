@@ -18,19 +18,19 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.test;
 
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.testtools.EntityTestCase;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.entity.util.EntityFindOptions;
-import org.apache.ofbiz.entity.util.EntityListIterator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.sitenetsoft.framework.base.util.UtilDateTime;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.framework.entity.testtools.EntityTestCase;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.entity.util.EntityFindOptions;
+import org.sitenetsoft.framework.entity.util.EntityListIterator;
+import org.sitenetsoft.framework.entity.util.EntityQuery;
+import org.sitenetsoft.framework.entity.util.EntityUtil;
 
 import java.util.LinkedList;
 import java.util.List;

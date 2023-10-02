@@ -19,8 +19,8 @@
 
 package org.sitenetsoft.framework.entity;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.model.ModelEntity;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
 
 import java.util.Arrays;
 import java.util.List;

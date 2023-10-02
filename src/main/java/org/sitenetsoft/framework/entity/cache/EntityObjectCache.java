@@ -19,7 +19,7 @@
 
 package org.sitenetsoft.framework.entity.cache;
 
-import org.apache.ofbiz.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
 
 public class EntityObjectCache extends AbstractEntityConditionCache<String, Object> {
 

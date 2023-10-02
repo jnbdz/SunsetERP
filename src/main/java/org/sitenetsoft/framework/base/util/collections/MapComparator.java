@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.collections;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
 
 import java.util.Comparator;
 import java.util.List;

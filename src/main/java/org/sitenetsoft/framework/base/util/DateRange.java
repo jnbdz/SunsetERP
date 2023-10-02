@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util;
 
-import org.apache.ofbiz.base.lang.ComparableRange;
+import org.sitenetsoft.framework.base.lang.ComparableRange;
 
 import java.io.Serializable;
 import java.sql.Timestamp;

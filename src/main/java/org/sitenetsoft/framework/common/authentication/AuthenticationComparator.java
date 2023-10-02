@@ -19,7 +19,7 @@
 
 package org.sitenetsoft.framework.common.authentication;
 
-import org.apache.ofbiz.common.authentication.api.Authenticator;
+import org.sitenetsoft.framework.common.authentication.api.Authenticator;
 
 import java.util.Comparator;
 

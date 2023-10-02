@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.conversion;
 
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.util.StringUtil;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
 
 import java.lang.reflect.Array;
 import java.util.*;

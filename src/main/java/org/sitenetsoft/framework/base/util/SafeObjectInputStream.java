@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.joining;
-import static org.apache.ofbiz.base.util.UtilProperties.getPropertyValue;
+import static org.sitenetsoft.framework.base.util.UtilProperties.getPropertyValue;
 
 /**
  * SafeObjectInputStream
@@ -36,7 +36,7 @@ public final class SafeObjectInputStream extends ObjectInputStream {
     private static final String[] DEFAULT_ALLOWLIST_PATTERN = {
             "byte\\[\\]", "foo", "SerializationInjector",
             "\\[Z", "\\[B", "\\[S", "\\[I", "\\[J", "\\[F", "\\[D", "\\[C",
-            "java..*", "sun.util.calendar..*", "org.apache.ofbiz..*",
+            "java..*", "sun.util.calendar..*", "org.sitenetsoft.framework..*",
             "org.codehaus.groovy.runtime.GStringImpl", "groovy.lang.GString"};
     private static final String[] DEFAULT_DENYLIST = {"rmi", "<"};
 

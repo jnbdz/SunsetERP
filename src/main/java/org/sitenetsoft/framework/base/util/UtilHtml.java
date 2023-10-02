@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util;
 
-import org.apache.ofbiz.widget.model.ThemeFactory;
+import org.sitenetsoft.framework.widget.model.ThemeFactory;
 import org.jsoup.parser.ParseError;
 import org.jsoup.parser.Parser;
 

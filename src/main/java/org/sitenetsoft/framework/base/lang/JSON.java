@@ -20,7 +20,7 @@ package org.sitenetsoft.framework.base.lang;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
-import org.apache.ofbiz.base.util.Assert;
+import org.sitenetsoft.framework.base.util.Assert;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.condition;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.model.ModelFieldType;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.ObjectType;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
+import org.sitenetsoft.framework.entity.*;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.model.ModelFieldType;
 
 import java.util.Collection;
 import java.util.List;

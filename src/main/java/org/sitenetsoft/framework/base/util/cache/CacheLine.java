@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.cache;
 
-import org.apache.ofbiz.base.concurrent.ExecutionPool;
+import org.sitenetsoft.framework.base.concurrent.ExecutionPool;
 
 public abstract class CacheLine<V> extends ExecutionPool.Pulse {
     CacheLine(long loadTimeNanos, long expireTimeNanos) {

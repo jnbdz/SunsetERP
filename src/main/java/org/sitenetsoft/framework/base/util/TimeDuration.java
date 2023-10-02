@@ -19,8 +19,8 @@
 package org.sitenetsoft.framework.base.util;
 
 import com.ibm.icu.util.Calendar;
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.lang.ThreadSafe;
+import org.sitenetsoft.framework.base.lang.SourceMonitored;
+import org.sitenetsoft.framework.base.lang.ThreadSafe;
 
 import java.io.Serializable;
 import java.util.Objects;

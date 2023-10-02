@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.service.DispatchContext;
+import org.sitenetsoft.framework.service.ServiceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;

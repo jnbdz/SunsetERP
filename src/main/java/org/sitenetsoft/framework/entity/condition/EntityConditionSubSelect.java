@@ -18,15 +18,15 @@
  */
 package org.sitenetsoft.framework.entity.condition;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericModelException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.jdbc.SqlJdbcUtil;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
-import org.apache.ofbiz.entity.model.ModelViewEntity;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericModelException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.jdbc.SqlJdbcUtil;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
+import org.sitenetsoft.framework.entity.model.ModelViewEntity;
 
 import java.util.List;
 import java.util.Map;

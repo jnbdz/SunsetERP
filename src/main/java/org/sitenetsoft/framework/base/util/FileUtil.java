@@ -20,7 +20,7 @@ package org.sitenetsoft.framework.base.util;
 
 import net.lingala.zip4j.ZipFile;
 import org.apache.commons.io.FileUtils;
-import org.apache.ofbiz.base.location.ComponentLocationResolver;
+import org.sitenetsoft.framework.base.location.ComponentLocationResolver;
 
 import java.io.*;
 import java.net.MalformedURLException;

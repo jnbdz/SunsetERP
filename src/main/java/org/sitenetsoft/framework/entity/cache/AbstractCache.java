@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.cache;
 
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.DelegatorFactory;
 
 public abstract class AbstractCache<K, V> {
 

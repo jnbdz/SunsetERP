@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common.preferences;
 
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.framework.base.util.GeneralException;
+import org.sitenetsoft.framework.base.util.ObjectType;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.security.Security;
+import org.sitenetsoft.framework.service.DispatchContext;
+import org.sitenetsoft.framework.service.ServiceUtil;
 
 import java.util.LinkedHashMap;
 import java.util.List;

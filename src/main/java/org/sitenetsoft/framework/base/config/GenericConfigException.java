@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.config;
 
-import org.apache.ofbiz.base.util.GeneralException;
+import org.sitenetsoft.framework.base.util.GeneralException;
 
 /**
  * GenericConfigException

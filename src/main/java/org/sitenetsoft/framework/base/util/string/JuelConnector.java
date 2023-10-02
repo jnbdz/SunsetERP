@@ -30,7 +30,7 @@ import de.odysseus.el.tree.impl.Parser.ParseException;
 import de.odysseus.el.tree.impl.Scanner.ScanException;
 import de.odysseus.el.tree.impl.Scanner.Symbol;
 import de.odysseus.el.tree.impl.ast.*;
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.framework.base.util.Debug;
 
 import javax.el.ELContext;
 import javax.el.ELException;

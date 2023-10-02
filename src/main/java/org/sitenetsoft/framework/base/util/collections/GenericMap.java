@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.collections;
 
-import org.apache.ofbiz.base.lang.Appender;
-import org.apache.ofbiz.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.lang.Appender;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
 
 import java.io.Serializable;
 import java.util.*;

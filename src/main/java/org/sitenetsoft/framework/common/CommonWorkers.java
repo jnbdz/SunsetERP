@@ -18,19 +18,19 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityTypeUtil;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.StringUtil;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityExpr;
+import org.sitenetsoft.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.framework.entity.util.EntityQuery;
+import org.sitenetsoft.framework.entity.util.EntityTypeUtil;
+import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -177,7 +177,7 @@ public final class CommonWorkers {
      * @param parentTypeField Field in Type entity which stores the parent type.
      * @param parentType      Value of the parent type against which check is performed.
      * @return boolean value based on the check results.
-     * @deprecated Moved to {@link org.apache.ofbiz.entity.util.EntityTypeUtil#hasParentType(Delegator, String, String, String, String, String)
+     * @deprecated Moved to {@link org.sitenetsoft.framework.entity.util.EntityTypeUtil#hasParentType(Delegator, String, String, String, String, String)
      * EntityTypeUtil}
      */
     @Deprecated

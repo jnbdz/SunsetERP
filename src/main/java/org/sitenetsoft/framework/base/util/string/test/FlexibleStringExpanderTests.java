@@ -19,12 +19,12 @@
 package org.sitenetsoft.framework.base.util.string.test;
 
 import junit.framework.TestCase;
-import org.apache.ofbiz.base.conversion.AbstractConverter;
-import org.apache.ofbiz.base.conversion.ConversionException;
-import org.apache.ofbiz.base.conversion.Converters;
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.base.conversion.AbstractConverter;
+import org.sitenetsoft.framework.base.conversion.ConversionException;
+import org.sitenetsoft.framework.base.conversion.Converters;
+import org.sitenetsoft.framework.base.lang.SourceMonitored;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
 
 import java.math.BigDecimal;
 import java.util.*;

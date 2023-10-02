@@ -18,28 +18,29 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.container;
 
-import org.apache.ofbiz.base.start.Config;
-import org.apache.ofbiz.base.start.Start;
-import org.apache.ofbiz.base.start.Start.ServerState;
-import org.apache.ofbiz.base.start.StartupCommand;
-import org.apache.ofbiz.base.util.UtilValidate;
+//import org.sitenetsoft.framework.start.Config;
+//import org.sitenetsoft.framework.start.Start;
+//import org.sitenetsoft.framework.start.Start.ServerState;
+//import org.sitenetsoft.framework.start.StartupCommand;
+import org.sitenetsoft.framework.base.util.UtilValidate;
 
-import java.io.*;
+/*import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.List;*/
 
 /**
  * The AdminServer provides a way to communicate with a running
  * OFBiz instance after it has started and send commands to that instance
  * such as inquiring on server status or requesting system shutdown
  */
-public final class AdminServerContainer implements Container {
+public final class AdminServerContainer {}
+//public final class AdminServerContainer implements Container {
     /**
      * Commands communicated between AdminClient and AdminServer
      */
-    public enum OfbizSocketCommand {
+    /*public enum OfbizSocketCommand {
         SHUTDOWN, STATUS, FAIL
     }
 
@@ -122,14 +123,14 @@ public final class AdminServerContainer implements Container {
             return OfbizSocketCommand.FAIL;
         }
         return OfbizSocketCommand.valueOf(request.substring(request.indexOf(':') + 1));
-    }
+    }*/
 
     /**
      * Validates if request is a suitable String
      * @param request
      * @return boolean which shows if request is suitable
      */
-    private boolean isValidRequest(String request) {
+    /*private boolean isValidRequest(String request) {
         return UtilValidate.isNotEmpty(request)
                 && request.contains(":")
                 && request.substring(0, request.indexOf(':')).equals(cfg.getAdminKey())
@@ -155,4 +156,4 @@ public final class AdminServerContainer implements Container {
         }
         return response;
     }
-}
+}*/

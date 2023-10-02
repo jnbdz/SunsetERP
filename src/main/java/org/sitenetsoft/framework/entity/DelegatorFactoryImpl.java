@@ -18,7 +18,7 @@
  */
 package org.sitenetsoft.framework.entity;
 
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.framework.base.util.Debug;
 
 /** A <code>DelegatorFactory</code> implementation that returns an
  * instance of <code>GenericDelegator</code>. */

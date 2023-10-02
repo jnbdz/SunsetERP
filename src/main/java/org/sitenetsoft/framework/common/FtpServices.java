@@ -21,12 +21,12 @@ package org.sitenetsoft.framework.common;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilMisc;
+import org.sitenetsoft.framework.base.util.UtilProperties;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.service.DispatchContext;
+import org.sitenetsoft.framework.service.ServiceUtil;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import static org.apache.ofbiz.base.util.UtilGenerics.checkCollection;
+import static org.sitenetsoft.framework.base.util.UtilGenerics.checkCollection;
 
 /**
  * FTP Services.

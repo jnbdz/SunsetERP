@@ -18,17 +18,17 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common.scripting;
 
-import org.apache.ofbiz.base.util.Assert;
-import org.apache.ofbiz.base.util.ScriptUtil;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.sitenetsoft.framework.base.util.Assert;
+import org.sitenetsoft.framework.base.util.ScriptUtil;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.util.collections.FlexibleMapAccessor;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.security.Security;
+import org.sitenetsoft.framework.service.LocalDispatcher;
+import org.sitenetsoft.framework.service.ModelService;
+import org.sitenetsoft.framework.widget.renderer.VisualTheme;
 
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;

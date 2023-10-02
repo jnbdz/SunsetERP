@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.string;
 
-import org.apache.ofbiz.base.lang.IsEmpty;
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.base.lang.IsEmpty;
+import org.sitenetsoft.framework.base.lang.SourceMonitored;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
 
 import javax.el.PropertyNotFoundException;
 import java.io.Serializable;

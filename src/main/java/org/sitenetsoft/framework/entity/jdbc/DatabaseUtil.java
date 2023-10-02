@@ -18,18 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.jdbc;
 
-import org.apache.ofbiz.base.concurrent.ExecutionPool;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilTimer;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
-import org.apache.ofbiz.entity.model.*;
-import org.apache.ofbiz.entity.transaction.TransactionFactoryLoader;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.base.concurrent.ExecutionPool;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.StringUtil;
+import org.sitenetsoft.framework.base.util.UtilTimer;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.model.*;
+import org.sitenetsoft.framework.entity.transaction.TransactionFactoryLoader;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;

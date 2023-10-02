@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.string;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.cache.UtilCache;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.cache.UtilCache;
 import org.apache.xerces.dom.NodeImpl;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

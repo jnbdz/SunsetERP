@@ -19,10 +19,10 @@
 
 package org.sitenetsoft.framework.entity.condition;
 
-import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericModelException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.GenericEntity;
+import org.sitenetsoft.framework.entity.GenericModelException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
 
 import java.util.ArrayList;
 import java.util.Collection;

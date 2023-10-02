@@ -19,17 +19,17 @@
 
 package org.sitenetsoft.framework.entity.util;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.collections.PagedList;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityDateFilterCondition;
-import org.apache.ofbiz.entity.condition.OrderByList;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelField;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.base.util.collections.PagedList;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericEntity;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.condition.EntityDateFilterCondition;
+import org.sitenetsoft.framework.entity.condition.OrderByList;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelField;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -522,7 +522,7 @@ public final class EntityUtil {
      * @param viewSize
      * @return PagedList object with a subset of data items from EntityListIterator based on viewIndex and viewSize
      * @throws GenericEntityException
-     * @see org.apache.ofbiz.entity.util.EntityListIterator
+     * @see org.sitenetsoft.framework.entity.util.EntityListIterator
      */
     public static PagedList<GenericValue> getPagedList(EntityListIterator iter, int viewIndex, int viewSize) throws GenericEntityException {
         int startIndex = getStartIndexFromViewIndex(viewIndex, viewSize);

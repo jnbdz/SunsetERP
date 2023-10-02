@@ -18,13 +18,13 @@
  */
 package org.sitenetsoft.framework.base.container;
 
-import org.apache.ofbiz.base.component.ComponentConfig;
-import org.apache.ofbiz.base.component.ComponentException;
-import org.apache.ofbiz.base.component.ComponentLoaderConfig;
-import org.apache.ofbiz.base.component.ComponentLoaderConfig.ComponentDef;
-import org.apache.ofbiz.base.start.Start;
-import org.apache.ofbiz.base.start.StartupCommand;
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.framework.base.component.ComponentConfig;
+import org.sitenetsoft.framework.base.component.ComponentException;
+import org.sitenetsoft.framework.base.component.ComponentLoaderConfig;
+import org.sitenetsoft.framework.base.component.ComponentLoaderConfig.ComponentDef;
+import org.sitenetsoft.framework.start.Start;
+import org.sitenetsoft.framework.start.StartupCommand;
+import org.sitenetsoft.framework.base.util.Debug;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

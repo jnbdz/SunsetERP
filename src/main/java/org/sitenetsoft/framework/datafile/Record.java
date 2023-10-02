@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.datafile;
 
-import org.apache.ofbiz.base.crypto.HashCrypt;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.common.login.LoginServices;
+import org.sitenetsoft.framework.base.crypto.HashCrypt;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.common.login.LoginServices;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;

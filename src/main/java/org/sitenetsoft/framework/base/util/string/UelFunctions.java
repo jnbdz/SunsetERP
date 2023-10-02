@@ -19,9 +19,9 @@
 package org.sitenetsoft.framework.base.util.string;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.widget.renderer.ScreenRenderer;
+import org.sitenetsoft.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.widget.renderer.ScreenRenderer;
 import org.cyberneko.html.parsers.DOMParser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;

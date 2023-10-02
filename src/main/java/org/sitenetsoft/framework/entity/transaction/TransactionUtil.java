@@ -19,15 +19,15 @@
 package org.sitenetsoft.framework.entity.transaction;
 
 import org.apache.commons.collections4.map.ListOrderedMap;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericEntityConfException;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.config.model.Datasource;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
-import org.apache.ofbiz.entity.jdbc.CursorConnection;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilDateTime;
+import org.sitenetsoft.framework.base.util.UtilValidate;
+import org.sitenetsoft.framework.entity.GenericEntityConfException;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.config.model.Datasource;
+import org.sitenetsoft.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.jdbc.CursorConnection;
 
 import javax.sql.XAConnection;
 import javax.transaction.*;

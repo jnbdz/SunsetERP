@@ -33,12 +33,12 @@ import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
-import org.apache.ofbiz.webapp.control.SameSiteFilter;
-import org.apache.ofbiz.webapp.event.FileUploadProgressListener;
-import org.apache.ofbiz.widget.renderer.VisualTheme;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.framework.webapp.control.ConfigXMLReader;
+import org.sitenetsoft.framework.webapp.control.SameSiteFilter;
+import org.sitenetsoft.framework.webapp.event.FileUploadProgressListener;
+import org.sitenetsoft.framework.widget.renderer.VisualTheme;
 
 import javax.net.ssl.SSLContext;
 import javax.servlet.http.HttpServletRequest;

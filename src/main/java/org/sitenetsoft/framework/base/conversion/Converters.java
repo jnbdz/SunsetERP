@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.conversion;
 
-import org.apache.ofbiz.base.lang.SourceMonitored;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilGenerics;
+import org.sitenetsoft.framework.base.lang.SourceMonitored;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilGenerics;
 
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
@@ -155,7 +155,7 @@ public final class Converters {
     }
 
     /** Registers a <code>ConverterCreater</code> instance to be used by the
-     * {@link org.apache.ofbiz.base.conversion.Converters#getConverter(Class, Class)}
+     * {@link org.sitenetsoft.framework.base.conversion.Converters#getConverter(Class, Class)}
      * method, when a converter can't be found.
      * @param <S> The source object type
      * @param <T> The target object type
@@ -168,7 +168,7 @@ public final class Converters {
     }
 
     /** Registers a <code>Converter</code> instance to be used by the
-     * {@link org.apache.ofbiz.base.conversion.Converters#getConverter(Class, Class)}
+     * {@link org.sitenetsoft.framework.base.conversion.Converters#getConverter(Class, Class)}
      * method.
      * @param <S> The source object type
      * @param <T> The target object type

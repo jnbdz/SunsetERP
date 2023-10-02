@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.serialize;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericPK;
-import org.apache.ofbiz.entity.GenericValue;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.GenericPK;
+import org.sitenetsoft.framework.entity.GenericValue;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;

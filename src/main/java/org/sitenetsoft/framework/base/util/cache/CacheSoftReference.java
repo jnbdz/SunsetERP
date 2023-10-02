@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.base.util.cache;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.ReferenceCleaner;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.ReferenceCleaner;
 
 public abstract class CacheSoftReference<V> extends ReferenceCleaner.Soft<V> {
 

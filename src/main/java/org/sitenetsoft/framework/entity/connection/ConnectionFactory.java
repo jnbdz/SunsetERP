@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.connection;
 
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.config.model.JdbcElement;
-import org.apache.ofbiz.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.config.model.JdbcElement;
+import org.sitenetsoft.framework.entity.datasource.GenericHelperInfo;
 
 import java.sql.Connection;
 import java.sql.SQLException;

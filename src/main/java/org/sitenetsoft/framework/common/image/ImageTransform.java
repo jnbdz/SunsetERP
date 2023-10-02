@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common.image;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilXml;
-import org.apache.ofbiz.service.ModelService;
+import org.sitenetsoft.framework.base.util.Debug;
+import org.sitenetsoft.framework.base.util.UtilProperties;
+import org.sitenetsoft.framework.base.util.UtilXml;
+import org.sitenetsoft.framework.service.ModelService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;

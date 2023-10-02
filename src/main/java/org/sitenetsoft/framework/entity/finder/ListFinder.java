@@ -18,21 +18,21 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.entity.finder;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.finder.EntityFinderUtil.*;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelFieldTypeReader;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.entity.util.EntityFindOptions;
-import org.apache.ofbiz.entity.util.EntityListIterator;
-import org.apache.ofbiz.entity.util.EntityUtil;
+import org.sitenetsoft.framework.base.util.*;
+import org.sitenetsoft.framework.base.util.collections.FlexibleMapAccessor;
+import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.framework.entity.Delegator;
+import org.sitenetsoft.framework.entity.DelegatorFactory;
+import org.sitenetsoft.framework.entity.GenericEntityException;
+import org.sitenetsoft.framework.entity.GenericValue;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.framework.entity.finder.EntityFinderUtil.*;
+import org.sitenetsoft.framework.entity.model.ModelEntity;
+import org.sitenetsoft.framework.entity.model.ModelFieldTypeReader;
+import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.framework.entity.util.EntityFindOptions;
+import org.sitenetsoft.framework.entity.util.EntityListIterator;
+import org.sitenetsoft.framework.entity.util.EntityUtil;
 import org.w3c.dom.Element;
 
 import java.sql.ResultSet;
