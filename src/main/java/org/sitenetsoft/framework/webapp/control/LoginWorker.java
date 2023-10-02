@@ -18,13 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.webapp.control;
 
-//import org.apache.http.HttpStatus;
+import org.apache.http.HttpStatus;
+import jakarta.servlet.http.HttpServletRequest;
 import org.sitenetsoft.framework.base.component.ComponentConfig;
-//import org.sitenetsoft.framework.base.component.ComponentConfig.WebappInfo;
+import org.sitenetsoft.framework.base.component.ComponentConfig.WebappInfo;
 import org.sitenetsoft.framework.base.util.*;
-//import org.sitenetsoft.framework.base.util.StringUtil.StringWrapper;
+import org.sitenetsoft.framework.base.util.StringUtil.StringWrapper;
 import org.sitenetsoft.framework.entity.*;
-/*
+
 import org.sitenetsoft.framework.entity.condition.EntityCondition;
 import org.sitenetsoft.framework.entity.condition.EntityConditionList;
 import org.sitenetsoft.framework.entity.condition.EntityOperator;
@@ -34,35 +35,44 @@ import org.sitenetsoft.framework.entity.serialize.XmlSerializer;
 import org.sitenetsoft.framework.entity.transaction.GenericTransactionException;
 import org.sitenetsoft.framework.entity.transaction.TransactionUtil;
 import org.sitenetsoft.framework.entity.util.EntityCrypto;
-*/
 import org.sitenetsoft.framework.entity.util.EntityQuery;
 import org.sitenetsoft.framework.entity.util.EntityUtil;
 import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.framework.security.Security;
-/*
+
 import org.sitenetsoft.framework.security.SecurityConfigurationException;
 import org.sitenetsoft.framework.security.SecurityFactory;
 import org.sitenetsoft.framework.service.GenericServiceException;
 import org.sitenetsoft.framework.service.LocalDispatcher;
 import org.sitenetsoft.framework.service.ModelService;
 import org.sitenetsoft.framework.service.ServiceUtil;
-*/
+
+import org.sitenetsoft.framework.security.SecurityFactory;
+import org.sitenetsoft.framework.security.SecurityConfigurationException;
+import org.sitenetsoft.framework.service.LocalDispatcher;
 import org.sitenetsoft.framework.webapp.WebAppCache;
- /*
 import org.sitenetsoft.framework.webapp.WebAppUtil;
 import org.sitenetsoft.framework.webapp.stats.VisitHandler;
 import org.sitenetsoft.framework.widget.model.ThemeFactory;
-*/
+import org.sitenetsoft.framework.webapp.stats.VisitHandler;
 
 /*
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-//import javax.servlet.jsp.PageContext;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+//import jakarta.servlet.jsp.PageContext;
 */
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpSession;
 
 import javax.transaction.Transaction;
 import java.math.BigInteger;
@@ -90,14 +100,14 @@ public final class LoginWorker {
 
     /*public static StringWrapper makeLoginUrl(PageContext pageContext) {
         return makeLoginUrl(pageContext, "checkLogin");
-    }
-    public static StringWrapper makeLoginUrl(HttpServletRequest request) {
+    }*/
+    public static StringUtil.StringWrapper makeLoginUrl(HttpServletRequest request) {
         return makeLoginUrl(request, "checkLogin");
     }
-    public static StringWrapper makeLoginUrl(PageContext pageContext, String requestName) {
+    /*public static StringUtil.StringWrapper makeLoginUrl(PageContext pageContext, String requestName) {
         return makeLoginUrl((HttpServletRequest) pageContext.getRequest(), requestName);
-    }
-    public static StringWrapper makeLoginUrl(HttpServletRequest request, String requestName) {
+    }*/
+    public static StringUtil.StringWrapper makeLoginUrl(HttpServletRequest request, String requestName) {
         Map<String, Object> urlParams = UtilHttp.getUrlOnlyParameterMap(request);
         String queryString = UtilHttp.urlEncodeArgs(urlParams);
         String currentView = UtilFormatOut.checkNull((String) request.getAttribute("_CURRENT_VIEW_"));
@@ -171,11 +181,11 @@ public final class LoginWorker {
                 }
             }
         }
-    }*/
+    }
 
     /**
      */
-    /*public static GenericValue checkLogout(HttpServletRequest request, HttpServletResponse response) {
+    public static GenericValue checkLogout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -202,7 +212,7 @@ public final class LoginWorker {
             }
         }
         return userLogin;
-    }*/
+    }
 
     /**
      * Return the active {@link GenericValue} of a current impersonation UserLoginHistory of current userLogin session,
@@ -211,7 +221,7 @@ public final class LoginWorker {
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return GenericValue
      */
-    /*public static GenericValue checkImpersonationInProcess(HttpServletRequest request, HttpServletResponse response) {
+    public static GenericValue checkImpersonationInProcess(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         GenericValue originUserLogin = (GenericValue) session.getAttribute("originUserLogin");
@@ -247,7 +257,7 @@ public final class LoginWorker {
             errorMessageList.add(errMsg);
         }
         return userLoginHistory;
-    }*/
+    }
 
     /** This WebEvent allows for java 'services' to hook into the login path.
      * This method loads all instances of {@link LoginCheck}, and calls the
@@ -752,7 +762,7 @@ public final class LoginWorker {
 
         // Log back the impersonating user
         return doMainLogin(request, response, originUserLogin, null);
-    }
+    }*/
 
     protected static void setWebContextObjects(HttpServletRequest request, HttpServletResponse response, Delegator delegator,
                                                LocalDispatcher dispatcher) {
@@ -851,7 +861,7 @@ public final class LoginWorker {
 
         // let the visit know who the user is
         VisitHandler.setUserLogin(session, userLogin, false);
-    }*/
+    }
 
     /**
      * An HTTP WebEvent handler that logs out a userLogin by clearing the session.
@@ -860,7 +870,7 @@ public final class LoginWorker {
      * @return Return a boolean which specifies whether or not the calling request
      *        should generate its own content. This allows an event to override the default content.
      */
-    /*public static String logout(HttpServletRequest request, HttpServletResponse response) {
+    public static String logout(HttpServletRequest request, HttpServletResponse response) {
         // run the before-logout events
         RequestHandler rh = RequestHandler.getRequestHandler(request.getSession().getServletContext());
         rh.runBeforeLogoutEvents(request, response);
@@ -927,13 +937,13 @@ public final class LoginWorker {
         UtilHttp.setInitialRequestInfo(request);
 
         if (currCatalog != null) session.setAttribute("CURRENT_CATALOG_ID", currCatalog);
-        if (delegatorName != null) {*/
+        if (delegatorName != null) {
             //Commented it as multi tenancy support is now available for front-store application as well.
             // if there is a tenantId in the delegatorName remove it now so that tenant selection doesn't last beyond logout
-            /*if (delegatorName.indexOf('#') > 0) {
+            if (delegatorName.indexOf('#') > 0) {
                 delegatorName = delegatorName.substring(0, delegatorName.indexOf('#'));
-            }*/
-            /*session.setAttribute("delegatorName", delegatorName);
+            }
+            session.setAttribute("delegatorName", delegatorName);
 
             delegator = DelegatorFactory.getDelegator(delegatorName);
             LocalDispatcher dispatcher = WebAppUtil.makeWebappDispatcher(session.getServletContext(), delegator);
@@ -1103,7 +1113,7 @@ public final class LoginWorker {
             session.setAttribute("userLogin", null);
         }
         return false;
-    }*/
+    }
 
     /**
      * This method will log in a user with only their username (userLoginId).
@@ -1112,7 +1122,7 @@ public final class LoginWorker {
      * @param userLoginId
      * @return Returns "success" if user could be logged in or "error" if there was a problem.
      */
-    /*public static String loginUserWithUserLoginId(HttpServletRequest request, HttpServletResponse response, String userLoginId) {
+    public static String loginUserWithUserLoginId(HttpServletRequest request, HttpServletResponse response, String userLoginId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
@@ -1214,7 +1224,7 @@ public final class LoginWorker {
             //Debug.logInfo("CN Pattern: " + cnPattern, MODULE);
 
             if (currentUserLogin == null) {
-                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("javax.servlet.request.X509Certificate"); // 2.2 spec
+                X509Certificate[] clientCerts = (X509Certificate[]) request.getAttribute("jakarta.servlet.request.X509Certificate"); // 2.2 spec
                 if (clientCerts == null) {
                     clientCerts = (X509Certificate[]) request.getAttribute("javax.net.ssl.peer_certificates"); // 2.1 spec
                 }
@@ -1351,7 +1361,7 @@ public final class LoginWorker {
 
     // @TODO: Adapt it to Quarkus
 
-    /*public static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
+    public static boolean hasBasePermission(GenericValue userLogin, HttpServletRequest request) {
         Security security = (Security) request.getAttribute("security");
         if (security != null) {
             ServletContext context = request.getServletContext();
@@ -1375,7 +1385,7 @@ public final class LoginWorker {
             }
         }
         return true;
-    }*/
+    }
 
     /**
      * Returns a <code>Collection</code> of <code>WebappInfo</code> instances that the specified
@@ -1399,7 +1409,7 @@ public final class LoginWorker {
         return allowedInfos;
     }
 
-    /*public static Map<String, Object> getUserLoginSession(GenericValue userLogin) {
+    public static Map<String, Object> getUserLoginSession(GenericValue userLogin) {
         Delegator delegator = userLogin.getDelegator();
         GenericValue userLoginSession;
         Map<String, Object> userLoginSessionMap = null;
@@ -1420,12 +1430,12 @@ public final class LoginWorker {
             }
         }
         return userLoginSessionMap;
-    }*/
+    }
 
     /**
      * @TODO: Adapt it for Quarkus. Take the properties mentionned!
      */
-    /*public static String autoChangePassword(HttpServletRequest request, HttpServletResponse response) {
+    public static String autoChangePassword(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String userName = request.getParameter("USERNAME");
         Timestamp now = UtilDateTime.nowTimestamp();
@@ -1462,7 +1472,7 @@ public final class LoginWorker {
             }
         }
         return "success";
-    }*/
+    }
 
     /**
      * Return true if userLogin has not been disabled

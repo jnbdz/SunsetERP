@@ -18,7 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.security;
 
-import javax.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public class NoCsrfDefenseStrategy implements ICsrfDefenseStrategy {
 

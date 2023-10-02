@@ -45,10 +45,13 @@ import org.sitenetsoft.framework.widget.model.ScriptLinkHelper;
 import org.sitenetsoft.framework.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.StringWriter;
@@ -269,10 +272,11 @@ public class ScreenRenderer {
         context.put("javaScriptEnabled", UtilHttp.isJavaScriptEnabled(request));
 
         // these ones are FreeMarker specific and will only work in FTL templates, mainly here for backward compatibility
-        context.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));
+        //@TODO: Quarkus - Switch to REST no Freemaker
+        /*context.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));
         context.put("requestAttributes", new HttpRequestHashModel(request, FreeMarkerWorker.getDefaultOfbizWrapper()));
         TaglibFactory jspTaglibs = new TaglibFactory(servletContext);
-        context.put("JspTaglibs", jspTaglibs);
+        context.put("JspTaglibs", jspTaglibs);*/
         context.put("requestParameters", UtilHttp.getParameterMap(request));
 
         ServletContextHashModel ftlServletContext = (ServletContextHashModel) request.getAttribute("ftlServletContext");

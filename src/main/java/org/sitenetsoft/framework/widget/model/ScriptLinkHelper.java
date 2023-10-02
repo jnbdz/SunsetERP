@@ -22,8 +22,8 @@ import org.sitenetsoft.framework.base.util.UtilGenerics;
 import org.sitenetsoft.framework.security.CsrfUtil;
 import org.sitenetsoft.framework.webapp.SeoConfigUtil;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.*;
 
 /**

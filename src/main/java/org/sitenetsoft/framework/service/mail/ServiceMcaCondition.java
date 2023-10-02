@@ -28,6 +28,8 @@ import org.w3c.dom.Element;
 
 //import javax.mail.*;
 //import javax.mail.internet.MimeMessage;
+import jakarta.mail.*;
+import jakarta.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -80,7 +82,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
      * @param userLogin the user login
      * @return the boolean
      */
-    /*public boolean eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, GenericValue userLogin) {
+    public boolean eval(LocalDispatcher dispatcher, MimeMessageWrapper messageWrapper, GenericValue userLogin) {
         boolean passedCondition = false;
         if (serviceName != null) {
             Map<String, Object> result = null;
@@ -191,7 +193,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
         }
 
         return passedCondition;
-    }*/
+    }
 
     /**
      * Get field value string [ ].
@@ -201,7 +203,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
      * @throws MessagingException the messaging exception
      * @throws IOException the io exception
      */
-    /*protected String[] getFieldValue(MimeMessage message, String fieldName) throws MessagingException, IOException {
+    protected String[] getFieldValue(MimeMessage message, String fieldName) throws MessagingException, IOException {
         String[] values = null;
         if ("to".equals(fieldName)) {
             Address[] addrs = message.getRecipients(MimeMessage.RecipientType.TO);
@@ -266,5 +268,5 @@ public class ServiceMcaCondition implements java.io.Serializable {
         } else {
             return new LinkedList<>();
         }
-    }*/
+    }
 }

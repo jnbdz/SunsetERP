@@ -38,8 +38,8 @@ import org.sitenetsoft.framework.service.ModelService;
 import org.sitenetsoft.framework.widget.WidgetWorker;
 import org.w3c.dom.Element;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.*;

@@ -32,8 +32,10 @@ import org.sitenetsoft.framework.entity.util.EntityUtil;
 import org.sitenetsoft.framework.service.ServiceUtil;
 import org.sitenetsoft.framework.webapp.control.JWTManager;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;

@@ -25,7 +25,7 @@ import org.sitenetsoft.framework.base.util.Debug;
 import org.sitenetsoft.framework.base.util.UtilHttp;
 import org.sitenetsoft.framework.common.JsLanguageFilesMappingUtil;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;

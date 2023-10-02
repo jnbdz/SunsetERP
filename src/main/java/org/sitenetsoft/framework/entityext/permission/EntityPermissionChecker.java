@@ -33,8 +33,8 @@ import org.sitenetsoft.framework.security.Security;
 import org.sitenetsoft.framework.service.ServiceUtil;
 import org.w3c.dom.Element;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.*;
 
 

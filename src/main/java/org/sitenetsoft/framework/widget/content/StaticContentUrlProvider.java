@@ -20,7 +20,8 @@ package org.sitenetsoft.framework.widget.content;
 
 import org.sitenetsoft.framework.webapp.taglib.ContentUrlTag;
 
-import javax.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Generates URL strings for addressing static content based properties configured on an HttpRequest's website or

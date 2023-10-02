@@ -32,7 +32,7 @@ import org.sitenetsoft.framework.entity.condition.EntityOperator;
 import org.sitenetsoft.framework.entity.util.EntityQuery;
 import org.sitenetsoft.framework.entity.util.EntityUtil;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.util.*;
 
 /**

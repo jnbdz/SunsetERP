@@ -20,10 +20,13 @@ package org.sitenetsoft.framework.base.util;
 
 import com.google.re2j.Matcher;
 import com.google.re2j.Pattern;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.RequestContext;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -41,9 +44,11 @@ import org.sitenetsoft.framework.webapp.event.FileUploadProgressListener;
 import org.sitenetsoft.framework.widget.renderer.VisualTheme;
 
 import javax.net.ssl.SSLContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+/*import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;*/
+import jakarta.servlet.http.HttpSession;
 import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
@@ -170,7 +175,8 @@ public final class UtilHttp {
         Map<String, Object> multiPartMap = new HashMap<>();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
-        boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
+        // @TODO: Quarkus
+        boolean isMultiPart = true; //ServletFileUpload.isMultipartContent(request);
         if (isMultiPart) {
             long maxUploadSize = getMaxUploadSize(delegator);
             int sizeThreshold = getSizeThreshold(delegator);
@@ -178,6 +184,7 @@ public final class UtilHttp {
             String encoding = request.getCharacterEncoding();
             // check for multipart content types which may have uploaded items
 
+            //ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             upload.setSizeMax(maxUploadSize);
             // create the progress listener and add it to the session
@@ -190,8 +197,11 @@ public final class UtilHttp {
             }
 
             List<FileItem> uploadedItems = null;
+            //ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
+            RequestContext requestContext = new JakartaRequestContext(request);
+            //RequestContext requestContext = new ServletRequestContext(request);
             try {
-                uploadedItems = UtilGenerics.cast(upload.parseRequest(request));
+                uploadedItems = UtilGenerics.cast(upload.parseRequest(requestContext));
             } catch (FileUploadException e) {
                 Debug.logError("File upload error" + e, MODULE);
             }
@@ -256,6 +266,24 @@ public final class UtilHttp {
         }
 
         return multiPartMap;
+    }
+
+    public static class JakartaRequestContext extends ServletRequestContext {
+
+        private final jakarta.servlet.http.HttpServletRequest jakartaRequest;
+
+        public JakartaRequestContext(jakarta.servlet.http.HttpServletRequest request) {
+            super(null);  // Pass null since we're overriding the necessary methods
+            this.jakartaRequest = request;
+        }
+
+        @Override
+        public String getCharacterEncoding() {
+            return jakartaRequest.getCharacterEncoding();
+        }
+
+        // ... override other necessary methods ...
+
     }
 
     /**

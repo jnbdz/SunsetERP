@@ -22,8 +22,8 @@ import org.sitenetsoft.framework.base.util.UtilGenerics;
 import org.sitenetsoft.framework.base.util.UtilValidate;
 import org.sitenetsoft.framework.base.util.string.FlexibleStringExpander;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;

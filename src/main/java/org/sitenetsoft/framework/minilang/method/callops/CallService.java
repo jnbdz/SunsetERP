@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.minilang.method.callops;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.sitenetsoft.framework.base.util.*;
 import org.sitenetsoft.framework.base.util.collections.FlexibleMapAccessor;
 import org.sitenetsoft.framework.base.util.collections.FlexibleServletAccessor;

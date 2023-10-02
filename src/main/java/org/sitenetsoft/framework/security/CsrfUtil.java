@@ -28,9 +28,12 @@ import org.sitenetsoft.framework.base.util.UtilValidate;
 import org.sitenetsoft.framework.entity.GenericValue;
 import org.sitenetsoft.framework.webapp.control.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.ws.rs.core.MultivaluedHashMap;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpSession;
+//import javax.ws.rs.core.MultivaluedHashMap;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.ws.rs.core.MultivaluedHashMap;
 import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;

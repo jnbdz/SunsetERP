@@ -37,9 +37,9 @@ import org.sitenetsoft.framework.widget.renderer.macro.MacroFormRenderer;
 import org.sitenetsoft.framework.widget.renderer.macro.MacroScreenRenderer;
 import org.xml.sax.SAXException;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
@@ -54,7 +54,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     private ServletContext servletContext = null;
 
     /**
-     * @see org.sitenetsoft.framework.webapp.view.ViewHandler#init(javax.servlet.ServletContext)
+     * @see org.sitenetsoft.framework.webapp.view.ViewHandler#init(jakarta.servlet.ServletContext)
      */
     @Override
     public void init(ServletContext context) throws ViewHandlerException {
@@ -63,7 +63,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
 
     /**
      * @see org.sitenetsoft.framework.webapp.view.ViewHandler#render(String, String, String, String, String,
-     * javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+     * jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
      */
     @SuppressWarnings("unchecked")
     @Override

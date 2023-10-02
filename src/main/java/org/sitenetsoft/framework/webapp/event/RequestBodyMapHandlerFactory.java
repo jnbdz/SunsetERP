@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.webapp.event;
 
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;

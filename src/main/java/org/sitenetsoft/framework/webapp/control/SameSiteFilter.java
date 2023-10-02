@@ -20,14 +20,17 @@ package org.sitenetsoft.framework.webapp.control;
 
 import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.HttpHeaders;
+//import jakarta.servlet.*;
+//import jakarta.servlet.http.HttpServletResponse;
+//import javax.ws.rs.core.HttpHeaders;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.HttpHeaders;
 import java.io.IOException;
 import java.util.Collection;
 
 
-public class SameSiteFilter implements javax.servlet.Filter {
+public class SameSiteFilter implements jakarta.servlet.Filter {
 
     private static final String SAME_SITE_COOKIE_ATTRIBUTE =
             EntityUtilProperties.getPropertyValueFromDelegatorName("security.properties", "SameSiteCookieAttribute", "strict", "default");

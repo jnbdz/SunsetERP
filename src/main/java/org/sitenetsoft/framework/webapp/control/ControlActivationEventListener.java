@@ -21,9 +21,9 @@ package org.sitenetsoft.framework.webapp.control;
 import org.sitenetsoft.framework.base.util.Debug;
 import org.sitenetsoft.framework.base.util.UtilProperties;
 
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionActivationListener;
-import javax.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionActivationListener;
+import jakarta.servlet.http.HttpSessionEvent;
 
 /**
  * HttpSessionListener that gathers and tracks various information and statistics

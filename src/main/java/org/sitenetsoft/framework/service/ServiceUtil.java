@@ -25,7 +25,7 @@ import org.sitenetsoft.framework.entity.GenericValue;
 import org.sitenetsoft.framework.entity.util.EntityQuery;
 import org.sitenetsoft.framework.security.Security;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.*;
 

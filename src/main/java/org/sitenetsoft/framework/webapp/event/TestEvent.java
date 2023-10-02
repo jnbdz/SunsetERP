@@ -21,8 +21,8 @@ package org.sitenetsoft.framework.webapp.event;
 import org.sitenetsoft.framework.base.util.Debug;
 import org.sitenetsoft.framework.base.util.HttpClient;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Test Events

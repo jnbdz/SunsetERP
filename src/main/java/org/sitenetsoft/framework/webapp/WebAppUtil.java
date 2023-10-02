@@ -44,8 +44,10 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;*/
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRequest;*/
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRequest;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -91,7 +93,6 @@ public final class WebAppUtil {
      * @TODO: Adapt
      * @param webAppInfo
      * @throws IOException
-     * @throws SAXException
      */
     public static String getWebSiteId(WebappInfo webAppInfo) throws IOException {
         Assert.notNull("webAppInfo", webAppInfo);
@@ -134,6 +135,49 @@ public final class WebAppUtil {
         String servletPath = webAppInfo.getContextRoot().concat(servletMapping);
         return servletPath;*/
         return "EvoBizServer";
+    }
+
+    /** This method only sets up a dispatcher for the current webapp and passed in delegator, it does not save it to the ServletContext
+     * or anywhere else, just returns it */
+    public static LocalDispatcher makeWebappDispatcher(ServletContext servletContext, Delegator delegator) {
+        if (delegator == null) {
+            Debug.logError("[ContextFilter.init] ERROR: delegator not defined.", MODULE);
+            return null;
+        }
+        // get the unique name of this dispatcher
+        String dispatcherName = servletContext.getInitParameter("localDispatcherName");
+
+        if (dispatcherName == null) {
+            Debug.logError("No localDispatcherName specified in the web.xml file", MODULE);
+            dispatcherName = delegator.getDelegatorName();
+        }
+
+        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(dispatcherName, delegator);
+        if (dispatcher == null) {
+            Debug.logError("[ContextFilter.init] ERROR: dispatcher could not be initialized.", MODULE);
+        }
+
+        return dispatcher;
+    }
+
+    public static Delegator getDelegator(ServletContext servletContext) {
+        Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
+        if (delegator == null) {
+            String delegatorName = servletContext.getInitParameter("entityDelegatorName");
+
+            if (UtilValidate.isEmpty(delegatorName)) {
+                delegatorName = "default";
+            }
+            if (Debug.verboseOn()) {
+                Debug.logVerbose("Setup Entity Engine Delegator with name " + delegatorName, MODULE);
+            }
+            delegator = DelegatorFactory.getDelegator(delegatorName);
+            servletContext.setAttribute("delegator", delegator);
+            if (delegator == null) {
+                Debug.logError("[ContextFilter.init] ERROR: delegator factory returned null for delegatorName \"" + delegatorName + "\"", MODULE);
+            }
+        }
+        return delegator;
     }
 
 }
@@ -239,7 +283,7 @@ public final class WebAppUtil {
                 request.setAttribute(parameterName, requestBodyMap.get(parameterName));
             }
         }
-    }
+    }*/
 
     /** This method only sets up a dispatcher for the current webapp and passed in delegator, it does not save it to the ServletContext
      * or anywhere else, just returns it */
@@ -262,9 +306,9 @@ public final class WebAppUtil {
         }
 
         return dispatcher;
-    }
+    }*/
 
-    public static Delegator getDelegator(ServletContext servletContext) {
+    /*public static Delegator getDelegator(ServletContext servletContext) {
         Delegator delegator = (Delegator) servletContext.getAttribute("delegator");
         if (delegator == null) {
             String delegatorName = servletContext.getInitParameter("entityDelegatorName");
@@ -282,9 +326,9 @@ public final class WebAppUtil {
             }
         }
         return delegator;
-    }
+    }*/
 
-    public static Security getSecurity(ServletContext servletContext) {
+    /*public static Security getSecurity(ServletContext servletContext) {
         Security security = (Security) servletContext.getAttribute("security");
         if (security == null) {
             Delegator delegator = (Delegator) servletContext.getAttribute("delegator");

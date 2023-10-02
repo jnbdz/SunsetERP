@@ -26,9 +26,9 @@ import org.sitenetsoft.framework.webapp.control.ConfigXMLReader.Event;
 import org.sitenetsoft.framework.webapp.control.ConfigXMLReader.RequestMap;
 import org.sitenetsoft.framework.webapp.control.RequestHandler;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;*/
 
 

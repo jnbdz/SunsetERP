@@ -22,7 +22,8 @@ import org.sitenetsoft.framework.base.util.Debug;
 import org.sitenetsoft.framework.base.util.UtilProperties;
 import org.sitenetsoft.framework.webapp.control.RequestHandlerExceptionAllowExternalRequests;
 
-import javax.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 

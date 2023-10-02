@@ -21,7 +21,7 @@ package org.sitenetsoft.framework.webapp.event;
 import org.sitenetsoft.framework.base.lang.JSON;
 import org.sitenetsoft.framework.base.util.UtilGenerics;
 
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 import java.io.IOException;
 import java.util.Map;
 

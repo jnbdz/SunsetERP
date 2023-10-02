@@ -36,7 +36,7 @@ import org.sitenetsoft.framework.widget.renderer.TreeStringRenderer;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.util.*;

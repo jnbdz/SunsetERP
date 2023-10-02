@@ -26,10 +26,10 @@ import org.sitenetsoft.framework.security.SecurityFactory;
 import org.sitenetsoft.framework.service.LocalDispatcher;
 import org.sitenetsoft.framework.service.ServiceContainer;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 
 /** Implements a WebDAV servlet. The servlet simply forwards WebDAV requests

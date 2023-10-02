@@ -23,8 +23,8 @@ package org.sitenetsoft.framework.base.util;
 import org.apache.commons.imaging.ImageReadException;
 import org.sitenetsoft.framework.entity.Delegator;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

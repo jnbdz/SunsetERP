@@ -44,7 +44,7 @@ public class Record implements Serializable {
     /** Contains the definition for the record */
     private transient ModelRecord modelRecord;
 
-    private Record parentRecord = null;
+    private org.sitenetsoft.framework.datafile.Record parentRecord = null;
     private List<Record> childRecords = new ArrayList<>();
 
     /** Creates new Record */
@@ -312,8 +312,9 @@ public class Record implements Serializable {
             set(name, number);
         } else if ("java.lang.String".equals(fieldType) || "String".equals(fieldType)) {
             if (field.getFormat().equals("EncryptedString")) {
-                String hashType = LoginServices.getHashType();
-                set(name, HashCrypt.digestHash(hashType, value.getBytes(StandardCharsets.UTF_8)));
+                // @TODO: Quarkus
+                /*String hashType = LoginServices.getHashType();
+                set(name, HashCrypt.digestHash(hashType, value.getBytes(StandardCharsets.UTF_8)));*/
             } else {
                 set(name, value);
             }
@@ -533,7 +534,7 @@ public class Record implements Serializable {
      * Gets parent record.
      * @return the parent record
      */
-    public Record getParentRecord() {
+    public org.sitenetsoft.framework.datafile.Record getParentRecord() {
         return parentRecord;
     }
 
@@ -541,7 +542,7 @@ public class Record implements Serializable {
      * Gets child records.
      * @return the child records
      */
-    public List<Record> getChildRecords() {
+    public List<org.sitenetsoft.framework.datafile.Record> getChildRecords() {
         return childRecords;
     }
 
@@ -549,7 +550,7 @@ public class Record implements Serializable {
      * Add child record.
      * @param record the record
      */
-    public void addChildRecord(Record record) {
+    public void addChildRecord(org.sitenetsoft.framework.datafile.Record record) {
         childRecords.add(record);
     }
 
@@ -558,8 +559,8 @@ public class Record implements Serializable {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return return the Record Object created
      */
-    public static Record createRecord(ModelRecord modelRecord) throws DataFileException {
-        Record record = new Record(modelRecord);
+    public static org.sitenetsoft.framework.datafile.Record createRecord(ModelRecord modelRecord) throws DataFileException {
+        org.sitenetsoft.framework.datafile.Record record = new Record(modelRecord);
 
         return record;
     }
@@ -570,8 +571,8 @@ public class Record implements Serializable {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return return the Record Object created
      */
-    public static Record createRecord(ModelRecord modelRecord, Map<String, Object> fields) throws DataFileException {
-        Record record = new Record(modelRecord, fields);
+    public static org.sitenetsoft.framework.datafile.Record createRecord(ModelRecord modelRecord, Map<String, Object> fields) throws DataFileException {
+        org.sitenetsoft.framework.datafile.Record record = new Record(modelRecord, fields);
 
         return record;
     }
@@ -583,7 +584,7 @@ public class Record implements Serializable {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return return the Record Object created
      */
-    static Record createRecord(String line, int lineNum, ModelRecord modelRecord) throws DataFileException {
+    static org.sitenetsoft.framework.datafile.Record createRecord(String line, int lineNum, ModelRecord modelRecord) throws DataFileException {
         Record record = new Record(modelRecord);
 
         for (ModelField modelField : modelRecord.getFields()) {
@@ -618,9 +619,9 @@ public class Record implements Serializable {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return return a Record Object
      */
-    public static Record createDelimitedRecord(String line, int lineNum, ModelRecord modelRecord, char delimiter, String textDelimiter)
+    public static org.sitenetsoft.framework.datafile.Record createDelimitedRecord(String line, int lineNum, ModelRecord modelRecord, char delimiter, String textDelimiter)
             throws DataFileException {
-        Record record = new Record(modelRecord);
+        org.sitenetsoft.framework.datafile.Record record = new Record(modelRecord);
 
         StringTokenizer st = null;
         if (line.endsWith(String.valueOf(delimiter))) {

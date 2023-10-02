@@ -31,7 +31,8 @@ import org.sitenetsoft.framework.webapp.control.WebAppConfigurationException;
 import org.sitenetsoft.framework.webapp.website.WebSiteProperties;
 import org.xml.sax.SAXException;
 
-import javax.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.net.URL;
 
