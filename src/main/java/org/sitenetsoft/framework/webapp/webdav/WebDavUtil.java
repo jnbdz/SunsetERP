@@ -25,7 +25,7 @@ import org.sitenetsoft.framework.base.util.UtilXml;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.InputStream;

@@ -21,7 +21,7 @@ package org.sitenetsoft.framework.security;
 import org.sitenetsoft.framework.entity.Delegator;
 import org.sitenetsoft.framework.entity.GenericValue;
 
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
 import java.util.Iterator;
 import java.util.List;
 

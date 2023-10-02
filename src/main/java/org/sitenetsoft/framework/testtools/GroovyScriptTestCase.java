@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.testtools;
 
-import groovy.util.GroovyTestCase;
+//import groovy.util.GroovyTestCase;
 import org.sitenetsoft.framework.entity.Delegator;
 import org.sitenetsoft.framework.security.Security;
 import org.sitenetsoft.framework.service.LocalDispatcher;
@@ -26,7 +26,8 @@ import org.sitenetsoft.framework.service.LocalDispatcher;
 /**
  * This test case engine allow writing test in groovy script that do not need compilation.
  */
-public class GroovyScriptTestCase extends GroovyTestCase {
+//extends GroovyTestCase
+public class GroovyScriptTestCase {
 
     private Delegator delegator;
     private LocalDispatcher dispatcher;

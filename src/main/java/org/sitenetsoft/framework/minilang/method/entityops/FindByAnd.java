@@ -32,6 +32,8 @@ import org.sitenetsoft.framework.minilang.artifact.ArtifactInfoContext;
 import org.sitenetsoft.framework.minilang.method.MethodContext;
 import org.w3c.dom.Element;
 
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;

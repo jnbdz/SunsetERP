@@ -27,7 +27,8 @@ import org.sitenetsoft.framework.entity.GenericValue;
 import org.sitenetsoft.framework.entity.util.EntityQuery;
 import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
 
-import javax.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 /**
  * Web site properties.

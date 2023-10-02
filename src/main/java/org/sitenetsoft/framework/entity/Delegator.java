@@ -18,6 +18,7 @@
  */
 package org.sitenetsoft.framework.entity;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.sitenetsoft.framework.entity.cache.Cache;
 import org.sitenetsoft.framework.entity.condition.EntityCondition;
 import org.sitenetsoft.framework.entity.datasource.GenericHelper;

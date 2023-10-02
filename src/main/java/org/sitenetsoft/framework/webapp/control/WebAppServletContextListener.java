@@ -20,15 +20,15 @@ package org.sitenetsoft.framework.webapp.control;
 
 import org.sitenetsoft.framework.base.util.UtilProperties;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebListener;
+import jakarta.servlet.*;
+import jakarta.servlet.annotation.WebListener;
 import java.util.EnumSet;
 
 @WebListener
 public class WebAppServletContextListener implements ServletContextListener {
 
     /* (non-Javadoc)
-     * @see javax.servlet.ServletContextListener#contextInitialized(javax.servlet.ServletContextEvent)
+     * @see jakarta.servlet.ServletContextListener#contextInitialized(jakarta.servlet.ServletContextEvent)
      */
     @Override
     public void contextInitialized(ServletContextEvent sce) {
@@ -37,7 +37,8 @@ public class WebAppServletContextListener implements ServletContextListener {
         SessionCookieConfig sessionCookieConfig = servletContext.getSessionCookieConfig();
         sessionCookieConfig.setHttpOnly(true);
         sessionCookieConfig.setSecure(true);
-        sessionCookieConfig.setComment("Created by Apache OFBiz WebAppServletContextListener");
+        // @TODO: Maybe use Quarkus
+        //sessionCookieConfig.setComment("Created by Apache OFBiz WebAppServletContextListener");
         String cookieDomain = UtilProperties.getPropertyValue("url", "cookie.domain", "");
         if (!cookieDomain.isEmpty()) sessionCookieConfig.setDomain(cookieDomain);
         sessionCookieConfig.setMaxAge(60 * 60 * 24 * 365);
@@ -45,7 +46,7 @@ public class WebAppServletContextListener implements ServletContextListener {
     }
 
     /* (non-Javadoc)
-     * @see javax.servlet.ServletContextListener#contextDestroyed(javax.servlet.ServletContextEvent)
+     * @see jakarta.servlet.ServletContextListener#contextDestroyed(jakarta.servlet.ServletContextEvent)
      */
     @Override
     public void contextDestroyed(ServletContextEvent sce) {

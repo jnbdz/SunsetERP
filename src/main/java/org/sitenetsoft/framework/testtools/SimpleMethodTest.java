@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.testtools;
 
-/*
 import junit.framework.AssertionFailedError;
 import junit.framework.TestResult;
 import org.sitenetsoft.framework.base.util.UtilGenerics;
@@ -39,14 +38,30 @@ import org.w3c.dom.Element;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-*/
 
-public class SimpleMethodTest {
-
-    private static final String MODULE = ServiceTest.class.getName();
-}
+import org.sitenetsoft.framework.service.testtools.OFBizTestCase;
 
 /*public class SimpleMethodTest extends OFBizTestCase {
+
+    private static final String MODULE = ServiceTest.class.getName();
+    private String methodLocation;
+    private String methodName;
+    private static MockHttpServletRequest request = new MockHttpServletRequest();
+    private static MockHttpServletResponse response = new MockHttpServletResponse();
+
+
+    public SimpleMethodTest(String caseName, Element mainElement) {
+        this(caseName, mainElement.getAttribute("location"), mainElement.getAttribute("name"));
+    }
+
+    public SimpleMethodTest(String caseName, String methodLocation, String methodName) {
+        super(caseName);
+        this.methodLocation = methodLocation;
+        this.methodName = methodName;
+    }
+}*/
+
+public class SimpleMethodTest extends OFBizTestCase {
 
     private static final String MODULE = ServiceTest.class.getName();
 
@@ -60,7 +75,7 @@ public class SimpleMethodTest {
      * @param caseName test case name
      * @param mainElement DOM main element
      */
-    /*public SimpleMethodTest(String caseName, Element mainElement) {
+    public SimpleMethodTest(String caseName, Element mainElement) {
         this(caseName, mainElement.getAttribute("location"), mainElement.getAttribute("name"));
     }
 
@@ -118,4 +133,3 @@ public class SimpleMethodTest {
         result.endTest(this);
     }
 }
-*/

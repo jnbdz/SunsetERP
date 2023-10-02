@@ -22,7 +22,7 @@ import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
 import freemarker.template.*;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**

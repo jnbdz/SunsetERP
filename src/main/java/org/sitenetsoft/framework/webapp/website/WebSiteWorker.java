@@ -18,14 +18,19 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.webapp.website;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.ws.rs.core.Context;
 import org.sitenetsoft.framework.base.util.Debug;
 import org.sitenetsoft.framework.entity.Delegator;
 import org.sitenetsoft.framework.entity.GenericEntityException;
 import org.sitenetsoft.framework.entity.GenericValue;
 import org.sitenetsoft.framework.entity.util.EntityQuery;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletContext;
+//import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletRequest;
 
 /**
  * WebSiteWorker - Worker class for web site related functionality
@@ -34,14 +39,22 @@ public final class WebSiteWorker {
 
     private static final String MODULE = WebSiteWorker.class.getName();
 
+    @Context
+    private HttpServletRequest servletRequest;
+
     private WebSiteWorker() { }
+
+    public static String getWebSiteId(HttpServletRequest request) {
+        ServletContext ctx = request.getServletContext();
+        return (ctx == null) ? null : ctx.getInitParameter("webSiteId");
+    }
 
     public static String getWebSiteId(ServletRequest request) {
         ServletContext ctx = request.getServletContext();
         return (ctx == null) ? null : ctx.getInitParameter("webSiteId");
     }
 
-    public static GenericValue getWebSite(ServletRequest request) {
+    public static GenericValue getWebSite(HttpServletRequest request) {
         String webSiteId = getWebSiteId(request);
         if (webSiteId == null) {
             return null;

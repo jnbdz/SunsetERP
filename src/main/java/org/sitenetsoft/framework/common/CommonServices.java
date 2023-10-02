@@ -30,7 +30,8 @@ import org.sitenetsoft.framework.entity.util.EntityQuery;
 import org.sitenetsoft.framework.service.*;
 import org.sitenetsoft.framework.service.mail.MimeMessageWrapper;
 
-import javax.mail.internet.MimeMessage;
+//import javax.mail.internet.MimeMessage;
+import jakarta.mail.internet.MimeMessage;
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;

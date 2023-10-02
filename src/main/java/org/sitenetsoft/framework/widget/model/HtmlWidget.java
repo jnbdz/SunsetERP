@@ -36,7 +36,7 @@ import org.jsoup.parser.ParseError;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.*;

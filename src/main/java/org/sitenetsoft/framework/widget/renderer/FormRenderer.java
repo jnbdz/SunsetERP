@@ -33,7 +33,7 @@ import org.sitenetsoft.framework.widget.model.ModelForm.FieldGroup;
 import org.sitenetsoft.framework.widget.model.ModelForm.FieldGroupBase;
 import org.sitenetsoft.framework.widget.renderer.html.HtmlWidgetRenderer;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Predicate;

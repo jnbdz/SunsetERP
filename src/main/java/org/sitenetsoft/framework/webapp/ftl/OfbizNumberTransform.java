@@ -28,7 +28,7 @@ import org.sitenetsoft.framework.base.util.UtilGenerics;
 import org.sitenetsoft.framework.base.util.UtilHttp;
 import org.sitenetsoft.framework.entity.Delegator;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Locale;

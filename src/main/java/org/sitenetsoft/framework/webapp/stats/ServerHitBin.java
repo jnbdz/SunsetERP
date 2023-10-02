@@ -31,7 +31,8 @@ import org.sitenetsoft.framework.entity.model.ModelEntity;
 import org.sitenetsoft.framework.entity.util.EntityQuery;
 import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
 
-import javax.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.Deque;
 import java.util.concurrent.ConcurrentHashMap;

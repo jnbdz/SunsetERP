@@ -2491,7 +2491,7 @@ public abstract class ModelForm extends ModelWidget {
          * Retrieve a Jwt from context, validate it and generate UpdateArea Object
          * @return UpdateArea object
          */
-        /*public static UpdateArea fromJwtToken(Map<String, Object> context) {
+        public static UpdateArea fromJwtToken(Map<String, Object> context) {
             Delegator delegator = (Delegator) context.get("delegator");
 
             String jwtToken = (String) context.get(CommonWidgetModels.JWT_CALLBACK);
@@ -2527,6 +2527,6 @@ public abstract class ModelForm extends ModelWidget {
                             .map(entry -> CommonWidgetModels.ParameterFactory.create(entry))
                             .collect(Collectors.toList())
                             : new ArrayList<>());
-        }*/
+        }
     }
 }

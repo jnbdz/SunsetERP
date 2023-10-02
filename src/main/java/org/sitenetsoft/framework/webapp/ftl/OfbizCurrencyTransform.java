@@ -26,7 +26,7 @@ import org.sitenetsoft.framework.base.util.*;
 import org.sitenetsoft.framework.entity.Delegator;
 import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;

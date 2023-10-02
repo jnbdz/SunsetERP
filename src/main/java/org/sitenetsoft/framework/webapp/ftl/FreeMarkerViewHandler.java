@@ -31,10 +31,10 @@ import org.sitenetsoft.framework.base.util.template.FreeMarkerWorker;
 import org.sitenetsoft.framework.webapp.view.AbstractViewHandler;
 import org.sitenetsoft.framework.webapp.view.ViewHandlerException;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Map;
 
@@ -98,21 +98,21 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
         root.put("session", session);
 
         // add the session
-        root.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));
+        //root.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));
 
         // add the request object (for transforms) to the context as a BeanModel
         root.put("request", request);
 
         // add the request
-        root.put("requestAttributes", new HttpRequestHashModel(request, FreeMarkerWorker.getDefaultOfbizWrapper()));
+        //root.put("requestAttributes", new HttpRequestHashModel(request, FreeMarkerWorker.getDefaultOfbizWrapper()));
 
         // add the request parameters -- this now uses a Map from UtilHttp
         Map<String, Object> requestParameters = UtilHttp.getParameterMap(request);
         root.put("requestParameters", requestParameters);
 
         // add the TabLibFactory
-        TaglibFactory jspTaglibs = new TaglibFactory(servletContext);
-        root.put("JspTaglibs", jspTaglibs);
+        //TaglibFactory jspTaglibs = new TaglibFactory(servletContext);
+        //root.put("JspTaglibs", jspTaglibs);
 
     }
 }

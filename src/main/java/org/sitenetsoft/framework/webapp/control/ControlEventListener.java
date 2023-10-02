@@ -28,9 +28,9 @@ import org.sitenetsoft.framework.entity.util.EntityQuery;
 import org.sitenetsoft.framework.security.CsrfUtil;
 import org.sitenetsoft.framework.widget.model.ScriptLinkHelper;
 
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionListener;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSessionEvent;
+import jakarta.servlet.http.HttpSessionListener;
 import java.sql.Timestamp;
 import java.util.Enumeration;
 import java.util.Map;

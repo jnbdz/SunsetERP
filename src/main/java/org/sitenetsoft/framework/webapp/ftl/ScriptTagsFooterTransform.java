@@ -24,7 +24,7 @@ import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 import org.sitenetsoft.framework.widget.model.ScriptLinkHelper;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;

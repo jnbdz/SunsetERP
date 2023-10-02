@@ -18,15 +18,19 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.service.mail;
 
-/*import org.sitenetsoft.framework.base.conversion.AbstractConverter;
+import org.sitenetsoft.framework.base.conversion.AbstractConverter;
 import org.sitenetsoft.framework.base.conversion.ConversionException;
 import org.sitenetsoft.framework.base.conversion.Converters;
 import org.sitenetsoft.framework.base.util.Debug;
 import org.sitenetsoft.framework.base.util.GeneralRuntimeException;
 import org.sitenetsoft.framework.base.util.UtilDateTime;
 
-import javax.mail.*;
-import javax.mail.internet.MimeMessage;
+//import javax.mail.*;
+//import javax.mail.internet.MimeMessage;
+import jakarta.mail.MessagingException;
+import jakarta.mail.Multipart;
+import jakarta.mail.Session;
+import jakarta.mail.internet.MimeMessage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -37,11 +41,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
-*/
 
 @SuppressWarnings("serial")
-public class MimeMessageWrapper {}
-/*public class MimeMessageWrapper implements java.io.Serializable {
+//public class MimeMessageWrapper {}
+public class MimeMessageWrapper implements java.io.Serializable {
 
     private static final String MODULE = MimeMessageWrapper.class.getName();
     private transient MimeMessage message = null;
@@ -64,7 +67,7 @@ public class MimeMessageWrapper {}
      * Sets session.
      * @param session the session
      */
-    /*public synchronized void setSession(Session session) {
+    public synchronized void setSession(Session session) {
         this.session = session;
         this.mailProperties = session.getProperties();
     }
@@ -73,7 +76,7 @@ public class MimeMessageWrapper {}
      * Gets session.
      * @return the session
      */
-    /*public synchronized Session getSession() {
+    public synchronized Session getSession() {
         if (session == null) {
             session = Session.getInstance(mailProperties, null);
         }
@@ -84,7 +87,7 @@ public class MimeMessageWrapper {}
      * Sets message.
      * @param message the message
      */
-    /*public synchronized void setMessage(MimeMessage message) {
+    public synchronized void setMessage(MimeMessage message) {
         if (message != null) {
             // serialize the message
             this.message = message;
@@ -112,7 +115,7 @@ public class MimeMessageWrapper {}
      * Gets message.
      * @return the message
      */
-    /*public synchronized MimeMessage getMessage() {
+    public synchronized MimeMessage getMessage() {
         if (message == null) {
             // deserialize the message
             if (serializedBytes != null) {
@@ -676,5 +679,5 @@ public class MimeMessageWrapper {}
         public String convert(MimeMessageWrapper obj) throws ConversionException {
             return obj.toString();
         }
-    }
-}*/
+    }*/
+}

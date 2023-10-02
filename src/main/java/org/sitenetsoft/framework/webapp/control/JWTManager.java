@@ -38,10 +38,14 @@ import org.sitenetsoft.framework.service.ModelService;
 import org.sitenetsoft.framework.service.ServiceUtil;
 import org.sitenetsoft.framework.webapp.WebAppUtil;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.core.HttpHeaders;
+//import jakarta.servlet.ServletContext;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import javax.ws.rs.core.HttpHeaders;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.HttpHeaders;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -51,10 +55,10 @@ import java.util.Map;
 /**
  * This class manages the single sign-on authentication through JWT tokens between OFBiz applications.
  */
-public class JWTManager {
-    private static final String MODULE = org.sitenetsoft.framework.webapp.control.JWTManager.class.getName();
-}
 /*public class JWTManager {
+    private static final String MODULE = org.sitenetsoft.framework.webapp.control.JWTManager.class.getName();
+}*/
+public class JWTManager {
     private static final String MODULE = JWTManager.class.getName();
 
     /**
@@ -72,7 +76,7 @@ public class JWTManager {
      * @param response The HTTPResponse object for the current request
      * @return String  always "success"
      */
-    /*public static String checkJWTLogin(HttpServletRequest request, HttpServletResponse response) {
+    public static String checkJWTLogin(HttpServletRequest request, HttpServletResponse response) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         if (!"true".equals(EntityUtilProperties.getPropertyValue("security", "security.internal.sso.enabled", "false", delegator))) {
@@ -125,7 +129,7 @@ public class JWTManager {
      * @param delegator the delegator
      * @return the JWT secret key
      */
-    /*public static String getJWTKey(Delegator delegator) {
+    public static String getJWTKey(Delegator delegator) {
         return getJWTKey(delegator, null);
     }
 
@@ -135,7 +139,7 @@ public class JWTManager {
      * @return the JWT secret key
      */
 
-    /*public static String getJWTKey(Delegator delegator, String salt) {
+    public static String getJWTKey(Delegator delegator, String salt) {
         String key = UtilProperties.getPropertyValue("security", "security.token.key");
         if (key.length() < 64) { // The key must be 512 bits (ie 64 chars)  as we use HMAC512 to create the token, cf. OFBIZ-12724
             throw new SecurityException("The JWT secret key is too short. It must be at least 512 bites.");
@@ -152,7 +156,7 @@ public class JWTManager {
      * @param request the http request in which the authentication token is searched and stored
      * @return the authentication token
      */
-    /*public static String getAuthenticationToken(HttpServletRequest request, HttpServletResponse response) {
+    public static String getAuthenticationToken(HttpServletRequest request, HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
@@ -208,7 +212,7 @@ public class JWTManager {
      * @param request the request to get the token from
      * @return the bare JWT token
      */
-    /*public static String getHeaderAuthBearerToken(HttpServletRequest request) {
+    public static String getHeaderAuthBearerToken(HttpServletRequest request) {
 
         String headerAuthValue = request.getHeader(HttpHeaders.AUTHORIZATION);
         String bearerPrefix = "Bearer ";
@@ -229,7 +233,7 @@ public class JWTManager {
      * @param key the server side key to verify the signature
      * @return Map of the claims contained in the token or an error
      */
-    /*public static Map<String, Object> validateToken(String jwtToken, String key) {
+     public static Map<String, Object> validateToken(String jwtToken, String key) {
         Map<String, Object> result = new HashMap<>();
         if (UtilValidate.isEmpty(jwtToken) || UtilValidate.isEmpty(key)) {
             String msg = "JWT token or key can not be empty.";
@@ -263,7 +267,7 @@ public class JWTManager {
      * @param keySalt
      * @return Map of the claims contained in the token or an error
      */
-    /*public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
+    public static Map<String, Object> validateToken(Delegator delegator, String jwtToken, String keySalt) {
         return validateToken(jwtToken, JWTManager.getJWTKey(delegator, keySalt));
     }
 
@@ -273,7 +277,7 @@ public class JWTManager {
      * @param claims the map containing the JWT claims
      * @return a JWT token
      */
-    /*public static String createJwt(Delegator delegator, Map<String, String> claims) {
+    public static String createJwt(Delegator delegator, Map<String, String> claims) {
         int expirationTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
         return createJwt(delegator, claims, expirationTime);
     }
@@ -284,7 +288,7 @@ public class JWTManager {
      * @param expireTime the expiration time in seconds
      * @return a JWT token
      */
-    /*public static String createJwt(Delegator delegator, Map<String, String> claims, int expireTime) {
+    public static String createJwt(Delegator delegator, Map<String, String> claims, int expireTime) {
         return createJwt(delegator, claims, null, expireTime);
     }
 
@@ -295,7 +299,7 @@ public class JWTManager {
      * @param expireTime the expiration time in seconds
      * @return a JWT token
      */
-    /*public static String createJwt(Delegator delegator, Map<String, String> claims, String keySalt, int expireTime) {
+    public static String createJwt(Delegator delegator, Map<String, String> claims, String keySalt, int expireTime) {
         if (expireTime <= 0) {
             expireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "security.jwt.token.expireTime", "1800", delegator));
         }
@@ -326,7 +330,7 @@ public class JWTManager {
      * @param delegator The current delegator
      * @param userLogin The GenericValue object of userLogin to check
      */
-    /*private static void checkTenant(HttpServletRequest request, HttpServletResponse response, Delegator delegator,
+    private static void checkTenant(HttpServletRequest request, HttpServletResponse response, Delegator delegator,
             GenericValue userLogin) {
 
         String oldDelegatorName = delegator.getDelegatorName();
@@ -343,7 +347,7 @@ public class JWTManager {
      * @param userLogin The userLogin GenericValue to store
      * @return boolean True if it works, log an error message if it fails
      */
-    /*private static boolean storeUserlogin(GenericValue userLogin) {
+    private static boolean storeUserlogin(GenericValue userLogin) {
         String enabled = userLogin.getString("enabled");
         if (enabled == null || "Y".equals(enabled)) {
             userLogin.set("hasLoggedOut", "N");
@@ -364,7 +368,7 @@ public class JWTManager {
      * @param jwtMap Map of name, value pairs composing the result of the JWT validation
      * @return userLogin The userLogin GenericValue extracted from DB
      */
-    /*private static GenericValue getUserlogin(Delegator delegator, Map<String, Object> jwtMap) {
+    private static GenericValue getUserlogin(Delegator delegator, Map<String, Object> jwtMap) {
         String userLoginId = (String) jwtMap.get("userLoginId");
 
         if (UtilValidate.isEmpty(userLoginId)) {
@@ -391,7 +395,7 @@ public class JWTManager {
      * @param key the secret key to decrypt the token
      * @return Map of name, value pairs composing the result
      */
-    /*private static Map<String, Object> validateJwtToken(String jwtToken, String key) {
+    private static Map<String, Object> validateJwtToken(String jwtToken, String key) {
         Map<String, Object> result = validateToken(jwtToken, key);
         if (result.containsKey(ModelService.ERROR_MESSAGE)) {
             // Something unexpected happened here
@@ -400,4 +404,3 @@ public class JWTManager {
         return result;
     }
 }
-*/

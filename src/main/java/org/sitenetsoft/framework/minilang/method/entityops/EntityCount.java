@@ -35,6 +35,7 @@ import org.sitenetsoft.framework.minilang.MiniLangValidate;
 import org.sitenetsoft.framework.minilang.SimpleMethod;
 import org.sitenetsoft.framework.minilang.artifact.ArtifactInfoContext;
 import org.sitenetsoft.framework.minilang.method.MethodContext;
+import org.sitenetsoft.framework.entity.condition.EntityCondition;
 import org.w3c.dom.Element;
 
 /**

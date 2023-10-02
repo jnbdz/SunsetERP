@@ -30,8 +30,8 @@ import org.sitenetsoft.framework.entity.util.EntityQuery;
 import org.sitenetsoft.framework.entity.util.EntityUtil;
 import org.sitenetsoft.framework.security.Security;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Iterator;

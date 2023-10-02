@@ -18,44 +18,70 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.common.status;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.UriInfo;
 import org.sitenetsoft.framework.base.util.Debug;
 import org.sitenetsoft.framework.entity.Delegator;
 import org.sitenetsoft.framework.entity.GenericEntityException;
 import org.sitenetsoft.framework.entity.GenericValue;
 import org.sitenetsoft.framework.entity.util.EntityQuery;
 
-import javax.servlet.jsp.PageContext;
+//import jakarta.servlet.jsp.PageContext;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
  * StatusWorker
  */
+@ApplicationScoped
 public final class StatusWorker {
 
     private static final String MODULE = StatusWorker.class.getName();
 
+    @Inject
+    Delegator delegator;
+
+    @Context
+    UriInfo uriInfo;
+
     private StatusWorker() { }
 
-    public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeId) {
-        Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
+    public List<GenericValue> getStatusItems(String statusTypeId) {
+        try {
+            return EntityQuery.use(delegator)
+                    .from("StatusItem")
+                    .where("statusTypeId", statusTypeId)
+                    .orderBy("sequenceId")
+                    .cache(true)
+                    .queryList();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, MODULE);
+            return Collections.emptyList(); // or handle this exception as suitable for your app
+        }
+    }
+
+    /*public static void getStatusItems(String attributeName, String statusTypeId) {
+        //Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
 
         try {
-            List<GenericValue> statusItems = EntityQuery.use(delegator)
+            List<GenericValue> statusItems = EntityQuery.use(this.delegator)
                                                         .from("StatusItem")
                                                         .where("statusTypeId", statusTypeId)
                                                         .orderBy("sequenceId")
                                                         .cache(true)
                                                         .queryList();
-            if (statusItems != null) {
-                pageContext.setAttribute(attributeName, statusItems);
-            }
+            //if (statusItems != null) {
+            //    pageContext.setAttribute(attributeName, statusItems);
+            //}
         } catch (GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
-    }
+    }*/
 
-    public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeIdOne, String statusTypeIdTwo) {
+    /*public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeIdOne, String statusTypeIdTwo) {
         Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         List<GenericValue> statusItems = new LinkedList<>();
 
@@ -89,9 +115,41 @@ public final class StatusWorker {
         if (!statusItems.isEmpty()) {
             pageContext.setAttribute(attributeName, statusItems);
         }
+    }*/
+
+    public List<GenericValue> getStatusItems(String statusTypeIdOne, String statusTypeIdTwo) {
+        List<GenericValue> statusItems = new LinkedList<>();
+
+        try {
+            List<GenericValue> calItems = EntityQuery.use(delegator)
+                    .from("StatusItem")
+                    .where("statusTypeId", statusTypeIdOne)
+                    .orderBy("sequenceId")
+                    .cache(true)
+                    .queryList();
+            if (calItems != null) {
+                statusItems.addAll(calItems);
+            }
+
+            List<GenericValue> taskItems = EntityQuery.use(delegator)
+                    .from("StatusItem")
+                    .where("statusTypeId", statusTypeIdTwo)
+                    .orderBy("sequenceId")
+                    .cache(true)
+                    .queryList();
+            if (taskItems != null) {
+                statusItems.addAll(taskItems);
+            }
+
+        } catch (GenericEntityException e) {
+            Debug.logError(e, MODULE);
+            return Collections.emptyList();  // or handle the exception as per your application needs
+        }
+
+        return statusItems;
     }
 
-    public static void getStatusValidChangeToDetails(PageContext pageContext, String attributeName, String statusId) {
+    /*public static void getStatusValidChangeToDetails(PageContext pageContext, String attributeName, String statusId) {
         Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
         List<GenericValue> statusValidChangeToDetails = null;
 
@@ -109,5 +167,23 @@ public final class StatusWorker {
         if (statusValidChangeToDetails != null) {
             pageContext.setAttribute(attributeName, statusValidChangeToDetails);
         }
+    }*/
+
+    public List<GenericValue> getStatusValidChangeToDetails(String statusId) {
+        List<GenericValue> statusValidChangeToDetails;
+
+        try {
+            statusValidChangeToDetails = EntityQuery.use(delegator)
+                    .from("StatusValidChangeToDetail")
+                    .where("statusId", statusId)
+                    .orderBy("sequenceId")
+                    .cache(true)
+                    .queryList();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, MODULE);
+            return Collections.emptyList();  // or handle the exception as per your application needs
+        }
+
+        return statusValidChangeToDetails;
     }
 }

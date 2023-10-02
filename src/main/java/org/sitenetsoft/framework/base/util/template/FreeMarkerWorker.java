@@ -34,8 +34,8 @@ import org.sitenetsoft.framework.base.util.*;
 import org.sitenetsoft.framework.base.util.cache.UtilCache;
 import org.sitenetsoft.framework.widget.model.ModelWidget;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.Writer;

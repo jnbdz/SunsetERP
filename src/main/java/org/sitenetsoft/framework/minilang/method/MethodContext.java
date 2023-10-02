@@ -18,6 +18,13 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.minilang.method;
 
+//import io.quarkus.security.identity.SecurityIdentity;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.Context;
+import jakarta.ws.rs.core.SecurityContext;
 import org.sitenetsoft.framework.base.util.Debug;
 import org.sitenetsoft.framework.base.util.UtilHttp;
 import org.sitenetsoft.framework.base.util.UtilMisc;
@@ -29,8 +36,8 @@ import org.sitenetsoft.framework.security.Security;
 import org.sitenetsoft.framework.service.DispatchContext;
 import org.sitenetsoft.framework.service.LocalDispatcher;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -39,13 +46,24 @@ import java.util.TimeZone;
 /**
  * A container for the Mini-language script engine state.
  */
+@ApplicationScoped
 public final class MethodContext {
 
     public static final int EVENT = 1;
     public static final int SERVICE = 2;
 
-    private Delegator delegator;
-    private LocalDispatcher dispatcher;
+    @Inject
+    Delegator delegator;
+
+    @Inject
+    LocalDispatcher dispatcher;
+
+    //@Inject
+    //SecurityIdentity identity;
+
+    @Context
+    SecurityContext securityContext; // JAX-RS security context, if you need user or security info
+
     private Map<String, Object> env = new HashMap<>();
     private ClassLoader loader;
     private Locale locale;
@@ -70,6 +88,7 @@ public final class MethodContext {
         this.delegator = ctx.getDelegator();
         this.security = ctx.getSecurity();
         this.userLogin = (GenericValue) context.get("userLogin");
+        //this.userLogin = (GenericValue) identity.getPrincipal().getName();
         if (this.loader == null) {
             try {
                 this.loader = Thread.currentThread().getContextClassLoader();
@@ -79,18 +98,33 @@ public final class MethodContext {
         }
     }
 
-    public MethodContext(HttpServletRequest request, HttpServletResponse response, ClassLoader loader) {
+    public MethodContext(ClassLoader loader) {
         this.methodType = MethodContext.EVENT;
-        this.parameters = UtilHttp.getCombinedMap(request);
+
+        // Assuming you've moved parameters, locale, timeZone, etc. to the JAX-RS context or other parts of the app
+        this.parameters = new HashMap<>(); // Modify this according to where you now store parameters.
         this.loader = loader;
-        this.request = request;
-        this.response = response;
-        this.locale = UtilHttp.getLocale(request);
-        this.timeZone = UtilHttp.getTimeZone(request);
-        this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        this.delegator = (Delegator) request.getAttribute("delegator");
-        this.security = (Security) request.getAttribute("security");
-        this.userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
+
+        // Commented out because these references to HttpServletRequest and HttpServletResponse are removed.
+        // this.request = request;
+        // this.response = response;
+
+        // Locale and TimeZone should be set based on your application's design.
+        // If they're in the JAX-RS context, you can get them from there.
+        // Otherwise, you may set defaults or other mechanisms to obtain them.
+        this.locale = Locale.getDefault(); // Use default or your mechanism
+        this.timeZone = TimeZone.getDefault(); // Use default or your mechanism
+
+        // You might need to get attributes like "dispatcher", "delegator", etc. from somewhere else.
+        // For instance, if you store them as singletons or in the app context, retrieve them from there.
+        // The below code assumes you have some mechanism to get them.
+        /*this.dispatcher = getDispatcherFromSomeMechanism();
+        this.delegator = getDelegatorFromSomeMechanism();
+        this.security = getSecurityFromSomeMechanism();*/
+
+        // If userLogin info is in the JAX-RS security context, get it from there.
+        /*this.userLogin = getUserLoginFromSecurityContext(securityContext);*/
+
         if (this.loader == null) {
             try {
                 this.loader = Thread.currentThread().getContextClassLoader();
@@ -150,6 +184,32 @@ public final class MethodContext {
             }
         }
     }
+
+    /*private LocalDispatcher getDispatcherFromSomeMechanism() {
+        // You might get the dispatcher from a service, a context, or some global state, etc.
+        // This is just a mock example.
+        return LocalDispatcher.getInstance(); // assuming there's a static method named getInstance() in LocalDispatcher
+    }
+
+    private Delegator getDelegatorFromSomeMechanism() {
+        // Similarly, retrieve the delegator. The method used here is fictional and meant as an example.
+        return DelegatorService.getDelegator(); // replace with actual method
+    }*/
+
+    /*private Security getSecurityFromSomeMechanism() {
+        // As with the dispatcher and delegator, this depends on your application's design.
+        return SecurityService.getCurrentSecurityInstance(); // replace with actual method
+    }*/
+
+    /*private GenericValue getUserLoginFromSecurityContext(SecurityContext securityContext) {
+        // Here, you'd extract the user info from the JAX-RS SecurityContext, if applicable.
+        // Assuming GenericValue can be created from a principal's name:
+        if (securityContext != null && securityContext.getUserPrincipal() != null) {
+            String username = securityContext.getUserPrincipal().getName();
+            return new GenericValue(username); // replace with a more appropriate constructor or method
+        }
+        return null;
+    }*/
 
     public Delegator getDelegator() {
         return this.delegator;

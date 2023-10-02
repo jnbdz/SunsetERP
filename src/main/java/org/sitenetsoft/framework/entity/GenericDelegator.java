@@ -19,6 +19,7 @@
  */
 package org.sitenetsoft.framework.entity;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import org.sitenetsoft.framework.base.concurrent.ConstantFuture;
 import org.sitenetsoft.framework.base.concurrent.ExecutionPool;
 import org.sitenetsoft.framework.base.util.*;
@@ -55,6 +56,7 @@ import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
  * The default implementation of the <code>Delegator</code> interface.
  *
  */
+@ApplicationScoped
 public class GenericDelegator implements Delegator {
 
     private static final String MODULE = GenericDelegator.class.getName();

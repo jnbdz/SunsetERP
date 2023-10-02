@@ -32,9 +32,9 @@ import org.sitenetsoft.framework.service.calendar.RecurrenceRule;
 import org.sitenetsoft.framework.webapp.control.ConfigXMLReader.Event;
 import org.sitenetsoft.framework.webapp.control.RequestHandler;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;

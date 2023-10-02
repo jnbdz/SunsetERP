@@ -32,8 +32,8 @@ import org.sitenetsoft.framework.widget.renderer.VisualTheme;
 
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.*;
 
 /**

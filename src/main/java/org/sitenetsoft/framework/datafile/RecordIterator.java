@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.framework.datafile;
 
+import org.sitenetsoft.framework.datafile.Record;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -42,9 +44,9 @@ public class RecordIterator {
 
     private int nextLineNum = 0;
     private String curLine = null;
-    private java.lang.Record curRecord = null;
+    private Record curRecord = null;
     private String nextLine = null;
-    private java.lang.Record nextRecord = null;
+    private Record nextRecord = null;
     private String eof = "\u001A"; // aka ASCII char 26, aka substitute, aka  0x1A, aka CTRL-Z, aka EOF DOS character. Added because problems in
     // some DOS file, specifically file extracted from zip archives.
 
@@ -132,10 +134,10 @@ public class RecordIterator {
             nextLineNum++;
             ModelRecord modelRecord = findModelForLine(nextLine, nextLineNum, modelDataFile);
             if (isDelimited) {
-                this.nextRecord = java.lang.Record.createDelimitedRecord(nextLine, nextLineNum, modelRecord, modelDataFile.getDelimiter(),
+                this.nextRecord = org.sitenetsoft.framework.datafile.Record.createDelimitedRecord(nextLine, nextLineNum, modelRecord, modelDataFile.getDelimiter(),
                         modelDataFile.getTextDelimiter());
             } else {
-                this.nextRecord = java.lang.Record.createRecord(nextLine, nextLineNum, modelRecord);
+                this.nextRecord = org.sitenetsoft.framework.datafile.Record.createRecord(nextLine, nextLineNum, modelRecord);
             }
             return true;
         } else {
@@ -165,7 +167,7 @@ public class RecordIterator {
      * @return the record
      * @throws DataFileException the data file exception
      */
-    public java.lang.Record next() throws DataFileException {
+    public Record next() throws DataFileException {
         int recordLength = modelDataFile.getRecordLength();
         if (!hasNext()) {
             return null;
@@ -191,12 +193,12 @@ public class RecordIterator {
 
             // if this record has children, put it on the parentStack and get/check the children now
             if (this.curRecord.getModelRecord().getChildRecords().size() > 0) {
-                Stack<java.lang.Record> parentStack = new Stack<>();
+                Stack<Record> parentStack = new Stack<>();
                 parentStack.push(curRecord);
 
                 while (this.nextRecord != null && this.nextRecord.getModelRecord().getParentRecord() != null) {
                     // if parent equals top parent on stack, add to that parents child list, otherwise pop off parent and try again
-                    java.lang.Record parentRecord = null;
+                    Record parentRecord = null;
 
                     while (!parentStack.isEmpty()) {
                         parentRecord = parentStack.peek();

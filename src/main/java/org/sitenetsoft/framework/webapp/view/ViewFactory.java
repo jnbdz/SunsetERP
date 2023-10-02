@@ -24,7 +24,8 @@ import org.sitenetsoft.framework.base.util.ObjectType;
 import org.sitenetsoft.framework.base.util.UtilValidate;
 import org.sitenetsoft.framework.webapp.control.ConfigXMLReader;
 
-import javax.servlet.ServletContext;
+//import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;

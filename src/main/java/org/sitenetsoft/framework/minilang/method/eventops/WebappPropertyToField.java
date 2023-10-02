@@ -29,7 +29,7 @@ import org.sitenetsoft.framework.minilang.method.MethodContext;
 import org.sitenetsoft.framework.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
-import javax.servlet.ServletContext;
+import jakarta.servlet.ServletContext;
 import java.net.URL;
 
 /**

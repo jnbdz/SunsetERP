@@ -34,8 +34,8 @@ import org.sitenetsoft.framework.service.ModelService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -327,7 +327,7 @@ public final class SimpleMethod extends MiniLangElement {
     public static String runSimpleEvent(URL xmlURL, String methodName, HttpServletRequest request, HttpServletResponse response, ClassLoader loader)
             throws MiniLangException {
         return runSimpleMethod(xmlURL, methodName, new MethodContext(request, response, loader));
-    }
+    }*/
 
     public static String runSimpleMethod(String xmlResource, String methodName, MethodContext methodContext) throws MiniLangException {
         Assert.notNull("methodContext", methodContext);
@@ -365,7 +365,7 @@ public final class SimpleMethod extends MiniLangElement {
         MethodContext methodContext = new MethodContext(ctx, context, loader);
         runSimpleMethod(xmlURL, methodName, methodContext);
         return methodContext.getResults();
-    }*/
+    }
 
     /**
      * Execs the given operations returning true if all return true, or returning false and stopping if any return false.
@@ -447,15 +447,17 @@ public final class SimpleMethod extends MiniLangElement {
             methodContext.putEnv(getUserLoginEnvName(), userLogin);
         }
         methodContext.putEnv("nullField", GenericEntity.NULL_FIELD);
-        methodContext.putEnv(getDelegatorEnvName(), methodContext.getDelegator());
+        // @TODO: Quarkus
+        /*methodContext.putEnv(getDelegatorEnvName(), methodContext.getDelegator());
         methodContext.putEnv(getSecurityEnvName(), methodContext.getSecurity());
-        methodContext.putEnv(getDispatcherEnvName(), methodContext.getDispatcher());
+        methodContext.putEnv(getDispatcherEnvName(), methodContext.getDispatcher());*/
         methodContext.putEnv("locale", locale);
         methodContext.putEnv(getParameterMapName(), methodContext.getParameters());
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-            methodContext.putEnv(eventRequestName, methodContext.getRequest());
+            // @TODO: Quarkus
+            /*methodContext.putEnv(eventRequestName, methodContext.getRequest());
             methodContext.putEnv(eventSessionName, methodContext.getRequest().getSession());
-            methodContext.putEnv(eventResponseName, methodContext.getResponse());
+            methodContext.putEnv(eventResponseName, methodContext.getResponse());*/
         }
         methodContext.putEnv("simpleMethod", this);
         methodContext.putEnv("methodName", this.getMethodName());
@@ -504,24 +506,28 @@ public final class SimpleMethod extends MiniLangElement {
             String tempErrorMsg = (String) methodContext.getEnv(eventErrorMessageName);
             if (!errorMsg.isEmpty() || UtilValidate.isNotEmpty(tempErrorMsg)) {
                 errorMsg += tempErrorMsg;
-                methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errorMsg);
+                // @TODO: Quarkus
+                //methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errorMsg);
                 forceError = true;
                 summaryErrorStringBuffer.append(errorMsg);
             }
             List<Object> tempErrorMsgList = UtilGenerics.cast(methodContext.getEnv(eventErrorMessageListName));
             if (UtilValidate.isNotEmpty(tempErrorMsgList)) {
-                methodContext.getRequest().setAttribute("_ERROR_MESSAGE_LIST_", tempErrorMsgList);
+                // @TODO: Quarkus
+                //methodContext.getRequest().setAttribute("_ERROR_MESSAGE_LIST_", tempErrorMsgList);
                 forceError = true;
                 summaryErrorStringBuffer.append("; ");
                 summaryErrorStringBuffer.append(tempErrorMsgList.toString());
             }
             String eventMsg = (String) methodContext.getEnv(eventEventMessageName);
             if (UtilValidate.isNotEmpty(eventMsg)) {
-                methodContext.getRequest().setAttribute("_EVENT_MESSAGE_", eventMsg);
+                // @TODO: Quarkus
+                //methodContext.getRequest().setAttribute("_EVENT_MESSAGE_", eventMsg);
             }
             List<String> eventMsgList = UtilGenerics.cast(methodContext.getEnv(eventEventMessageListName));
             if (UtilValidate.isNotEmpty(eventMsgList)) {
-                methodContext.getRequest().setAttribute("_EVENT_MESSAGE_LIST_", eventMsgList);
+                // @TODO: Quarkus
+                //methodContext.getRequest().setAttribute("_EVENT_MESSAGE_LIST_", eventMsgList);
             }
             response = (String) methodContext.getEnv(eventResponseCodeName);
             if (UtilValidate.isEmpty(response)) {
@@ -749,13 +755,14 @@ public final class SimpleMethod extends MiniLangElement {
         return this.useTransaction;
     }
 
-    /*private String returnError(MethodContext methodContext, String errorMsg) {
+    private String returnError(MethodContext methodContext, String errorMsg) {
         if (methodContext.getMethodType() == MethodContext.EVENT) {
-            methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errorMsg);
+            // @TODO: Quarkus
+            //methodContext.getRequest().setAttribute("_ERROR_MESSAGE_", errorMsg);
         } else {
             methodContext.putResult(ModelService.ERROR_MESSAGE, errorMsg);
             methodContext.putResult(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
         }
         return defaultErrorCode;
-    }*/
+    }
 }

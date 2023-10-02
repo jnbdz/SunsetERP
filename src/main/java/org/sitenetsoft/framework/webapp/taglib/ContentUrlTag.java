@@ -25,7 +25,8 @@ import org.sitenetsoft.framework.base.util.UtilValidate;
 import org.sitenetsoft.framework.entity.GenericValue;
 import org.sitenetsoft.framework.webapp.website.WebSiteWorker;
 
-import javax.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
