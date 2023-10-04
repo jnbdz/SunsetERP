@@ -1,5 +1,74 @@
-# evobiz
+# SNS-ERP
 
+**WARNING:** This project is still in development. It is not ready for production use or any use at all. But help is always welcome!
+
+SNS-ERP stands for SiteNetSoft Enterprise Resource Planning (ERP) and is based on a heavily modified version of [OFBiz](https://ofbiz.apache.org/) to run on Quarkus.
+
+Here are some of the features of SNS-ERP:
+- Accounting (agreements, invoicing, vendor management, general ledger)
+- Asset maintenance
+- Catalogue and product management
+- Facility and warehouse management system (WMS)
+- Manufacturing execution / manufacturing operations management (MES/MOM)
+- Order processing
+- Inventory management, automated stock replenishment etc.
+- Content management system (CMS)
+- Human resources (HR)
+- People and group management
+- Project management
+- Sales force automation
+- Work effort management
+- Electronic point of sale (ePOS)
+- Electronic commerce (eCommerce)
+- Scrum (development) (Scrum software development support)
+- *and many more to come...*
+
+OFBiz uses standard business data models wherever possible, and if not, it uses standard data models for the specific industry.
+
+## Delta with OFBiz
+- SNS-ERP is based on Quarkus
+  - Why? Quarkus is faster and makes Java projects more lightweight.
+- SNS-ERP is API first (REST and SOAP)
+  - Why? It makes it easier to integrate with other systems and create a SPA Single Page Application.
+  - That being said the UI will be made with [PatternFLy](https://www.patternfly.org/v4/) (of [RedHat](https://www.redhat.com/)) and [React](https://reactjs.org/). Because it looks way better than OFBiz UI. Sorry.
+- SNS-ERP is using a reactive architecture
+- SNS-ERP can be used in a microservices architecture more easily
+- SNS-ERP is using a different authentication system
+  - Why? It makes it easier to integrate with other systems, to reduce the attack surface and to have something else not to worry about.
+  - It will soon be able to work out of the box with [Keycloak](https://www.keycloak.org/).
+    - Keycloak supports SAML 2.0, OpenID Connect, OAuth 2.0 and LDAP. So why reinvent the wheel?
+  - So for more SSO and authentication options you will have to use Keycloak or some other system.
+
+## What stays the same
+It is important to not straw away to far from the original OFBiz architecture and data model. This is to make sure that the project stays compatible with OFBiz plugins that already exist.
+
+It is important that it does not feel like a different project.
+
+You can see this project as a fork of OFBiz.
+
+The Data Models will stay untouched, but we might add new ones if need be.
+
+Entity Engine will stay untouched. It is the core of OFBiz, and it is very well made and very much loved.
+
+Since Quarkus is used there might be some heavy handed changes to the usage of Groovy. It is not out of disdain of it but rather that Quarkus with GraalVM does not support it very well. That said there is nothing stopping anyone from creating a seperate application that uses Groovy that communicates with SNS-ERP via REST and SOAP.
+
+### Why keep SOAP?
+SOAP is still used in many places and is still a very valid way of communicating with other systems. It is also very easy to use with Java.
+
+SOAP in the world of accounting, banking and finance is still very much used. It is also used in the world of logistics and supply chain management.
+
+## Project Status
+Still in dev mode.
+
+## Comparisons
+- [Comparison of shopping cart software](https://en.wikipedia.org/wiki/Comparison_of_shopping_cart_software)
+- [Comparison of accounting software](https://en.wikipedia.org/wiki/Comparison_of_accounting_software)
+- [Comparison of CRM systems](https://en.wikipedia.org/wiki/Comparison_of_CRM_systems)
+- [Comparison of ERP software packages](https://en.wikipedia.org/wiki/Comparison_of_ERP_software_packages)
+- [Comparison of time-tracking software](https://en.wikipedia.org/wiki/Comparison_of_time-tracking_software)
+- [Comparison of project management software](https://en.wikipedia.org/wiki/Comparison_of_project_management_software)
+
+## Getting Started
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
