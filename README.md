@@ -1,6 +1,6 @@
 <img src="https://avatars.githubusercontent.com/u/237008" alt="Sunset" style="width: 300px;" align="right">
 
-# SunsetERP
+# 🌇 SunsetERP 🌇
 
 **WARNING:** This project is still in development. It is not ready for production use or any use at all. But help is always welcome!
 
