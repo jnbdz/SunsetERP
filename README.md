@@ -32,7 +32,7 @@ SunsetERP benefits from OFBiz usage of standard business data models.
   - Why? Quarkus is faster and makes Java projects more lightweight.
 - SunsetERP is API first (REST and SOAP)
   - Why? It makes it easier to integrate with other systems and create an SPA Single Page Application.
-  - That being said the UI will be made with [PatternFLy](https://www.patternfly.org/v4/) (of [RedHat](https://www.redhat.com/)) and [React](https://reactjs.org/). Because it looks way better than OFBiz UI. Sorry.
+  - That being said the UI will be made with [PatternFLy](https://www.patternfly.org/) (of [RedHat](https://www.redhat.com/)) and [React](https://reactjs.org/). Because it looks way better than OFBiz UI. Sorry.
 - SunsetERP is using a reactive architecture
 - SunsetERP can be used in a microservices architecture more easily
 - SunsetERP is using a different authentication system
