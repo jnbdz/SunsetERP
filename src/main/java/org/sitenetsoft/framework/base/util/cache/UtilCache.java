@@ -163,6 +163,7 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
 
     private void setPropertiesParams(String settingsResourceName, String[] propNames) {
         ResourceBundle res = ResourceBundle.getBundle(settingsResourceName);
+        Debug.log("ResourceBundle for settingsResourceName: " + settingsResourceName + " is " + res, MODULE);
 
         if (res != null) {
             String value = getPropertyParam(res, propNames, "maxSize");

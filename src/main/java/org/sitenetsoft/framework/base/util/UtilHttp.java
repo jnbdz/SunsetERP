@@ -26,7 +26,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.RequestContext;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
@@ -38,6 +37,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
 import org.sitenetsoft.framework.entity.Delegator;
 import org.sitenetsoft.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.framework.refactor.JakartaRequestContext;
 import org.sitenetsoft.framework.webapp.control.ConfigXMLReader;
 import org.sitenetsoft.framework.webapp.control.SameSiteFilter;
 import org.sitenetsoft.framework.webapp.event.FileUploadProgressListener;
@@ -197,9 +197,7 @@ public final class UtilHttp {
             }
 
             List<FileItem> uploadedItems = null;
-            //ServletFileUpload upload = new ServletFileUpload(new DiskFileItemFactory(sizeThreshold, tmpUploadRepository));
             RequestContext requestContext = new JakartaRequestContext(request);
-            //RequestContext requestContext = new ServletRequestContext(request);
             try {
                 uploadedItems = UtilGenerics.cast(upload.parseRequest(requestContext));
             } catch (FileUploadException e) {
@@ -266,24 +264,6 @@ public final class UtilHttp {
         }
 
         return multiPartMap;
-    }
-
-    public static class JakartaRequestContext extends ServletRequestContext {
-
-        private final jakarta.servlet.http.HttpServletRequest jakartaRequest;
-
-        public JakartaRequestContext(jakarta.servlet.http.HttpServletRequest request) {
-            super(null);  // Pass null since we're overriding the necessary methods
-            this.jakartaRequest = request;
-        }
-
-        @Override
-        public String getCharacterEncoding() {
-            return jakartaRequest.getCharacterEncoding();
-        }
-
-        // ... override other necessary methods ...
-
     }
 
     /**
