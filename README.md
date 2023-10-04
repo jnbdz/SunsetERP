@@ -1,10 +1,10 @@
-# SNS-ERP
+# SunsetERP
 
 **WARNING:** This project is still in development. It is not ready for production use or any use at all. But help is always welcome!
 
-SNS-ERP stands for SiteNetSoft Enterprise Resource Planning (ERP) and is based on a heavily modified version of [OFBiz](https://ofbiz.apache.org/) to run on Quarkus.
+SunsetERP stands for SiteNetSoft Enterprise Resource Planning (ERP) and is based on a heavily modified version of [OFBiz](https://ofbiz.apache.org/) to run on Quarkus.
 
-Here are some of the features of SNS-ERP:
+Here are some of the features of SunsetERP:
 - Accounting (agreements, invoicing, vendor management, general ledger)
 - Asset maintenance
 - Catalogue and product management
@@ -26,14 +26,14 @@ Here are some of the features of SNS-ERP:
 OFBiz uses standard business data models wherever possible, and if not, it uses standard data models for the specific industry.
 
 ## Delta with OFBiz
-- SNS-ERP is based on Quarkus
+- SunsetERP is based on Quarkus
   - Why? Quarkus is faster and makes Java projects more lightweight.
-- SNS-ERP is API first (REST and SOAP)
+- SunsetERP is API first (REST and SOAP)
   - Why? It makes it easier to integrate with other systems and create a SPA Single Page Application.
   - That being said the UI will be made with [PatternFLy](https://www.patternfly.org/v4/) (of [RedHat](https://www.redhat.com/)) and [React](https://reactjs.org/). Because it looks way better than OFBiz UI. Sorry.
-- SNS-ERP is using a reactive architecture
-- SNS-ERP can be used in a microservices architecture more easily
-- SNS-ERP is using a different authentication system
+- SunsetERP is using a reactive architecture
+- SunsetERP can be used in a microservices architecture more easily
+- SunsetERP is using a different authentication system
   - Why? It makes it easier to integrate with other systems, to reduce the attack surface and to have something else not to worry about.
   - It will soon be able to work out of the box with [Keycloak](https://www.keycloak.org/).
     - Keycloak supports SAML 2.0, OpenID Connect, OAuth 2.0 and LDAP. So why reinvent the wheel?
@@ -50,7 +50,7 @@ The Data Models will stay untouched, but we might add new ones if need be.
 
 Entity Engine will stay untouched. It is the core of OFBiz, and it is very well made and very much loved.
 
-Since Quarkus is used there might be some heavy handed changes to the usage of Groovy. It is not out of disdain of it but rather that Quarkus with GraalVM does not support it very well. That said there is nothing stopping anyone from creating a seperate application that uses Groovy that communicates with SNS-ERP via REST and SOAP.
+Since Quarkus is used there might be some heavy handed changes to the usage of Groovy. It is not out of disdain of it but rather that Quarkus with GraalVM does not support it very well. That said there is nothing stopping anyone from creating a seperate application that uses Groovy that communicates with SunsetERP via REST and SOAP.
 
 ### Why keep SOAP?
 SOAP is still used in many places and is still a very valid way of communicating with other systems. It is also very easy to use with Java.
