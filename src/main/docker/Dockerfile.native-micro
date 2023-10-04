@@ -10,11 +10,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/evobiz .
+# docker build -f src/main/docker/Dockerfile.native-micro -t quarkus/sunseterp .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/evobiz
+# docker run -i --rm -p 8080:8080 quarkus/sunseterp
 #
 ###
 FROM quay.io/quarkus/quarkus-micro-image:2.0

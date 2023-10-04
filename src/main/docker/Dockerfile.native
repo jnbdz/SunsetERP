@@ -7,11 +7,11 @@
 #
 # Then, build the image with:
 #
-# docker build -f src/main/docker/Dockerfile.native -t quarkus/evobiz .
+# docker build -f src/main/docker/Dockerfile.native -t quarkus/sunseterp .
 #
 # Then run the container using:
 #
-# docker run -i --rm -p 8080:8080 quarkus/evobiz
+# docker run -i --rm -p 8080:8080 quarkus/sunseterp
 #
 ###
 FROM registry.access.redhat.com/ubi8/ubi-minimal:8.8
