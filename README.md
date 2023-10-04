@@ -62,6 +62,12 @@ SOAP in the world of accounting, banking and finance is still very much used. It
 ## Project Status
 Still in dev mode.
 
+## Nice to have
+- https://kogito.kie.org/ (BPM and BRM)
+- Have a similar plugin system as Keycloak
+- Adapt ofbiz-plugins to this new setup
+- Adapt it for better Process Mining
+
 ## Comparisons
 - [Comparison of shopping cart software](https://en.wikipedia.org/wiki/Comparison_of_shopping_cart_software)
 - [Comparison of accounting software](https://en.wikipedia.org/wiki/Comparison_of_accounting_software)
