@@ -4,7 +4,7 @@
 
 **WARNING:** This project is still in development. It is not ready for production use or any use at all. But help is always welcome!
 
-SunsetERP stands for SiteNetSoft Enterprise Resource Planning (ERP) and is based on a heavily modified version of [OFBiz](https://ofbiz.apache.org/) to run on Quarkus.
+SunsetERP is based on a heavily modified version of [OFBiz](https://ofbiz.apache.org/) to run on Quarkus.
 
 Here are some of the features of SunsetERP:
 - Accounting (agreements, invoicing, vendor management, general ledger)
@@ -25,13 +25,13 @@ Here are some of the features of SunsetERP:
 - Scrum (development) (Scrum software development support)
 - *and many more to come...*
 
-OFBiz uses standard business data models wherever possible, and if not, it uses standard data models for the specific industry.
+SunsetERP benefits from OFBiz usage of standard business data models.
 
 ## Delta with OFBiz
 - SunsetERP is based on Quarkus
   - Why? Quarkus is faster and makes Java projects more lightweight.
 - SunsetERP is API first (REST and SOAP)
-  - Why? It makes it easier to integrate with other systems and create a SPA Single Page Application.
+  - Why? It makes it easier to integrate with other systems and create an SPA Single Page Application.
   - That being said the UI will be made with [PatternFLy](https://www.patternfly.org/v4/) (of [RedHat](https://www.redhat.com/)) and [React](https://reactjs.org/). Because it looks way better than OFBiz UI. Sorry.
 - SunsetERP is using a reactive architecture
 - SunsetERP can be used in a microservices architecture more easily
