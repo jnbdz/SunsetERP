@@ -25,11 +25,7 @@ import org.sitenetsoft.framework.base.util.Debug;
 import org.sitenetsoft.framework.base.util.GeneralRuntimeException;
 import org.sitenetsoft.framework.base.util.UtilDateTime;
 
-//import javax.mail.*;
-//import javax.mail.internet.MimeMessage;
-import jakarta.mail.MessagingException;
-import jakarta.mail.Multipart;
-import jakarta.mail.Session;
+import jakarta.mail.*;
 import jakarta.mail.internet.MimeMessage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,7 +39,6 @@ import java.util.Locale;
 import java.util.Properties;
 
 @SuppressWarnings("serial")
-//public class MimeMessageWrapper {}
 public class MimeMessageWrapper implements java.io.Serializable {
 
     private static final String MODULE = MimeMessageWrapper.class.getName();
@@ -135,7 +130,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param header the header
      * @return the first header
      */
-    /*public String getFirstHeader(String header) {
+    public String getFirstHeader(String header) {
         String[] headers = getHeader(header);
         if (headers != null && headers.length > 0) {
             return headers[0];
@@ -148,7 +143,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param header the header
      * @return the string [ ]
      */
-    /*public String[] getHeader(String header) {
+    public String[] getHeader(String header) {
         MimeMessage message = getMessage();
         try {
             return message.getHeader(header);
@@ -162,7 +157,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Get from address [ ].
      * @return the address [ ]
      */
-    /*public Address[] getFrom() {
+    public Address[] getFrom() {
         MimeMessage message = getMessage();
         try {
             return message.getFrom();
@@ -176,7 +171,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Get to address [ ].
      * @return the address [ ]
      */
-    /*public Address[] getTo() {
+    public Address[] getTo() {
         MimeMessage message = getMessage();
         try {
             return message.getRecipients(MimeMessage.RecipientType.TO);
@@ -190,7 +185,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Get cc address [ ].
      * @return the address [ ]
      */
-    /*public Address[] getCc() {
+    public Address[] getCc() {
         MimeMessage message = getMessage();
         try {
             return message.getRecipients(MimeMessage.RecipientType.CC);
@@ -204,7 +199,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Get bcc address [ ].
      * @return the address [ ]
      */
-    /*public Address[] getBcc() {
+    public Address[] getBcc() {
         MimeMessage message = getMessage();
         try {
             return message.getRecipients(MimeMessage.RecipientType.BCC);
@@ -218,7 +213,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets subject.
      * @return the subject
      */
-    /*public String getSubject() {
+    public String getSubject() {
         MimeMessage message = getMessage();
         try {
             return message.getSubject();
@@ -232,7 +227,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets message id.
      * @return the message id
      */
-    /*public String getMessageId() {
+    public String getMessageId() {
         MimeMessage message = getMessage();
         try {
             return message.getMessageID();
@@ -246,7 +241,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets sent date.
      * @return the sent date
      */
-    /*public Timestamp getSentDate() {
+    public Timestamp getSentDate() {
         MimeMessage message = getMessage();
         try {
             return UtilDateTime.toTimestamp(message.getSentDate());
@@ -260,7 +255,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets received date.
      * @return the received date
      */
-    /*public Timestamp getReceivedDate() {
+    public Timestamp getReceivedDate() {
         MimeMessage message = getMessage();
         try {
             return UtilDateTime.toTimestamp(message.getReceivedDate());
@@ -274,7 +269,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets content type.
      * @return the content type
      */
-    /*public synchronized String getContentType() {
+    public synchronized String getContentType() {
         return contentType;
     }
 
@@ -282,7 +277,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets main part count.
      * @return the main part count
      */
-    /*public synchronized int getMainPartCount() {
+    public synchronized int getMainPartCount() {
         return this.parts;
     }
 
@@ -291,7 +286,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param index the index
      * @return the sub part count
      */
-    /*public int getSubPartCount(int index) {
+    public int getSubPartCount(int index) {
         BodyPart part = getPart(Integer.toString(index));
         try {
             Object content = part.getContent();
@@ -309,7 +304,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets attachment indexes.
      * @return the attachment indexes
      */
-    /*public List<String> getAttachmentIndexes() {
+    public List<String> getAttachmentIndexes() {
         List<String> attachments = new LinkedList<>();
         if (getMainPartCount() == 0) { // single part message (no attachments)
             return attachments;
@@ -339,7 +334,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets message body.
      * @return the message body
      */
-    /*public String getMessageBody() {
+    public String getMessageBody() {
         MimeMessage message = getMessage();
         if (getMainPartCount() == 0) { // single part message
             try {
@@ -379,7 +374,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets message body content type.
      * @return the message body content type
      */
-    /*public String getMessageBodyContentType() {
+    public String getMessageBodyContentType() {
         String contentType = getContentType();
         if (contentType != null && contentType.toLowerCase(Locale.getDefault()).startsWith("text")) {
             return contentType;
@@ -412,7 +407,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * Gets message raw text.
      * @return the message raw text
      */
-    /*public String getMessageRawText() {
+    public String getMessageRawText() {
         MimeMessage message = getMessage();
         try {
             return getTextFromStream(message.getInputStream());
@@ -427,7 +422,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param index the index
      * @return the part description
      */
-    /*public String getPartDescription(String index) {
+    public String getPartDescription(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
             try {
@@ -445,7 +440,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param index the index
      * @return the part content type
      */
-    /*public String getPartContentType(String index) {
+    public String getPartContentType(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
             try {
@@ -463,7 +458,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param index the index
      * @return the part disposition
      */
-    /*public String getPartDisposition(String index) {
+    public String getPartDisposition(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
             try {
@@ -481,7 +476,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param index the index
      * @return the part filename
      */
-    /*public String getPartFilename(String index) {
+    public String getPartFilename(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
             try {
@@ -499,7 +494,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param index the index
      * @return the part byte buffer
      */
-    /*public ByteBuffer getPartByteBuffer(String index) {
+    public ByteBuffer getPartByteBuffer(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
             try (InputStream stream = part.getInputStream()) {
@@ -517,7 +512,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param index the index
      * @return the part text
      */
-    /*public String getPartText(String index) {
+    public String getPartText(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
             try {
@@ -535,7 +530,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param index the index
      * @return the part raw text
      */
-    /*public String getPartRawText(String index) {
+    public String getPartRawText(String index) {
         BodyPart part = getPart(index);
         if (part != null) {
             try {
@@ -553,7 +548,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param indexStr the index str
      * @return the part
      */
-    /*public BodyPart getPart(String indexStr) {
+    public BodyPart getPart(String indexStr) {
         int mainIndex;
         int subIndex;
         try {
@@ -601,7 +596,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param content the content
      * @return the content text
      */
-    /*protected String getContentText(Object content) {
+    protected String getContentText(Object content) {
         if (content == null) {
             return null;
         }
@@ -627,7 +622,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param stream the stream
      * @return the text from stream
      */
-    /*protected String getTextFromStream(InputStream stream) {
+    protected String getTextFromStream(InputStream stream) {
         StringBuilder builder = new StringBuilder();
         byte[] buffer = new byte[4096];
         try {
@@ -648,7 +643,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
      * @param stream the stream
      * @return the byte buffer from stream
      */
-    /*protected ByteBuffer getByteBufferFromStream(InputStream stream) {
+    protected ByteBuffer getByteBufferFromStream(InputStream stream) {
         byte[] buffer = new byte[4096];
         try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             // CHECKSTYLE_OFF: ALMOST_ALL
@@ -670,7 +665,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
     /**
      * Convert MimeMessageWrapper to String. This is used when sending emails.
      */
-    /*private static class MimeMessageToString extends AbstractConverter<MimeMessageWrapper, String> {
+    private static class MimeMessageToString extends AbstractConverter<MimeMessageWrapper, String> {
         MimeMessageToString() {
             super(MimeMessageWrapper.class, String.class);
         }
@@ -679,5 +674,5 @@ public class MimeMessageWrapper implements java.io.Serializable {
         public String convert(MimeMessageWrapper obj) throws ConversionException {
             return obj.toString();
         }
-    }*/
+    }
 }

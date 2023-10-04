@@ -5,7 +5,7 @@ plugins {
 
 repositories {
     mavenCentral()
-    //mavenLocal()
+    mavenLocal()
 }
 
 dependencies {
@@ -87,6 +87,14 @@ dependencies {
     implementation 'com.auth0:java-jwt:4.4.0'
 
     implementation 'io.quarkus:quarkus-mailer:3.4.1'
+
+    // Resource
+    implementation 'com.rometools:rome:2.1.0'
+
+    implementation 'org.apache.sshd:sshd-core:2.10.0'  // Use the latest available version
+    //implementation 'org.apache.sshd:sshd-client:2.10.0'  // Use the latest available version
+
+    implementation 'org.apache.sshd:sshd-sftp:2.10.0'  // Use the latest available version
 
     // This needs to be changed to org.junit.jupiter:junit-jupiter-api:5.10.0
     implementation 'junit:junit:4.13.2'
