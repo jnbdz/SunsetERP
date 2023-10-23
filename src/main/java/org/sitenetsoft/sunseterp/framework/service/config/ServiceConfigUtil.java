@@ -19,10 +19,7 @@
 package org.sitenetsoft.sunseterp.framework.service.config;
 
 import org.sitenetsoft.sunseterp.framework.base.config.GenericConfigException;
-import org.sitenetsoft.sunseterp.framework.base.util.Assert;
-import org.sitenetsoft.sunseterp.framework.base.util.Debug;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
 import org.sitenetsoft.sunseterp.framework.service.config.model.Engine;
 import org.sitenetsoft.sunseterp.framework.service.config.model.ServiceConfig;
@@ -111,7 +108,8 @@ public final class ServiceConfigUtil {
     }
 
     private static Document getXmlDocument() throws GenericConfigException {
-        URL confUrl = UtilURL.fromResource(SERVICE_ENGINE_XML_FILENAME);
+        URL confUrl = UtilResourceLocator.locateResource(SERVICE_ENGINE_XML_FILENAME);
+        //URL confUrl = UtilURL.fromResource(SERVICE_ENGINE_XML_FILENAME);
         if (confUrl == null) {
             throw new GenericConfigException("Could not find the " + SERVICE_ENGINE_XML_FILENAME + " file");
         }
