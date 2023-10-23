@@ -35,6 +35,20 @@ public final class UtilURL {
 
     private UtilURL() { }
 
+    /**
+     * Return the URL map
+     * @return the URL map
+     */
+    public static Map<String, URL> getUrlMap() {
+        return URL_MAP;
+    }
+
+    /**
+     * Returns a <code>URL</code> instance from a resource name.
+     * Returns <code>null</code> if the resource is not found.
+     * @param contextClass the context class
+     * @return the URL
+     */
     public static <C> URL fromClass(Class<C> contextClass) {
         String resourceName = contextClass.getName();
         int dotIndex = resourceName.lastIndexOf('.');
@@ -94,6 +108,7 @@ public final class UtilURL {
                 loader = UtilURL.class.getClassLoader();
             }
         }
+
         url = loader.getResource(resourceName);
         if (url != null) {
             URL_MAP.put(resourceName, url);
