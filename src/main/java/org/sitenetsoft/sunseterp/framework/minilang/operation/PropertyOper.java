@@ -24,6 +24,7 @@ import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.w3c.dom.Element;
 
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -46,7 +47,8 @@ public class PropertyOper extends MakeInStringOperation {
 
     @Override
     public String exec(Map<String, Object> inMap, List<Object> messages, Locale locale, ClassLoader loader) {
-        String propStr = UtilProperties.getPropertyValue(UtilURL.fromResource(resource, loader), property);
+        URL url = UtilURL.fromResource(resource, loader);
+        String propStr = UtilProperties.getPropertyValue(url, property);
 
         if (UtilValidate.isEmpty(propStr)) {
             Debug.logWarning("[SimpleMapProcessor.PropertyOper.exec] Property " + property + " in resource " + resource

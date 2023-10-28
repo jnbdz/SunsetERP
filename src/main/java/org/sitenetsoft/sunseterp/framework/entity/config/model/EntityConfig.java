@@ -19,10 +19,7 @@
 package org.sitenetsoft.sunseterp.framework.entity.config.model;
 
 import org.sitenetsoft.sunseterp.framework.base.lang.ThreadSafe;
-import org.sitenetsoft.sunseterp.framework.base.util.Debug;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
@@ -63,7 +60,8 @@ public final class EntityConfig {
 
     private EntityConfig() throws GenericEntityConfException {
         Element element;
-        URL confUrl = UtilURL.fromResource(ENTITY_ENGINE_XML_FILENAME);
+        // URL confUrl = UtilURL.fromResource(ENTITY_ENGINE_XML_FILENAME);
+        URL confUrl = UtilResourceLocator.locateResource(ENTITY_ENGINE_XML_FILENAME);
         if (confUrl == null) {
             throw new GenericEntityConfException("Could not find the " + ENTITY_ENGINE_XML_FILENAME + " file");
         }

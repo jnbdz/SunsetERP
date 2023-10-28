@@ -95,7 +95,7 @@ public class ControlFilter {}
             Debug.logWarning(err, "The default error code will be used: " + DEFAULT_HTTP_ERROR_CODE, MODULE);
             return DEFAULT_HTTP_ERROR_CODE;
         }
-    }
+    }*/
 
     /**
      * Splits the paths defined by {@code paths}.

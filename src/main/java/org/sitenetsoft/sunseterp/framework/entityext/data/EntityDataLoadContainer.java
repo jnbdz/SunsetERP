@@ -23,12 +23,9 @@ import org.sitenetsoft.sunseterp.framework.base.container.Container;
 import org.sitenetsoft.sunseterp.framework.base.container.ContainerConfig;
 import org.sitenetsoft.sunseterp.framework.base.container.ContainerConfig.Configuration;
 import org.sitenetsoft.sunseterp.framework.base.container.ContainerException;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.start.StartupCommand;
 import org.sitenetsoft.sunseterp.framework.start.StartupCommandUtil;
-import org.sitenetsoft.sunseterp.framework.base.util.Debug;
-import org.sitenetsoft.sunseterp.framework.base.util.StringUtil;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.DelegatorFactory;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -533,7 +530,8 @@ public class EntityDataLoadContainer implements Container {
     private static List<URL> retireveDataUrlsFromFileList(List<String> files) throws ContainerException {
         List<URL> fileUrls = new ArrayList<>();
         for (String file: files) {
-            URL url = UtilURL.fromResource(file);
+            // URL url = UtilURL.fromResource(file);
+            URL url = UtilResourceLocator.locateResource(file);
             if (url == null) {
                 throw new ContainerException("Unable to locate data file: " + file);
             } else {

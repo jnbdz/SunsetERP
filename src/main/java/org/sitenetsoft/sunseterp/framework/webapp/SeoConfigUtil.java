@@ -97,7 +97,8 @@ public final class SeoConfigUtil {
         specialProductIds = new HashMap<>();
         charFilters = new LinkedHashMap<>();
         try {
-            URL seoConfigFilename = UtilURL.fromResource(SEO_CONFIG_FILENAME);
+            // URL seoConfigFilename = UtilURL.fromResource(SEO_CONFIG_FILENAME);
+            URL seoConfigFilename = UtilResourceLocator.locateResource(SEO_CONFIG_FILENAME);
             Document configDoc = UtilXml.readXmlDocument(seoConfigFilename, false);
             Element rootElement = configDoc.getDocumentElement();
 

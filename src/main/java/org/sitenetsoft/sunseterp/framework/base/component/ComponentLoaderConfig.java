@@ -19,6 +19,7 @@
 package org.sitenetsoft.sunseterp.framework.base.component;
 
 import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilResourceLocator;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
@@ -65,7 +66,8 @@ public final class ComponentLoaderConfig {
      *         or refer to non-existent component directory.
      */
     public static List<ComponentDef> getRootComponents() throws ComponentException {
-        URL xmlUrl = UtilURL.fromResource(COMPONENT_LOAD_XML_FILENAME);
+        // URL xmlUrl = UtilURL.fromResource(COMPONENT_LOAD_XML_FILENAME);
+        URL xmlUrl = UtilResourceLocator.locateResource(COMPONENT_LOAD_XML_FILENAME);
         return getComponentsFromConfig(xmlUrl);
     }
 
