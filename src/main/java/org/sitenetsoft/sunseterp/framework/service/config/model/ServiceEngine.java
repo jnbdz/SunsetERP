@@ -87,7 +87,7 @@ public final class ServiceEngine {
                 String location = serviceLocationElement.getAttribute("location").intern();
                 Start inst = Start.getInstance();
                 Config conf = inst.getConfig();
-                int portOffset = conf.getPortOffset();
+                int portOffset = 0; //conf.getPortOffset();
                 if (location.contains("localhost") && portOffset != 0) {
                     String s = location.substring(location.lastIndexOf(":") + 1);
                     Integer locationPort = Integer.valueOf(s.substring(0, s.indexOf("/")));

@@ -74,7 +74,8 @@ public class EntityDataServices {
 
         // get the directory & delimiter
         String rootDirectory = (String) context.get("rootDirectory");
-        URL rootDirectoryUrl = UtilURL.fromResource(rootDirectory);
+        // URL rootDirectoryUrl = UtilURL.fromResource(rootDirectory);
+        URL rootDirectoryUrl = UtilResourceLocator.locateResource(rootDirectory);
         if (rootDirectoryUrl == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "EntityExtUnableToLocateRootDirectory",
                     UtilMisc.toMap("rootDirectory", rootDirectory), locale));

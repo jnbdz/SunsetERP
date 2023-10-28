@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.location;
 
+import org.sitenetsoft.sunseterp.framework.base.util.UtilResourceLocator;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
 
 import java.net.MalformedURLException;
@@ -47,6 +48,8 @@ public class ClasspathLocationResolver implements LocationResolver {
         if (baseLocation.charAt(0) == '/') {
             baseLocation = baseLocation.substring(1);
         }
-        return UtilURL.fromResource(baseLocation, loader);
+        URL url = UtilURL.fromResource(baseLocation, loader);
+        //URL url = UtilResourceLocator.locateResource(xmlFilename);
+        return url;
     }
 }

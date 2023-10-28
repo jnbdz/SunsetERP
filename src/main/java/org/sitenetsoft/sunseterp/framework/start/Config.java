@@ -124,8 +124,10 @@ public final class Config {
 
     private Properties getPropertiesFile(List<StartupCommand> ofbizCommands) throws StartupException {
         String fileName = determineOfbizPropertiesFileName(ofbizCommands);
-        String fullyQualifiedFileName = "org/apache/ofbiz/base/start/" + fileName;
+        String fullyQualifiedFileName = "org/sitenetsoft/sunseterp/framework/start/config/" + fileName;
         Properties props = new Properties();
+
+        Object obj = getClass().getClassLoader().getResource(fullyQualifiedFileName);
 
         try (InputStream propsStream = getClass().getClassLoader().getResourceAsStream(fullyQualifiedFileName)) {
             props.load(propsStream);

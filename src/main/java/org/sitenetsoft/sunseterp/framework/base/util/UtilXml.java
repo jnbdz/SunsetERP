@@ -1029,14 +1029,17 @@ public final class UtilXml {
         @Override
         public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
             hasDTD = false;
-            String dtd = UtilProperties.getSplitPropertyValue(UtilURL.fromResource("localdtds.properties"), publicId);
+            URL confUrl = UtilResourceLocator.locateResource("localdtds.properties");
+            //URL confUrl = UtilURL.fromResource("localdtds.properties");
+            String dtd = UtilProperties.getSplitPropertyValue(confUrl, publicId);
             if (UtilValidate.isNotEmpty(dtd)) {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("[UtilXml.LocalResolver.resolveEntity] resolving DTD with publicId [" + publicId
                             + "], systemId [" + systemId + "] and the dtd file is [" + dtd + "]", MODULE);
                 }
                 try {
-                    URL dtdURL = UtilURL.fromResource(dtd);
+                    // URL dtdURL = UtilURL.fromResource(dtd);
+                    URL dtdURL = UtilResourceLocator.locateResource(dtd);
                     if (dtdURL == null) {
                         throw new GeneralException("Local DTD not found - " + dtd);
                     }
@@ -1063,7 +1066,8 @@ public final class UtilXml {
                     filename = systemId.substring(lastSlash + 1);
                 }
 
-                URL resourceUrl = UtilURL.fromResource(filename);
+                //URL resourceUrl = UtilURL.fromResource(filename);
+                URL resourceUrl = UtilResourceLocator.locateResource(filename);
 
                 if (resourceUrl != null) {
                     InputStream resStream = resourceUrl.openStream();
