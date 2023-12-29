@@ -88,6 +88,9 @@ dependencies {
 
     implementation 'io.quarkus:quarkus-mailer:3.4.1'
 
+    //implementation 'net.fortuna:ical4j:4.0.0' // Cannot be found
+    implementation 'org.mnode.ical4j:ical4j:4.0.0-beta9' // Works with import net.fortuna.ical4j.*;
+
     // Resource
     implementation 'com.rometools:rome:2.1.0'
 
