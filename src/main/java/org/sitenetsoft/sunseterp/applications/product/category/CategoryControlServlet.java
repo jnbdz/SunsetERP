@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.category;
 
-import org.apache.ofbiz.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -28,7 +28,7 @@ import javax.servlet.ServletException;
  * ControlServlet.java - Master servlet for the web application.
  */
 @SuppressWarnings("serial")
-public class CategoryControlServlet extends org.apache.ofbiz.webapp.control.ControlServlet {
+public class CategoryControlServlet extends org.sitenetsoft.sunseterp.framework.webapp.control.ControlServlet {
 
     private static String defaultPage = null;
     private static String pageNotFound = null;

@@ -19,13 +19,13 @@
 
 package org.sitenetsoft.sunseterp.applications.shipment.thirdparty.usps;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilGenerics;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
+import org.sitenetsoft.sunseterp.framework.service.ModelService;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase;
 
 import java.util.HashMap;
 import java.util.List;

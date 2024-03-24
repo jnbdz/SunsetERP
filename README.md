@@ -23,7 +23,7 @@ Here are some of the features of SunsetERP:
 - Electronic point of sale (ePOS)
 - Electronic commerce (eCommerce)
 - Scrum (development) (Scrum software development support)
-- *and many more to come...*
+- *and many more to come...* 
 
 SunsetERP benefits from OFBiz usage of standard business data models.
 

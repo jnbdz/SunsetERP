@@ -19,9 +19,9 @@
 
 package org.sitenetsoft.sunseterp.applications.product.test;
 
-import org.apache.ofbiz.base.util.UtilDateTime;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

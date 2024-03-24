@@ -18,22 +18,22 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.config;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.product.catalog.CatalogWorker;
-import org.apache.ofbiz.product.config.ProductConfigWrapper.ConfigItem;
-import org.apache.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
-import org.apache.ofbiz.product.product.ProductWorker;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.applications.product.catalog.CatalogWorker;
+import org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWrapper.ConfigItem;
+import org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWrapper.ConfigOption;
+import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker;
+import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedList;

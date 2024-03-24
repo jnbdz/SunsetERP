@@ -25,7 +25,7 @@ import freemarker.template.TemplateDirectiveModel;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.utility.DeepUnwrap;
-import org.apache.ofbiz.base.util.UtilGenerics;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

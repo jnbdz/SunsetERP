@@ -19,9 +19,9 @@
 
 package org.sitenetsoft.sunseterp.applications.shipment.thirdparty.usps;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

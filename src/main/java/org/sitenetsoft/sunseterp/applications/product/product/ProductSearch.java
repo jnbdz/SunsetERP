@@ -18,26 +18,26 @@
  */
 package org.sitenetsoft.sunseterp.applications.product.product;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.common.KeywordSearchUtil;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericDelegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.*;
-import org.apache.ofbiz.entity.config.model.EntityConfig;
-import org.apache.ofbiz.entity.model.DynamicViewEntity;
-import org.apache.ofbiz.entity.model.ModelKeyMap;
-import org.apache.ofbiz.entity.model.ModelViewEntity.ComplexAlias;
-import org.apache.ofbiz.entity.model.ModelViewEntity.ComplexAliasField;
-import org.apache.ofbiz.entity.transaction.GenericTransactionException;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.entity.util.EntityListIterator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.party.party.PartyHelper;
-import org.apache.ofbiz.product.category.CategoryContentWrapper;
-import org.apache.ofbiz.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.common.KeywordSearchUtil;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericDelegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.condition.*;
+import org.sitenetsoft.sunseterp.framework.entity.config.model.EntityConfig;
+import org.sitenetsoft.sunseterp.framework.entity.model.DynamicViewEntity;
+import org.sitenetsoft.sunseterp.framework.entity.model.ModelKeyMap;
+import org.sitenetsoft.sunseterp.framework.entity.model.ModelViewEntity.ComplexAlias;
+import org.sitenetsoft.sunseterp.framework.entity.model.ModelViewEntity.ComplexAliasField;
+import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransactionException;
+import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityListIterator;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
+import org.sitenetsoft.sunseterp.applications.party.party.PartyHelper;
+import org.sitenetsoft.sunseterp.applications.product.category.CategoryContentWrapper;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;

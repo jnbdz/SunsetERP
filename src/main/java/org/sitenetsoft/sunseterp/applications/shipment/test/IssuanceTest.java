@@ -19,12 +19,12 @@
 
 package org.sitenetsoft.sunseterp.applications.shipment.test;
 
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
-import org.apache.ofbiz.shipment.packing.PackingSession;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase;
+import org.sitenetsoft.sunseterp.applications.shipment.packing.PackingSession;
 
 import java.math.BigDecimal;
 import java.util.List;

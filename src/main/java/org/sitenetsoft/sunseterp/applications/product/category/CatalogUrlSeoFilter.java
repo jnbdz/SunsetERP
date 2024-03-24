@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.category;
 
-import org.apache.ofbiz.common.UrlServletHelper;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.product.category.ftl.CatalogUrlSeoTransform;
+import org.sitenetsoft.sunseterp.framework.common.UrlServletHelper;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.applications.product.category.ftl.CatalogUrlSeoTransform;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
