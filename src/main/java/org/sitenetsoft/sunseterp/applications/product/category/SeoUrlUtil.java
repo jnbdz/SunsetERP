@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.category;
 
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.webapp.SeoConfigUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.webapp.SeoConfigUtil;
 
 public final class SeoUrlUtil {
 

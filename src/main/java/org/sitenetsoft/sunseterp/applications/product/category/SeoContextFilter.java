@@ -20,16 +20,16 @@ package org.sitenetsoft.sunseterp.applications.product.category;
 
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.StringUtil;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.security.SecurityUtil;
-import org.apache.ofbiz.webapp.SeoConfigUtil;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader;
-import org.apache.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
-import org.apache.ofbiz.webapp.control.ControlFilter;
-import org.apache.ofbiz.webapp.control.WebAppConfigurationException;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.StringUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.security.SecurityUtil;
+import org.sitenetsoft.sunseterp.framework.webapp.SeoConfigUtil;
+import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader;
+import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader.ControllerConfig;
+import org.sitenetsoft.sunseterp.framework.webapp.control.ControlFilter;
+import org.sitenetsoft.sunseterp.framework.webapp.control.WebAppConfigurationException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 

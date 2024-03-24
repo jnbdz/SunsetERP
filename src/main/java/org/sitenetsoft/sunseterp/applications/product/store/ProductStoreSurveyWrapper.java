@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.store;
 
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.content.survey.SurveyWrapper;
-import org.apache.ofbiz.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.applications.content.survey.SurveyWrapper;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 
 import java.io.Writer;
 import java.util.Map;

@@ -18,20 +18,20 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.config;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.StringUtil.StringWrapper;
-import org.apache.ofbiz.base.util.cache.UtilCache;
-import org.apache.ofbiz.content.content.ContentWorker;
-import org.apache.ofbiz.content.content.ContentWrapper;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.model.ModelEntity;
-import org.apache.ofbiz.entity.model.ModelUtil;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceContainer;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.base.util.StringUtil.StringWrapper;
+import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.sunseterp.applications.content.content.ContentWorker;
+import org.sitenetsoft.sunseterp.applications.content.content.ContentWrapper;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.DelegatorFactory;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.model.ModelEntity;
+import org.sitenetsoft.sunseterp.framework.entity.model.ModelUtil;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ServiceContainer;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

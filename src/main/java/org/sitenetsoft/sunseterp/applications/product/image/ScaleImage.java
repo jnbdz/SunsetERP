@@ -19,15 +19,15 @@
 package org.sitenetsoft.sunseterp.applications.product.image;
 
 import org.apache.commons.imaging.ImageReadException;
-import org.apache.ofbiz.base.location.FlexibleLocation;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.common.image.ImageTransform;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.jdom.JDOMException;
+import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.sunseterp.framework.common.image.ImageTransform;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.service.ModelService;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
+import org.jdom2.JDOMException;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -220,7 +220,7 @@ public class ScaleImage {
                         String fileToCheck = imageServerPath + "/" + newFileLocation + "." + imgExtension;
                         ImageIO.write(bufNewImg, imgExtension, new File(fileToCheck));
                         // Check if a webshell is not uploaded
-                        if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                        if (!org.sitenetsoft.sunseterp.framework.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
                             String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                             return ServiceUtil.returnError(errorMessage);
                         }
@@ -399,7 +399,7 @@ public class ScaleImage {
                         String fileToCheck = imageServerPath + "/" + newFileLocation + "." + imgExtension;
                         ImageIO.write(bufNewImg, imgExtension, new File(fileToCheck));
                         // Check if a webshell is not uploaded
-                        if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
+                        if (!org.sitenetsoft.sunseterp.framework.security.SecuredUpload.isValidFile(fileToCheck, "Image", delegator)) {
                             String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                             return ServiceUtil.returnError(errorMessage);
                         }

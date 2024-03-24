@@ -20,7 +20,7 @@ package org.sitenetsoft.sunseterp.framework.base.crypto;
 
 import org.apache.commons.codec.binary.Base64;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
-import org.apache.shiro.crypto.AesCipherService;
+import org.apache.shiro.crypto.cipher.AesCipherService;
 
 public class Main {
     private static final String MODULE = Main.class.getName();

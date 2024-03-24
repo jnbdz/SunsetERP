@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.shipment.weightPackage;
 
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

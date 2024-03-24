@@ -24,7 +24,7 @@ import freemarker.ext.beans.StringModel;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
-import org.apache.ofbiz.product.category.CatalogUrlServlet;
+import org.sitenetsoft.sunseterp.applications.product.category.CatalogUrlServlet;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;

@@ -19,19 +19,19 @@
 package org.sitenetsoft.sunseterp.applications.product.imagemanagement;
 
 import org.apache.commons.imaging.ImageReadException;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.base.util.string.FlexibleStringExpander;
-import org.apache.ofbiz.content.layout.LayoutWorker;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.jdom.JDOMException;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.sunseterp.applications.content.layout.LayoutWorker;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
+import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
+import org.jdom2.JDOMException;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
@@ -311,7 +311,7 @@ public class FrameImage {
             Path tmpFile = Files.createTempFile(null, null);
             Files.write(tmpFile, imageData.array(), StandardOpenOption.APPEND);
             // Check if a webshell is not uploaded
-            if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tmpFile.toString(), "Image", delegator)) {
+            if (!org.sitenetsoft.sunseterp.framework.security.SecuredUpload.isValidFile(tmpFile.toString(), "Image", delegator)) {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedFileFormatsIncludingSvg", locale);
                 request.setAttribute("_ERROR_MESSAGE_", errorMessage);
                 return "error";

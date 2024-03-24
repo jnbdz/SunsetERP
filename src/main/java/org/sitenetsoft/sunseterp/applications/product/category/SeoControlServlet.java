@@ -20,9 +20,9 @@ package org.sitenetsoft.sunseterp.applications.product.category;
 
 import org.apache.catalina.servlets.DefaultServlet;
 import org.apache.jasper.servlet.JspServlet;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.webapp.SeoConfigUtil;
-import org.apache.ofbiz.webapp.control.ControlServlet;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.webapp.SeoConfigUtil;
+import org.sitenetsoft.sunseterp.framework.webapp.control.ControlServlet;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;

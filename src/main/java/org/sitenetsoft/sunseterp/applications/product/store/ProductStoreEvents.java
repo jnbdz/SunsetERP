@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.store;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -45,7 +45,7 @@ public class ProductStoreEvents {
 
         List<Map<Object, Object>> productStoreGroupList = new LinkedList<>();
         List<GenericValue> children;
-        List<String> sortList = org.apache.ofbiz.base.util.UtilMisc.toList("sequenceNum");
+        List<String> sortList = org.sitenetsoft.sunseterp.framework.base.util.UtilMisc.toList("sequenceNum");
 
         try {
             GenericValue productStoreGroup = EntityQuery.use(delegator).from("ProductStoreGroup").where("productStoreGroupId",
