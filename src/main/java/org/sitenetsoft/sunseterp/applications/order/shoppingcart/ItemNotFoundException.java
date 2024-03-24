@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
-import org.apache.ofbiz.base.util.GeneralException;
+import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
 
 @SuppressWarnings("serial")
 public class ItemNotFoundException extends GeneralException {

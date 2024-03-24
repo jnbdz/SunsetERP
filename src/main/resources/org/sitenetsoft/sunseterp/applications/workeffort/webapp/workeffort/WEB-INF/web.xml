@@ -44,7 +44,7 @@ under the License.
     <filter>
         <display-name>ControlFilter</display-name>
         <filter-name>ControlFilter</filter-name>
-        <filter-class>org.apache.ofbiz.webapp.control.ControlFilter</filter-class>
+        <filter-class>org.sitenetsoft.sunseterp.framework.webapp.control.ControlFilter</filter-class>
         <init-param>
             <param-name>allowedPaths</param-name>
             <param-value>/error:/control:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images</param-value>
@@ -57,12 +57,12 @@ under the License.
     <filter>
         <display-name>ContextFilter</display-name>
         <filter-name>ContextFilter</filter-name>
-        <filter-class>org.apache.ofbiz.webapp.control.ContextFilter</filter-class>
+        <filter-class>org.sitenetsoft.sunseterp.framework.webapp.control.ContextFilter</filter-class>
     </filter>
     <filter>
         <display-name>SameSiteFilter</display-name>
         <filter-name>SameSiteFilter</filter-name>
-        <filter-class>org.apache.ofbiz.webapp.control.SameSiteFilter</filter-class>
+        <filter-class>org.sitenetsoft.sunseterp.framework.webapp.control.SameSiteFilter</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>ControlFilter</filter-name>
@@ -78,19 +78,19 @@ under the License.
     </filter-mapping>
 
     <listener>
-        <listener-class>org.apache.ofbiz.webapp.control.ControlEventListener</listener-class>
+        <listener-class>org.sitenetsoft.sunseterp.framework.webapp.control.ControlEventListener</listener-class>
     </listener>
     <listener>
-        <listener-class>org.apache.ofbiz.webapp.control.LoginEventListener</listener-class>
+        <listener-class>org.sitenetsoft.sunseterp.framework.webapp.control.LoginEventListener</listener-class>
     </listener>
     <!-- NOTE: not all app servers support mounting implementations of the HttpSessionActivationListener interface -->
-    <!-- <listener><listener-class>org.apache.ofbiz.webapp.control.ControlActivationEventListener</listener-class></listener> -->
+    <!-- <listener><listener-class>org.sitenetsoft.sunseterp.framework.webapp.control.ControlActivationEventListener</listener-class></listener> -->
 
     <servlet>
         <description>Main Control Servlet</description>
         <display-name>ControlServlet</display-name>
         <servlet-name>ControlServlet</servlet-name>
-        <servlet-class>org.apache.ofbiz.webapp.control.ControlServlet</servlet-class>
+        <servlet-class>org.sitenetsoft.sunseterp.framework.webapp.control.ControlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>

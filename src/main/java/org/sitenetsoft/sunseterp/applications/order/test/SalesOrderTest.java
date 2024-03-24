@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.test;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;

@@ -20,10 +20,10 @@ package org.sitenetsoft.sunseterp.applications.order.thirdparty.taxware;
 
 
 import com.ibm.icu.math.BigDecimal;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ModelService;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
+import org.sitenetsoft.sunseterp.framework.service.ModelService;
 
 import java.util.HashMap;
 import java.util.List;

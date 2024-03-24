@@ -18,17 +18,17 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart.product;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntity;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem;
-import org.apache.ofbiz.product.catalog.CatalogWorker;
-import org.apache.ofbiz.product.category.CategoryWorker;
-import org.apache.ofbiz.product.product.ProductWorker;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntity;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartItem;
+import org.sitenetsoft.sunseterp.applications.product.catalog.CatalogWorker;
+import org.sitenetsoft.sunseterp.applications.product.category.CategoryWorker;
+import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;

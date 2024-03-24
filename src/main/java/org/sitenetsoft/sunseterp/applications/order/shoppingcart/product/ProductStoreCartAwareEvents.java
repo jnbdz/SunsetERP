@@ -18,15 +18,15 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart.product;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.apache.ofbiz.order.shoppingcart.WebShoppingCart;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartEvents;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.WebShoppingCart;
+import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
+import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -20,7 +20,7 @@
 
 package org.sitenetsoft.sunseterp.applications.order.thirdparty.taxware;
 
-import org.apache.ofbiz.base.util.GeneralException;
+import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
 
 
 /**

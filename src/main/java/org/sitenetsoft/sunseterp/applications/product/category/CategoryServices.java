@@ -471,7 +471,7 @@ public class CategoryServices {
 
         List<Map<Object, Object>> categoryList = new LinkedList<>();
         List<GenericValue> childOfCats;
-        List<String> sortList = org.apache.ofbiz.base.util.UtilMisc.toList("sequenceNum", "title");
+        List<String> sortList = org.sitenetsoft.sunseterp.framework.base.util.UtilMisc.toList("sequenceNum", "title");
 
         try {
             GenericValue category = EntityQuery.use(delegator).from(entityName).where(primaryKeyName, productCategoryId).queryOne();
