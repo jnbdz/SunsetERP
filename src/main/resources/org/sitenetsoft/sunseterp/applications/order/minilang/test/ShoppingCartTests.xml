@@ -51,7 +51,7 @@ under the License.
         <set field="currencyUom" value="USD" type="String"/>
 
         <script>groovy:
-            shoppingCart = new org.apache.ofbiz.order.shoppingcart.ShoppingCart(delegator, productStoreId, locale, currencyUom);
+            shoppingCart = new org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart(delegator, productStoreId, locale, currencyUom);
             parameters.put("shoppingCart", shoppingCart);
         </script>
 
@@ -73,8 +73,8 @@ under the License.
 
         <!-- ShoppingCart Set User Login -->
         <call-object-method method-name="setUserLogin" obj-field="shoppingCart">
-            <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="userLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
         </call-object-method>
 
         <!-- ShoppingCart Set ProductStore ID -->
@@ -115,7 +115,7 @@ under the License.
             <field field="attributes" type="java.util.HashMap"/>
             <field field="prodCatalogId" type="String"/>
             <field field="itemType" type="String"/>
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
             <field field="triggerExternalOpsBool" type="Boolean"/>
             <field field="triggerPriceRulesBool" type="Boolean"/>
             <field field="skipInventoryChecks" type="Boolean"/>
@@ -129,7 +129,7 @@ under the License.
 
         <set field="groupIdx" value="0" type="Integer"/>
         <call-object-method method-name="setItemShipGroupQty" obj-field="shoppingCart">
-            <field field="cartItem" type="org.apache.ofbiz.order.shoppingcart.ShoppingCartItem"/>
+            <field field="cartItem" type="org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartItem"/>
             <field field="quantity" type="BigDecimal"/>
             <field field="groupIdx" type="int"/>
         </call-object-method>
@@ -144,7 +144,7 @@ under the License.
         <set field="orderAdjustmentPromotion.productPromoActionSeqId" value="01"/>
 
         <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
-            <field field="orderAdjustmentPromotion" type="org.apache.ofbiz.entity.GenericValue"/>
+            <field field="orderAdjustmentPromotion" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         </call-object-method>
 
         <!-- Make OrderAdjustment Shipping Charges to Shopping Cart -->
@@ -154,7 +154,7 @@ under the License.
         <set field="orderAdjustmentShipping.amount" value="12.10" type="BigDecimal"/>
 
         <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
-            <field field="orderAdjustmentShipping" type="org.apache.ofbiz.entity.GenericValue"/>
+            <field field="orderAdjustmentShipping" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         </call-object-method>
 
         <!-- Make OrderAdjustment Sales Tax to Shopping Cart -->
@@ -172,7 +172,7 @@ under the License.
         <set field="orderAdjustmentSalesTax.comments" value="Utah State Sales Tax"/>
 
         <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
-            <field field="orderAdjustmentSalesTax" type="org.apache.ofbiz.entity.GenericValue"/>
+            <field field="orderAdjustmentSalesTax" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         </call-object-method>
 
         <make-value entity-name="OrderAdjustment" value-field="orderAdjustmentSalesTax1"/>
@@ -189,7 +189,7 @@ under the License.
         <set field="orderAdjustmentSalesTax1.comments" value="Utah County, Utah Sales Tax"/>
 
         <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
-            <field field="orderAdjustmentSalesTax1" type="org.apache.ofbiz.entity.GenericValue"/>
+            <field field="orderAdjustmentSalesTax1" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         </call-object-method>
 
         <make-value entity-name="OrderAdjustment" value-field="orderAdjustmentSalesTax2"/>
@@ -206,7 +206,7 @@ under the License.
         <set field="orderAdjustmentSalesTax2.comments" value="1% OFB _NA_ Tax"/>
 
         <call-object-method method-name="addAdjustment" obj-field="shoppingCart">
-            <field field="orderAdjustmentSalesTax2" type="org.apache.ofbiz.entity.GenericValue"/>
+            <field field="orderAdjustmentSalesTax2" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         </call-object-method>
 
         <!-- Shopping Cart Set ShippingContactMechId-->
@@ -258,12 +258,12 @@ under the License.
 
         <!-- Shopping Cart Make all ShipGroupInfos -->
         <call-object-method method-name="makeAllShipGroupInfos" obj-field="shoppingCart">
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
         </call-object-method>
 
         <!-- Shopping Cart checkout and create order -->
         <script>groovy:
-            checkOutHelper = new org.apache.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
+            checkOutHelper = new org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
             java.util.Map orderMap = checkOutHelper.createOrder(userLogin);
             parameters.put("orderMap", orderMap);
         </script>
@@ -290,8 +290,8 @@ under the License.
 
         <set field="partyId" value="DemoCustomer" type="String"/>
 
-        <create-object class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCart" field="shoppingCart">
-            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
+        <create-object class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart" field="shoppingCart">
+            <field field="delegator" type="org.sitenetsoft.sunseterp.framework.entity.Delegator"/>
             <field field="productStoreId" type="String"/>
             <field field="locale" type="java.util.Locale"/>
             <field field="currencyUom" type="String"/>
@@ -328,12 +328,12 @@ under the License.
         </call-object-method>
 
         <call-object-method method-name="setUserLogin" obj-field="shoppingCart">
-            <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="userLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
         </call-object-method>
 
         <!-- Add Product Item to Shopping Cart -->
-        <set field="nextDate" value="${groovy:org.apache.ofbiz.base.util.UtilDateTime.addDaysToTimestamp(org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp(), +1)}" type="Timestamp"/>
+        <set field="nextDate" value="${groovy:org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime.addDaysToTimestamp(org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime.nowTimestamp(), +1)}" type="Timestamp"/>
         <set field="prodCatalogId" value="DemoCatalog" type="String"/>
         <set field="productId" value="RentalShip" type="String"/>
         <set field="reservStart" from-field="nextDate" type="Timestamp"/>
@@ -357,26 +357,26 @@ under the License.
             <field field="features" type="Map"/>
             <field field="attributes" type="Map"/>
             <field field="prodCatalogId" type="String"/>
-            <field field="configWrapper" type="org.apache.ofbiz.product.config.ProductConfigWrapper"/>
+            <field field="configWrapper" type="org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWrapper"/>
             <field field="itemType" type="String"/>
             <field field="itemGroupNumber" type="String"/>
             <field field="parentProductId" type="String"/>
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
         </call-object-method>
 
         <call-object-method method-name="setDefaultCheckoutOptions" obj-field="shoppingCart">
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
         </call-object-method>
 
         <!-- Create order -->
-        <create-object class-name="org.apache.ofbiz.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
-            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
-            <field field="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"/>
+        <create-object class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
+            <field field="delegator" type="org.sitenetsoft.sunseterp.framework.entity.Delegator"/>
+            <field field="shoppingCart" type="org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart"/>
         </create-object>
 
         <call-object-method method-name="createOrder" obj-field="checkOutHelper" ret-field="orderCreateResult">
-            <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
+            <field field="userLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         </call-object-method>
         
         <set field="orderId" from-field="orderCreateResult.orderId" type="String"/>
@@ -384,9 +384,9 @@ under the License.
             <log level="info" message="------------ ORDERID : [${orderId}] ------------"/>
             
             <!-- Change order status to approved -->
-            <call-class-method method-name="approveOrder" class-name="org.apache.ofbiz.order.order.OrderChangeHelper" ret-field="approved">
-                <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
-                <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
+            <call-class-method method-name="approveOrder" class-name="org.sitenetsoft.sunseterp.applications.order.order.OrderChangeHelper" ret-field="approved">
+                <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
+                <field field="userLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
                 <field field="orderId" type="String"/>
             </call-class-method>
             <log level="info" message="----Test order with id: [${orderId}] has been approved: [${approved}]----"/>
@@ -421,8 +421,8 @@ under the License.
 
         <set field="partyId" value="DemoCustomer" type="String"/>
 
-        <create-object class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCart" field="shoppingCart">
-            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
+        <create-object class-name="org.sitenetsoft.sunseterp.framework.order.shoppingcart.ShoppingCart" field="shoppingCart">
+            <field field="delegator" type="org.sitenetsoft.sunseterp.framework.entity.Delegator"/>
             <field field="productStoreId" type="String"/>
             <field field="locale" type="java.util.Locale"/>
             <field field="currencyUom" type="String"/>
@@ -458,8 +458,8 @@ under the License.
         </call-object-method>
 
         <call-object-method method-name="setUserLogin" obj-field="shoppingCart">
-            <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="userLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
         </call-object-method>
 
         <set field="productId" value="SV-1001" type="String"/>
@@ -478,31 +478,31 @@ under the License.
             <field field="features" type="Map"/>
             <field field="attributes" type="Map"/>
             <field field="prodCatalogId" type="String"/>
-            <field field="configWrapper" type="org.apache.ofbiz.product.config.ProductConfigWrapper"/>
+            <field field="configWrapper" type="org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWrapper"/>
             <field field="itemType" type="String"/>
             <field field="itemGroupNumber" type="String"/>
             <field field="parentProductId" type="String"/>
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
         </call-object-method>
 
         <call-object-method method-name="setDefaultCheckoutOptions" obj-field="shoppingCart">
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
         </call-object-method>
 
-        <create-object class-name="org.apache.ofbiz.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
-            <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
-            <field field="delegator" type="org.apache.ofbiz.entity.Delegator"/>
-            <field field="shoppingCart" type="org.apache.ofbiz.order.shoppingcart.ShoppingCart"/>
+        <create-object class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutHelper" field="checkOutHelper">
+            <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
+            <field field="delegator" type="org.sitenetsoft.sunseterp.framework.entity.Delegator"/>
+            <field field="shoppingCart" type="org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart"/>
         </create-object>
 
         <call-object-method method-name="createOrder" obj-field="checkOutHelper" ret-field="orderCreateResult">
-            <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
+            <field field="userLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         </call-object-method>
         <set field="orderId" from-field="orderCreateResult.orderId" type="String"/>
         <if-not-empty field="orderId">
-            <call-class-method method-name="approveOrder" class-name="org.apache.ofbiz.order.order.OrderChangeHelper" ret-field="approved">
-                <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
-                <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
+            <call-class-method method-name="approveOrder" class-name="org.sitenetsoft.sunseterp.applications.order.order.OrderChangeHelper" ret-field="approved">
+                <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
+                <field field="userLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
                 <field field="orderId" type="String"/>
             </call-class-method>
             <log level="info" message="======== Test order with id: [${orderId}] has been approved: [${approved}]========"/>
@@ -593,7 +593,7 @@ under the License.
     <simple-method method-name="testCreateOrderConfigurableServiceProduct" short-description="Test create an order using a configurable service product" login-required="false">
         <set field="request" from-field="parameters.request"/>
         <set field="response" from-field="parameters.response"/>
-        <call-class-method method-name="routeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="routeOrderEntry" class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
@@ -632,41 +632,41 @@ under the License.
             session = request.getSession();
             session.setAttribute("userLogin", userLogin);
         </script>
-        <call-class-method method-name="initializeOrderEntry" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="initializeOrderEntry" class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : initializeOrderEntry, Response : ${result}"/>
-        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="setOrderCurrencyAgreementShipDates" class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setOrderCurrencyAgreementShipDates, Response : ${result}"/>
         
-        <call-class-method method-name="addToCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="addToCart" class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : addToCart, Response : ${result}"/>
         
         <field-to-request field="nullField" request-name="shoppingCart"/>
-        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="setQuickCheckOutOptions" class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : setQuickCheckOutOptions, Response : ${result}"/>
-        <call-class-method method-name="createOrder" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="orderCreateResult">
+        <call-class-method method-name="createOrder" class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutEvents" ret-field="orderCreateResult">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : createOrder, Response : ${orderCreateResult}"/>
-        <call-class-method method-name="processPayment" class-name="org.apache.ofbiz.order.shoppingcart.CheckOutEvents" ret-field="result">
+        <call-class-method method-name="processPayment" class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>
         <log level="info" message="===== >>> Event : processPayment, Response : ${result}"/>
         <call-service-asynch service-name="sendOrderConfirmation"/>
-        <call-class-method method-name="destroyCart" class-name="org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents" ret-field="result">
+        <call-class-method method-name="destroyCart" class-name="org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartEvents" ret-field="result">
             <field field="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field="response" type="javax.servlet.http.HttpServletResponse"/>
         </call-class-method>

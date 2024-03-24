@@ -154,14 +154,14 @@ document.lookupinventory.productId.focus();
                 <#assign initialQohEvent = "">
                 <#assign productFacility = "">
                 <#if qohEvents?has_content>
-                    <#assign initialQohEvent = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(qohEvents)>
+                    <#assign initialQohEvent = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil"].getFirst(qohEvents)>
                 </#if>
                 <#if initialQohEvent?has_content>
                     <#if initialQohEvent.quantity?has_content>
                         <#assign quantityAvailableAtDate = initialQohEvent.quantity>
                     </#if>
                     <#if initialQohEvent.facilityId?has_content>
-                        <#assign productFacility = delegator.findOne("ProductFacility", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("facilityId", initialQohEvent.facilityId, "productId", inven.productId), false)!>
+                        <#assign productFacility = delegator.findOne("ProductFacility", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("facilityId", initialQohEvent.facilityId, "productId", inven.productId), false)!>
                     </#if>
                 <#else>
                     <#assign additionalErrorMessage = "No QOH information found, assuming 0.">

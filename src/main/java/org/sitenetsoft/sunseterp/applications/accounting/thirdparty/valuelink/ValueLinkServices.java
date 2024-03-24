@@ -18,15 +18,15 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.valuelink;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.order.order.OrderReadHelper;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.service.*;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper;
+import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
+import org.sitenetsoft.sunseterp.framework.service.*;
 
 import java.math.BigDecimal;
 import java.util.*;

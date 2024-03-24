@@ -28,7 +28,7 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 
 import java.io.*;
 import java.math.BigDecimal;

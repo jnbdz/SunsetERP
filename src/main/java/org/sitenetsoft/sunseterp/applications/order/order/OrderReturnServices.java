@@ -20,21 +20,21 @@
 package org.sitenetsoft.sunseterp.applications.order.order;
 
 import com.ibm.icu.util.Calendar;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityConditionList;
-import org.apache.ofbiz.entity.condition.EntityExpr;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents;
-import org.apache.ofbiz.product.product.ProductContentWrapper;
-import org.apache.ofbiz.product.product.ProductWorker;
-import org.apache.ofbiz.service.*;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityConditionList;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityExpr;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.applications.order.thirdparty.paypal.ExpressCheckoutEvents;
+import org.sitenetsoft.sunseterp.applications.product.product.ProductContentWrapper;
+import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker;
+import org.sitenetsoft.sunseterp.framework.service.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -2307,7 +2307,7 @@ public class OrderReturnServices {
             for (Entry<String, BigDecimal> orderId : totalByOrder.entrySet()) {
                 // find returnAdjustment for returnHeader
                 Map<String, Object> condition = UtilMisc.<String, Object>toMap("returnId", returnId,
-                        "returnItemSeqId", org.apache.ofbiz.common.DataModelConstants.SEQ_ID_NA,
+                        "returnItemSeqId", org.sitenetsoft.sunseterp.framework.common.DataModelConstants.SEQ_ID_NA,
                         "returnTypeId", returnTypeId);
                 BigDecimal existingTotal = (totalByOrder.get(orderId.getKey()).add(getReturnAdjustmentTotal(delegator, condition)));
                 totalByOrder.put(orderId.getKey(), existingTotal);
@@ -2363,7 +2363,7 @@ public class OrderReturnServices {
         Map<String, BigDecimal> returnAmountByOrder = null;
         Map<String, Object> serviceResult = null;
         try {
-            serviceResult = dispatcher.runSync("getReturnAmountByOrder", org.apache.ofbiz.base.util.UtilMisc.toMap("returnId", returnId));
+            serviceResult = dispatcher.runSync("getReturnAmountByOrder", org.sitenetsoft.sunseterp.framework.base.util.UtilMisc.toMap("returnId", returnId));
             if (ServiceUtil.isError(serviceResult)) {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
@@ -2593,7 +2593,7 @@ public class OrderReturnServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
             return serviceResult;
-        } catch (org.apache.ofbiz.service.GenericServiceException e) {
+        } catch (org.sitenetsoft.sunseterp.framework.service.GenericServiceException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -2614,7 +2614,7 @@ public class OrderReturnServices {
                 return ServiceUtil.returnError(ServiceUtil.getErrorMessage(serviceResult));
             }
             return serviceResult;
-        } catch (org.apache.ofbiz.service.GenericServiceException e) {
+        } catch (org.sitenetsoft.sunseterp.framework.service.GenericServiceException e) {
             Debug.logError(e, MODULE);
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -2649,7 +2649,7 @@ public class OrderReturnServices {
                     }
                 }
             }
-        } catch (org.apache.ofbiz.entity.GenericEntityException e) {
+        } catch (org.sitenetsoft.sunseterp.framework.entity.GenericEntityException e) {
             Debug.logError(e, MODULE);
         }
         return total;

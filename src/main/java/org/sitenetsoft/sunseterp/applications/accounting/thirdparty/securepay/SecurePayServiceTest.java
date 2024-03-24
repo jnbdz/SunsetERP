@@ -20,13 +20,13 @@
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.securepay;
 
 import junit.framework.TestCase;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.testtools.OFBizTestCase;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
+import org.sitenetsoft.sunseterp.framework.service.ModelService;
+import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase;
 
 import java.math.BigDecimal;
 import java.util.List;

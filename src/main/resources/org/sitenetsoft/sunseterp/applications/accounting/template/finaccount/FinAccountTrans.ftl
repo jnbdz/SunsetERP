@@ -95,13 +95,13 @@ under the License.
                   <#assign paymentMethodType = EntityQuery.use(delegator).from("PaymentMethodType").where("paymentMethodTypeId", payment.paymentMethodTypeId!).cache().queryOne()!>
                 </#if>
                 <#if payment?has_content>
-                  <#assign paymentGroupMembers = Static["org.apache.ofbiz.entity.util.EntityUtil"].filterByDate(payment.getRelated("PaymentGroupMember", null, null, false)!) />
+                  <#assign paymentGroupMembers = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil"].filterByDate(payment.getRelated("PaymentGroupMember", null, null, false)!) />
                   <#assign fromParty = payment.getRelatedOne("FromParty", false)! />
                   <#assign fromPartyName = EntityQuery.use(delegator).from("PartyNameView").where("partyId", fromParty.partyId!).cache().queryOne()!/>
                   <#assign toParty = payment.getRelatedOne("ToParty", false)! />
                   <#assign toPartyName =EntityQuery.use(delegator).from("PartyNameView").where("partyId", toParty.partyId!).cache().queryOne()!/>
                   <#if paymentGroupMembers?has_content>
-                  <#assign paymentGroupMember = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(paymentGroupMembers) />
+                  <#assign paymentGroupMember = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil"].getFirst(paymentGroupMembers) />
                   </#if>
                 </#if>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>

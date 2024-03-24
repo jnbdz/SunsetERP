@@ -18,18 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.tax;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.common.geo.GeoWorker;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.party.contact.ContactMechWorker;
-import org.apache.ofbiz.product.product.ProductWorker;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.common.geo.GeoWorker;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.applications.party.contact.ContactMechWorker;
+import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker;
+import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

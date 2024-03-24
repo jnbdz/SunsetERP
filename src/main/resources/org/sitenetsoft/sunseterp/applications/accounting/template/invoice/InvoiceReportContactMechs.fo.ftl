@@ -33,7 +33,7 @@ under the License.
         <fo:table-cell>
           <fo:block>${uiLabelMap.CommonTo}: </fo:block>
             <#if billingAddress??>
-                <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
+                <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
                 <fo:block>${billToPartyNameResult.fullName?default(billingAddress.toName)?default("Billing Name Not Found")}</fo:block>
                 ${setContextField("postalAddress", billingAddress)}
                 ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressPdfFormatter")}
