@@ -19,7 +19,7 @@
 
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.authorizedotnet;
 
-import org.apache.ofbiz.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

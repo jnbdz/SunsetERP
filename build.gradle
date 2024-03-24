@@ -112,6 +112,20 @@ dependencies {
     implementation 'org.apache.poi:poi:5.2.5'
     implementation 'org.apache.poi:poi-ooxml:5.2.5'
 
+    // TODO Maybe remove the support for this or change the code for com.cybersource:cybersource-sdk-java since it is
+    // not secure.
+    implementation 'com.cybersource:cybersource-sdk-java:6.2.13'
+
+    // TODO (Should it be kept or not) The classes you're trying to import are part of the PayPal Merchant SDK for Java.
+    // Unfortunately, this SDK has been deprecated and is no longer available in public Maven repositories.
+    // However, you can still download the SDK directly from the PayPal's Github repository and manually add it to your project.
+    // The repository URL is: https://github.com/paypal/merchant-sdk-java
+    //implementation 'com.paypal.sdk:paypal-core:1.7.2'
+    //implementation 'com.paypal:com.paypal.sdk:1.0'
+    //implementation 'com.paypal:paypalhttp:2.0.0'
+    //implementation 'com.paypal:heap-dump-tool:1.1.6'
+    //implementation 'com.paypal:rest-api-sdk:1.14.1'
+
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
 }

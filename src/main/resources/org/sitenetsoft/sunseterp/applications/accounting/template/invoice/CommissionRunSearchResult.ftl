@@ -40,13 +40,13 @@ under the License.
       <#-- Header Ends-->
       <#assign alt_row = false>
       <#list invoices as invoice>
-        <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
+        <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
         <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)!>
         <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : invoice.statusId}, false)!/>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
           <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
-          <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${invoice.partyIdFrom}</@ofbizUrl>">${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)!}</a></td>
-          <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${invoice.invoiceRolePartyId}</@ofbizUrl>">${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.invoiceRolePartyId, false)!}</a></td>
+          <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${invoice.partyIdFrom}</@ofbizUrl>">${Static["org.sitenetsoft.sunseterp.applications.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)!}</a></td>
+          <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${invoice.invoiceRolePartyId}</@ofbizUrl>">${Static["org.sitenetsoft.sunseterp.applications.party.party.PartyHelper"].getPartyName(delegator, invoice.invoiceRolePartyId, false)!}</a></td>
           <td>${statusItem.get("description")!}</td>
           <td>${invoice.get("referenceNumber")!}</td>
           <td>${invoice.get("description")!}</td>

@@ -47,7 +47,7 @@ function lookupBom() {
             <td>
                 <select name="productAssocTypeId" size="1">
                 <#if productAssocTypeId?has_content>
-                    <#assign curAssocType = delegator.findOne("ProductAssocType", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId), false)>
+                    <#assign curAssocType = delegator.findOne("ProductAssocType", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId), false)>
                     <#if curAssocType??>
                         <option selected="selected" value="${(curAssocType.productAssocTypeId)!}">${(curAssocType.get("description",locale))!}</option>
                         <option value="${(curAssocType.productAssocTypeId)!}"></option>
@@ -89,7 +89,7 @@ function lookupBom() {
             <td>
                 <select name="productAssocTypeId" size="1">
                 <#if productAssocTypeId?has_content>
-                    <#assign curAssocType = delegator.findOne("ProductAssocType", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId), false)>
+                    <#assign curAssocType = delegator.findOne("ProductAssocType", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("productAssocTypeId", productAssocTypeId), false)>
                     <#if curAssocType??>
                         <option selected="selected" value="${(curAssocType.productAssocTypeId)!}">${(curAssocType.get("description",locale))!}</option>
                         <option value="${(curAssocType.productAssocTypeId)!}"></option>
@@ -318,7 +318,7 @@ function lookupBom() {
             <td>${(assocToProduct.getTimestamp("thruDate"))!}&nbsp;</td>
             <td>${(assocToProduct.quantity)!}&nbsp;</td>
             <td>
-                <a href="<@ofbizUrl>UpdateProductBom?UPDATE_MODE=DELETE&amp;productId=${(assocToProduct.productId)!}&amp;productIdTo=${(assocToProduct.productIdTo)!}&amp;productAssocTypeId=${(assocToProduct.productAssocTypeId)!}&amp;fromDate=${Static["org.apache.ofbiz.base.util.UtilFormatOut"].encodeQueryValue(assocToProduct.getTimestamp("fromDate").toString())}&amp;useValues=true</@ofbizUrl>" class="buttontext">
+                <a href="<@ofbizUrl>UpdateProductBom?UPDATE_MODE=DELETE&amp;productId=${(assocToProduct.productId)!}&amp;productIdTo=${(assocToProduct.productIdTo)!}&amp;productAssocTypeId=${(assocToProduct.productAssocTypeId)!}&amp;fromDate=${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].encodeQueryValue(assocToProduct.getTimestamp("fromDate").toString())}&amp;useValues=true</@ofbizUrl>" class="buttontext">
                 ${uiLabelMap.CommonDelete}</a>
             </td>
         </tr>

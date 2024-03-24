@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.eway;
 
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 
 import java.io.InputStream;
 import java.io.OutputStream;

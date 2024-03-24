@@ -187,7 +187,7 @@ function runAction() {
       <#-- Header Ends-->
       <#assign alt_row = false>
       <#list invoices as invoice>
-        <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
+        <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
         <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)!>
           <#assign statusItem = invoice.getRelatedOne("StatusItem", true)>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -197,8 +197,8 @@ function runAction() {
             <td>${statusItem.description?default(invoice.statusId)}</td>
             <td>${invoice.get("referenceNumber")!}</td>
             <td>${(invoice.description)!}</td>
-            <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${invoice.partyIdFrom}</@ofbizUrl>">${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)!} [${(invoice.partyIdFrom)!}] </a></td>
-            <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${invoice.partyId}</@ofbizUrl>">${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyId, false)!} [${(invoice.partyId)!}]</a></td>
+            <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${invoice.partyIdFrom}</@ofbizUrl>">${Static["org.sitenetsoft.sunseterp.applications.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)!} [${(invoice.partyIdFrom)!}] </a></td>
+            <td><a href="<@ofbizUrl controlPath="/partymgr/control">viewprofile?partyId=${invoice.partyId}</@ofbizUrl>">${Static["org.sitenetsoft.sunseterp.applications.party.party.PartyHelper"].getPartyName(delegator, invoice.partyId, false)!} [${(invoice.partyId)!}]</a></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.paidAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
             <td><@ofbizCurrency amount=invoicePaymentInfo.outstandingAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>

@@ -236,7 +236,7 @@ under the License.
 
 <@loopSubContent contentId=forumId viewIndex=viewIdx viewSize=viewSz contentAssocTypeId="SUBSITE" returnAfterPickWhen="1==1";>
     <#local isPublished = "" />
-    <#assign contentAssocViewFrom=Static["org.apache.ofbiz.content.content.ContentWorker"].getContentAssocViewFrom(delegator, subContentId, contentId, "PUBLISH_LINK", null, null)! />
+    <#assign contentAssocViewFrom=Static["org.sitenetsoft.sunseterp.applications.content.content.ContentWorker"].getContentAssocViewFrom(delegator, subContentId, contentId, "PUBLISH_LINK", null, null)! />
     <#if contentAssocViewFrom?has_content>
         <#local isPublished = "checked='checked'" />
     </#if>

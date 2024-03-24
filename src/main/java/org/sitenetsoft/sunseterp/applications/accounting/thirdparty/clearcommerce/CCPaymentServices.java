@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.clearcommerce;
 
-import org.apache.ofbiz.accounting.payment.PaymentGatewayServices;
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.applications.accounting.payment.PaymentGatewayServices;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

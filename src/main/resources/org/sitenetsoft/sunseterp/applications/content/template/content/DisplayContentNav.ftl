@@ -36,7 +36,7 @@ var rawdata = [
             <#list assocList as assoc>
                 <#assign content  = delegator.findOne("Content",{"contentId":assoc.contentIdTo},true)/>
                 <#if locale != "en">
-                  <#assign content = Static["org.apache.ofbiz.content.content.ContentWorker"].findAlternateLocaleContent(delegator, content, locale)/>
+                  <#assign content = Static["org.sitenetsoft.sunseterp.applications.content.content.ContentWorker"].findAlternateLocaleContent(delegator, content, locale)/>
                 </#if>
                 {
                 "data": {"title" : unescapeHtmlText("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},

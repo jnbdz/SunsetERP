@@ -18,18 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.eway;
 
-import org.apache.ofbiz.accounting.payment.PaymentGatewayServices;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilFormatOut;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.applications.accounting.payment.PaymentGatewayServices;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
 import java.math.BigDecimal;
 import java.util.Locale;

@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.gosoftware;
 
-import org.apache.ofbiz.base.util.*;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
 
 import java.io.IOException;
 import java.util.HashMap;

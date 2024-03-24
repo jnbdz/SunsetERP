@@ -19,16 +19,16 @@
 package org.sitenetsoft.sunseterp.applications.order.order;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.content.data.DataResourceWorker;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
+import org.sitenetsoft.sunseterp.applications.content.data.DataResourceWorker;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;

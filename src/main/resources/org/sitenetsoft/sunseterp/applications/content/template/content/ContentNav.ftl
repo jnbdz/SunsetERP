@@ -33,7 +33,7 @@ var rawdata = [
       <#macro fillTree assocList>
           <#if (assocList?has_content)>
             <#list assocList as assoc>
-                <#assign content  = delegator.findOne("Content",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo), false)/>
+                <#assign content  = delegator.findOne("Content",Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("contentId",assoc.contentIdTo), false)/>
                 {
                 "data": {"title" : unescapeHtmlText("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
                 <#assign assocChilds  = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", assoc.contentIdTo!, "contentAssocTypeId", "TREE_CHILD").queryList()!/>

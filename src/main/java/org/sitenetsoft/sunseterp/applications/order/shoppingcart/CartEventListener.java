@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilValidate;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.DelegatorFactory;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.transaction.TransactionUtil;
-import org.apache.ofbiz.webapp.stats.VisitHandler;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.DelegatorFactory;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.sunseterp.framework.webapp.stats.VisitHandler;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;

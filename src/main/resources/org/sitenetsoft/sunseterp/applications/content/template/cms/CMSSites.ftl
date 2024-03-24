@@ -225,7 +225,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
           <tr>
             <td class="">${siteRoleMap.partyId}</td>
             <#list blogRoleIdList as roleTypeId>
-              <#assign cappedSiteRole= Static["org.apache.ofbiz.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
+              <#assign cappedSiteRole= Static["org.sitenetsoft.sunseterp.framework.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
               <td align="center">
               <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if "Y" == siteRoleMap[cappedSiteRole]!>checked="checked"</#if>/>
               </td>
@@ -241,7 +241,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
             <@htmlTemplate.lookupField formName="siteRoleForm" name="partyId_o_${rowCount}" id="partyId_o_${rowCount}" fieldFormName="LookupPerson"/><#-- FIXME check if should be changed -->
           </td>
             <#list blogRoleIdList as roleTypeId>
-              <#assign cappedSiteRole= Static["org.apache.ofbiz.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
+              <#assign cappedSiteRole= Static["org.sitenetsoft.sunseterp.framework.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
               <td align="center">
               <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" />
               </td>

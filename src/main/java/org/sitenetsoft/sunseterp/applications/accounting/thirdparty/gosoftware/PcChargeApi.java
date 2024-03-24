@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.gosoftware;
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.GeneralException;
-import org.apache.ofbiz.base.util.ObjectType;
-import org.apache.ofbiz.base.util.UtilXml;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
+import org.sitenetsoft.sunseterp.framework.base.util.ObjectType;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;

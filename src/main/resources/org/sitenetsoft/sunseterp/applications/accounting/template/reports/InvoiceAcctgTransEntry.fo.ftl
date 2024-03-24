@@ -157,11 +157,11 @@ by hand from a real template using a ruler.
                     <#if debitTotal == creditTotal>
                       <#assign baseCurrencyUomId = (delegator.findOne("PartyAcctgPreference", {"partyId" : partyId}, true))!>
                       <#if baseCurrencyUomId?has_content && "THB" == baseCurrencyUomId.baseCurrencyUomId>
-                        <#assign locale = Static["org.apache.ofbiz.base.util.UtilMisc"].parseLocale("th")!/>
+                        <#assign locale = Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].parseLocale("th")!/>
                       <#else>
-                        <#assign locale = Static["org.apache.ofbiz.base.util.UtilMisc"].parseLocale("en_us")!/>
+                        <#assign locale = Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].parseLocale("en_us")!/>
                       </#if>
-                      <#assign amount = Static["org.apache.ofbiz.base.util.UtilNumber"].formatRuleBasedAmount(debitTotal, locale).toUpperCase()>
+                      <#assign amount = Static["org.sitenetsoft.sunseterp.framework.base.util.UtilNumber"].formatRuleBasedAmount(debitTotal, locale).toUpperCase()>
                       ${uiLabelMap.AccountingTotalCapital} : ${amount!}
                     <#else>
                       ${uiLabelMap.AccountingDebitNotEqualCredit}

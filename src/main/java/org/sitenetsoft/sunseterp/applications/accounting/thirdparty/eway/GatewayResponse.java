@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.eway;
 
-import org.apache.ofbiz.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;

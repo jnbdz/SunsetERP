@@ -93,7 +93,7 @@ function call_fieldlookup3(view_name) {
           <tr>
             <td class="">${map.partyId!}</td>
             <#list blogRoleIdList as roleTypeId>
-              <#assign cappedSiteRole= Static["org.apache.ofbiz.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
+              <#assign cappedSiteRole= Static["org.sitenetsoft.sunseterp.framework.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
               <td align="center">
               <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if map[cappedSiteRole]?has_content && "Y" == map[cappedSiteRole]>checked="checked"</#if>/>
               </td>
