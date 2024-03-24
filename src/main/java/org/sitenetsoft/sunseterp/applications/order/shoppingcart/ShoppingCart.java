@@ -18,29 +18,29 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.common.DataModelConstants;
-import org.apache.ofbiz.entity.*;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.order.finaccount.FinAccountHelper;
-import org.apache.ofbiz.order.order.OrderReadHelper;
-import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
-import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper;
-import org.apache.ofbiz.order.shoppingcart.shipping.ShippingEvents;
-import org.apache.ofbiz.order.shoppinglist.ShoppingListEvents;
-import org.apache.ofbiz.party.contact.ContactHelper;
-import org.apache.ofbiz.party.contact.ContactMechWorker;
-import org.apache.ofbiz.product.category.CategoryWorker;
-import org.apache.ofbiz.product.config.ProductConfigWrapper;
-import org.apache.ofbiz.product.product.ProductWorker;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.common.DataModelConstants;
+import org.sitenetsoft.sunseterp.framework.entity.*;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.applications.order.finaccount.FinAccountHelper;
+import org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.product.ProductPromoWorker;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.shipping.ShippingEstimateWrapper;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.shipping.ShippingEvents;
+import org.sitenetsoft.sunseterp.applications.order.shoppinglist.ShoppingListEvents;
+import org.sitenetsoft.sunseterp.applications.party.contact.ContactHelper;
+import org.sitenetsoft.sunseterp.applications.party.contact.ContactMechWorker;
+import org.sitenetsoft.sunseterp.applications.product.category.CategoryWorker;
+import org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWrapper;
+import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker;
+import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
+import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -1758,7 +1758,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             // clear the list
             if (autoSaveListId != null) {
                 try {
-                    org.apache.ofbiz.order.shoppinglist.ShoppingListEvents.clearListInfo(this.getDelegator(), autoSaveListId);
+                    org.sitenetsoft.sunseterp.framework.order.shoppinglist.ShoppingListEvents.clearListInfo(this.getDelegator(), autoSaveListId);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
                 }
@@ -3193,7 +3193,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
             }
             // set the default shipment method
-            ShippingEstimateWrapper shipEstimateWrapper = org.apache.ofbiz.order.shoppingcart.shipping.ShippingEstimateWrapper
+            ShippingEstimateWrapper shipEstimateWrapper = org.sitenetsoft.sunseterp.framework.order.shoppingcart.shipping.ShippingEstimateWrapper
                     .getWrapper(dispatcher, this, 0);
             GenericValue carrierShipmentMethod = EntityUtil.getFirst(shipEstimateWrapper.getShippingMethods());
             if (carrierShipmentMethod != null) {
@@ -4014,7 +4014,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         // remove cart lines that are promos (ie GWPs) and cart line adjustments from promo actions
         Iterator<ShoppingCartItem> cartItemIter = this.iterator();
         while (cartItemIter.hasNext()) {
-            org.apache.ofbiz.order.shoppingcart.ShoppingCartItem checkItem = cartItemIter.next();
+            org.sitenetsoft.sunseterp.framework.order.shoppingcart.ShoppingCartItem checkItem = cartItemIter.next();
             if (checkItem.getIsPromo()) {
                 this.clearItemShipInfo(checkItem);
                 cartItemIter.remove();

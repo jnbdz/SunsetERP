@@ -20,16 +20,16 @@
 package org.sitenetsoft.sunseterp.applications.order.thirdparty.taxware;
 
 
-import org.apache.ofbiz.base.util.Debug;
-import org.apache.ofbiz.base.util.UtilMisc;
-import org.apache.ofbiz.base.util.UtilProperties;
-import org.apache.ofbiz.base.util.UtilURL;
-import org.apache.ofbiz.datafile.DataFile;
-import org.apache.ofbiz.datafile.DataFileException;
-import org.apache.ofbiz.datafile.ModelField;
-import org.apache.ofbiz.datafile.ModelRecord;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
+import org.sitenetsoft.sunseterp.framework.datafile.DataFile;
+import org.sitenetsoft.sunseterp.framework.datafile.DataFileException;
+import org.sitenetsoft.sunseterp.framework.datafile.ModelField;
+import org.sitenetsoft.sunseterp.framework.datafile.ModelRecord;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 
 import java.io.File;
 import java.io.FileNotFoundException;

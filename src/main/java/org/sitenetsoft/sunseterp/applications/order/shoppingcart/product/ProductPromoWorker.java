@@ -18,24 +18,24 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart.product;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.condition.EntityCondition;
-import org.apache.ofbiz.entity.condition.EntityOperator;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.order.shoppingcart.CartItemModifyException;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart.ProductPromoUseInfo;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem;
-import org.apache.ofbiz.product.product.ProductContentWrapper;
-import org.apache.ofbiz.product.product.ProductSearch;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityOperator;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.CartItemModifyException;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart.ProductPromoUseInfo;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartEvents;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartItem;
+import org.sitenetsoft.sunseterp.applications.product.product.ProductContentWrapper;
+import org.sitenetsoft.sunseterp.applications.product.product.ProductSearch;
+import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;

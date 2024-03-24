@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.shipment.packing;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.service.DispatchContext;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
 import java.math.BigDecimal;
 import java.util.Locale;

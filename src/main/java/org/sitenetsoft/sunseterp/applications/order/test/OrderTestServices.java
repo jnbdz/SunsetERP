@@ -18,15 +18,15 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.test;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.order.order.OrderChangeHelper;
-import org.apache.ofbiz.order.shoppingcart.CartItemModifyException;
-import org.apache.ofbiz.order.shoppingcart.CheckOutHelper;
-import org.apache.ofbiz.order.shoppingcart.ItemNotFoundException;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
-import org.apache.ofbiz.service.*;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.applications.order.order.OrderChangeHelper;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.CartItemModifyException;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutHelper;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ItemNotFoundException;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart;
+import org.sitenetsoft.sunseterp.framework.service.*;
 
 import java.math.BigDecimal;
 import java.security.SecureRandom;

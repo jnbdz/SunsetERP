@@ -18,23 +18,23 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityTypeUtil;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.entity.util.EntityUtilProperties;
-import org.apache.ofbiz.order.order.OrderReadHelper;
-import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker;
-import org.apache.ofbiz.product.config.ProductConfigWorker;
-import org.apache.ofbiz.product.config.ProductConfigWrapper;
-import org.apache.ofbiz.product.product.ProductWorker;
-import org.apache.ofbiz.security.Security;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ModelService;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityTypeUtil;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.product.ProductPromoWorker;
+import org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWorker;
+import org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWrapper;
+import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker;
+import org.sitenetsoft.sunseterp.framework.security.Security;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ModelService;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -44,7 +44,7 @@ import java.util.Map.Entry;
 
 /**
  * A facade over the
- * {@link org.apache.ofbiz.order.shoppingcart.ShoppingCart ShoppingCart}
+ * {@link org.sitenetsoft.sunseterp.framework.order.shoppingcart.ShoppingCart ShoppingCart}
  * providing catalog and product services to simplify the interaction
  * with the cart directly.
  */

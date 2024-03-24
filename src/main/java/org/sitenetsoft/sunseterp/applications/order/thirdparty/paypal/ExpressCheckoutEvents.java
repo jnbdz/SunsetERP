@@ -18,17 +18,17 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.thirdparty.paypal;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart;
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartEvents;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartEvents;
+import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
+import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

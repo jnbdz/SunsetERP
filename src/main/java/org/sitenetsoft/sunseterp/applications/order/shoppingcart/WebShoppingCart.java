@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
-import org.apache.ofbiz.base.util.UtilHttp;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
+import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,7 +31,7 @@ import java.util.Locale;
 /**
  * WebShoppingCart.java
  *
- * Extension of {@link org.apache.ofbiz.order.shoppingcart.ShoppingCart ShoppingCart}
+ * Extension of {@link org.sitenetsoft.sunseterp.framework.order.shoppingcart.ShoppingCart ShoppingCart}
  * class which provides web presentation layer specific functionality
  * related specifically to user session information.
  */

@@ -18,21 +18,21 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppinglist;
 
-import org.apache.ofbiz.base.util.*;
-import org.apache.ofbiz.entity.Delegator;
-import org.apache.ofbiz.entity.GenericEntityException;
-import org.apache.ofbiz.entity.GenericValue;
-import org.apache.ofbiz.entity.util.EntityQuery;
-import org.apache.ofbiz.entity.util.EntityUtil;
-import org.apache.ofbiz.order.shoppingcart.*;
-import org.apache.ofbiz.product.catalog.CatalogWorker;
-import org.apache.ofbiz.product.config.ProductConfigWorker;
-import org.apache.ofbiz.product.config.ProductConfigWrapper;
-import org.apache.ofbiz.product.store.ProductStoreWorker;
-import org.apache.ofbiz.service.GenericServiceException;
-import org.apache.ofbiz.service.LocalDispatcher;
-import org.apache.ofbiz.service.ServiceUtil;
-import org.apache.ofbiz.webapp.website.WebSiteWorker;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.*;
+import org.sitenetsoft.sunseterp.applications.product.catalog.CatalogWorker;
+import org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWorker;
+import org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWrapper;
+import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
+import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
+import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

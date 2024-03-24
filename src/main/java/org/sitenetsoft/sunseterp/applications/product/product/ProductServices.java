@@ -1062,7 +1062,7 @@ public class ProductServices {
                     Path tempFile = Files.createTempFile(null, null);
                     Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
                     // Check if a webshell is not uploaded
-                    if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
+                    if (!org.sitenetsoft.sunseterp.framework.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
@@ -1370,7 +1370,7 @@ public class ProductServices {
                 Path tempFile = Files.createTempFile(null, null);
                 Files.write(tempFile, imageData.array(), StandardOpenOption.APPEND);
                 // Check if a webshell is not uploaded
-                if (!org.apache.ofbiz.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
+                if (!org.sitenetsoft.sunseterp.framework.security.SecuredUpload.isValidFile(tempFile.toString(), "Image", delegator)) {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
