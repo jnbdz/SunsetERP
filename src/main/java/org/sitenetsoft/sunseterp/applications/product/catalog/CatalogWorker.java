@@ -65,6 +65,7 @@ public final class CatalogWorker {
         return WebSiteWorker.getWebSite(request);
     }*/
 
+    @Deprecated
     public static List<String> getAllCatalogIds(ServletRequest request) {
         List<String> catalogIds = new LinkedList<>();
         List<GenericValue> catalogs = null;
