@@ -19,6 +19,7 @@
 
 package org.sitenetsoft.sunseterp.applications.workeffort.workeffort;
 
+import java.time.temporal.Temporal;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -240,8 +241,8 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
         }
         org.sitenetsoft.sunseterp.framework.base.util.DateRange range = expr.getDateRange();
         PeriodList periodList = new PeriodList();
-        periodList.add(new Period(new DateTime(range.start()), new DateTime(range.end())));
-        this.incDateList.add(new RDate(periodList));
+        periodList.add(new Period((Temporal) new DateTime(range.start()), (Temporal) new DateTime(range.end())));
+        this.incDateList.add(new RDate((List<Period>) periodList));
     }
 
     @Override
@@ -289,7 +290,7 @@ public class ICalRecurConverter implements TemporalExpressionVisitor {
     @Override
     public void visit(TemporalExpressions.Frequency expr) {
         if (this.dateStart == null) {
-            this.dateStart = new DtStart(new net.fortuna.ical4j.model.Date(expr.getStartDate()));
+            this.dateStart = new DtStart(String.valueOf(new net.fortuna.ical4j.model.Date(expr.getStartDate())));
         }
         int freqCount = expr.getFreqCount();
         int freqType = expr.getFreqType();

@@ -102,7 +102,6 @@ dependencies {
 
     // This needs to be changed to org.junit.jupiter:junit-jupiter-api:5.10.0
     implementation 'junit:junit:4.13.2'
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
     implementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
 

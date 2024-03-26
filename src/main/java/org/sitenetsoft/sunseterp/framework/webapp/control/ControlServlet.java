@@ -18,12 +18,54 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.control;
 
+import static org.sitenetsoft.sunseterp.framework.base.util.StringUtil.replaceString;
+
+import java.io.IOException;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
+
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapperBuilder;
+import freemarker.template.ObjectWrapper;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilCodec;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilTimer;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.base.util.template.FreeMarkerWorker;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.DelegatorFactory;
+import org.sitenetsoft.sunseterp.framework.entity.GenericDelegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransactionException;
+import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.sunseterp.framework.security.Security;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.webapp.stats.ServerHitBin;
+import org.sitenetsoft.sunseterp.framework.webapp.stats.VisitHandler;
+import org.sitenetsoft.sunseterp.framework.widget.renderer.VisualTheme;
+
+import freemarker.ext.servlet.ServletContextHashModel;
+import freemarker.template.Template;
+
+import javax.servlet.GenericServlet;
+
 /**
  * ControlServlet.java - Master servlet for the web application.
  */
 @SuppressWarnings("serial")
-public class ControlServlet {}
-/*public class ControlServlet extends HttpServlet {
+//public class ControlServlet {}
+public class ControlServlet extends HttpServlet {
 
     private static final String MODULE = ControlServlet.class.getName();
 
@@ -68,7 +110,7 @@ public class ControlServlet {}
      *                 the servlet sends to the client
      * @throws IOException if an output error is detected when trying to write on the response.
      */
-    /*public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void handle(HttpServletRequest request, HttpServletResponse response) throws IOException {
         long requestStartTime = System.currentTimeMillis();
         HttpSession session = request.getSession();
 
@@ -166,8 +208,10 @@ public class ControlServlet {}
         RequestHandler handler = RequestHandler.getRequestHandler(getServletContext());
         request.setAttribute("_REQUEST_HANDLER_", handler);
 
-        ServletContextHashModel ftlServletContext = new ServletContextHashModel(this,
-                FreeMarkerWorker.getDefaultOfbizWrapper());
+        ServletContext servletContext = getServletContext();
+        Configuration cfg = FreeMarkerWorker.getDefaultOfbizConfig();
+        ObjectWrapper wrapper = new DefaultObjectWrapperBuilder(cfg.getVersion()).build();
+        ServletContextHashModel ftlServletContext = new ServletContextHashModel((GenericServlet) servletContext, wrapper);
         request.setAttribute("ftlServletContext", ftlServletContext);
 
         // setup some things that should always be there
@@ -390,4 +434,4 @@ public class ControlServlet {}
         }
         Debug.logVerbose("--- End ServletContext Attributes ---", MODULE);
     }
-}*/
+}

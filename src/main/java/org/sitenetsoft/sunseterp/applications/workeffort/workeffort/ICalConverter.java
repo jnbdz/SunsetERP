@@ -22,17 +22,15 @@ package org.sitenetsoft.sunseterp.applications.workeffort.workeffort;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
-import net.fortuna.ical4j.model.*;
 import net.fortuna.ical4j.model.component.VAlarm;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.component.VToDo;
 import net.fortuna.ical4j.model.parameter.Cn;
 import net.fortuna.ical4j.model.parameter.PartStat;
 import net.fortuna.ical4j.model.parameter.XParameter;
-import net.fortuna.ical4j.model.property.*;
-import net.fortuna.ical4j.model.property.immutable.ImmutableAction;
 import net.fortuna.ical4j.model.property.immutable.ImmutableStatus;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.base.util.DateRange;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
@@ -45,11 +43,48 @@ import org.sitenetsoft.sunseterp.applications.workeffort.workeffort.ICalWorker.R
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.TemporalAmount;
 import java.util.*;
+import java.util.Date;
+
+import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.ComponentList;
+import net.fortuna.ical4j.model.DateTime;
+import net.fortuna.ical4j.model.Dur;
+import net.fortuna.ical4j.model.Parameter;
+import net.fortuna.ical4j.model.ParameterList;
+import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.PropertyList;
+import net.fortuna.ical4j.model.TimeZoneRegistry;
+import net.fortuna.ical4j.model.TimeZoneRegistryFactory;
+//import net.fortuna.ical4j.model.ValidationException;
+import net.fortuna.ical4j.model.property.Action;
+import net.fortuna.ical4j.model.property.Attendee;
+import net.fortuna.ical4j.model.property.CalScale;
+import net.fortuna.ical4j.model.property.Clazz;
+import net.fortuna.ical4j.model.property.Completed;
+import net.fortuna.ical4j.model.property.Created;
+import net.fortuna.ical4j.model.property.Description;
+import net.fortuna.ical4j.model.property.DtEnd;
+import net.fortuna.ical4j.model.property.DtStamp;
+import net.fortuna.ical4j.model.property.DtStart;
+import net.fortuna.ical4j.model.property.Duration;
+import net.fortuna.ical4j.model.property.LastModified;
+import net.fortuna.ical4j.model.property.Location;
+import net.fortuna.ical4j.model.property.Organizer;
+import net.fortuna.ical4j.model.property.PercentComplete;
+import net.fortuna.ical4j.model.property.Priority;
+import net.fortuna.ical4j.model.property.ProdId;
+import net.fortuna.ical4j.model.property.Status;
+import net.fortuna.ical4j.model.property.Summary;
+import net.fortuna.ical4j.model.property.Uid;
+import net.fortuna.ical4j.model.property.Version;
+import net.fortuna.ical4j.model.property.XProperty;
+import net.fortuna.ical4j.validate.ValidationException;
 
 /** iCalendar converter class. This class uses the <a href="http://ical4j.sourceforge.net/index.html">
  * iCal4J</a> library.
@@ -86,39 +121,14 @@ public class ICalConverter {
             "CONTACT", "CONTACT", "ORGANIZER", "CAL_ORGANIZER");
 
     protected static VAlarm createAlarm(GenericValue workEffortEventReminder) {
-        /*VAlarm alarm = null;
+        VAlarm alarm = null;
         Timestamp reminderStamp = workEffortEventReminder.getTimestamp("reminderDateTime");
         if (reminderStamp != null) {
-            new DateTime(reminderStamp);
-            alarm = new VAlarm();
+            alarm = new VAlarm((TemporalAmount) new DateTime(reminderStamp));
         } else {
             TimeDuration duration = TimeDuration.fromNumber(workEffortEventReminder.getLong("reminderOffset"));
-            alarm = new VAlarm(new Dur(duration.days(), duration.hours(), duration.minutes(), duration.seconds()));
+            alarm = new VAlarm((TemporalAmount) new Dur(duration.days(), duration.hours(), duration.minutes(), duration.seconds()));
         }
-        return alarm;*/
-        VAlarm alarm = new VAlarm();
-
-        Timestamp reminderStamp = workEffortEventReminder.getTimestamp("reminderDateTime");
-        if (reminderStamp != null) {
-            // Set the action to DISPLAY and add a trigger with the DateTime
-            alarm.getProperties().add(ImmutableAction.DISPLAY);
-            Instant trigger = reminderStamp.toInstant();
-            alarm.getProperties().add(new Trigger(trigger));
-        } else {
-            new TemporalAmount();
-            TimeDuration timeDuration = TimeDuration.fromNumber(workEffortEventReminder.getLong("reminderOffset"));
-            // Set the action to DISPLAY and add a trigger with the Duration
-            alarm.getProperties().add(ImmutableAction.DISPLAY);
-
-            // Create a Duration in ISO 8601 format
-            String iso8601Duration = "P" + timeDuration.days() + "DT" +
-                    timeDuration.hours() + "H" +
-                    timeDuration.minutes() + "M" +
-                    timeDuration.seconds() + "S";
-
-            alarm.getProperties().add(new Duration(iso8601Duration));
-        }
-
         return alarm;
     }
 
@@ -148,7 +158,7 @@ public class ICalConverter {
         }
         String workEffortId = (String) serviceResult.get("workEffortId");
         if (workEffortId != null) {
-            replaceProperty(component.getProperties(), toXProperty(WORKEFFORT_ID_X_PROP_NAME, workEffortId));
+            replaceProperty((PropertyList) component.getProperties(), toXProperty(WORKEFFORT_ID_X_PROP_NAME, workEffortId));
             serviceMap.clear();
             serviceMap.put("workEffortIdFrom", context.get("workEffortId"));
             serviceMap.put("workEffortIdTo", workEffortId);
@@ -164,73 +174,81 @@ public class ICalConverter {
     }
 
     protected static String fromClazz(PropertyList propertyList) {
-        Clazz iCalObj = (Clazz) propertyList.getProperty(Clazz.CLASS);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(Clazz.CLASS);
+        if (optionalProperty.isPresent()) {
+            Clazz iCalObj = (Clazz) optionalProperty.get();
+            return "WES_".concat(iCalObj.getValue());
         }
-        return "WES_".concat(iCalObj.getValue());
+        return null;
     }
 
     protected static Timestamp fromCompleted(PropertyList propertyList) {
-        Completed iCalObj = (Completed) propertyList.getProperty(Completed.COMPLETED);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(Completed.COMPLETED);
+        if (optionalProperty.isPresent()) {
+            Completed iCalObj = (Completed) optionalProperty.get();
+            Date date = Date.from(iCalObj.getDate());
+            return new Timestamp(date.getTime());
         }
-        Date date = iCalObj.getDate();
-        return new Timestamp(date.getTime());
+        return null;
     }
 
     protected static String fromDescription(PropertyList propertyList) {
-        Description iCalObj = (Description) propertyList.getProperty(Description.DESCRIPTION);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(Description.DESCRIPTION);
+        if (optionalProperty.isPresent()) {
+            Description iCalObj = (Description) optionalProperty.get();
+            return iCalObj.getValue();
         }
-        return iCalObj.getValue();
+        return null;
     }
 
     protected static Timestamp fromDtEnd(PropertyList propertyList) {
-        DtEnd iCalObj = (DtEnd) propertyList.getProperty(DtEnd.DTEND);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(DtEnd.DTEND);
+        if (optionalProperty.isPresent()) {
+            DtEnd iCalObj = (DtEnd) optionalProperty.get();
+            Date date = Date.from((Instant) iCalObj.getDate());
+            return new Timestamp(date.getTime());
         }
-        Date date = iCalObj.getDate();
-        return new Timestamp(date.getTime());
+        return null;
     }
 
     protected static Timestamp fromDtStart(PropertyList propertyList) {
-        DtStart iCalObj = (DtStart) propertyList.getProperty(DtStart.DTSTART);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(DtStart.DTSTART);
+        if (optionalProperty.isPresent()) {
+            DtStart iCalObj = (DtStart) optionalProperty.get();
+            Date date = Date.from((Instant) iCalObj.getDate());
+            return new Timestamp(date.getTime());
         }
-        Date date = iCalObj.getDate();
-        return new Timestamp(date.getTime());
+        return null;
     }
 
     protected static Double fromDuration(PropertyList propertyList) {
-        Duration iCalObj = (Duration) propertyList.getProperty(Duration.DURATION);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(Duration.DURATION);
+        if (optionalProperty.isPresent()) {
+            Duration iCalObj = (Duration) optionalProperty.get();
+            Dur dur = (Dur) iCalObj.getDuration();
+            TimeDuration td = new TimeDuration(0, 0, (dur.getWeeks() * 7) + dur.getDays(), dur.getHours(), dur.getMinutes(), dur.getSeconds(), 0);
+            return (double) TimeDuration.toLong(td);
         }
-        Dur dur = iCalObj.getDuration();
-        TimeDuration td = new TimeDuration(0, 0, (dur.getWeeks() * 7) + dur.getDays(), dur.getHours(), dur.getMinutes(), dur.getSeconds(), 0);
-        return (double) TimeDuration.toLong(td);
+        return null;
     }
 
     protected static Timestamp fromLastModified(PropertyList propertyList) {
-        LastModified iCalObj = (LastModified) propertyList.getProperty(LastModified.LAST_MODIFIED);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(LastModified.LAST_MODIFIED);
+        if (optionalProperty.isPresent()) {
+            LastModified iCalObj = (LastModified) optionalProperty.get();
+            Date date = Date.from(iCalObj.getDate());
+            return new Timestamp(date.getTime());
         }
-        Date date = iCalObj.getDate();
-        return new Timestamp(date.getTime());
+        return null;
     }
 
     protected static String fromLocation(PropertyList propertyList) {
-        Location iCalObj = (Location) propertyList.getProperty(Location.LOCATION);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(Location.LOCATION);
+        if (optionalProperty.isPresent()) {
+            Location iCalObj = (Location) optionalProperty.get();
+            return iCalObj.getValue();
         }
-        return iCalObj.getValue();
+        return null;
     }
 
     protected static String fromParticipationStatus(Parameter status) {
@@ -241,51 +259,57 @@ public class ICalConverter {
     }
 
     protected static Long fromPercentComplete(PropertyList propertyList) {
-        PercentComplete iCalObj = (PercentComplete) propertyList.getProperty(PercentComplete.PERCENT_COMPLETE);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(PercentComplete.PERCENT_COMPLETE);
+        if (optionalProperty.isPresent()) {
+            PercentComplete iCalObj = (PercentComplete) optionalProperty.get();
+            return (long) iCalObj.getPercentage();
         }
-        return (long) iCalObj.getPercentage();
+        return null;
     }
 
     protected static Double fromPriority(PropertyList propertyList) {
-        Priority iCalObj = (Priority) propertyList.getProperty(Priority.PRIORITY);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(Priority.PRIORITY);
+        if (optionalProperty.isPresent()) {
+            Priority iCalObj = (Priority) optionalProperty.get();
+            return (double) iCalObj.getLevel();
         }
-        return (double) iCalObj.getLevel();
+        return null;
     }
 
     protected static String fromStatus(PropertyList propertyList) {
-        Status iCalObj = (Status) propertyList.getProperty(Status.STATUS);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(Status.STATUS);
+        if (optionalProperty.isPresent()) {
+            Status iCalObj = (Status) optionalProperty.get();
+            return FROM_STATUS_MAP.get(iCalObj.getValue());
         }
-        return FROM_STATUS_MAP.get(iCalObj.getValue());
+        return null;
     }
 
     protected static String fromSummary(PropertyList propertyList) {
-        Summary iCalObj = (Summary) propertyList.getProperty(Summary.SUMMARY);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(Summary.SUMMARY);
+        if (optionalProperty.isPresent()) {
+            Summary iCalObj = (Summary) optionalProperty.get();
+            return iCalObj.getValue();
         }
-        return iCalObj.getValue();
+        return null;
     }
 
     protected static String fromUid(PropertyList propertyList) {
-        Uid iCalObj = (Uid) propertyList.getProperty(Uid.UID);
-        if (iCalObj == null) {
-            return null;
+        Optional<Property> optionalProperty = propertyList.getProperty(Uid.UID);
+        if (optionalProperty.isPresent()) {
+            Uid iCalObj = (Uid) optionalProperty.get();
+            return iCalObj.getValue();
         }
-        return iCalObj.getValue();
+        return null;
     }
 
     protected static String fromXParameter(ParameterList parameterList, String parameterName) {
         if (parameterName == null) {
             return null;
         }
-        Parameter parameter = parameterList.getParameter(parameterName);
-        if (parameter != null) {
+        Optional<Parameter> optionalParameter = parameterList.getParameter(parameterName);
+        if (optionalParameter.isPresent()) {
+            Parameter parameter = optionalParameter.get();
             return parameter.getValue();
         }
         return null;
@@ -295,8 +319,9 @@ public class ICalConverter {
         if (propertyName == null) {
             return null;
         }
-        Property property = propertyList.getProperty(propertyName);
-        if (property != null) {
+        Optional<Property> optionalProperty = propertyList.getProperty(propertyName);
+        if (optionalProperty.isPresent()) {
+            Property property = optionalProperty.get();
             return property.getValue();
         }
         return null;
@@ -319,37 +344,38 @@ public class ICalConverter {
             VAlarm alarm = null;
             PropertyList alarmProps = null;
             boolean newAlarm = true;
-            Iterator<VAlarm> i = UtilGenerics.cast(alarms.iterator());
+            Iterator<VAlarm> i = UtilGenerics.cast(alarms.getAll());
             while (i.hasNext()) {
                 alarm = i.next();
-                Property xProperty = alarm.getProperty(REMINDER_X_PROP_NAME);
-                if (xProperty != null && reminderId.equals(xProperty.getValue())) {
+                Optional<Property> xProperty = alarm.getProperty(REMINDER_X_PROP_NAME);
+                if (xProperty != null && reminderId.equals(xProperty.get())) {
                     newAlarm = false;
-                    alarmProps = alarm.getProperties();
+                    alarmProps = (PropertyList) alarm.getProperties();
                     // TODO: Write update code. For now, just re-create
-                    alarmProps.clear();
+                    alarmProps.removeAll();
                     break;
                 }
             }
             if (newAlarm) {
                 alarm = createAlarm(reminder);
                 alarms.add(alarm);
-                alarmProps = alarm.getProperties();
+                alarmProps = (PropertyList) alarm.getProperties();
                 alarmProps.add(new XProperty(REMINDER_X_PROP_NAME, reminderId));
             }
             GenericValue contactMech = reminder.getRelatedOne("ContactMech", false);
             if (contactMech != null && "EMAIL_ADDRESS".equals(contactMech.get("contactMechTypeId"))) {
                 try {
-                    alarmProps.add(new Attendee(contactMech.getString("infoString")));
-                    alarmProps.add(Action.EMAIL);
+                    URI attendeeUri = new URI(contactMech.getString("infoString"));
+                    alarmProps.add(new Attendee(attendeeUri));
+                    alarmProps.add(new Action(Action.VALUE_EMAIL));
                     alarmProps.add(summary);
                     alarmProps.add(description);
                 } catch (URISyntaxException e) {
-                    alarmProps.add(Action.DISPLAY);
+                    alarmProps.add(new Action(Action.VALUE_DISPLAY));
                     alarmProps.add(new Description("Error encountered while creating iCalendar: " + e));
                 }
             } else {
-                alarmProps.add(Action.DISPLAY);
+                alarmProps.add(new Action(Action.VALUE_DISPLAY));
                 alarmProps.add(description);
             }
             if (Debug.verboseOn()) {
@@ -389,7 +415,7 @@ public class ICalConverter {
             }
         }
         Calendar calendar = makeCalendar(publishProperties, context);
-        ComponentList components = calendar.getComponents();
+        ComponentList components = (ComponentList) calendar.getComponents();
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
         if (workEfforts != null) {
             for (GenericValue workEffort : workEfforts) {
@@ -509,14 +535,14 @@ public class ICalConverter {
                 Debug.logError(e, "Error while setting Property value: ", MODULE);
             }
         }
-        ParameterList parameterList = property.getParameters();
+        ParameterList parameterList = (ParameterList) property.getParameters();
         replaceParameter(parameterList, toXParameter(PARTY_ID_X_PARAM_NAME, partyAssign.getString("partyId")));
         replaceParameter(parameterList, new Cn(makePartyName(partyAssign)));
         replaceParameter(parameterList, toParticipationStatus(partyAssign.getString("assignmentStatusId")));
     }
 
     protected static void loadRelatedParties(List<GenericValue> relatedParties, PropertyList componentProps, Map<String, Object> context) {
-        PropertyList attendees = componentProps.getProperties("ATTENDEE");
+        PropertyList attendees = (PropertyList) componentProps.getProperties("ATTENDEE");
         for (GenericValue partyValue : relatedParties) {
             if ("CAL_ORGANIZER~CAL_OWNER".contains(partyValue.getString("roleTypeId"))) {
                 // RFC 2445 4.6.1, 4.6.2, and 4.6.3 ORGANIZER can appear only once
@@ -525,11 +551,11 @@ public class ICalConverter {
                 String partyId = partyValue.getString("partyId");
                 boolean newAttendee = true;
                 Attendee attendee = null;
-                Iterator<Attendee> i = UtilGenerics.cast(attendees.iterator());
+                Iterator<Attendee> i = UtilGenerics.cast(attendees.getAll());
                 while (i.hasNext()) {
                     attendee = i.next();
-                    Parameter xParameter = attendee.getParameter(PARTY_ID_X_PARAM_NAME);
-                    if (xParameter != null && partyId.equals(xParameter.getValue())) {
+                    Optional<Parameter> xParameter = attendee.getParameter(PARTY_ID_X_PARAM_NAME);
+                    if (xParameter != null && partyId.equals(xParameter.get())) {
                         loadPartyAssignment(attendee, partyValue, context);
                         newAttendee = false;
                         break;
@@ -554,7 +580,7 @@ public class ICalConverter {
         replaceProperty(componentProps, toLocation(workEffort.getString("locationDesc")));
         replaceProperty(componentProps, toStatus(workEffort.getString("currentStatusId")));
         replaceProperty(componentProps, toSummary(workEffort.getString("workEffortName")));
-        Property uid = componentProps.getProperty(Uid.UID);
+        Optional<Property> uid = componentProps.getProperty(Uid.UID);
         if (uid == null) {
             // Don't overwrite UIDs created by calendar clients
             replaceProperty(componentProps, toUid(workEffort.getString("workEffortId")));
@@ -588,12 +614,12 @@ public class ICalConverter {
                 calendar = new Calendar();
             }
         }
-        PropertyList propList = calendar.getProperties();
+        PropertyList propList = (PropertyList) calendar.getProperties();
         replaceProperty(propList, PROD_ID);
         replaceProperty(propList, new XProperty(WORKEFFORT_ID_X_PROP_NAME, workEffort.getString("workEffortId")));
         if (newCalendar) {
-            propList.add(Version.VERSION_2_0);
-            propList.add(CalScale.GREGORIAN);
+            propList.add(new Action(Version.VALUE_2_0));
+            propList.add(new Action(CalScale.VALUE_GREGORIAN));
             // TODO: Get time zone from publish properties value
             java.util.TimeZone tz = java.util.TimeZone.getDefault();
             TimeZoneRegistry registry = TimeZoneRegistryFactory.getInstance().createRegistry();
@@ -615,8 +641,9 @@ public class ICalConverter {
         if (parameter == null) {
             return;
         }
-        Parameter existingParam = parameterList.getParameter(parameter.getName());
-        if (existingParam != null) {
+        Optional<Parameter> existingParamOpt = parameterList.getParameter(parameter.getName());
+        if (existingParamOpt.isPresent()) {
+            Parameter existingParam = existingParamOpt.get();
             parameterList.remove(existingParam);
         }
         parameterList.add(parameter);
@@ -626,8 +653,9 @@ public class ICalConverter {
         if (property == null) {
             return;
         }
-        Property existingProp = propertyList.getProperty(property.getName());
-        if (existingProp != null) {
+        Optional<Property> existingPropOpt = propertyList.getProperty(property.getName());
+        if (existingPropOpt.isPresent()) {
+            Property existingProp = existingPropOpt.get();
             propertyList.remove(existingProp);
         }
         propertyList.add(property);
@@ -645,12 +673,12 @@ public class ICalConverter {
         Map<String, Object> resultMap = invokeService("findPartyFromEmailAddress", serviceMap, context);
         String partyId = (String) resultMap.get("partyId");
         if (partyId != null) {
-            replaceParameter(property.getParameters(), toXParameter(PARTY_ID_X_PARAM_NAME, partyId));
+            replaceParameter((ParameterList) property.getParameters(), toXParameter(PARTY_ID_X_PARAM_NAME, partyId));
         }
     }
 
     protected static void setWorkEffortServiceMap(Component component, Map<String, Object> serviceMap) {
-        PropertyList propertyList = component.getProperties();
+        PropertyList propertyList = (PropertyList) component.getProperties();
         setMapElement(serviceMap, "scopeEnumId", fromClazz(propertyList));
         setMapElement(serviceMap, "description", fromDescription(propertyList));
         setMapElement(serviceMap, "locationDesc", fromLocation(propertyList));
@@ -701,7 +729,7 @@ public class ICalConverter {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Processing calendar:\r\n" + calendar, MODULE);
         }
-        String workEffortId = fromXProperty(calendar.getProperties(), WORKEFFORT_ID_X_PROP_NAME);
+        String workEffortId = fromXProperty((PropertyList) calendar.getProperties(), WORKEFFORT_ID_X_PROP_NAME);
         if (workEffortId == null) {
             workEffortId = (String) context.get("workEffortId");
         }
@@ -735,11 +763,11 @@ public class ICalConverter {
         ResponseProperties responseProps = null;
         for (Component component : components) {
             if (Component.VEVENT.equals(component.getName()) || Component.VTODO.equals(component.getName())) {
-                workEffortId = fromXProperty(component.getProperties(), WORKEFFORT_ID_X_PROP_NAME);
+                workEffortId = fromXProperty((PropertyList) component.getProperties(), WORKEFFORT_ID_X_PROP_NAME);
                 if (workEffortId == null) {
-                    Property uid = component.getProperty(Uid.UID);
+                    Optional<Property> uid = component.getProperty(Uid.UID);
                     if (uid != null) {
-                        GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("universalId", uid.getValue()).queryFirst();
+                        GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("universalId", uid.get()).queryFirst();
                         if (workEffort != null) {
                             workEffortId = workEffort.getString("workEffortId");
                         }
@@ -747,7 +775,7 @@ public class ICalConverter {
                 }
                 if (workEffortId != null) {
                     if (validWorkEfforts.contains(workEffortId)) {
-                        replaceProperty(component.getProperties(), toXProperty(WORKEFFORT_ID_X_PROP_NAME, workEffortId));
+                        replaceProperty((PropertyList) component.getProperties(), toXProperty(WORKEFFORT_ID_X_PROP_NAME, workEffortId));
                         responseProps = storeWorkEffort(component, context);
                     } else {
                         Debug.logWarning("Spoof attempt: unrelated workEffortId " + workEffortId
@@ -784,7 +812,7 @@ public class ICalConverter {
         partyList.addAll(UtilGenerics.checkCollection(component.getProperties("CONTACT"), Property.class));
         partyList.addAll(UtilGenerics.checkCollection(component.getProperties("ORGANIZER"), Property.class));
         for (Property property : partyList) {
-            String partyId = fromXParameter(property.getParameters(), PARTY_ID_X_PARAM_NAME);
+            String partyId = fromXParameter((ParameterList) property.getParameters(), PARTY_ID_X_PARAM_NAME);
             if (partyId == null) {
                 serviceMap.clear();
                 String address = property.getValue();
@@ -797,7 +825,7 @@ public class ICalConverter {
                 if (partyId == null) {
                     continue;
                 }
-                replaceParameter(property.getParameters(), toXParameter(PARTY_ID_X_PARAM_NAME, partyId));
+                replaceParameter((ParameterList) property.getParameters(), toXParameter(PARTY_ID_X_PARAM_NAME, partyId));
             }
             serviceMap.clear();
             serviceMap.put("workEffortId", workEffortId);
@@ -821,7 +849,7 @@ public class ICalConverter {
     }
 
     protected static ResponseProperties storeWorkEffort(Component component, Map<String, Object> context) throws GenericEntityException {
-        PropertyList propertyList = component.getProperties();
+        PropertyList propertyList = (PropertyList) component.getProperties();
         String workEffortId = fromXProperty(propertyList, WORKEFFORT_ID_X_PROP_NAME);
         Delegator delegator = (Delegator) context.get("delegator");
         GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
@@ -852,22 +880,22 @@ public class ICalConverter {
         Component result = null;
         if ("TASK".equals(workEffortTypeId) || (typeValue != null && "TASK".equals(typeValue.get("parentTypeId")))) {
             isTask = true;
-            resultList = components.getComponents("VTODO");
+            resultList = (ComponentList) components.getComponents("VTODO");
         } else if ("EVENT".equals(workEffortTypeId) || (typeValue != null && "EVENT".equals(typeValue.get("parentTypeId")))) {
-            resultList = components.getComponents("VEVENT");
+            resultList = (ComponentList) components.getComponents("VEVENT");
         } else {
             return null;
         }
-        Iterator<Component> i = UtilGenerics.cast(resultList.iterator());
+        Iterator<Component> i = UtilGenerics.cast(resultList.getAll());
         while (i.hasNext()) {
             result = i.next();
-            Property xProperty = result.getProperty(WORKEFFORT_ID_X_PROP_NAME);
-            if (xProperty != null && workEffortId.equals(xProperty.getValue())) {
+            Optional<Property> xProperty = result.getProperty(WORKEFFORT_ID_X_PROP_NAME);
+            if (xProperty != null && workEffortId.equals(xProperty.get())) {
                 newComponent = false;
                 break;
             }
-            Property uid = result.getProperty(Uid.UID);
-            if (uid != null && uid.getValue().equals(workEffortUid)) {
+            Optional<Property> uid = result.getProperty(Uid.UID);
+            if (uid != null && uid.get().equals(workEffortUid)) {
                 newComponent = false;
                 break;
             }
@@ -880,7 +908,7 @@ public class ICalConverter {
             } else {
                 toDo = (VToDo) result;
             }
-            alarms = toDo.getAlarms();
+            alarms = (ComponentList) toDo.getAlarms();
         } else {
             VEvent event = null;
             if (newComponent) {
@@ -889,12 +917,12 @@ public class ICalConverter {
             } else {
                 event = (VEvent) result;
             }
-            alarms = event.getAlarms();
+            alarms = (ComponentList) event.getAlarms();
         }
         if (newComponent) {
             components.add(result);
         }
-        PropertyList componentProps = result.getProperties();
+        PropertyList componentProps = (PropertyList) result.getProperties();
         loadWorkEffort(componentProps, workEffort);
         if (isTask) {
             replaceProperty(componentProps, toCompleted(workEffort.getTimestamp("actualCompletionDate")));
@@ -945,14 +973,14 @@ public class ICalConverter {
         if (javaObj == null) {
             return null;
         }
-        return new Completed(new DateTime(javaObj));
+        return new Completed(String.valueOf(new DateTime(javaObj)));
     }
 
     protected static Created toCreated(Timestamp javaObj) {
         if (javaObj == null) {
             return null;
         }
-        return new Created(new DateTime(javaObj));
+        return new Created(String.valueOf(new DateTime(javaObj)));
     }
 
     protected static Description toDescription(String javaObj) {
@@ -966,14 +994,14 @@ public class ICalConverter {
         if (javaObj == null) {
             return null;
         }
-        return new DtEnd(new DateTime(javaObj));
+        return new DtEnd(String.valueOf(new DateTime(javaObj)));
     }
 
     protected static DtStart toDtStart(Timestamp javaObj) {
         if (javaObj == null) {
             return null;
         }
-        return new DtStart(new DateTime(javaObj));
+        return new DtStart(String.valueOf(new DateTime(javaObj)));
     }
 
     protected static Duration toDuration(Double javaObj) {
@@ -988,7 +1016,7 @@ public class ICalConverter {
         if (javaObj == null) {
             return null;
         }
-        return new LastModified(new DateTime(javaObj));
+        return new LastModified(String.valueOf(new DateTime(javaObj)));
     }
 
     protected static Location toLocation(String javaObj) {
@@ -1040,7 +1068,7 @@ public class ICalConverter {
         return new Uid(UID_PREFIX.concat(javaObj));
     }
 
-    protected static XParameter toXParameter(String name, String value) {
+    protected static Parameter toXParameter(String name, String value) {
         if (name == null || value == null) {
             return null;
         }

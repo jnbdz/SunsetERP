@@ -27,6 +27,7 @@ import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpand
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
@@ -34,6 +35,7 @@ import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * CyberSource WS Integration Services
@@ -61,12 +63,15 @@ public class IcsPaymentServices {
         }
 
         Map<String, Object> request = buildAuthRequest(context, delegator);
+        // TODO: this is a hack to convert all values to strings
+        Map<String, String> stringRequest = request.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString()));
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
         Map<String, Object> reply;
         try {
-            reply = UtilGenerics.cast(Client.runTransaction(request, props));
+            reply = UtilGenerics.cast(Client.runTransaction(stringRequest, props));
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             Debug.logError(e, "Fault : " + e.getFaultString(), MODULE);
@@ -108,12 +113,15 @@ public class IcsPaymentServices {
         }
 
         Map<String, Object> request = buildCaptureRequest(context, authTransaction, delegator);
+        // TODO: this is a hack to convert all values to strings
+        Map<String, String> stringRequest = request.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString()));
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
         Map<String, Object> reply;
         try {
-            reply = UtilGenerics.cast(Client.runTransaction(request, props));
+            reply = UtilGenerics.cast(Client.runTransaction(stringRequest, props));
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -147,12 +155,15 @@ public class IcsPaymentServices {
         }
 
         Map<String, Object> request = buildReleaseRequest(context, authTransaction);
+        // TODO: this is a hack to convert all values to strings
+        Map<String, String> stringRequest = request.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString()));
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
         Map<String, Object> reply;
         try {
-            reply = UtilGenerics.cast(Client.runTransaction(request, props));
+            reply = UtilGenerics.cast(Client.runTransaction(stringRequest, props));
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -186,12 +197,15 @@ public class IcsPaymentServices {
         }
 
         Map<String, Object> request = buildRefundRequest(context, authTransaction, delegator);
+        // TODO: this is a hack to convert all values to strings
+        Map<String, String> stringRequest = request.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString()));
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
         Map<String, Object> reply;
         try {
-            reply = UtilGenerics.cast(Client.runTransaction(request, props));
+            reply = UtilGenerics.cast(Client.runTransaction(stringRequest, props));
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
@@ -219,12 +233,15 @@ public class IcsPaymentServices {
         }
 
         Map<String, Object> request = buildCreditRequest(context);
+        // TODO: this is a hack to convert all values to strings
+        Map<String, String> stringRequest = request.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().toString()));
         request.put("merchantID", props.get("merchantID"));
 
         // transmit the request
         Map<String, Object> reply;
         try {
-            reply = UtilGenerics.cast(Client.runTransaction(request, props));
+            reply = UtilGenerics.cast(Client.runTransaction(stringRequest, props));
         } catch (FaultException e) {
             Debug.logError(e, "ERROR: Fault from CyberSource", MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE,
