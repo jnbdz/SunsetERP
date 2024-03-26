@@ -18,8 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.thirdparty.taxware;
 
-
-import com.ibm.icu.math.BigDecimal;
+// TODO: Double check what lib to use for BigDecimal
+//import com.ibm.icu.math.BigDecimal;
+import java.math.BigDecimal;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
@@ -36,7 +37,7 @@ public class TaxwareServices {
 
     private static final String MODULE = TaxwareServices.class.getName();
 
-    public static Map calcTax(DispatchContext dctx, Map context) {
+    /*public static Map calcTax(DispatchContext dctx, Map context) {
         Map result = new HashMap();
         List items = (List) context.get("itemProductList");
         List amnts = (List) context.get("itemAmountList");
@@ -86,5 +87,5 @@ public class TaxwareServices {
     public static Map verifyZip(DispatchContext dctx, Map context) {
 
         return new HashMap();
-    }
+    }*/
 }

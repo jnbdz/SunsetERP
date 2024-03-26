@@ -58,7 +58,7 @@ under the License.
                     <#assign curStatusItem = inventoryItem.getRelatedOne("StatusItem", true)!>
                     <#assign facilityLocation = inventoryItem.getRelatedOne("FacilityLocation", false)!>
                     <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))!>
-                    <#assign inventoryItemDetailFirst = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", null, Static["org.apache.ofbiz.base.util.UtilMisc"].toList("effectiveDate"), false))!>
+                    <#assign inventoryItemDetailFirst = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", null, Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toList("effectiveDate"), false))!>
                     <#if curInventoryItemType??>
                         <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
                             <td><a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${(inventoryItem.inventoryItemId)!}</@ofbizUrl>" class="buttontext">${(inventoryItem.inventoryItemId)!}</a></td>

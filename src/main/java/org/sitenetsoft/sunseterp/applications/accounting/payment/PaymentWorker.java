@@ -28,7 +28,7 @@ import org.sitenetsoft.sunseterp.framework.entity.condition.EntityOperator;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
 
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;

@@ -43,7 +43,7 @@ import org.sitenetsoft.sunseterp.framework.webapp.OfbizUrlBuilder;
 import org.sitenetsoft.sunseterp.framework.webapp.SeoConfigUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.control.WebAppConfigurationException;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Locale;

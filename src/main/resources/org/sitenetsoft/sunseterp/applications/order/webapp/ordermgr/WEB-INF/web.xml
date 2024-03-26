@@ -91,7 +91,7 @@ under the License.
         <description>Catalog (Category/Product) URL Servlet</description>
         <display-name>CatalogUrlServlet</display-name>
         <servlet-name>CatalogUrlServlet</servlet-name>
-        <servlet-class>org.sitenetsoft.sunseterp.framework.product.category.CatalogUrlServlet</servlet-class>
+        <servlet-class>org.sitenetsoft.sunseterp.applications.product.category.CatalogUrlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

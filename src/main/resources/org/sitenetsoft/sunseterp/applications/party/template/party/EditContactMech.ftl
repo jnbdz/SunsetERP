@@ -168,7 +168,7 @@ under the License.
           <#if (mechMap.postalAddress??) && (mechMap.postalAddress.countryGeoId??)>
             <#assign defaultCountryGeoId = mechMap.postalAddress.countryGeoId>
           <#else>
-           <#assign defaultCountryGeoId = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
+           <#assign defaultCountryGeoId = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
           </#if>
           <@ofbizScreen>countries</@ofbizScreen>
           <option selected="selected" value="${defaultCountryGeoId}">
@@ -178,7 +178,7 @@ under the License.
         </select>
       </td>
     </tr>
-    <#assign isUsps = Static["org.apache.ofbiz.party.contact.ContactMechWorker"].isUspsAddress(mechMap.postalAddress)>
+    <#assign isUsps = Static["org.sitenetsoft.sunseterp.applications.party.contact.ContactMechWorker"].isUspsAddress(mechMap.postalAddress)>
     <tr>
       <td class="label">${uiLabelMap.PartyIsUsps}</td>
       <td><#if isUsps>${uiLabelMap.CommonY}<#else>${uiLabelMap.CommonN}</#if>

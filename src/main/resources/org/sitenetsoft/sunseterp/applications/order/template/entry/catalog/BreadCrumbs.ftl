@@ -28,7 +28,7 @@ under the License.
 </#if>    
     <#-- Show the category branch -->
   <#if session.getAttribute("_BREAD_CRUMB_TRAIL_")??>
-    <#assign crumbs = Static["org.apache.ofbiz.product.category.CategoryWorker"].getTrail(request)/>
+    <#assign crumbs = Static["org.sitenetsoft.sunseterp.applications.product.category.CategoryWorker"].getTrail(request)/>
     <#list crumbs as crumb>
          <#if catContentWrappers?? && catContentWrappers[crumb]??>
             <#if !isDefaultTheme>         

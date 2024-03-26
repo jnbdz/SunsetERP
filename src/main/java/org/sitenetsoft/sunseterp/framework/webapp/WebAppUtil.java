@@ -101,7 +101,7 @@ public final class WebAppUtil {
         //WebXml webXml = getWebXml(webAppInfo);
         for (ServletDef servletDef : webXml.getServlets().values()) {
             if ("org.sitenetsoft.sunseterp.framework.webapp.control.ControlServlet".equals(servletDef.getServletClass())
-                    || "org.sitenetsoft.sunseterp.framework.product.category.SeoControlServlet".equals(servletDef.getServletClass())) {
+                    || "org.sitenetsoft.sunseterp.applications.product.category.SeoControlServlet".equals(servletDef.getServletClass())) {
                 String servletName = servletDef.getServletName();
                 // Catalina servlet mappings: key = url-pattern, value = servlet-name.
                 for (Entry<String, String> entry : webXml.getServletMappings().entrySet()) {
@@ -189,7 +189,7 @@ public final class WebAppUtil {
         WebXml webXml = getWebXml(webAppInfo);
         for (ServletDef servletDef : webXml.getServlets().values()) {
             if ("org.sitenetsoft.sunseterp.framework.webapp.control.ControlServlet".equals(servletDef.getServletClass())
-                    || "org.sitenetsoft.sunseterp.framework.product.category.SeoControlServlet".equals(servletDef.getServletClass())) {
+                    || "org.sitenetsoft.sunseterp.applications.product.category.SeoControlServlet".equals(servletDef.getServletClass())) {
                 String servletName = servletDef.getServletName();
                 // Catalina servlet mappings: key = url-pattern, value = servlet-name.
                 for (Entry<String, String> entry : webXml.getServletMappings().entrySet()) {

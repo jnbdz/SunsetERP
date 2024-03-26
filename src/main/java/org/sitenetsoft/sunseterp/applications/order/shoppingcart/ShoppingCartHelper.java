@@ -44,7 +44,7 @@ import java.util.Map.Entry;
 
 /**
  * A facade over the
- * {@link org.sitenetsoft.sunseterp.framework.order.shoppingcart.ShoppingCart ShoppingCart}
+ * {@link org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart ShoppingCart}
  * providing catalog and product services to simplify the interaction
  * with the cart directly.
  */

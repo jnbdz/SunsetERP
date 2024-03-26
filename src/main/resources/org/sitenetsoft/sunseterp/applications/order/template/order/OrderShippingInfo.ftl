@@ -530,7 +530,7 @@ under the License.
                 <span class="label">&nbsp;${uiLabelMap.ProductDropShipment} - ${uiLabelMap.PartySupplier}</span>
               </td>
               <td>
-                ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, shipGroup.supplierPartyId, false)!shipGroup.supplierPartyId}
+                ${Static["org.sitenetsoft.sunseterp.applications.party.party.PartyHelper"].getPartyName(delegator, shipGroup.supplierPartyId, false)!shipGroup.supplierPartyId}
               </td>
             </tr>
             <#if shipGroup.supplierAgreementId??>
@@ -759,7 +759,7 @@ under the License.
                         <#if "SALES_ORDER" == orderHeader.orderTypeId && "ORDER_COMPLETED" == orderHeader.statusId>
                           <#assign shipmentRouteSegments = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipment.shipmentId!).queryList()!>
                           <#if shipmentRouteSegments?has_content>
-                            <#assign shipmentRouteSegment = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRouteSegments)>
+                            <#assign shipmentRouteSegment = Static["org.sitenetsoft.sunseterp.applications.entity.util.EntityUtil"].getFirst(shipmentRouteSegments)>
                           <#if "UPS" == (shipmentRouteSegment.carrierPartyId)!>
                               <a href="javascript:document.upsEmailReturnLabel${shipment_index}.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
                             </#if>

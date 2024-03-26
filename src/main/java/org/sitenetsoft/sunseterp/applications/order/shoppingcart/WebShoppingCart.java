@@ -24,14 +24,14 @@ import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
 import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.Locale;
 
 /**
  * WebShoppingCart.java
  *
- * Extension of {@link org.sitenetsoft.sunseterp.framework.order.shoppingcart.ShoppingCart ShoppingCart}
+ * Extension of {@link org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart ShoppingCart}
  * class which provides web presentation layer specific functionality
  * related specifically to user session information.
  */

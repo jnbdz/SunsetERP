@@ -174,7 +174,7 @@ under the License.
                   </td>
                 </tr>
                 <#if "SALES_ORDER" == shoppingCart.getOrderType()>
-                  <#assign productStore = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].getProductStore(shoppingCart.getProductStoreId(), delegator) />
+                  <#assign productStore = Static["org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker"].getProductStore(shoppingCart.getProductStoreId(), delegator) />
                   <#if productStore?has_content && (productStore.allocateInventory)?has_content && (productStore.allocateInventory).equals('Y')>
                   <tr>
                     <td align="right"><div>${uiLabelMap.OrderAutoReserve}</div></td>

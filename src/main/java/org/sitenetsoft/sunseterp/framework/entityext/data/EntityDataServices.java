@@ -463,7 +463,7 @@ public class EntityDataServices {
                 if (oldKey != null) {
                     Debug.logInfo("Decrypting with old key: " + oldKey, MODULE);
                     try {
-                        keyBytes = cipherService.decrypt(keyBytes, Base64.decodeBase64(oldKey)).getBytes();
+                        keyBytes = cipherService.decrypt(keyBytes, Base64.decodeBase64(oldKey)).getClonedBytes();
                     } catch (Exception e) {
                         Debug.logInfo("Failed to decrypt with Shiro cipher; trying with old cipher", MODULE);
                         try {

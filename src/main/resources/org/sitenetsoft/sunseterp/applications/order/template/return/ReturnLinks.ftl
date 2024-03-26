@@ -39,14 +39,14 @@ under the License.
       <#if returnId??>
         <#assign returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId!, "returnTypeId", "RTN_REFUND").queryList()!/>
         <#if returnItems?has_content>
-          <#assign orderId = (Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
+          <#assign orderId = (Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
           <#assign partyId = "${(returnHeader.fromPartyId)!}"/>
           <li><a href="<@ofbizUrl>setOrderCurrencyAgreementShipDates?partyId=${partyId!}&amp;originOrderId=${orderId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateExchangeOrder} ${uiLabelMap.CommonFor} ${orderId!}</a></li>
         </#if>
         <#if returnHeader.statusId?has_content && "RETURN_ACCEPTED" == returnHeader.statusId>
           <#assign returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId!).queryList()!/>
           <#if returnItems?has_content>
-            <#assign orderId = (Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
+            <#assign orderId = (Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil"].getFirst(returnItems)).getString("orderId")/>
             <#assign shipGroupAssoc = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId!).queryFirst()!/>
             <#assign shipGroup = delegator.findOne("OrderItemShipGroup", {"orderId" : orderId, "shipGroupSeqId" : shipGroupAssoc.shipGroupSeqId}, false)>
             <#if shipGroup?? && shipGroup.shipmentMethodTypeId != "NO_SHIPPING">

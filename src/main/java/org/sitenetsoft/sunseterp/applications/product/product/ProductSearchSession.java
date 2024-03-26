@@ -38,9 +38,13 @@ import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.webapp.control.RequestHandler;
 import org.sitenetsoft.sunseterp.framework.webapp.stats.VisitHandler;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+//import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
+//import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpSession;
+import javax.ws.rs.core.Context;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -53,6 +57,12 @@ import java.util.Map.Entry;
 public class ProductSearchSession {
 
     private static final String MODULE = ProductSearchSession.class.getName();
+
+    /*@Context
+    HttpServletRequest request;
+
+    @Context
+    HttpServletResponse response;*/
 
     @SuppressWarnings("serial")
     public static class ProductSearchOptions implements java.io.Serializable {

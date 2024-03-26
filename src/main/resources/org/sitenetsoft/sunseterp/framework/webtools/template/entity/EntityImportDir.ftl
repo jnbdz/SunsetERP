@@ -19,7 +19,7 @@ under the License.
 
 <div class="page-title"><span>${uiLabelMap.WebtoolsImportToDataSource}</span></div>
 <p>${uiLabelMap.WebtoolsXMLImportInfo}</p>
-<#assign tenantUsed = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "multitenant", "N", delegator)>
+<#assign tenantUsed = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties"].getPropertyValue("general", "multitenant", "N", delegator)>
 <#if tenantUsed=="Y">
     <p>${uiLabelMap.WebtoolsXMLImportInfoBewareTenant1}</p>
     <p>${uiLabelMap.WebtoolsXMLImportInfoBewareTenant2}</p>

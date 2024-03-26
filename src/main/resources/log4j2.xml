@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<Configuration monitorInterval="60" packages="org.apache.ofbiz.base.log4j">
+<Configuration monitorInterval="60" packages="org.sitenetsoft.sunseterp.framework.base.log4j">
     <OFBizDynamicThresholdFilter key="uri" onMatch="ACCEPT" onMismatch="DENY">
         <KeyValuePair key="/getJs" value="ERROR"/>
         <KeyValuePair key="/control/getJs" value="ERROR"/>
@@ -63,8 +63,8 @@ under the License.
     </Appenders>
     <Loggers>
         <logger name="org.apache" level="warn"/>
-        <logger name="org.apache.ofbiz" level="all"/>
-        <logger name="org.apache.ofbiz.base.converter.Converters" level="warn"/>
+        <logger name="org.sitenetsoft.sunseterp" level="all"/>
+        <logger name="org.sitenetsoft.sunseterp.framework.base.converter.Converters" level="warn"/>
         <logger name="freemarker" level="warn"/>
 
         <Root level="all">

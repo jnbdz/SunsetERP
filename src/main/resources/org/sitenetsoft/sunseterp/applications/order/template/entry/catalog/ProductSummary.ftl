@@ -159,7 +159,7 @@ ${variantInfoJavaScript!}
                   <input type="hidden" name="mainSubmitted" value="Y"/>
                   <a href="javascript:document.the${requestAttributes.formNamePrefix!}${requestAttributes.listIndex!}defaultform.submit()" class="buttontext">${uiLabelMap.CommonAddDefault}(${prodCatMem.quantity?string.number}) ${uiLabelMap.OrderToCart}</a>
                 </form>
-                <#assign productCategory = delegator.findOne("ProductCategory", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", prodCatMem.productCategoryId), false)/>
+                <#assign productCategory = delegator.findOne("ProductCategory", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("productCategoryId", prodCatMem.productCategoryId), false)/>
                 <#if productCategory.productCategoryTypeId != "BEST_SELL_CATEGORY">
                     <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="the${requestAttributes.formNamePrefix!}${requestAttributes.listIndex!}defaultform" style="margin: 0;">
                       <input type="hidden" name="add_product_id" value="${prodCatMem.productId!}"/>

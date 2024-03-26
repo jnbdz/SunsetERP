@@ -18,12 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.paypal;
 
-import com.paypal.sdk.core.nvp.NVPDecoder;
+// TODO: Keep. But needs investigation because the PayPal libraries are very different now.
+
+/*import com.paypal.sdk.core.nvp.NVPDecoder;
 import com.paypal.sdk.core.nvp.NVPEncoder;
 import com.paypal.sdk.exceptions.PayPalException;
 import com.paypal.sdk.profiles.APIProfile;
 import com.paypal.sdk.profiles.ProfileFactory;
-import com.paypal.sdk.services.NVPCallerServices;
+import com.paypal.sdk.services.NVPCallerServices;*/
 import org.apache.commons.lang.StringUtils;
 import org.sitenetsoft.sunseterp.applications.accounting.payment.PaymentGatewayServices;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
@@ -48,9 +50,9 @@ import org.sitenetsoft.sunseterp.applications.order.shoppingcart.shipping.Shippi
 import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
 import org.sitenetsoft.sunseterp.framework.service.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transaction;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transaction;
 import java.io.IOException;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
@@ -72,9 +74,9 @@ public class PayPalServices {
     // The weak key is a simple wrapper for the checkout token String and is stored as a cart attribute. The value
     // is a weak reference to the ShoppingCart itself.  Entries will be removed as carts are removed from the
     // session (i.e. on cart clear or successful checkout) or when the session is destroyed
-    private static Map<TokenWrapper, WeakReference<ShoppingCart>> tokenCartMap = new WeakHashMap<>();
+    //private static Map<TokenWrapper, WeakReference<ShoppingCart>> tokenCartMap = new WeakHashMap<>();
 
-    public static Map<String, Object> setExpressCheckout(DispatchContext dctx, Map<String, ? extends Object> context) {
+    /*public static Map<String, Object> setExpressCheckout(DispatchContext dctx, Map<String, ? extends Object> context) {
         ShoppingCart cart = (ShoppingCart) context.get("cart");
         Locale locale = cart.getLocale();
         if (cart == null || cart.items().size() <= 0) {
@@ -1052,5 +1054,5 @@ public class PayPalServices {
         public int hashCode() {
             return theString.hashCode();
         }
-    }
+    }*/
 }

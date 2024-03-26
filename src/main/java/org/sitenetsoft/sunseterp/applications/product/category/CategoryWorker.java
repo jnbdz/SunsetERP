@@ -30,9 +30,12 @@ import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker;
 import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 
-import javax.servlet.ServletRequest;
+/*import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;*/
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.*;
 
 /**

@@ -18,7 +18,7 @@ under the License.
 -->
 <#if !visualTheme?has_content>
     <#-- Try to resolve the default theme-->
-    <#assign visualTheme = Static["org.apache.ofbiz.widget.model.ThemeFactory"].resolveVisualTheme(null)/>
+    <#assign visualTheme = Static["org.sitenetsoft.sunseterp.framework.widget.model.ThemeFactory"].resolveVisualTheme(null)/>
 </#if>
 <#if visualTheme?has_content>
     <#assign errorPageLocation = visualTheme.modelTheme.getErrorTemplateLocation('screen')/>

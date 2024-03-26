@@ -28,9 +28,9 @@ import org.sitenetsoft.sunseterp.applications.order.shoppingcart.WebShoppingCart
 import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
 import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.Map;
 
 /**

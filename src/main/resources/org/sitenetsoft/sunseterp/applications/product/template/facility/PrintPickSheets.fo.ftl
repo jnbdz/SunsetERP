@@ -170,7 +170,7 @@ under the License.
                                                 </#if>
                                                 <#assign orderItem = orderItemShipGrpInvRes.getRelatedOne("OrderItem", false)>
                                                 <#assign product = orderItem.getRelatedOne("Product", false)>
-                                                <#assign supplierProduct = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(product.getRelated("SupplierProduct", null, null, false))!>
+                                                <#assign supplierProduct = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil"].getFirst(product.getRelated("SupplierProduct", null, null, false))!>
                                                 <#assign inventoryItem = infoItem.inventoryItem>
                                             <#if (quantityToPick > 0)>
                                             <fo:table-row background-color="${rowColor}">
@@ -202,7 +202,7 @@ under the License.
                                                 </fo:table-row>
                                                 <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)>
                                                 <#if workOrderItemFulfillments?has_content>
-                                                    <#assign workOrderItemFulfillment = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
+                                                    <#assign workOrderItemFulfillment = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
                                                     <#if workOrderItemFulfillment?has_content>
                                                         <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", false)/>
                                                         <#if workEffort?has_content>
@@ -270,7 +270,7 @@ under the License.
                              <fo:table-body>
                                  <#list orderHeaderAdjustments as orderHeaderAdjustment>
                                      <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType", false)>
-                                     <#assign adjustmentAmount = Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
+                                     <#assign adjustmentAmount = Static["org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
                                      <#if adjustmentAmount != 0>
                                          <fo:table-row>
                                              <fo:table-cell><fo:block>${adjustmentType.get("description",locale)}:</fo:block></fo:table-cell>

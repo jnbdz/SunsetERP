@@ -37,11 +37,11 @@ under the License.
             <#if partyIds?has_content>
             <fo:block font-size="10pt">${uiLabelMap.CommonFor}:
                 <#list partyIds as toPartyId>
-                    ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, toPartyId, false)!} <#sep>,
+                    ${Static["org.sitenetsoft.sunseterp.applications.party.party.PartyHelper"].getPartyName(delegator, toPartyId, false)!} <#sep>,
                 </#list>
             </fo:block>
             </#if>
-            <#if fromPartyId?has_content><fo:block font-size="10pt">${uiLabelMap.CommonFrom}: ${Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(delegator, fromPartyId, false)!}</fo:block></#if>
+            <#if fromPartyId?has_content><fo:block font-size="10pt">${uiLabelMap.CommonFrom}: ${Static["org.sitenetsoft.sunseterp.applications.party.party.PartyHelper"].getPartyName(delegator, fromPartyId, false)!}</fo:block></#if>
             <fo:block font-size="10pt">${uiLabelMap.FormFieldTitle_orderStatusId}:
                 <#if orderStatusIds?has_content>
                   <#list orderStatusIds as orderStatusId>

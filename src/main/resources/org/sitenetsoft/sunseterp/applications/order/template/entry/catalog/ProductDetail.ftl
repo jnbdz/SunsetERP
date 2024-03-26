@@ -479,8 +479,8 @@ ${variantInfoJavaScript!}
             </div>
           </#if>
           <#if productStoreId??>
-            <#assign isStoreInventoryNotAvailable = !(Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0?double))>
-            <#assign isStoreInventoryRequired = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
+            <#assign isStoreInventoryNotAvailable = !(Static["org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0?double))>
+            <#assign isStoreInventoryRequired = Static["org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
             <#if isStoreInventoryNotAvailable>
               <#if isStoreInventoryRequired>
                 <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
@@ -586,7 +586,7 @@ ${variantInfoJavaScript!}
             <#list imageKeys as key>
               <#assign swatchProduct = imageMap.get(key)>
               <#if swatchProduct?has_content && indexer < maxIndex>
-                <#assign imageUrl = Static["org.apache.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request, "url")!>
+                <#assign imageUrl = Static["org.sitenetsoft.sunseterp.applications.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request, "url")!>
                 <#if !imageUrl?string?has_content>
                   <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL", "url")!>
                 </#if>

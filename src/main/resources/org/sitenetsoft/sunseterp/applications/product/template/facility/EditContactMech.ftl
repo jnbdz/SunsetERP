@@ -194,10 +194,10 @@ under the License.
           <#if (mechMap.postalAddress??) && (mechMap.postalAddress.countryGeoId??)>
             <#assign defaultCountryGeoId = mechMap.postalAddress.countryGeoId>
           <#else>
-           <#assign defaultCountryGeoId = Static["org.apache.ofbiz.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
+           <#assign defaultCountryGeoId = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties"].getPropertyValue("general", "country.geo.id.default", delegator)>
           </#if>
           <option selected="selected" value="${defaultCountryGeoId}">
-            <#assign countryGeo = delegator.findOne("Geo",Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId), false)>
+            <#assign countryGeo = delegator.findOne("Geo",Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("geoId",defaultCountryGeoId), false)>
             ${countryGeo.get("geoName",locale)}
           </option>
         </select>

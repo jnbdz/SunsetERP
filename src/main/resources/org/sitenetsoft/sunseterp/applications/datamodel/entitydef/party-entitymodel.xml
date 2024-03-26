@@ -30,20 +30,20 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.apache.ofbiz.party.agreement -->
-  <!--  - org.apache.ofbiz.party.communication -->
-  <!--  - org.apache.ofbiz.party.contact -->
-  <!--  - org.apache.ofbiz.party.need -->
-  <!--  - org.apache.ofbiz.party.party -->
+  <!--  - org.sitenetsoft.sunseterp.applications.party.agreement -->
+  <!--  - org.sitenetsoft.sunseterp.applications.party.communication -->
+  <!--  - org.sitenetsoft.sunseterp.applications.party.contact -->
+  <!--  - org.sitenetsoft.sunseterp.applications.party.need -->
+  <!--  - org.sitenetsoft.sunseterp.applications.party.party -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.party.agreement -->
+  <!-- org.sitenetsoft.sunseterp.applications.party.agreement -->
   <!-- ========================================================= -->
 
     <entity entity-name="Addendum"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Addendum">
       <field name="addendumId" type="id"></field>
       <field name="agreementId" type="id"></field>
@@ -61,7 +61,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="Agreement"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement">
       <field name="agreementId" type="id"></field>
       <field name="productId" type="id"></field>
@@ -114,7 +114,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementAttribute"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Attribute">
       <field name="agreementId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -130,7 +130,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementGeographicalApplic"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Geographical Applicability">
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
@@ -150,7 +150,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementItem"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Item">
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
@@ -171,7 +171,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementItemAttribute"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Item Attribute">
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
@@ -190,7 +190,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementItemType"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             default-resource-name="PartyEntityLabels"
             title="Agreement Item Type">
       <field name="agreementItemTypeId" type="id"></field>
@@ -203,7 +203,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementItemTypeAttr"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Item Type Attribute">
       <field name="agreementItemTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -221,7 +221,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementContent" 
-            package-name="org.apache.ofbiz.party.agreement" 
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Content">
         <field name="agreementId" type="id"></field>
         <field name="agreementItemSeqId" type="id"></field>
@@ -245,7 +245,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="AgreementContentType" 
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Content Type">
         <field name="agreementContentTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
@@ -257,7 +257,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="AgreementPartyApplic"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Party Application">
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
@@ -277,7 +277,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementProductAppl"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Product Application">
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
@@ -298,7 +298,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementPromoAppl"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Promo Applicability">
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
@@ -322,7 +322,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementFacilityAppl"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Facility Application">
       <field name="agreementId" type="id"></field>
       <field name="agreementItemSeqId" type="id"></field>
@@ -342,7 +342,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementRole"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Role">
       <field name="agreementId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -365,7 +365,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementStatus"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agremeement Status">
       <field name="agreementId" type="id"></field>
       <field name="statusId" type="id"></field>
@@ -386,7 +386,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementTerm"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Term">
       <field name="agreementTermId" type="id"></field>
       <field name="termTypeId" type="id"></field>
@@ -417,7 +417,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementTermAttribute"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Term Attribute">
       <field name="agreementTermId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -430,7 +430,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementType"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             default-resource-name="PartyEntityLabels"
             title="Agreement Type">
       <field name="agreementTypeId" type="id"></field>
@@ -443,7 +443,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementTypeAttr"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Type Attribute">
       <field name="agreementTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -461,7 +461,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementWorkEffortApplic" 
-            package-name="org.apache.ofbiz.party.agreement" 
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement WorkEffort Application">
         <field name="agreementId" type="id"></field>
         <field name="agreementItemSeqId" type="id"></field>
@@ -481,7 +481,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="TermType"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Term Type" default-resource-name="PartyEntityLabels">
       <field name="termTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
@@ -493,7 +493,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TermTypeAttr"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Term Type Attribute">
       <field name="termTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -529,7 +529,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="AgreementEmploymentAppl"
-            package-name="org.apache.ofbiz.party.agreement"
+            package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
             title="Agreement Employment Application">
         <field name="agreementId" type="id"></field>
         <field name="agreementItemSeqId" type="id"></field>
@@ -564,7 +564,7 @@ under the License.
         </relation>
     </entity>
     <view-entity entity-name="AgreementItemAndProductAppl"
-        package-name="org.apache.ofbiz.party.agreement"
+        package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
         title="Agreement Item and Agreement Product Applicability View">
         <member-entity entity-alias="AGI" entity-name="AgreementItem"/>
         <member-entity entity-alias="AGPA" entity-name="AgreementProductAppl"/>
@@ -586,7 +586,7 @@ under the License.
         </relation>
     </view-entity>
     <view-entity entity-name="AgreementItemAndFacilityAppl"
-        package-name="org.apache.ofbiz.party.agreement"
+        package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
         title="Agreement Item and Agreement Facility Applicability View">
         <member-entity entity-alias="AGI" entity-name="AgreementItem"/>
         <member-entity entity-alias="AGFA" entity-name="AgreementFacilityAppl"/>
@@ -606,7 +606,7 @@ under the License.
         </relation>
     </view-entity>
     <view-entity entity-name="AgreementItemAndPartyAppl"
-        package-name="org.apache.ofbiz.party.agreement"
+        package-name="org.sitenetsoft.sunseterp.applications.party.agreement"
         title="Agreement Item and Agreement Party Applicability View">
         <member-entity entity-alias="AGI" entity-name="AgreementItem"/>
         <member-entity entity-alias="AGPA" entity-name="AgreementPartyApplic"/>
@@ -625,7 +625,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="AgreementContentAndInfo"
-            package-name="org.apache.ofbiz.accounting.invoice"
+            package-name="org.sitenetsoft.sunseterp.applications.accounting.invoice"
             title="AgreementContent Content and DataResource View">
         <member-entity entity-alias="AGC" entity-name="AgreementContent"/>
         <member-entity entity-alias="CO" entity-name="Content"/>
@@ -657,15 +657,15 @@ under the License.
     </view-entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.party.communication -->
+  <!-- org.sitenetsoft.sunseterp.applications.party.communication -->
   <!-- ========================================================= -->
 
-    <entity entity-name="CommContentAssocType" package-name="org.apache.ofbiz.party.communication" title="CommunicationEvent Content Association Type">
+    <entity entity-name="CommContentAssocType" package-name="org.sitenetsoft.sunseterp.applications.party.communication" title="CommunicationEvent Content Association Type">
         <field name="commContentAssocTypeId" type="id"></field>
         <field name="description" type="description"></field>
         <prim-key field="commContentAssocTypeId"/>
     </entity>
-    <entity entity-name="CommEventContentAssoc" package-name="org.apache.ofbiz.party.communication" title="CommunicationEvent Content Association">
+    <entity entity-name="CommEventContentAssoc" package-name="org.sitenetsoft.sunseterp.applications.party.communication" title="CommunicationEvent Content Association">
         <field name="contentId" type="id"></field>
         <field name="communicationEventId" type="id"></field>
         <field name="commContentAssocTypeId" type="id"></field>
@@ -685,7 +685,7 @@ under the License.
             <key-map field-name="commContentAssocTypeId"/>
         </relation>
     </entity>
-    <view-entity entity-name="CommEventContentDataResource" package-name="org.apache.ofbiz.party.communication" title="CommEvent and Content and DataResource View">
+    <view-entity entity-name="CommEventContentDataResource" package-name="org.sitenetsoft.sunseterp.applications.party.communication" title="CommEvent and Content and DataResource View">
         <member-entity entity-alias="CECA" entity-name="CommEventContentAssoc"/>
         <member-entity entity-alias="CO" entity-name="Content"/>
         <member-entity entity-alias="DR" entity-name="DataResource"/>
@@ -729,7 +729,7 @@ under the License.
             <key-map field-name="contentId"/>
         </relation>
     </view-entity>
-    <entity entity-name="CommunicationEvent" package-name="org.apache.ofbiz.party.communication" title="Communication Event">
+    <entity entity-name="CommunicationEvent" package-name="org.sitenetsoft.sunseterp.applications.party.communication" title="Communication Event">
         <field name="communicationEventId" type="id"></field>
         <field name="communicationEventTypeId" type="id"></field>
         <field name="origCommEventId" type="id"></field>
@@ -806,7 +806,7 @@ under the License.
             <index-field name="messageId"/>
         </index>
     </entity>
-    <view-entity entity-name="CommunicationEventAndSubscr" package-name="org.apache.ofbiz.party.communication" title="Communication Event And Role View">
+    <view-entity entity-name="CommunicationEventAndSubscr" package-name="org.sitenetsoft.sunseterp.applications.party.communication" title="Communication Event And Role View">
         <member-entity entity-alias="SC" entity-name="SubscriptionCommEvent"/>
         <member-entity entity-alias="SU" entity-name="Subscription"/>
         <alias-all entity-alias="SC">
@@ -817,7 +817,7 @@ under the License.
             <key-map field-name="subscriptionId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="CommunicationEventAndProduct" package-name="org.apache.ofbiz.party.communication" title="Communication Event And Product View">
+    <view-entity entity-name="CommunicationEventAndProduct" package-name="org.sitenetsoft.sunseterp.applications.party.communication" title="Communication Event And Product View">
         <member-entity entity-alias="CP" entity-name="CommunicationEventProduct"/>
         <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
         <alias-all entity-alias="CP"/>
@@ -826,7 +826,7 @@ under the License.
             <key-map field-name="communicationEventId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="CommunicationEventAndRole" package-name="org.apache.ofbiz.party.communication" title="Communication Event And Role View">
+    <view-entity entity-name="CommunicationEventAndRole" package-name="org.sitenetsoft.sunseterp.applications.party.communication" title="Communication Event And Role View">
       <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
       <member-entity entity-alias="CR" entity-name="CommunicationEventRole"/>
       <alias-all entity-alias="CE"/>
@@ -889,7 +889,7 @@ under the License.
         <key-map field-name="communicationEventId"/>
       </relation>
     </view-entity>
-    <entity entity-name="CommunicationEventProduct" package-name="org.apache.ofbiz.party.communication" title="Communication Event Product">
+    <entity entity-name="CommunicationEventProduct" package-name="org.sitenetsoft.sunseterp.applications.party.communication" title="Communication Event Product">
         <field name="productId" type="id"></field>
         <field name="communicationEventId" type="id"></field>
         <prim-key field="productId"/>
@@ -902,7 +902,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="CommunicationEventPrpTyp"
-            package-name="org.apache.ofbiz.party.communication"
+            package-name="org.sitenetsoft.sunseterp.applications.party.communication"
             default-resource-name="PartyEntityLabels"
             title="Communication Event Purpose Type">
       <field name="communicationEventPrpTypId" type="id"></field>
@@ -915,7 +915,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="CommunicationEventPurpose"
-            package-name="org.apache.ofbiz.party.communication"
+            package-name="org.sitenetsoft.sunseterp.applications.party.communication"
             title="Communication Event Purpose">
       <field name="communicationEventPrpTypId" type="id"></field>
       <field name="communicationEventId" type="id"></field>
@@ -930,7 +930,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="CommunicationEventRole"
-            package-name="org.apache.ofbiz.party.communication"
+            package-name="org.sitenetsoft.sunseterp.applications.party.communication"
             title="Communication Event Role Entity showing all participants of the communication event.">
       <field name="communicationEventId" type="id"></field>
         <field name="partyId" type="id"></field>
@@ -961,7 +961,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="CommunicationEventType"
-            package-name="org.apache.ofbiz.party.communication"
+            package-name="org.sitenetsoft.sunseterp.applications.party.communication"
             title="Communication Event Type" default-resource-name="PartyEntityLabels">
       <field name="communicationEventTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
@@ -977,7 +977,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="CommunicationEventSum"
-        package-name="org.apache.ofbiz.party.communication"
+        package-name="org.sitenetsoft.sunseterp.applications.party.communication"
         title="Sum of communication events over status">
         <member-entity entity-alias="CE" entity-name="CommunicationEvent"/>
         <alias entity-alias="CE" name="communicationEventId" function="count"/>
@@ -986,11 +986,11 @@ under the License.
     </view-entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.party.contact -->
+  <!-- org.sitenetsoft.sunseterp.applications.party.contact -->
   <!-- ========================================================= -->
 
     <entity entity-name="ContactMech"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Contact Mechanism">
       <field name="contactMechId" type="id"></field>
       <field name="contactMechTypeId" type="id"></field>
@@ -1007,7 +1007,7 @@ under the License.
       </index>
     </entity>
     <entity entity-name="ContactMechAttribute"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Contact Mechanism Attribute">
       <field name="contactMechId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -1023,7 +1023,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ContactMechLink"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Contact Mechanism Link">
       <field name="contactMechIdFrom" type="id"></field>
       <field name="contactMechIdTo" type="id"></field>
@@ -1037,7 +1037,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ContactMechPurposeType"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             default-resource-name="PartyEntityLabels"
             title="Contact Mechanism Purpose Type">
       <field name="contactMechPurposeTypeId" type="id"></field>
@@ -1047,7 +1047,7 @@ under the License.
       <prim-key field="contactMechPurposeTypeId"/>
     </entity>
     <entity entity-name="ContactMechType"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Contact Mechanism Type" default-resource-name="PartyEntityLabels">
       <field name="contactMechTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
@@ -1059,7 +1059,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ContactMechTypeAttr"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Contact Mechanism Type Attribute">
       <field name="contactMechTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -1077,7 +1077,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ContactMechTypePurpose"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Contact Mechanism Type Purpose">
       <description>Defines which ContactMechPurposeType entites apply to which ContactMechType</description>
       <field name="contactMechTypeId" type="id"></field>
@@ -1092,7 +1092,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EmailAddressVerification"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Email Address Verification">
         <description>Holds hashes for email address verification</description>
         <field name="emailAddress" type="id-vlong"></field>
@@ -1104,7 +1104,7 @@ under the License.
         </index>
     </entity>
     <view-entity entity-name="PartyContactDetailByPurpose"
-        package-name="org.apache.ofbiz.party.contact"
+        package-name="org.sitenetsoft.sunseterp.applications.party.contact"
         title="Party Contact Purpose View">
         <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
         <member-entity entity-alias="PCMP" entity-name="PartyContactMechPurpose"/>
@@ -1149,7 +1149,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="PartyContactMech"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Party Contact Mechanism">
       <field name="partyId" type="id"></field>
       <field name="contactMechId" type="id"></field>
@@ -1196,7 +1196,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyContactMechPurpose"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Party Contact Mechanism Purpose">
       <field name="partyId" type="id"></field>
       <field name="contactMechId" type="id"></field>
@@ -1234,7 +1234,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PostalAddress"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Postal Address">
       <field name="contactMechId" type="id"></field>
       <field name="toName" type="name"></field>
@@ -1293,7 +1293,7 @@ under the License.
       </index>
     </entity>
     <entity entity-name="PostalAddressBoundary"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Postal Address Boundary">
       <field name="contactMechId" type="id"></field>
       <field name="geoId" type="id"></field>
@@ -1307,7 +1307,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="TelecomNumber"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Telecommunications Number">
       <field name="contactMechId" type="id"></field>
       <field name="countryCode" type="very-short"></field>
@@ -1329,7 +1329,7 @@ under the License.
       </index>
     </entity>
     <entity entity-name="FtpAddress"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Ftp server">
       <field name="contactMechId" type="id"/>
       <field name="hostname" type="long-varchar"/>
@@ -1347,7 +1347,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ValidContactMechRole"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Valid Contact Mechanism Role">
       <field name="roleTypeId" type="id"></field>
       <field name="contactMechTypeId" type="id"></field>
@@ -1361,7 +1361,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="ContactMechDetail"
-        package-name="org.apache.ofbiz.party.contact"
+        package-name="org.sitenetsoft.sunseterp.applications.party.contact"
         title="Contact Mech Detail View">
         <member-entity entity-alias="CM" entity-name="ContactMech"/>
         <member-entity entity-alias="PA" entity-name="PostalAddress"/>
@@ -1388,7 +1388,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="PartyAndContactMech"
-        package-name="org.apache.ofbiz.party.contact"
+        package-name="org.sitenetsoft.sunseterp.applications.party.contact"
         title="Party and Contact Mech View">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
@@ -1423,7 +1423,7 @@ under the License.
         </relation>
     </view-entity>
     <view-entity entity-name="PartyAndPostalAddress"
-        package-name="org.apache.ofbiz.party.contact"
+        package-name="org.sitenetsoft.sunseterp.applications.party.contact"
         title="Party and Contact Mech/Postal Address View">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
@@ -1465,7 +1465,7 @@ under the License.
         </relation>
     </view-entity>
     <view-entity entity-name="PartyAndTelecomNumber"
-            package-name="org.apache.ofbiz.party.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.party.contact"
             title="Party and TelecomNumber View">
         <member-entity entity-alias="PTY" entity-name="Party" />
         <member-entity entity-alias="PCM" entity-name="PartyContactMech" />
@@ -1481,7 +1481,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="ContactListPartyAndContactMech"
-        package-name="org.apache.ofbiz.party.contact">
+        package-name="org.sitenetsoft.sunseterp.applications.party.contact">
         <member-entity entity-alias="CLP" entity-name="ContactListParty"/>
         <member-entity entity-alias="CM" entity-name="ContactMech"/>
         <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
@@ -1503,18 +1503,18 @@ under the License.
     </view-entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.party.need -->
+  <!-- org.sitenetsoft.sunseterp.applications.party.need -->
   <!-- ========================================================= -->
 
     <entity entity-name="NeedType"
-            package-name="org.apache.ofbiz.party.need"
+            package-name="org.sitenetsoft.sunseterp.applications.party.need"
             title="Need Type">
       <field name="needTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="needTypeId"/>
     </entity>
     <entity entity-name="PartyNeed"
-            package-name="org.apache.ofbiz.party.need"
+            package-name="org.sitenetsoft.sunseterp.applications.party.need"
             title="Party Need">
       <field name="partyNeedId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -1558,11 +1558,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.party.party -->
+  <!-- org.sitenetsoft.sunseterp.applications.party.party -->
   <!-- ========================================================= -->
 
     <entity entity-name="AddressMatchMap"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Address Matching Map">
       <field name="mapKey" type="id-vlong"></field>
       <field name="mapValue" type="id-vlong"></field>
@@ -1571,7 +1571,7 @@ under the License.
       <prim-key field="mapValue"/>
     </entity>
     <entity entity-name="Affiliate"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Affiliate Party">
       <field name="partyId" type="id"></field>
       <field name="affiliateName" type="name"></field>
@@ -1591,7 +1591,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="Party"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party">
       <field name="partyId" type="id"></field>
       <field name="partyTypeId" type="id"></field>
@@ -1632,7 +1632,7 @@ under the License.
       </index>
     </entity>
     <view-entity entity-name="PartyAcctgPrefAndGroup"
-        package-name="org.apache.ofbiz.party.party"
+        package-name="org.sitenetsoft.sunseterp.applications.party.party"
         title="PartyAcctgPreference and PartyGroup">
         <member-entity entity-alias="PTYACCPREF" entity-name="PartyAcctgPreference"/>
         <member-entity entity-alias="PTYGROUP" entity-name="PartyGroup"/>
@@ -1652,7 +1652,7 @@ under the License.
         </entity-condition>
     </view-entity>
     <view-entity entity-name="PartyAndGroup"
-        package-name="org.apache.ofbiz.party.party"
+        package-name="org.sitenetsoft.sunseterp.applications.party.party"
         title="Party and Party Group View">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PGRP" entity-name="PartyGroup"/>
@@ -1663,7 +1663,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="PartyAndPerson"
-        package-name="org.apache.ofbiz.party.party"
+        package-name="org.sitenetsoft.sunseterp.applications.party.party"
         title="Party and Person View">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PERS" entity-name="Person"/>
@@ -1674,7 +1674,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="PartyAndUserLogin"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party and Contact Mech View">
       <member-entity entity-alias="PTY" entity-name="Party"/>
       <member-entity entity-alias="ULN" entity-name="UserLogin"/>
@@ -1697,7 +1697,7 @@ under the License.
       </relation>
     </view-entity>
     <view-entity entity-name="PartyAndUserLoginAndPerson"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Parts of Party and UserLogin and Person">
       <member-entity entity-alias="PTY" entity-name="Party"/>
       <member-entity entity-alias="ULN" entity-name="UserLogin"/>
@@ -1728,7 +1728,7 @@ under the License.
       </relation>
     </view-entity>
   <view-entity entity-name="PartyDetailAndWorkEffortAssign"
-    package-name="org.apache.ofbiz.party.party"
+    package-name="org.sitenetsoft.sunseterp.applications.party.party"
     title="View to show the party assignment names for a workeffort with the partyStatus and AssignStatus">
     <member-entity entity-alias="PTY" entity-name="Party"/>
     <member-entity entity-alias="WEF" entity-name="WorkEffortPartyAssignment"/>
@@ -1763,7 +1763,7 @@ under the License.
   </view-entity>
   
      <entity entity-name="PartyIdentification"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Identification">
       <field name="partyId" type="id"></field>
       <field name="partyIdentificationTypeId" type="id"></field>
@@ -1781,7 +1781,7 @@ under the License.
       </index>
     </entity> 
     <view-entity entity-name="PartyIdentificationAndParty"
-                package-name="org.apache.ofbiz.party.party"
+                package-name="org.sitenetsoft.sunseterp.applications.party.party"
                 title="PartyIdentification and Party View">
       <member-entity entity-alias="PIN" entity-name="PartyIdentification"/>
       <member-entity entity-alias="PIT" entity-name="PartyIdentificationType"/>
@@ -1797,7 +1797,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="PartyIdentificationType"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Identification Type">
       <field name="partyIdentificationTypeId" type="id"></field>
@@ -1811,7 +1811,7 @@ under the License.
     </entity>
   
     <entity entity-name="PartyGeoPoint"
-        package-name="org.apache.ofbiz.party.party"
+        package-name="org.sitenetsoft.sunseterp.applications.party.party"
         title="Party Geo Location with history">
         <field name="partyId" type="id"></field>
         <field name="geoPointId" type="id"></field>
@@ -1828,7 +1828,7 @@ under the License.
         </relation>
     </entity>
     <view-entity entity-name="PartyAndGeoPoint"
-        package-name="org.apache.ofbiz.party.party"
+        package-name="org.sitenetsoft.sunseterp.applications.party.party"
         title="Party and Geo Point View">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PGPT" entity-name="PartyGeoPoint"/>
@@ -1855,7 +1855,7 @@ under the License.
         </relation>
     </view-entity>
     <view-entity entity-name="UserLoginAndPartyDetails"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="UserLogin, Party, Person and PartyGroup">
       <member-entity entity-alias="ULN" entity-name="UserLogin"/>
       <member-entity entity-alias="PTY" entity-name="Party"/>
@@ -1892,7 +1892,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="PartyAttribute"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Attribute">
       <field name="partyId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -1908,7 +1908,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyCarrierAccount"
-        package-name="org.apache.ofbiz.party.party"
+        package-name="org.sitenetsoft.sunseterp.applications.party.party"
         title="Party Carrier Account">
         <field name="partyId" type="id"></field>
         <field name="carrierPartyId" type="id"></field>
@@ -1926,7 +1926,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="PartyClassification"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Classification">
       <field name="partyId" type="id"></field>
       <field name="partyClassificationGroupId" type="id"></field>
@@ -1943,7 +1943,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyClassificationGroup"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Classification Group">
       <field name="partyClassificationGroupId" type="id"></field>
       <field name="partyClassificationTypeId" type="id"></field>
@@ -1958,7 +1958,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyClassificationType"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Classification Type">
       <field name="partyClassificationTypeId" type="id"></field>
@@ -1971,7 +1971,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="PartyContactWithPurpose"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Contact Purpose View">
       <member-entity entity-alias="PCMP" entity-name="PartyContactMechPurpose"/>
       <member-entity entity-alias="CM" entity-name="ContactMech"/>
@@ -2018,7 +2018,7 @@ under the License.
       </relation>
     </view-entity>
     <entity entity-name="PartyContent"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Data Object">
       <field name="partyId" type="id"></field>
       <field name="contentId" type="id"></field>
@@ -2039,7 +2039,7 @@ under the License.
         <key-map field-name="partyContentTypeId"/>
       </relation>
     </entity>
-    <view-entity entity-name="PartyContentDetail" package-name="org.apache.ofbiz.content.content" title="Party Content Detail View">
+    <view-entity entity-name="PartyContentDetail" package-name="org.sitenetsoft.sunseterp.applications.content.content" title="Party Content Detail View">
         <member-entity entity-alias="PCT" entity-name="PartyContent"/>
         <member-entity entity-alias="CNT" entity-name="Content"/>
         <alias-all entity-alias="PCT"/>
@@ -2055,7 +2055,7 @@ under the License.
         </relation>
     </view-entity>
     <entity entity-name="PartyContentType"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Content Type">
         <field name="partyContentTypeId" type="id"></field>
@@ -2067,7 +2067,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="PartyDataSource"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Data Source">
       <field name="partyId" type="id"></field>
       <field name="dataSourceId" type="id"></field>
@@ -2086,7 +2086,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyGroup"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Group">
       <field name="partyId" type="id"></field>
       <field name="groupName" type="name"></field>
@@ -2106,7 +2106,7 @@ under the License.
       </index>
     </entity>
     <entity entity-name="PartyIcsAvsOverride"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party ICS AVS Override">
       <field name="partyId" type="id"></field>
       <field name="avsDeclineString" type="long-varchar"></field>
@@ -2116,7 +2116,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyInvitation"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Invitation">
         <field name="partyInvitationId" type="id"></field>
         <field name="partyIdFrom" type="id"></field>
@@ -2134,7 +2134,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="PartyInvitationGroupAssoc"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Invitation Group Assoc">
         <field name="partyInvitationId" type="id"></field>
         <field name="partyIdTo" type="id"></field>
@@ -2151,7 +2151,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="PartyInvitationRoleAssoc"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Invitation Role Assoc">
         <field name="partyInvitationId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
@@ -2165,7 +2165,7 @@ under the License.
         </relation>
     </entity>
   <view-entity entity-name="PartyNameContactMechView"
-    package-name="org.apache.ofbiz.party.party"
+    package-name="org.sitenetsoft.sunseterp.applications.party.party"
     title="Party Name Contact Mech View">
     <member-entity entity-alias="PTY" entity-name="Party"/>
     <member-entity entity-alias="PER" entity-name="Person"/>
@@ -2206,7 +2206,7 @@ under the License.
     </relation>
   </view-entity>
   <entity entity-name="PartyNameHistory"
-        package-name="org.apache.ofbiz.party.party"
+        package-name="org.sitenetsoft.sunseterp.applications.party.party"
         title="Party Name History">
         <field name="partyId" type="id"></field>
         <field name="changeDate" type="date-time"></field>
@@ -2223,7 +2223,7 @@ under the License.
         </relation>
     </entity>
     <view-entity entity-name="PartyNameView"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Name View">
       <member-entity entity-alias="PTY" entity-name="Party"/>
       <member-entity entity-alias="PER" entity-name="Person"/>
@@ -2252,7 +2252,7 @@ under the License.
       </relation>
     </view-entity>
   <entity entity-name="PartyNote"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Note">
       <field name="partyId" type="id"></field>
       <field name="noteId" type="id"></field>
@@ -2266,7 +2266,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="PartyNoteView"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Note View">
       <member-entity entity-alias="PN" entity-name="PartyNote"/>
       <member-entity entity-alias="ND" entity-name="NoteData"/>
@@ -2281,7 +2281,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="PartyProfileDefault"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Profile Defaults">
       <field name="partyId" type="id"></field>
       <field name="productStoreId" type="id"></field>
@@ -2299,7 +2299,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyRelationship"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Relationship">
       <field name="partyIdFrom" type="id"></field>
       <field name="partyIdTo" type="id"></field>
@@ -2355,7 +2355,7 @@ under the License.
         <key-map field-name="securityGroupId" rel-field-name="groupId"/>
       </relation>
     </entity>
-    <view-entity entity-name="PartyRelationshipToFrom" package-name="org.apache.ofbiz.party.party">
+    <view-entity entity-name="PartyRelationshipToFrom" package-name="org.sitenetsoft.sunseterp.applications.party.party">
         <description>
             Links two PartyRelationships together to be used to get a member of a group that is a member of a group, so links the to party of the first to the from party of the second.
             To query the group ID would go on onePartyIdFrom and the member ID would go in twoPartyIdTo.
@@ -2369,7 +2369,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="PartyRelationshipType"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Relationship Type">
       <field name="partyRelationshipTypeId" type="id"></field>
@@ -2390,7 +2390,7 @@ under the License.
         <key-map field-name="roleTypeIdValidTo" rel-field-name="roleTypeId"/>
       </relation>
     </entity>
-    <view-entity entity-name="PartyRelationshipAndDetail" package-name="org.apache.ofbiz.party.party" title="Party Relationship And Details">
+    <view-entity entity-name="PartyRelationshipAndDetail" package-name="org.sitenetsoft.sunseterp.applications.party.party" title="Party Relationship And Details">
       <member-entity entity-alias="PTY" entity-name="Party"/>
       <member-entity entity-alias="PTYREL" entity-name="PartyRelationship"/>
       <member-entity entity-alias="PER" entity-name="Person"/>
@@ -2422,7 +2422,7 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
     </view-entity>
-    <view-entity entity-name="PartyRelationshipAndContactMechDetail" package-name="org.apache.ofbiz.party.party" title="Party Relationship And Contact Mech Details">
+    <view-entity entity-name="PartyRelationshipAndContactMechDetail" package-name="org.sitenetsoft.sunseterp.applications.party.party" title="Party Relationship And Contact Mech Details">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PTYREL" entity-name="PartyRelationship"/>
         <member-entity entity-alias="PER" entity-name="Person"/>
@@ -2500,7 +2500,7 @@ under the License.
     </view-entity>
     
     <view-entity entity-name="PartyRelationshipAndPartyDetail" 
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Relationship And Party Details">
         <member-entity entity-alias="TO_PTY" entity-name="Party"/><!-- Party To Detail -->
         <member-entity entity-alias="PTYREL" entity-name="PartyRelationship"/>
@@ -2558,7 +2558,7 @@ under the License.
     </view-entity>
     
     <entity entity-name="PartyRole"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Role">
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -2578,7 +2578,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="PartyRoleAndPartyDetail"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Role and Party Detail (Person, PartyGroup, etc.) View">
       <member-entity entity-alias="PTY" entity-name="Party"/>
       <member-entity entity-alias="PR" entity-name="PartyRole"/>
@@ -2605,7 +2605,7 @@ under the License.
       </view-link>
     </view-entity>
     <view-entity entity-name="PartyRoleDetailAndPartyDetail"
-        package-name="org.apache.ofbiz.party.party"
+        package-name="org.sitenetsoft.sunseterp.applications.party.party"
         title="Party Role and Party Detail (Person, PartyGroup, etc.) View">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PR" entity-name="PartyRole"/>
@@ -2640,7 +2640,7 @@ under the License.
     </view-entity>
 
     <view-entity entity-name="PartyRoleNameDetail"
-        package-name="org.apache.ofbiz.party.party"
+        package-name="org.sitenetsoft.sunseterp.applications.party.party"
         title="Party Role and Party Detail (Person, PartyGroup, etc.) View">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PR" entity-name="PartyRole"/>
@@ -2664,7 +2664,7 @@ under the License.
             <key-map field-name="partyId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="PartyRoleAndContactMechDetail" package-name="org.apache.ofbiz.party.party" title="Party Role And Contact Mech Details">
+    <view-entity entity-name="PartyRoleAndContactMechDetail" package-name="org.sitenetsoft.sunseterp.applications.party.party" title="Party Role And Contact Mech Details">
         <member-entity entity-alias="PTY" entity-name="Party"/>
         <member-entity entity-alias="PR" entity-name="PartyRole"/>
         <member-entity entity-alias="RT" entity-name="RoleType"/>
@@ -2743,7 +2743,7 @@ under the License.
         </relation>
     </view-entity>
     <entity entity-name="PartyStatus"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Tracks a history of the status of a Party">
       <field name="statusId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -2763,7 +2763,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyType"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             default-resource-name="PartyEntityLabels"
             title="Party Type">
       <field name="partyTypeId" type="id"></field>
@@ -2779,7 +2779,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PartyTypeAttr"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Type Attribute">
       <field name="partyTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -2797,7 +2797,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="Person"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Person">
       <field name="partyId" type="id"></field>
       <field name="salutation" type="name"></field>
@@ -2856,14 +2856,14 @@ under the License.
       </index>
     </entity>
     <entity entity-name="PriorityType"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Priority Type">
       <field name="priorityTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="priorityTypeId"/>
     </entity>
     <entity entity-name="RoleType"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             default-resource-name="PartyEntityLabels"
             title="Role Type">
       <field name="roleTypeId" type="id"></field>
@@ -2876,7 +2876,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="RoleTypeIn3Levels"
-        package-name="org.apache.ofbiz.party.party" title="Party Role View in 4 levels">
+        package-name="org.sitenetsoft.sunseterp.applications.party.party" title="Party Role View in 4 levels">
         <member-entity entity-alias="RT1" entity-name="RoleType" />
         <member-entity entity-alias="RT2" entity-name="RoleType" />
         <member-entity entity-alias="RT3" entity-name="RoleType" />
@@ -2894,7 +2894,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="RoleTypeAndParty"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Party Role View">
       <member-entity entity-alias="PR" entity-name="PartyRole"/>
       <member-entity entity-alias="RT" entity-name="RoleType"/>
@@ -2907,7 +2907,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="RoleTypeAttr"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Role Type Attribute">
       <field name="roleTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -2931,7 +2931,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="Vendor"
-            package-name="org.apache.ofbiz.party.party"
+            package-name="org.sitenetsoft.sunseterp.applications.party.party"
             title="Vendor">
       <field name="partyId" type="id"></field>
       <field name="manifestCompanyName" type="name"></field>
@@ -2990,7 +2990,7 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
     </extend-entity>
-    <view-entity entity-name="PartyExport" package-name="org.apache.ofbiz.accounting.reports">
+    <view-entity entity-name="PartyExport" package-name="org.sitenetsoft.sunseterp.applications.accounting.reports">
         <member-entity entity-alias="PRT" entity-name="Party"/>
         <member-entity entity-alias="GRP" entity-name="PartyGroup"/>
         <member-entity entity-alias="PER" entity-name="Person"/>
@@ -3067,7 +3067,7 @@ under the License.
         </view-link>
     </view-entity>
     
-    <view-entity entity-name="PartyClassificationGroupAndType" package-name="org.apache.ofbiz.party.party" title="PartyClassificationGroup and PartyClassificationTypeView">
+    <view-entity entity-name="PartyClassificationGroupAndType" package-name="org.sitenetsoft.sunseterp.applications.party.party" title="PartyClassificationGroup and PartyClassificationTypeView">
         <member-entity entity-alias="PCG" entity-name="PartyClassificationGroup"/>
         <member-entity entity-alias="PCT" entity-name="PartyClassificationType"/>
         <alias-all entity-alias="PCG"/>

@@ -79,7 +79,7 @@ under the License.
           <td>
             <div>
               <#if displayParty?has_content>
-                <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
+                <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                 ${displayPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
               </#if>
               <#if partyId??>

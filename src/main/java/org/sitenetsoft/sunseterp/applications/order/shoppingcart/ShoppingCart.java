@@ -1758,7 +1758,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             // clear the list
             if (autoSaveListId != null) {
                 try {
-                    org.sitenetsoft.sunseterp.framework.order.shoppinglist.ShoppingListEvents.clearListInfo(this.getDelegator(), autoSaveListId);
+                    org.sitenetsoft.sunseterp.applications.order.shoppinglist.ShoppingListEvents.clearListInfo(this.getDelegator(), autoSaveListId);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, MODULE);
                 }
@@ -3193,7 +3193,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
             }
             // set the default shipment method
-            ShippingEstimateWrapper shipEstimateWrapper = org.sitenetsoft.sunseterp.framework.order.shoppingcart.shipping.ShippingEstimateWrapper
+            ShippingEstimateWrapper shipEstimateWrapper = org.sitenetsoft.sunseterp.applications.order.shoppingcart.shipping.ShippingEstimateWrapper
                     .getWrapper(dispatcher, this, 0);
             GenericValue carrierShipmentMethod = EntityUtil.getFirst(shipEstimateWrapper.getShippingMethods());
             if (carrierShipmentMethod != null) {
@@ -4014,7 +4014,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         // remove cart lines that are promos (ie GWPs) and cart line adjustments from promo actions
         Iterator<ShoppingCartItem> cartItemIter = this.iterator();
         while (cartItemIter.hasNext()) {
-            org.sitenetsoft.sunseterp.framework.order.shoppingcart.ShoppingCartItem checkItem = cartItemIter.next();
+            org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartItem checkItem = cartItemIter.next();
             if (checkItem.getIsPromo()) {
                 this.clearItemShipInfo(checkItem);
                 cartItemIter.remove();

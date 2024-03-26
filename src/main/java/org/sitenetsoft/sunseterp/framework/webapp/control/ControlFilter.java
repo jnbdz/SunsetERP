@@ -18,7 +18,26 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.control;
 
-//import jakarta.servlet.http.HttpFilter;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.FilterConfig;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpFilter;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.validator.routines.UrlValidator;
+import org.apache.logging.log4j.ThreadContext;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.security.SecurityUtil;
 
 
 /**
@@ -48,24 +67,23 @@ package org.sitenetsoft.sunseterp.framework.webapp.control;
  *     that the request path is safe and should not be checked again
  */
 @SuppressWarnings("serial")
-public class ControlFilter {}
-/*public class ControlFilter extends HttpFilter {
+//public class ControlFilter {}
+public class ControlFilter extends HttpFilter {
     public static final String FORWARDED_FROM_SERVLET = "_FORWARDED_FROM_SERVLET_";
     public static final int DEFAULT_HTTP_ERROR_CODE = 403;
     private static final String MODULE = ControlFilter.class.getName();
 
     /** The path used for redirection. */
-    //private String redirectPath;
+    private String redirectPath;
     /** True when all traffic must be redirected to {@code redirectPath}. */
-    //private boolean redirectAll;
+    private boolean redirectAll;
     /** True when redirectPath is an absolute URI. */
-    //private boolean redirectPathIsUrl;
+    private boolean redirectPathIsUrl;
     /** The error code used when current path is not allowed and {@code redirectPath} is null. */
-    //private int errorCode;
+    private int errorCode;
     /** The list of all path prefixes that are allowed. */
-    //private Set<String> allowedPaths;
+    private Set<String> allowedPaths;
 
-    /*
     @Override
     public void init(FilterConfig conf) throws ServletException {
         redirectPath = conf.getInitParameter("redirectPath");
@@ -87,7 +105,7 @@ public class ControlFilter {}
      * @param code an arbitrary string which can be {@code null}
      * @return the integer matching {@code code}
      */
-    /*private static int readErrorCode(String code) {
+    private static int readErrorCode(String code) {
         try {
             return (code == null) ? DEFAULT_HTTP_ERROR_CODE : Integer.parseInt(code);
         } catch (NumberFormatException err) {
@@ -95,7 +113,7 @@ public class ControlFilter {}
             Debug.logWarning(err, "The default error code will be used: " + DEFAULT_HTTP_ERROR_CODE, MODULE);
             return DEFAULT_HTTP_ERROR_CODE;
         }
-    }*/
+    }
 
     /**
      * Splits the paths defined by {@code paths}.
@@ -103,7 +121,7 @@ public class ControlFilter {}
      * paths separated by ':'.
      * @return a set of string
      */
-    /*private static Set<String> readAllowedPaths(String paths) {
+    private static Set<String> readAllowedPaths(String paths) {
         return (paths == null) ? Collections.emptySet()
                                : Arrays.stream(paths.split(":")).collect(Collectors.toSet());
     }
@@ -111,7 +129,7 @@ public class ControlFilter {}
     /**
      * Makes allowed paths pass through while redirecting the others to a fix location.
      */
-    /*@Override
+    @Override
     public void doFilter(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
             throws IOException, ServletException {
         String context = req.getContextPath();
@@ -174,7 +192,7 @@ public class ControlFilter {}
      * {@code redirectPath} is a relative URI.
      * @throws IOException when redirection has not been properly sent.
      */
-    /*private void redirect(HttpServletResponse resp, String contextPath) throws IOException {
+    private void redirect(HttpServletResponse resp, String contextPath) throws IOException {
         resp.sendRedirect(redirectPathIsUrl ? redirectPath : (contextPath + redirectPath));
     }
-}*/
+}

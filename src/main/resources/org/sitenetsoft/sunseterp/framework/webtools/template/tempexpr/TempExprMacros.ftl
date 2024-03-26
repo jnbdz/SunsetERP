@@ -26,10 +26,10 @@ your template file:
 <#include "component://common-theme/template/includes/CommonMacros.ftl"/>
 
 <#assign
-  occurrenceList = Static["org.apache.ofbiz.service.calendar.ExpressionUiHelper"].getOccurrenceList()
-  frequencyTypeList = Static["org.apache.ofbiz.service.calendar.ExpressionUiHelper"].getFrequencyValueList(uiLabelMap)
-  firstDayOfWeek = Static["org.apache.ofbiz.service.calendar.ExpressionUiHelper"].getFirstDayOfWeek(locale)
-  lastDayOfWeek = Static["org.apache.ofbiz.service.calendar.ExpressionUiHelper"].getLastDayOfWeek(locale)
+  occurrenceList = Static["org.sitenetsoft.sunseterp.framework.service.calendar.ExpressionUiHelper"].getOccurrenceList()
+  frequencyTypeList = Static["org.sitenetsoft.sunseterp.framework.service.calendar.ExpressionUiHelper"].getFrequencyValueList(uiLabelMap)
+  firstDayOfWeek = Static["org.sitenetsoft.sunseterp.framework.service.calendar.ExpressionUiHelper"].getFirstDayOfWeek(locale)
+  lastDayOfWeek = Static["org.sitenetsoft.sunseterp.framework.service.calendar.ExpressionUiHelper"].getLastDayOfWeek(locale)
 />
 
 <#macro DateRange formName="" fromDate="" toDate="">

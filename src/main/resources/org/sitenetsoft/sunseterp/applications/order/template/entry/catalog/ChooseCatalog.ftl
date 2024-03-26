@@ -33,7 +33,7 @@ under the License.
                 <option value='${currentCatalogId}'>${currentCatalogName}</option>
                 <option value='${currentCatalogId}'></option>
                 <#list catalogCol as catalogId>
-                  <#assign thisCatalogName = Static["org.apache.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
+                  <#assign thisCatalogName = Static["org.sitenetsoft.sunseterp.applications.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
                   <option value='${catalogId}'>${thisCatalogName}</option>
                 </#list>
               </select>

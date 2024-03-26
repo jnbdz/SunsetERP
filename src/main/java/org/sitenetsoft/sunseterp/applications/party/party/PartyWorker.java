@@ -28,7 +28,7 @@ import org.sitenetsoft.sunseterp.framework.entity.model.ModelEntity;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
 
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 import java.sql.Timestamp;
 import java.util.*;
 
