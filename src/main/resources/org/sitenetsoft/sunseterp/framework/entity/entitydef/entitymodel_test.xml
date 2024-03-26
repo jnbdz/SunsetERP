@@ -39,14 +39,14 @@ under the License.
   ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.apache.ofbiz.entity.test -->
+  <!--  - org.sitenetsoft.sunseterp.framework.entity.test -->
   <!-- ========================================================= -->
 
   <!-- =========================================================
     The testing entity is a basic entity with a type
   ========================================================= -->
     <entity entity-name="Testing"
-        package-name="org.apache.ofbiz.entity.test"
+        package-name="org.sitenetsoft.sunseterp.framework.entity.test"
         title="Testing">
         <field name="testingId" type="id"/>
         <field name="testingTypeId" type="id"/>
@@ -64,7 +64,7 @@ under the License.
      Testing entity type
     ========================================================= -->
     <entity entity-name="TestingType"
-        package-name="org.apache.ofbiz.entity.test"
+        package-name="org.sitenetsoft.sunseterp.framework.entity.test"
         title="Testing Entity Type">
         <field name="testingTypeId" type="id"/>
         <field name="description" type="description"/>
@@ -74,7 +74,7 @@ under the License.
     Used for testing views with pks.
     This simulates the Party->PartyGroup and Party->Person entity relationships.
   ========================================================= -->
-    <entity entity-name="TestingSubtype" package-name="org.apache.ofbiz.entity.test" title="Testing Subtype">
+    <entity entity-name="TestingSubtype" package-name="org.sitenetsoft.sunseterp.framework.entity.test" title="Testing Subtype">
         <field name="testingTypeId" type="id" />
         <field name="subtypeDescription" type="description" />
         <prim-key field="testingTypeId" />
@@ -82,7 +82,7 @@ under the License.
   <!-- =========================================================
     Used for testing views with pks
   ========================================================= -->
-    <view-entity entity-name="TestingViewPks" package-name="org.apache.ofbiz.entity.test" title="Testing And TestingSubtype View">
+    <view-entity entity-name="TestingViewPks" package-name="org.sitenetsoft.sunseterp.framework.entity.test" title="Testing And TestingSubtype View">
         <member-entity entity-alias="TST" entity-name="TestingType" />
         <member-entity entity-alias="TSTSUB" entity-name="TestingSubtype" />
         <alias-all entity-alias="TST" />
@@ -95,7 +95,7 @@ under the License.
       Used for testing EntityStatus concept on entity-auto
     ========================================================= -->
     <entity entity-name="TestingStatus"
-            package-name="org.apache.ofbiz.entity.test"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.test"
             title="Entity for testing EntityStatus concept">
         <description>An entity for testing EntityStatus concept</description>
         <field name="testingStatusId" type="id"/>
@@ -115,7 +115,7 @@ under the License.
      An entity for testing the field data types
    ========================================================== -->
     <entity entity-name="TestFieldType"
-        package-name="org.apache.ofbiz.entity.test"
+        package-name="org.sitenetsoft.sunseterp.framework.entity.test"
         title="Entity for testing the field data types">
         <description>An entity for testing the field data types</description>
         <field name="testFieldTypeId" type="id"/>
@@ -135,7 +135,7 @@ under the License.
     Testing Item entity : testing line on a Testing entity
   ========================================================= -->
     <entity entity-name="TestingItem"
-            package-name="org.apache.ofbiz.entity.test"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.test"
             title="Testing Item">
         <field name="testingId" type="id"/>
         <field name="testingSeqId" type="id"/>
@@ -151,7 +151,7 @@ under the License.
     'testing node member' as potential members
   ========================================================= -->
     <entity entity-name="TestingNode"
-            package-name="org.apache.ofbiz.entity.test"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.test"
             title="Testing Node">
         <field name="testingNodeId" type="id"></field>
         <field name="primaryParentNodeId" type="id"></field>
@@ -169,7 +169,7 @@ under the License.
     A testing member entity can belong to any testing node
   ========================================================= -->
     <entity entity-name="TestingNodeMember"
-            package-name="org.apache.ofbiz.entity.test"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.test"
             title="Testing Node Member">
       <field name="testingNodeId" type="id"/>
       <field name="testingId" type="id"/>
@@ -191,7 +191,7 @@ under the License.
     View : a Testing Node with its member(s)
   ========================================================= -->
     <view-entity entity-name="TestingNodeAndMember"
-            package-name="org.apache.ofbiz.entity.test"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.test"
             title="TestingNode And TestingNodeMember View">
       <member-entity entity-alias="TN" entity-name="TestingNode"/>
       <member-entity entity-alias="TNM" entity-name="TestingNodeMember"/>
@@ -217,7 +217,7 @@ under the License.
     The testing entity is a basic entity with a type
     ========================================================= -->
     <entity entity-name="TestingCrypto"
-        package-name="org.apache.ofbiz.entity.test"
+        package-name="org.sitenetsoft.sunseterp.framework.entity.test"
         title="Testing Crypto">
         <field name="testingCryptoId" type="id"/>
         <field name="testingCryptoTypeId" type="id"/>
@@ -227,7 +227,7 @@ under the License.
         <prim-key field="testingCryptoId"/>
     </entity>
     <view-entity entity-name="TestingCryptoRawView"
-            package-name="org.apache.ofbiz.entity.test"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.test"
             title="TestingCrypto Raw View">
       <member-entity entity-alias="TC" entity-name="TestingCrypto"/>
       <alias-all entity-alias="TC"/>
@@ -243,7 +243,7 @@ under the License.
       </alias>
     </view-entity>
     <entity entity-name="TestingRemoveAll"
-        package-name="org.apache.ofbiz.entity.test"
+        package-name="org.sitenetsoft.sunseterp.framework.entity.test"
         title="Testing">
         <field name="testingRemoveAllId" type="id"/>
         <field name="description" type="description"/>

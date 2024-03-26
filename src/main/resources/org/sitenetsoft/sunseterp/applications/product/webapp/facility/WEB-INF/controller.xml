@@ -32,7 +32,7 @@ under the License.
     <!-- Events to run on every request after all other processing (chains exempt) -->
     <!--
     <postprocessor>
-        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event name="test" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
 
@@ -564,7 +564,7 @@ under the License.
     </request-map>
     <request-map uri="checkForceShipmentReceived">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.shipment.shipment.ShipmentEvents" invoke="checkForceShipmentReceived"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.shipment.shipment.ShipmentEvents" invoke="checkForceShipmentReceived"/>
         <response name="success" type="view" value="ReceiveInventory"/>
         <response name="error" type="view" value="ReceiveInventory"/>
     </request-map>
@@ -1153,13 +1153,13 @@ under the License.
 
     <request-map uri="viewShipmentPackageRouteSegLabelImage">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.shipment.shipment.ShipmentEvents" invoke="viewShipmentPackageRouteSegLabelImage"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.shipment.shipment.ShipmentEvents" invoke="viewShipmentPackageRouteSegLabelImage"/>
         <response name="success" type="none" value=""/>
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
     </request-map>
     <!-- note: this is an insecure version of above for purposes of rendering via fop, which cannot access over https -->
     <request-map uri="viewShipmentLabel">
-        <event type="java" path="org.apache.ofbiz.shipment.shipment.ShipmentEvents" invoke="viewShipmentPackageRouteSegLabelImage"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.shipment.shipment.ShipmentEvents" invoke="viewShipmentPackageRouteSegLabelImage"/>
         <response name="success" type="none" value=""/>
         <response name="error" type="view" value="EditShipmentRouteSegments"/>
     </request-map>

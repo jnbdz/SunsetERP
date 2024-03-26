@@ -30,17 +30,17 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.apache.ofbiz.webapp.visit -->
-  <!--  - org.apache.ofbiz.webapp.website -->
+  <!--  - org.sitenetsoft.sunseterp.framework.webapp.visit -->
+  <!--  - org.sitenetsoft.sunseterp.framework.webapp.website -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.webapp.visit -->
+  <!-- org.sitenetsoft.sunseterp.framework.webapp.visit -->
   <!-- ========================================================= -->
 
     <entity entity-name="BrowserType"
-            package-name="org.apache.ofbiz.webapp.visit"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.visit"
             title="Browser Type">
       <field name="browserTypeId" type="id"></field>
       <field name="browserName" type="name"></field>
@@ -48,7 +48,7 @@ under the License.
       <prim-key field="browserTypeId"/>
     </entity>
     <entity entity-name="PlatformType"
-            package-name="org.apache.ofbiz.webapp.visit"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.visit"
             title="Platform Type">
       <field name="platformTypeId" type="id"></field>
       <field name="platformName" type="name"></field>
@@ -56,14 +56,14 @@ under the License.
       <prim-key field="platformTypeId"/>
     </entity>
     <entity entity-name="ProtocolType"
-            package-name="org.apache.ofbiz.webapp.visit"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.visit"
             title="Protocol Type">
       <field name="protocolTypeId" type="id"></field>
       <field name="protocolName" type="name"></field>
       <prim-key field="protocolTypeId"/>
     </entity>
     <entity entity-name="ServerHit"
-            package-name="org.apache.ofbiz.webapp.visit"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.visit"
             never-cache="true"
             title="Server Hit" no-auto-stamp="true">
       <field name="visitId" type="id"></field>
@@ -89,7 +89,7 @@ under the License.
         <key-map field-name="visitId"/>
       </relation>
     </entity>
-    <entity entity-name="ServerHitBin" package-name="org.apache.ofbiz.webapp.visit" never-cache="true" title="Server Hit Bin" no-auto-stamp="true">
+    <entity entity-name="ServerHitBin" package-name="org.sitenetsoft.sunseterp.framework.webapp.visit" never-cache="true" title="Server Hit Bin" no-auto-stamp="true">
       <field name="serverHitBinId" type="id"></field>
       <field name="contentId" type="id-vlong"></field>
       <field name="hitTypeId" type="id"></field>
@@ -107,7 +107,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ServerHitType"
-            package-name="org.apache.ofbiz.webapp.visit"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.visit"
                         default-resource-name="WebappEntityLabels"
             title="Server Hit Bin">
       <field name="hitTypeId" type="id"></field>
@@ -115,7 +115,7 @@ under the License.
       <prim-key field="hitTypeId"/>
     </entity>
     <entity entity-name="UserAgent"
-            package-name="org.apache.ofbiz.webapp.visit"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.visit"
             title="User Agent">
       <field name="userAgentId" type="id"></field>
       <field name="browserTypeId" type="id"></field>
@@ -141,20 +141,20 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="UserAgentMethodType"
-            package-name="org.apache.ofbiz.webapp.visit"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.visit"
             title="User Agent Method Type">
       <field name="userAgentMethodTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="userAgentMethodTypeId"/>
     </entity>
     <entity entity-name="UserAgentType"
-            package-name="org.apache.ofbiz.webapp.visit"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.visit"
             title="User Agent Type">
       <field name="userAgentTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="userAgentTypeId"/>
     </entity>
-    <entity entity-name="Visit" package-name="org.apache.ofbiz.webapp.visit" never-cache="true" title="Visit"
+    <entity entity-name="Visit" package-name="org.sitenetsoft.sunseterp.framework.webapp.visit" never-cache="true" title="Visit"
         sequence-bank-size="100" no-auto-stamp="true">
         <field name="visitId" type="id"></field>
         <field name="visitorId" type="id"></field>
@@ -188,7 +188,7 @@ under the License.
             <index-field name="thruDate"/>
         </index>
     </entity>
-    <entity entity-name="Visitor" package-name="org.apache.ofbiz.webapp.visit" title="Visitor"
+    <entity entity-name="Visitor" package-name="org.sitenetsoft.sunseterp.framework.webapp.visit" title="Visitor"
         sequence-bank-size="100">
         <field name="visitorId" type="id"></field>
         <field name="userLoginId" type="id-vlong"></field>
@@ -196,11 +196,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.webapp.website -->
+  <!-- org.sitenetsoft.sunseterp.framework.webapp.website -->
   <!-- ========================================================= -->
 
     <entity entity-name="WebPage"
-            package-name="org.apache.ofbiz.webapp.website"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.website"
             title="Web Page">
       <field name="webPageId" type="id"></field>
       <field name="pageName" type="name"></field>
@@ -211,7 +211,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WebSite"
-            package-name="org.apache.ofbiz.webapp.website"
+            package-name="org.sitenetsoft.sunseterp.framework.webapp.website"
             title="Web Site">
       <field name="webSiteId" type="id"></field>
       <field name="siteName" type="name"></field>

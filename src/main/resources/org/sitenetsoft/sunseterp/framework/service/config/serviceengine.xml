@@ -41,22 +41,22 @@ under the License.
         </thread-pool>
 
         <!-- Service Engine Configuration -->
-        <engine name="entity-auto" class="org.apache.ofbiz.service.engine.EntityAutoEngine"/>
-        <engine name="group" class="org.apache.ofbiz.service.group.ServiceGroupEngine"/>
-        <engine name="interface" class="org.apache.ofbiz.service.engine.InterfaceEngine"/>
-        <engine name="java" class="org.apache.ofbiz.service.engine.StandardJavaEngine"/>
-        <engine name="clojure" class="org.apache.ofbiz.service.engine.StandardClojureEngine"/>
-        <engine name="simple" class="org.apache.ofbiz.minilang.SimpleServiceEngine"/>
-        <engine name="script" class="org.apache.ofbiz.service.engine.ScriptEngine"/>
+        <engine name="entity-auto" class="org.sitenetsoft.sunseterp.framework.service.engine.EntityAutoEngine"/>
+        <engine name="group" class="org.sitenetsoft.sunseterp.framework.service.group.ServiceGroupEngine"/>
+        <engine name="interface" class="org.sitenetsoft.sunseterp.framework.service.engine.InterfaceEngine"/>
+        <engine name="java" class="org.sitenetsoft.sunseterp.framework.service.engine.StandardJavaEngine"/>
+        <engine name="clojure" class="org.sitenetsoft.sunseterp.framework.service.engine.StandardClojureEngine"/>
+        <engine name="simple" class="org.sitenetsoft.sunseterp.framework.minilang.SimpleServiceEngine"/>
+        <engine name="script" class="org.sitenetsoft.sunseterp.framework.service.engine.ScriptEngine"/>
         <!-- Engines that can be replaced by the generic script engine -->
-        <engine name="groovy" class="org.apache.ofbiz.service.engine.GroovyEngine"/>
-        <engine name="javascript" class="org.apache.ofbiz.service.engine.ScriptEngine"/>
+        <engine name="groovy" class="org.sitenetsoft.sunseterp.framework.service.engine.GroovyEngine"/>
+        <engine name="javascript" class="org.sitenetsoft.sunseterp.framework.service.engine.ScriptEngine"/>
         <!--  -->
-        <engine name="route" class="org.apache.ofbiz.service.engine.RouteEngine"/>
-        <!-- <engine name="http" class="org.apache.ofbiz.service.engine.HttpEngine"/> -->
-        <engine name="jms" class="org.apache.ofbiz.service.jms.JmsServiceEngine"/>
-        <engine name="rmi" class="org.apache.ofbiz.service.rmi.RmiServiceEngine"/>
-        <!-- <engine name="soap" class="org.apache.ofbiz.service.engine.SOAPClientEngine"/> -->
+        <engine name="route" class="org.sitenetsoft.sunseterp.framework.service.engine.RouteEngine"/>
+        <!-- <engine name="http" class="org.sitenetsoft.sunseterp.framework.service.engine.HttpEngine"/> -->
+        <engine name="jms" class="org.sitenetsoft.sunseterp.framework.service.jms.JmsServiceEngine"/>
+        <engine name="rmi" class="org.sitenetsoft.sunseterp.framework.service.rmi.RmiServiceEngine"/>
+        <!-- <engine name="soap" class="org.sitenetsoft.sunseterp.framework.service.engine.SOAPClientEngine"/> -->
 
         <service-location name="main-rmi" location="rmi://localhost:1099/RMIDispatcher"/>
         <!-- <service-location name="main-http" location="http://localhost:8080/webtools/control/httpService"/>

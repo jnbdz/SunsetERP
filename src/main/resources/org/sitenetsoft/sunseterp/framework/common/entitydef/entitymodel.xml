@@ -30,27 +30,27 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.apache.ofbiz.common.datasource -->
-  <!--  - org.apache.ofbiz.common.email -->
-  <!--  - org.apache.ofbiz.common.enum -->
-  <!--  - org.apache.ofbiz.common.geo -->
-  <!--  - org.apache.ofbiz.common.keyword -->
-  <!--  - org.apache.ofbiz.common.language -->
-  <!--  - org.apache.ofbiz.common.method -->
-  <!--  - org.apache.ofbiz.common.note -->
-  <!--  - org.apache.ofbiz.common.period -->
-  <!--  - org.apache.ofbiz.common.status -->
-  <!--  - org.apache.ofbiz.common.uom -->
-  <!--  - org.apache.ofbiz.common.theme -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.datasource -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.email -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.enum -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.geo -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.keyword -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.language -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.method -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.note -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.period -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.status -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.uom -->
+  <!--  - org.sitenetsoft.sunseterp.framework.common.theme -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.datasource -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.datasource -->
   <!-- ========================================================= -->
 
     <entity entity-name="DataSource"
-            package-name="org.apache.ofbiz.common.datasource"
+            package-name="org.sitenetsoft.sunseterp.framework.common.datasource"
             default-resource-name="CommonEntityLabels"
             title="Data Source">
       <field name="dataSourceId" type="id"></field>
@@ -62,7 +62,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="DataSourceType"
-            package-name="org.apache.ofbiz.common.datasource"
+            package-name="org.sitenetsoft.sunseterp.framework.common.datasource"
             title="Data Source Type">
       <field name="dataSourceTypeId" type="id"></field>
       <field name="description" type="description"></field>
@@ -70,10 +70,10 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.email -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.email -->
   <!-- ========================================================= -->
 
-    <entity entity-name="EmailTemplateSetting" package-name="org.apache.ofbiz.common.email" title="Email Template Setting">
+    <entity entity-name="EmailTemplateSetting" package-name="org.sitenetsoft.sunseterp.framework.common.email" title="Email Template Setting">
         <field name="emailTemplateSettingId" type="id"></field>
         <field name="emailType" type="id"></field>
         <field name="description" type="description"></field>
@@ -91,11 +91,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.enum -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.enum -->
   <!-- ========================================================= -->
 
     <entity entity-name="Enumeration"
-            package-name="org.apache.ofbiz.common.enum"
+            package-name="org.sitenetsoft.sunseterp.framework.common.enum"
             default-resource-name="CommonEntityLabels"
             title="Enumeration">
       <field name="enumId" type="id"></field>
@@ -109,7 +109,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EnumerationType"
-            package-name="org.apache.ofbiz.common.enum"
+            package-name="org.sitenetsoft.sunseterp.framework.common.enum"
             default-resource-name="CommonEntityLabels"
             title="Enumeration Type">
       <field name="enumTypeId" type="id"></field>
@@ -122,7 +122,7 @@ under the License.
       </relation>
     </entity>
 
-    <view-entity entity-name="EnumTypeChildAndEnum" package-name="org.apache.ofbiz.common.enum">
+    <view-entity entity-name="EnumTypeChildAndEnum" package-name="org.sitenetsoft.sunseterp.framework.common.enum">
         <member-entity entity-alias="PARENT" entity-name="EnumerationType"/>
         <member-entity entity-alias="CHILD" entity-name="EnumerationType"/>
         <member-entity entity-alias="ENUM" entity-name="Enumeration"/>
@@ -141,11 +141,11 @@ under the License.
 
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.geo -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.geo -->
   <!-- ========================================================= -->
 
     <entity entity-name="CountryCapital"
-            package-name="org.apache.ofbiz.common.geo"
+            package-name="org.sitenetsoft.sunseterp.framework.common.geo"
             dependent-on="CountryCode"
             title="Country Capital">
       <field name="countryCode" type="id"></field>
@@ -156,7 +156,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="CountryCode"
-            package-name="org.apache.ofbiz.common.geo"
+            package-name="org.sitenetsoft.sunseterp.framework.common.geo"
             title="ISO Country Code">
       <field name="countryCode" type="id"></field>
       <field name="countryAbbr" type="short-varchar"></field>
@@ -165,7 +165,7 @@ under the License.
       <prim-key field="countryCode"/>
     </entity>
     <entity entity-name="CountryTeleCode"
-            package-name="org.apache.ofbiz.common.geo"
+            package-name="org.sitenetsoft.sunseterp.framework.common.geo"
             dependent-on="CountryCode"
             title="Telephone Country Code">
       <field name="countryCode" type="id"></field>
@@ -175,7 +175,7 @@ under the License.
         <key-map field-name="countryCode"/>
       </relation>
     </entity>
-    <view-entity entity-name="CountryTeleCodeAndName" package-name="org.apache.ofbiz.common.geo"
+    <view-entity entity-name="CountryTeleCodeAndName" package-name="org.sitenetsoft.sunseterp.framework.common.geo"
         title="Telephone country code and country name">
         <member-entity entity-alias="CC" entity-name="CountryCode"/>
         <member-entity entity-alias="CT" entity-name="CountryTeleCode"/>
@@ -186,7 +186,7 @@ under the License.
             <key-map field-name="countryCode"/>
         </view-link>
     </view-entity>
-    <entity entity-name="CountryAddressFormat" package-name="org.apache.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
+    <entity entity-name="CountryAddressFormat" package-name="org.sitenetsoft.sunseterp.framework.common.geo" default-resource-name="CommonEntityLabels"
         title="">
         <field name="geoId" type="id"></field>
         <field name="geoAssocTypeId" type="id"></field>
@@ -204,7 +204,7 @@ under the License.
             <key-map field-name="geoAssocTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="Geo" package-name="org.apache.ofbiz.common.geo"
+    <entity entity-name="Geo" package-name="org.sitenetsoft.sunseterp.framework.common.geo"
             default-resource-name="CommonEntityLabels"
             title="Geographic Boundary">
         <field name="geoId" type="id"></field>
@@ -219,7 +219,7 @@ under the License.
             <key-map field-name="geoTypeId" />
         </relation>
     </entity>
-    <entity entity-name="GeoAssoc" package-name="org.apache.ofbiz.common.geo"
+    <entity entity-name="GeoAssoc" package-name="org.sitenetsoft.sunseterp.framework.common.geo"
             title="Geographic Boundary Association">
         <field name="geoId" type="id">
             <description>The enclosed geo</description>
@@ -240,7 +240,7 @@ under the License.
             <key-map field-name="geoAssocTypeId" />
         </relation>
     </entity>
-    <view-entity entity-name="GeoAssocAndGeoFrom" package-name="org.apache.ofbiz.common.geo">
+    <view-entity entity-name="GeoAssocAndGeoFrom" package-name="org.sitenetsoft.sunseterp.framework.common.geo">
         <member-entity entity-alias="GA" entity-name="GeoAssoc"/>
         <member-entity entity-alias="GFR" entity-name="Geo"/>
         <alias-all entity-alias="GFR"/>
@@ -250,7 +250,7 @@ under the License.
             <key-map field-name="geoId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="GeoAssocAndGeoTo" package-name="org.apache.ofbiz.common.geo">
+    <view-entity entity-name="GeoAssocAndGeoTo" package-name="org.sitenetsoft.sunseterp.framework.common.geo">
         <member-entity entity-alias="GA" entity-name="GeoAssoc"/>
         <member-entity entity-alias="GTO" entity-name="Geo"/>
         <alias-all entity-alias="GTO"/>
@@ -260,7 +260,7 @@ under the License.
             <key-map field-name="geoIdTo" rel-field-name="geoId"/>
         </view-link>
     </view-entity>
-    <view-entity entity-name="GeoAssocAndGeoToWithState" package-name="org.apache.ofbiz.common.geo">
+    <view-entity entity-name="GeoAssocAndGeoToWithState" package-name="org.sitenetsoft.sunseterp.framework.common.geo">
         <member-entity entity-alias="GA" entity-name="GeoAssoc"/>
         <member-entity entity-alias="GTO" entity-name="Geo"/>
         <member-entity entity-alias="GWS" entity-name="CountryAddressFormat"/>
@@ -274,13 +274,13 @@ under the License.
             <key-map field-name="geoId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="GeoAssocType" package-name="org.apache.ofbiz.common.geo"
+    <entity entity-name="GeoAssocType" package-name="org.sitenetsoft.sunseterp.framework.common.geo"
         title="Geographic Boundary Association" default-resource-name="CommonEntityLabels">
       <field name="geoAssocTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="geoAssocTypeId"/>
     </entity>
-    <entity entity-name="GeoPoint" package-name="org.apache.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
+    <entity entity-name="GeoPoint" package-name="org.sitenetsoft.sunseterp.framework.common.geo" default-resource-name="CommonEntityLabels"
         title="Geographic Location">
         <field name="geoPointId" type="id"></field>
         <field name="geoPointTypeEnumId" type="id"/>
@@ -302,7 +302,7 @@ under the License.
             <key-map field-name="elevationUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
-    <entity entity-name="GeoType" package-name="org.apache.ofbiz.common.geo" default-resource-name="CommonEntityLabels"
+    <entity entity-name="GeoType" package-name="org.sitenetsoft.sunseterp.framework.common.geo" default-resource-name="CommonEntityLabels"
         title="Geographic Boundary Type">
       <field name="geoTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
@@ -319,11 +319,11 @@ under the License.
     </extend-entity>
  
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.keyword -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.keyword -->
   <!-- ========================================================= -->
 
     <entity entity-name="KeywordThesaurus"
-            package-name="org.apache.ofbiz.common.keyword">
+            package-name="org.sitenetsoft.sunseterp.framework.common.keyword">
       <field name="enteredKeyword" type="long-varchar"></field>
       <field name="alternateKeyword" type="long-varchar"></field>
       <field name="relationshipEnumId" type="id"></field>
@@ -335,11 +335,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.language -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.language -->
   <!-- ========================================================= -->
 
     <entity entity-name="StandardLanguage"
-            package-name="org.apache.ofbiz.common.language">
+            package-name="org.sitenetsoft.sunseterp.framework.common.language">
       <field name="standardLanguageId" type="id"></field>
       <field name="langCode3t" type="very-short"></field>
       <field name="langCode3b" type="very-short"></field>
@@ -351,11 +351,11 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.apache.ofbiz.common.method -->
+    <!-- org.sitenetsoft.sunseterp.framework.common.method -->
     <!-- ========================================================= -->
 
     <entity entity-name="CustomMethod"
-        package-name="org.apache.ofbiz.common.method"
+        package-name="org.sitenetsoft.sunseterp.framework.common.method"
         default-resource-name="CommonEntityLabels"
         title="Custom Method">
         <field name="customMethodId" type="id"></field>
@@ -368,7 +368,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="CustomMethodType"
-        package-name="org.apache.ofbiz.common.method"
+        package-name="org.sitenetsoft.sunseterp.framework.common.method"
         title="Custom Method Type">
         <field name="customMethodTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
@@ -381,11 +381,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.note -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.note -->
   <!-- ========================================================= -->
 
     <entity entity-name="NoteData"
-            package-name="org.apache.ofbiz.common.note"
+            package-name="org.sitenetsoft.sunseterp.framework.common.note"
             title="Note Data">
       <field name="noteId" type="id"></field>
       <field name="noteName" type="name"></field>
@@ -395,11 +395,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.period -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.period -->
   <!-- ========================================================= -->
 
     <entity entity-name="CustomTimePeriod"
-            package-name="org.apache.ofbiz.common.period"
+            package-name="org.sitenetsoft.sunseterp.framework.common.period"
             title="Custom Time Period">
       <field name="customTimePeriodId" type="id"></field>
       <field name="parentPeriodId" type="id"></field>
@@ -418,7 +418,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PeriodType"
-            package-name="org.apache.ofbiz.common.period"
+            package-name="org.sitenetsoft.sunseterp.framework.common.period"
             title="Period Type">
       <field name="periodTypeId" type="id"></field>
       <field name="description" type="description"></field>
@@ -431,11 +431,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.status -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.status -->
   <!-- ========================================================= -->
 
     <entity entity-name="StatusItem"
-            package-name="org.apache.ofbiz.common.status"
+            package-name="org.sitenetsoft.sunseterp.framework.common.status"
             default-resource-name="CommonEntityLabels"
             title="Status">
       <field name="statusId" type="id"></field>
@@ -449,7 +449,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="StatusType"
-            package-name="org.apache.ofbiz.common.status"
+            package-name="org.sitenetsoft.sunseterp.framework.common.status"
             default-resource-name="CommonEntityLabels"
             title="Status Type">
       <field name="statusTypeId" type="id"></field>
@@ -462,7 +462,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="StatusValidChange"
-            package-name="org.apache.ofbiz.common.status"
+            package-name="org.sitenetsoft.sunseterp.framework.common.status"
             default-resource-name="CommonEntityLabels"
             title="Status Valid Change">
       <field name="statusId" type="id"></field>
@@ -479,7 +479,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="StatusValidChangeToDetail"
-        package-name="org.apache.ofbiz.common.status"
+        package-name="org.sitenetsoft.sunseterp.framework.common.status"
         title="Status Valid Change To Detail View">
         <member-entity entity-alias="SVC" entity-name="StatusValidChange"/>
         <member-entity entity-alias="SI" entity-name="StatusItem"/>
@@ -501,11 +501,11 @@ under the License.
     </view-entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.uom -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.uom -->
   <!-- ========================================================= -->
 
     <entity entity-name="Uom"
-            package-name="org.apache.ofbiz.common.uom"
+            package-name="org.sitenetsoft.sunseterp.framework.common.uom"
             default-resource-name="CommonEntityLabels"
             title="Unit Of Measure">
       <field name="uomId" type="id"></field>
@@ -519,7 +519,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="UomAndGroup"
-            package-name="org.apache.ofbiz.common.uom"
+            package-name="org.sitenetsoft.sunseterp.framework.common.uom"
             title="Unit Of Measure and Group/Type View">
         <member-entity entity-alias="UOMGP" entity-name="UomGroup"/>
         <member-entity entity-alias="UOM" entity-name="Uom"/>
@@ -535,7 +535,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="UomAndType"
-            package-name="org.apache.ofbiz.common.uom"
+            package-name="org.sitenetsoft.sunseterp.framework.common.uom"
             title="Unit Of Measure and Type View">
         <member-entity entity-alias="UOM" entity-name="Uom"/>
         <member-entity entity-alias="UOMTP" entity-name="UomType"/>
@@ -546,7 +546,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="UomConversion"
-            package-name="org.apache.ofbiz.common.uom"
+            package-name="org.sitenetsoft.sunseterp.framework.common.uom"
             title="Unit Of Measure Conversion Type">
       <field name="uomId" type="id"></field>
       <field name="uomIdTo" type="id"></field>
@@ -567,7 +567,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="UomConversionDated"
-            package-name="org.apache.ofbiz.common.uom"
+            package-name="org.sitenetsoft.sunseterp.framework.common.uom"
             title="Unit Of Measure Conversion Entity for those Units of Measure whose conversion values change over time (ie, currencies)">
       <field name="uomId" type="id"></field>
       <field name="uomIdTo" type="id"></field>
@@ -595,7 +595,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="UomGroup"
-            package-name="org.apache.ofbiz.common.uom"
+            package-name="org.sitenetsoft.sunseterp.framework.common.uom"
             default-resource-name="CommonEntityLabels"
             title="Unit Of Measure Group">
       <field name="uomGroupId" type="id"></field>
@@ -607,7 +607,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="UomType"
-            package-name="org.apache.ofbiz.common.uom"
+            package-name="org.sitenetsoft.sunseterp.framework.common.uom"
             default-resource-name="CommonEntityLabels"
             title="Unit Of Measure Type">
       <field name="uomTypeId" type="id"></field>
@@ -621,11 +621,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.common.user -->
+  <!-- org.sitenetsoft.sunseterp.framework.common.user -->
   <!-- ========================================================= -->
 
     <entity entity-name="UserPreference"
-            package-name="org.apache.ofbiz.common.user"
+            package-name="org.sitenetsoft.sunseterp.framework.common.user"
             title="Application preferences for a given userLogin.">
       <description>The UserPreference entity contains one entry per preference per
           userLogin. User preferences are stored as key/value pairs (userPrefTypeId/userPrefValue).
@@ -648,7 +648,7 @@ under the License.
     </entity>
 
     <entity entity-name="UserPrefGroupType"
-            package-name="org.apache.ofbiz.common.user"
+            package-name="org.sitenetsoft.sunseterp.framework.common.user"
             title="Defines a group of User Preferences">
       <description>The UserPrefGroupType entity contains one entry per preference
           group type.
@@ -659,11 +659,11 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.apache.ofbiz.common.screen -->
+    <!-- org.sitenetsoft.sunseterp.framework.common.screen -->
     <!-- ========================================================= -->
 
     <entity entity-name="CustomScreen"
-        package-name="org.apache.ofbiz.common.screen"
+        package-name="org.sitenetsoft.sunseterp.framework.common.screen"
         default-resource-name="CommonEntityLabels"
         title="Custom Screen">
         <field name="customScreenId" type="id"/>
@@ -677,7 +677,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="CustomScreenType"
-        package-name="org.apache.ofbiz.common.screen"
+        package-name="org.sitenetsoft.sunseterp.framework.common.screen"
         title="Custom Screen Type">
         <field name="customScreenTypeId" type="id"/>
         <field name="parentTypeId" type="id"/>
@@ -690,11 +690,11 @@ under the License.
     </entity>
 
     <!-- ============================ -->
-    <!-- org.apache.ofbiz.common.theme -->
+    <!-- org.sitenetsoft.sunseterp.framework.common.theme -->
     <!-- ============================ -->
 
     <entity entity-name="VisualThemeSet"
-            package-name="org.apache.ofbiz.common.theme"
+            package-name="org.sitenetsoft.sunseterp.framework.common.theme"
             title="Defines a set of Visual Themes">
       <description>Groups toghether Visual Themes that can be used for one (or a set of) application.</description>
       <field name="visualThemeSetId" type="id"></field>
@@ -703,7 +703,7 @@ under the License.
     </entity>
 
     <entity entity-name="VisualTheme"
-            package-name="org.apache.ofbiz.common.theme"
+            package-name="org.sitenetsoft.sunseterp.framework.common.theme"
             default-resource-name="CommonEntityLabels"
             title="Defines a Visual Theme">
       <description>The VisualTheme entity contains one entry per visual theme.</description>
@@ -717,7 +717,7 @@ under the License.
     </entity>
 
     <entity entity-name="VisualThemeResource"
-            package-name="org.apache.ofbiz.common.theme"
+            package-name="org.sitenetsoft.sunseterp.framework.common.theme"
             title="Contains All Visual Theme Resources">
       <description>The VisualThemeResource entity contains visual theme
           resources. Each visual theme can have any number of resources.</description>
@@ -737,10 +737,10 @@ under the License.
     </entity>
 
     <!-- ============================ -->
-    <!-- org.apache.ofbiz.common.portal -->
+    <!-- org.sitenetsoft.sunseterp.framework.common.portal -->
     <!-- ============================ -->
 
-    <entity entity-name="PortalPortlet" package-name="org.apache.ofbiz.common.portal" title="Defines a Portlet to be used in Portals">
+    <entity entity-name="PortalPortlet" package-name="org.sitenetsoft.sunseterp.framework.common.portal" title="Defines a Portlet to be used in Portals">
         <field name="portalPortletId" type="id"></field>
         <field name="portletName" type="name"></field>
         <field name="screenName" type="long-varchar"></field>
@@ -753,12 +753,12 @@ under the License.
         <field name="securityMainAction" type="short-varchar"><description>The main action which can be done with this portlet, possible values: CREATE UPDATE VIEW DELETE</description></field>
         <prim-key field="portalPortletId"/>
     </entity>
-    <entity entity-name="PortletCategory" package-name="org.apache.ofbiz.common.portal" title="Portlet Category">
+    <entity entity-name="PortletCategory" package-name="org.sitenetsoft.sunseterp.framework.common.portal" title="Portlet Category">
       <field name="portletCategoryId" type="id"/>
       <field name="description" type="description"/>
       <prim-key field="portletCategoryId"/>
     </entity>
-    <entity entity-name="PortletPortletCategory" package-name="org.apache.ofbiz.common.portal" title="Defines Portlets included into Categories">
+    <entity entity-name="PortletPortletCategory" package-name="org.sitenetsoft.sunseterp.framework.common.portal" title="Defines Portlets included into Categories">
       <field name="portalPortletId" type="id"/>
       <field name="portletCategoryId" type="id"/>
       <prim-key field="portalPortletId"/>
@@ -770,7 +770,7 @@ under the License.
         <key-map field-name="portletCategoryId"/>
       </relation>
     </entity>
-    <entity entity-name="PortalPage" package-name="org.apache.ofbiz.common.portal" title="Defines a Portal Page"
+    <entity entity-name="PortalPage" package-name="org.sitenetsoft.sunseterp.framework.common.portal" title="Defines a Portal Page"
         default-resource-name="CommonPortalEntityLabels">
         <field name="portalPageId" type="id"></field>
         <field name="portalPageName" type="name"></field>
@@ -796,7 +796,7 @@ under the License.
           <key-map field-name="securityGroupId" rel-field-name="groupId"/>
         </relation>
     </entity>
-  <view-entity entity-name="PortalPageAndUserLogin" package-name="org.apache.ofbiz.common.portal"
+  <view-entity entity-name="PortalPageAndUserLogin" package-name="org.sitenetsoft.sunseterp.framework.common.portal"
     title="PortalPage accessible via security group to a userLogin">
     <member-entity entity-alias="PP" entity-name="PortalPage"/>
     <member-entity entity-alias="UG" entity-name="UserLoginSecurityGroup"/>
@@ -810,7 +810,7 @@ under the License.
       <key-map field-name="securityGroupId" rel-field-name="groupId"/>
     </view-link>
   </view-entity>
-  <entity entity-name="PortalPageColumn" package-name="org.apache.ofbiz.common.portal" title="Defines a Portal Page">
+  <entity entity-name="PortalPageColumn" package-name="org.sitenetsoft.sunseterp.framework.common.portal" title="Defines a Portal Page">
         <field name="portalPageId" type="id"></field>
         <field name="columnSeqId" type="id"></field>
         <field name="columnWidthPixels" type="numeric"></field>
@@ -821,7 +821,7 @@ under the License.
             <key-map field-name="portalPageId"/>
         </relation>
     </entity>
-    <entity entity-name="PortalPagePortlet" package-name="org.apache.ofbiz.common.portal" title="Defines Portlets included into Portal Pages">
+    <entity entity-name="PortalPagePortlet" package-name="org.sitenetsoft.sunseterp.framework.common.portal" title="Defines Portlets included into Portal Pages">
         <field name="portalPageId" type="id"></field>
         <field name="portalPortletId" type="id"></field>
         <field name="portletSeqId" type="id"><description>Identify the portalPortlet instance in case more copy of the same portalPortlet are present in the same portalPage</description></field>
@@ -841,7 +841,7 @@ under the License.
             <key-map field-name="columnSeqId"/>
         </relation>
     </entity>
-    <view-entity entity-name="PortalPagePortletView" package-name="org.apache.ofbiz.common.portal" title="View entity to have all Portlet information with portalPageId ">
+    <view-entity entity-name="PortalPagePortletView" package-name="org.sitenetsoft.sunseterp.framework.common.portal" title="View entity to have all Portlet information with portalPageId ">
         <member-entity entity-alias="PPGPTLT" entity-name="PortalPagePortlet"/>
         <member-entity entity-alias="PTLT" entity-name="PortalPortlet"/>
         <alias-all entity-alias="PPGPTLT"/>
@@ -850,7 +850,7 @@ under the License.
             <key-map field-name="portalPortletId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="PortletAttribute" package-name="org.apache.ofbiz.common.portal" title="Allows to set different attribute values for each instance of the same portlet">
+    <entity entity-name="PortletAttribute" package-name="org.sitenetsoft.sunseterp.framework.common.portal" title="Allows to set different attribute values for each instance of the same portlet">
         <field name="portalPageId" type="id"></field>
         <field name="portalPortletId" type="id"></field>
         <field name="portletSeqId" type="id"></field>
@@ -867,7 +867,7 @@ under the License.
         </relation>
     </entity>
 
-    <view-entity entity-name="PortalPageAndPortlet" package-name="org.apache.ofbiz.common.portal" title="View entity to have all Portal and Portlet information">
+    <view-entity entity-name="PortalPageAndPortlet" package-name="org.sitenetsoft.sunseterp.framework.common.portal" title="View entity to have all Portal and Portlet information">
         <member-entity entity-alias="PP" entity-name="PortalPage"/>
         <member-entity entity-alias="PPP" entity-name="PortalPagePortlet"/>
         <alias-all entity-alias="PP"/>
@@ -881,10 +881,10 @@ under the License.
     </view-entity>
 
     <!-- ============================ -->
-    <!-- org.apache.ofbiz.common.property -->
+    <!-- org.sitenetsoft.sunseterp.framework.common.property -->
     <!-- ============================ -->
     
-    <entity entity-name="SystemProperty" package-name="org.apache.ofbiz.common.property" title="Defines a System Property">
+    <entity entity-name="SystemProperty" package-name="org.sitenetsoft.sunseterp.framework.common.property" title="Defines a System Property">
         <field name="systemResourceId" type="id-long"></field>
         <field name="systemPropertyId" type="id-long"></field>
         <field name="systemPropertyValue" type="value"></field>
@@ -894,10 +894,10 @@ under the License.
     </entity>
     
     <!-- ============================ -->
-    <!-- org.apache.ofbiz.common.telecom -->
+    <!-- org.sitenetsoft.sunseterp.framework.common.telecom -->
     <!-- ============================ -->
     <entity entity-name="TelecomMethodType" 
-            package-name="org.apache.ofbiz.common.telecom"
+            package-name="org.sitenetsoft.sunseterp.framework.common.telecom"
             title="Telecom Method Type">
         <field name="telecomMethodTypeId" type="id"></field>
         <field name="description" type="description"></field>
@@ -905,7 +905,7 @@ under the License.
     </entity>
 
     <entity entity-name="TelecomGatewayConfig"
-            package-name="org.apache.ofbiz.common.telecom"
+            package-name="org.sitenetsoft.sunseterp.framework.common.telecom"
             title="Telecom Gateway Config">
         <field name="telecomGatewayConfigId" type="id"></field>
         <field name="description" type="description"></field>

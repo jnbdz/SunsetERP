@@ -30,25 +30,25 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.apache.ofbiz.entity.group -->
-  <!--  - org.apache.ofbiz.entity.synchronization -->
-  <!--  - org.apache.ofbiz.entity.tenant -->
+  <!--  - org.sitenetsoft.sunseterp.framework.entity.group -->
+  <!--  - org.sitenetsoft.sunseterp.framework.entity.synchronization -->
+  <!--  - org.sitenetsoft.sunseterp.framework.entity.tenant -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.entity.group -->
+  <!-- org.sitenetsoft.sunseterp.framework.entity.group -->
   <!-- ========================================================= -->
 
     <entity entity-name="EntityGroup"
-            package-name="org.apache.ofbiz.entity.group"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.group"
             title="Entity Grouping">
       <field name="entityGroupId" type="id"></field>
       <field name="entityGroupName" type="name"></field>
       <prim-key field="entityGroupId"/>
     </entity>
     <entity entity-name="EntityGroupEntry"
-            package-name="org.apache.ofbiz.entity.group"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.group"
             title="Entity Grouping">
       <field name="entityGroupId" type="id"></field>
       <field name="entityOrPackage" type="long-varchar"></field>
@@ -61,11 +61,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.entity.synchronization -->
+  <!-- org.sitenetsoft.sunseterp.framework.entity.synchronization -->
   <!-- ========================================================= -->
 
     <entity entity-name="EntitySync"
-            package-name="org.apache.ofbiz.entity.synchronization"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.synchronization"
             title="Entity Synchronization">
       <field name="entitySyncId" type="id"></field>
       <field name="runStatusId" type="id"></field>
@@ -91,7 +91,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EntitySyncHistory"
-            package-name="org.apache.ofbiz.entity.synchronization"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.synchronization"
             title="Entity Synchronization History">
       <field name="entitySyncId" type="id"></field>
       <field name="startDate" type="date-time"></field>
@@ -126,7 +126,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EntitySyncInclude"
-            package-name="org.apache.ofbiz.entity.synchronization"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.synchronization"
             title="Entity Synchronization Include">
       <field name="entitySyncId" type="id"></field>
       <field name="entityOrPackage" type="long-varchar"></field>
@@ -138,7 +138,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="EntitySyncIncludeGroup"
-            package-name="org.apache.ofbiz.entity.synchronization"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.synchronization"
             title="Entity Synchronization Include Entity Group">
       <field name="entitySyncId" type="id"></field>
       <field name="entityGroupId" type="id"></field>
@@ -152,7 +152,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="EntitySyncInclGrpDetailView"
-            package-name="org.apache.ofbiz.entity.synchronization"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.synchronization"
             title="Entity Synchronization Include Entity Group Detail View">
       <member-entity entity-alias="ESIG" entity-name="EntitySyncIncludeGroup"/>
       <member-entity entity-alias="EGE" entity-name="EntityGroupEntry"/>
@@ -163,7 +163,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="EntitySyncRemove"
-            package-name="org.apache.ofbiz.entity.synchronization"
+            package-name="org.sitenetsoft.sunseterp.framework.entity.synchronization"
             title="Entity Synchronization Remove">
       <field name="entitySyncRemoveId" type="id"></field>
       <field name="primaryKeyRemoved" type="very-long"></field>

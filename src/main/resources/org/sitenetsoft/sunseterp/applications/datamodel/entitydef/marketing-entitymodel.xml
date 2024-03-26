@@ -30,19 +30,19 @@ under the License.
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
     <!-- The modules in this file are as follows:                  -->
-    <!--  - org.apache.ofbiz.marketing.campaign -->
-    <!--  - org.apache.ofbiz.marketing.contact -->
-    <!--  - org.apache.ofbiz.marketing.segment -->
-    <!--  - org.apache.ofbiz.marketing.tracking -->
-    <!--  - org.apache.ofbiz.marketing.opportunity -->
+    <!--  - org.sitenetsoft.sunseterp.applications.marketing.campaign -->
+    <!--  - org.sitenetsoft.sunseterp.applications.marketing.contact -->
+    <!--  - org.sitenetsoft.sunseterp.applications.marketing.segment -->
+    <!--  - org.sitenetsoft.sunseterp.applications.marketing.tracking -->
+    <!--  - org.sitenetsoft.sunseterp.applications.marketing.opportunity -->
     <!-- ========================================================= -->
 
     <!-- ========================================================= -->
-    <!-- org.apache.ofbiz.marketing.campaign -->
+    <!-- org.sitenetsoft.sunseterp.applications.marketing.campaign -->
     <!-- ========================================================= -->
 
     <entity entity-name="MarketingCampaign"
-            package-name="org.apache.ofbiz.marketing.campaign"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.campaign"
             title="Marketing Campaign">
         <field name="marketingCampaignId" type="id"/>
         <field name="parentCampaignId" type="id"/>
@@ -75,7 +75,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="MarketingCampaignNote"
-            package-name="org.apache.ofbiz.marketing.campaign"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.campaign"
             title="Marketing Campaign Note">
         <field name="marketingCampaignId" type="id"/>
         <field name="noteId" type="id"/>
@@ -89,7 +89,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="MarketingCampaignPrice"
-            package-name="org.apache.ofbiz.marketing.campaign"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.campaign"
             title="Marketing Campaign Price">
         <field name="marketingCampaignId" type="id"/>
         <field name="productPriceRuleId" type="id"/>
@@ -106,7 +106,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="MarketingCampaignPromo"
-            package-name="org.apache.ofbiz.marketing.campaign"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.campaign"
             title="Marketing Campaign Promo">
         <field name="marketingCampaignId" type="id"/>
         <field name="productPromoId" type="id"/>
@@ -123,7 +123,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="MarketingCampaignRole"
-            package-name="org.apache.ofbiz.marketing.campaign"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.campaign"
             title="Marketing Campaign Role">
         <field name="marketingCampaignId" type="id"/>
         <field name="partyId" type="id"/>
@@ -150,11 +150,11 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.apache.ofbiz.marketing.contact -->
+    <!-- org.sitenetsoft.sunseterp.applications.marketing.contact -->
     <!-- ========================================================= -->
 
     <entity entity-name="ContactList"
-            package-name="org.apache.ofbiz.marketing.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.contact"
             title="Contact List">
         <field name="contactListId" type="id"/>
         <field name="contactListTypeId" type="id"/>
@@ -194,7 +194,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="WebSiteContactList" 
-            package-name="org.apache.ofbiz.marketing.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.contact"
             title="Web Site Contact List">
         <field name="webSiteId" type="id"/>
         <field name="contactListId" type="id"/>
@@ -211,7 +211,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ContactListCommStatus"
-            package-name="org.apache.ofbiz.marketing.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.contact"
             title="Contact List">
         <field name="contactListId" type="id"/>
         <field name="communicationEventId" type="id"/>
@@ -246,7 +246,7 @@ under the License.
         </index>
     </entity>
     <entity entity-name="ContactListParty"
-            package-name="org.apache.ofbiz.marketing.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.contact"
             title="Contact List Party">
         <field name="contactListId" type="id"/>
         <field name="partyId" type="id"/>
@@ -271,7 +271,7 @@ under the License.
         </relation>
     </entity>
     <view-entity entity-name="ContactListPartyAndStatus"
-                 package-name="org.apache.ofbiz.marketing.contact">
+                 package-name="org.sitenetsoft.sunseterp.applications.marketing.contact">
         <member-entity entity-alias="CLPS" entity-name="ContactListPartyStatus"/>
         <member-entity entity-alias="SI" entity-name="StatusItem"/>
         <alias-all entity-alias="CLPS"/>
@@ -281,7 +281,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="ContactListPartyStatus"
-            package-name="org.apache.ofbiz.marketing.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.contact"
             title="Contact List Party Status">
         <field name="contactListId" type="id"/>
         <field name="partyId" type="id"/>
@@ -301,7 +301,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="ContactListType"
-            package-name="org.apache.ofbiz.marketing.contact"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.contact"
             default-resource-name="MarketingEntityLabels"
             title="Contact List Type">
         <field name="contactListTypeId" type="id"/>
@@ -310,11 +310,11 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.apache.ofbiz.marketing.segment -->
+    <!-- org.sitenetsoft.sunseterp.applications.marketing.segment -->
     <!-- ========================================================= -->
 
     <entity entity-name="SegmentGroup"
-            package-name="org.apache.ofbiz.marketing.segment"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.segment"
             title="Segment Group">
         <field name="segmentGroupId" type="id"/>
         <field name="segmentGroupTypeId" type="id"/>
@@ -329,7 +329,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SegmentGroupClassification"
-            package-name="org.apache.ofbiz.marketing.segment"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.segment"
             title="Segment Group Classification">
         <field name="segmentGroupId" type="id"/>
         <field name="partyClassificationGroupId" type="id"/>
@@ -343,7 +343,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SegmentGroupGeo"
-            package-name="org.apache.ofbiz.marketing.segment"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.segment"
             title="Segment Group Geo">
         <field name="segmentGroupId" type="id"/>
         <field name="geoId" type="id"/>
@@ -357,7 +357,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SegmentGroupRole"
-            package-name="org.apache.ofbiz.marketing.segment"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.segment"
             title="Segment Group Role">
         <field name="segmentGroupId" type="id"/>
         <field name="partyId" type="id"/>
@@ -380,14 +380,14 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SegmentGroupType"
-            package-name="org.apache.ofbiz.marketing.segment"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.segment"
             default-resource-name="MarketingEntityLabels"
             title="Segment Group Type">
         <field name="segmentGroupTypeId" type="id"/>
         <field name="description" type="description"/>
         <prim-key field="segmentGroupTypeId"/>
     </entity>
-    <view-entity entity-name="SegmentGroupViewRelatedParties" package-name="org.apache.ofbiz.marketing.segment">
+    <view-entity entity-name="SegmentGroupViewRelatedParties" package-name="org.sitenetsoft.sunseterp.applications.marketing.segment">
         <description>
             This view entity models the following options:
             - SegmentGroupRole(SGR) -> SegmentGroupRole(SGRTO)
@@ -440,11 +440,11 @@ under the License.
     </view-entity>
 
     <!-- ========================================================= -->
-    <!-- org.apache.ofbiz.marketing.tracking -->
+    <!-- org.sitenetsoft.sunseterp.applications.marketing.tracking -->
     <!-- ========================================================= -->
 
     <entity entity-name="TrackingCode"
-            package-name="org.apache.ofbiz.marketing.tracking"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.tracking"
             title="Tracking Code">
         <field name="trackingCodeId" type="id"/>
         <field name="trackingCodeTypeId" type="id"/>
@@ -474,7 +474,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="TrackingCodeOrder"
-            package-name="org.apache.ofbiz.marketing.tracking"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.tracking"
             title="Tracking Code Visit">
         <field name="orderId" type="id"/>
         <field name="trackingCodeTypeId" type="id"/>
@@ -496,7 +496,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="TrackingCodeOrderReturn"
-            package-name="org.apache.ofbiz.marketing.tracking"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.tracking"
             title="Tracking Code And Order Return">
         <field name="returnId" type="id"/>
         <field name="orderId" type="id"/>
@@ -524,7 +524,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="TrackingCodeType"
-            package-name="org.apache.ofbiz.marketing.tracking"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.tracking"
             default-resource-name="MarketingEntityLabels"
             title="Tracking Code Type">
         <field name="trackingCodeTypeId" type="id"/>
@@ -532,7 +532,7 @@ under the License.
         <prim-key field="trackingCodeTypeId"/>
     </entity>
     <entity entity-name="TrackingCodeVisit"
-            package-name="org.apache.ofbiz.marketing.tracking"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.tracking"
             title="Tracking Code Visit">
         <field name="trackingCodeId" type="id"/>
         <field name="visitId" type="id"/>
@@ -550,11 +550,11 @@ under the License.
     </entity>
 
     <!-- ========================================================= -->
-    <!-- org.apache.ofbiz.marketing.reports -->
+    <!-- org.sitenetsoft.sunseterp.applications.marketing.reports -->
     <!-- ========================================================= -->
 
     <view-entity entity-name="TrackingCodeAndVisit"
-                 package-name="org.apache.ofbiz.marketing.reports"
+                 package-name="org.sitenetsoft.sunseterp.applications.marketing.reports"
                  title="View entity for reporting number of visits for a tracking code">
         <member-entity entity-alias="TC" entity-name="TrackingCode"/>
         <member-entity entity-alias="TCV" entity-name="TrackingCodeVisit"/>
@@ -570,7 +570,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="TrackingCodeAndOrderHeader"
-                 package-name="org.apache.ofbiz.marketing.reports"
+                 package-name="org.sitenetsoft.sunseterp.applications.marketing.reports"
                  title="View entity for reporting number of orders and total order amounts">
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
         <member-entity entity-alias="OH" entity-name="OrderHeader"/>
@@ -583,7 +583,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="TrackingCodeOrderAndOrderHeader"
-                 package-name="org.apache.ofbiz.marketing.reports"
+                 package-name="org.sitenetsoft.sunseterp.applications.marketing.reports"
                  never-cache="true"
                  title="Order Header And Tracking Code Order View">
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
@@ -602,7 +602,7 @@ under the License.
         </relation>
     </view-entity>
     <view-entity entity-name="TrackingCodeOrderReturnAndReturnHeader"
-                 package-name="org.apache.ofbiz.marketing.reports"
+                 package-name="org.sitenetsoft.sunseterp.applications.marketing.reports"
                  never-cache="true"
                  title="Return Header And Tracking Code Order Return View">
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrderReturn"/>
@@ -623,7 +623,7 @@ under the License.
         </relation>
     </view-entity>
     <view-entity entity-name="MarketingCampaignAndVisit"
-                 package-name="org.apache.ofbiz.marketing.reports"
+                 package-name="org.sitenetsoft.sunseterp.applications.marketing.reports"
                  title="View entity for reporting number of visits for a marketing campaign.  Note that because
          marketingCampaignId is a field of TrackingCode, this is really very similar to TrackingCodeAndVisit,
          except the group-by is with marketingCampaignId instead of trackingCodeId">
@@ -637,7 +637,7 @@ under the License.
         </view-link>
     </view-entity>
     <view-entity entity-name="MarketingCampaignAndOrderHeader"
-                 package-name="org.apache.ofbiz.marketing.reports"
+                 package-name="org.sitenetsoft.sunseterp.applications.marketing.reports"
                  title="View entity for reporting number of orders and total order amounts">
         <member-entity entity-alias="TC" entity-name="TrackingCode"/>
         <member-entity entity-alias="TCO" entity-name="TrackingCodeOrder"/>
@@ -655,11 +655,11 @@ under the License.
     </view-entity>
 
     <!-- ========================================================= -->
-    <!-- org.apache.ofbiz.marketing.opportunity -->
+    <!-- org.sitenetsoft.sunseterp.applications.marketing.opportunity -->
     <!-- ========================================================= -->
 
     <entity entity-name="SalesOpportunity"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Main entity of information about sales opportunities">
         <field name="salesOpportunityId" type="id"/>
         <field name="opportunityName" type="name"/>
@@ -697,7 +697,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesOpportunityHistory"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Tracks a history of sales opportunity information">
         <field name="salesOpportunityHistoryId" type="id"/>
         <field name="salesOpportunityId" type="id"/>
@@ -729,7 +729,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesOpportunityRole"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Describes roles of different parties involved in a sales opportunity">
         <field name="salesOpportunityId" type="id"/>
         <field name="partyId" type="id"/>
@@ -753,7 +753,7 @@ under the License.
         </relation>
     </entity>
 
-    <view-entity entity-name="SalesOpportunityAndRole" package-name="org.apache.ofbiz.marketing.opportunity" title="SalesOpportunity And Role View">
+    <view-entity entity-name="SalesOpportunityAndRole" package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity" title="SalesOpportunity And Role View">
         <member-entity entity-alias="SO" entity-name="SalesOpportunity"/>
         <member-entity entity-alias="SR" entity-name="SalesOpportunityRole"/>
         <alias-all entity-alias="SO"/>
@@ -765,7 +765,7 @@ under the License.
     </view-entity>
 
     <entity entity-name="SalesOpportunityStage"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Describes stages of a sales opportunity with associated probability factors.">
         <field name="opportunityStageId" type="id"/>
         <field name="description" type="description"/>
@@ -775,7 +775,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesOpportunityWorkEffort"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Relates sales opportunities to their work efforts.">
         <field name="salesOpportunityId" type="id"/>
         <field name="workEffortId" type="id"/>
@@ -790,7 +790,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesOpportunityQuote"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Relates sales opportunities to their quotes.">
         <field name="salesOpportunityId" type="id"/>
         <field name="quoteId" type="id"/>
@@ -805,7 +805,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesForecast"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Stores sales forecast data for sales opportunities.">
         <field name="salesForecastId" type="id"/>
         <field name="parentSalesForecastId" type="id"/>
@@ -847,7 +847,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesForecastDetail"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Stores Details of Resourses of Sales Forecast for simulation of MRP">
         <field name="salesForecastId" type="id"/>
         <field name="salesForecastDetailId" type="id"/>
@@ -873,7 +873,7 @@ under the License.
     </entity>
 
     <entity entity-name="SalesForecastHistory"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Keeps a record of changes to a sales forecast.">
         <field name="salesForecastHistoryId" type="id"/>
         <field name="salesForecastId" type="id"/>
@@ -914,7 +914,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SalesOpportunityCompetitor"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Sales opportunity competitors record">
         <field name="salesOpportunityId" type="id"/>
         <field name="competitorPartyId" type="id"/>
@@ -928,7 +928,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="SalesOpportunityTrckCode"
-            package-name="org.apache.ofbiz.marketing.opportunity"
+            package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
             title="Sales opportunity traking code">
         <field name="salesOpportunityId" type="id"/>
         <field name="trackingCodeId" type="id"/>
@@ -940,7 +940,7 @@ under the License.
         </relation>
     </entity>
     <view-entity entity-name="SalesForecastAndCustomTimePeriod"
-                 package-name="org.apache.ofbiz.marketing.opportunity"
+                 package-name="org.sitenetsoft.sunseterp.applications.marketing.opportunity"
                  title="View for selecting the forecast with its time period.">
         <member-entity entity-alias="SF" entity-name="SalesForecast"/>
         <member-entity entity-alias="CTP" entity-name="CustomTimePeriod"/>
