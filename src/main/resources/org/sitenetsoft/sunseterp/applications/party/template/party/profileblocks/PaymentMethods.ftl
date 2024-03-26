@@ -73,7 +73,7 @@ under the License.
                     <@maskSensitiveNumber cardNumber=creditCard.cardNumber!/>
                     ${creditCard.expireDate}
                   <#else>
-                    ${Static["org.apache.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
+                    ${Static["org.sitenetsoft.sunseterp.applications.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                   </#if>
                   <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>

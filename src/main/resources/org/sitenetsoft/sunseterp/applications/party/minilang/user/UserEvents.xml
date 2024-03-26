@@ -115,7 +115,7 @@ under the License.
                 String password = (String) userLoginContext.get("currentPassword")
                 String confirmPassword = (String) userLoginContext.get("currentPasswordVerify")
                 String passwordHint = (String) userLoginContext.get("passwordHint")
-                org.apache.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale)
+                org.sitenetsoft.sunseterp.framework.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale)
             </script>
         <else>
             <if-compare field="require_login" operator="equals" value="true">
@@ -318,10 +318,10 @@ under the License.
             <!-- If password encryption is enabled, encrpyt it now -->
             <set field="delegator" from-field="parameters.delegator" type="Object"/>
             <script>groovy:
-                boolean useEncryption = "true".equals(org.apache.ofbiz.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator))
+                boolean useEncryption = "true".equals(org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator))
                 if (useEncryption) {
-                    String hashType = org.apache.ofbiz.common.login.LoginServices.getHashType()
-                    newUserLogin.set("currentPassword", org.apache.ofbiz.base.crypto.HashCrypt.digestHash(hashType, null, newUserLogin.get("currentPassword"))) 
+                    String hashType = org.sitenetsoft.sunseterp.framework.common.login.LoginServices.getHashType()
+                    newUserLogin.set("currentPassword", org.sitenetsoft.sunseterp.framework.base.crypto.HashCrypt.digestHash(hashType, null, newUserLogin.get("currentPassword")))
                 }
             </script>
 
@@ -331,13 +331,13 @@ under the License.
             <set-current-user-login value-field="newUserLogin"/>
             
             <!-- On successful user creation, create password history record if configured -->
-            <call-class-method method-name="getPropertyValue" class-name="org.apache.ofbiz.base.util.UtilProperties" ret-field="autoPasswordChangeEnabled">
+            <call-class-method method-name="getPropertyValue" class-name="org.sitenetsoft.sunseterp.framework.base.util.UtilProperties" ret-field="autoPasswordChangeEnabled">
                 <string value="security"/>
                 <string value="user.auto.change.password.enable"/>
             </call-class-method>
             <if-compare-field field="autoPasswordChangeEnabled" operator="equals" to-field="true">
-                <call-class-method method-name="createUserLoginPasswordHistory" class-name="org.apache.ofbiz.common.login.LoginServices">
-                    <field field="newUserLogin" type="org.apache.ofbiz.entity.GenericValue"/>
+                <call-class-method method-name="createUserLoginPasswordHistory" class-name="org.sitenetsoft.sunseterp.framework.common.login.LoginServices">
+                    <field field="newUserLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
                 </call-class-method>
             </if-compare-field>
         </if-not-empty>

@@ -18,7 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.orbital;
 
-import com.paymentech.orbital.sdk.configurator.Configurator;
+// TODO: The library is not available in the Maven Central Repository and we might remove it from the project
+/*import com.paymentech.orbital.sdk.configurator.Configurator;
 import com.paymentech.orbital.sdk.interfaces.RequestIF;
 import com.paymentech.orbital.sdk.interfaces.ResponseIF;
 import com.paymentech.orbital.sdk.interfaces.TransactionProcessorIF;
@@ -26,7 +27,7 @@ import com.paymentech.orbital.sdk.request.FieldNotFoundException;
 import com.paymentech.orbital.sdk.request.Request;
 import com.paymentech.orbital.sdk.transactionProcessor.TransactionException;
 import com.paymentech.orbital.sdk.transactionProcessor.TransactionProcessor;
-import com.paymentech.orbital.sdk.util.exceptions.InitializationException;
+import com.paymentech.orbital.sdk.util.exceptions.InitializationException;*/
 import org.sitenetsoft.sunseterp.applications.accounting.payment.PaymentGatewayServices;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
@@ -43,6 +44,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+// TODO: Should we remove this class? Is there a library for this?
 public class OrbitalPaymentServices {
 
     private static final String MODULE = OrbitalPaymentServices.class.getName();
@@ -54,11 +56,11 @@ public class OrbitalPaymentServices {
 
 
     public static final String BIN_VALUE = "000002";
-    public static TransactionProcessorIF tp = null;
-    public static ResponseIF response = null;
-    public static RequestIF request = null;
+    //public static TransactionProcessorIF tp = null;
+    //public static ResponseIF response = null;
+    //public static RequestIF request = null;
 
-    public static Map<String, Object> ccAuth(DispatchContext ctx, Map<String, Object> context) {
+    /*public static Map<String, Object> ccAuth(DispatchContext ctx, Map<String, Object> context) {
         Delegator delegator = ctx.getDelegator();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         Map<String, Object> props = buildOrbitalProperties(context, delegator);
@@ -639,5 +641,5 @@ public class OrbitalPaymentServices {
         Map<String, Object> result = new HashMap<>();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
-    }
+    }*/
 }

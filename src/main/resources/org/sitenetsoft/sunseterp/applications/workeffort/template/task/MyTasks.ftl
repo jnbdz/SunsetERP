@@ -35,7 +35,7 @@ under the License.
         <td>${(workEffort.estimatedStartDate)!}</td>
         <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
         <td>${workEffort.priority!}</td>
-        <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
+        <td>${(delegator.findOne("StatusItem", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
       </tr>
       <#assign alt_row = !alt_row>
     </#list>
@@ -58,8 +58,8 @@ under the License.
         <tr<#if alt_row> class="alternate-row"</#if>>
           <td>${(workEffort.estimatedStartDate)!}</td>
           <td>${workEffort.priority!}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
           <td>${workEffort.roleTypeId}</td>
           <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
           <td class="button-col"><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortId}</a></td>
@@ -86,8 +86,8 @@ under the License.
         <tr<#if alt_row> class="alternate-row"</#if>>
           <td>${(workEffort.estimatedStartDate)!}</td>
           <td>${workEffort.priority!}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
           <td>${workEffort.roleTypeId}</td>
           <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
           <td class="button-col"><a href="<@ofbizUrl>acceptRoleAssignment?workEffortId=${workEffort.workEffortId}&amp;partyId=${workEffort.partyId}&amp;roleTypeId=${workEffort.roleTypeId}&amp;fromDate=${workEffort.fromDate.toString()}</@ofbizUrl>">${uiLabelMap.WorkEffortAcceptAssignment}&nbsp;[${workEffort.workEffortId}]</a></td>
@@ -114,8 +114,8 @@ under the License.
         <tr<#if alt_row> class="alternate-row"</#if>>
           <td>${(workEffort.estimatedStartDate)!}</td>
           <td>${workEffort.priority!}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
           <td>${workEffort.groupPartyId}</td>
           <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
           <td class="button-col"><a href="<@ofbizUrl>acceptassignment?workEffortId=${workEffort.workEffortId}&amp;partyId=${workEffort.partyId}&amp;roleTypeId=${workEffort.roleTypeId}&amp;fromDate=${workEffort.fromDate}</@ofbizUrl>">${uiLabelMap.WorkEffortAcceptAssignment}&nbsp;[${workEffort.workEffortId}]</a></td>

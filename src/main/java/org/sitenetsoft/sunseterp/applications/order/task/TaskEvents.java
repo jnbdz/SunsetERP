@@ -28,8 +28,8 @@ import org.sitenetsoft.sunseterp.framework.webapp.control.RequestHandler;
 import org.sitenetsoft.sunseterp.framework.webapp.event.EventHandler;
 import org.sitenetsoft.sunseterp.framework.webapp.event.EventHandlerException;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Locale;
 import java.util.Map;
 

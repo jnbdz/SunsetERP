@@ -59,9 +59,9 @@ under the License.
                                             ${orderItem.supplierProductId} - ${orderItem.itemDescription!}
                                         <#elseif productId??>
                                             ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription!}
-                                            <#if (product.salesDiscontinuationDate)?? && Static["org.apache.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
+                                            <#if (product.salesDiscontinuationDate)?? && Static["org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
                                                 <br />
-                                                <span style="color: red;">${uiLabelMap.OrderItemDiscontinued}: ${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(product.salesDiscontinuationDate, "", locale, timeZone)!}</span>
+                                                <span style="color: red;">${uiLabelMap.OrderItemDiscontinued}: ${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDateTime(product.salesDiscontinuationDate, "", locale, timeZone)!}</span>
                                             </#if>
                                         <#elseif orderItemType??>
                                             ${orderItemType.description} - ${orderItem.itemDescription!}
@@ -148,7 +148,7 @@ under the License.
                                                                 ${qohQuantity} (${uiLabelMap.ProductAtp}: ${atpQuantity})
                                                             </td>
                                                         </tr>
-                                                        <#if (product?has_content) && (product.productTypeId?has_content) && Static["org.apache.ofbiz.entity.util.EntityTypeUtil"].hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")>
+                                                        <#if (product?has_content) && (product.productTypeId?has_content) && Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityTypeUtil"].hasParentType(delegator, "ProductType", "productTypeId", product.productTypeId, "parentTypeId", "MARKETING_PKG")>
                                                             <tr>
                                                                 <td>${uiLabelMap.ProductMarketingPackageQOH}</td>
                                                                 <td style="padding-left: 15px; text-align: left;">
@@ -208,7 +208,7 @@ under the License.
                                             <#assign orderItemStatuses = orderReadHelper.getOrderItemStatuses(orderItem)>
                                             <#list orderItemStatuses as orderItemStatus>
                                                 <#assign loopStatusItem = orderItemStatus.getRelatedOne("StatusItem", false)>
-                                                <div><#if orderItemStatus.statusDatetime?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderItemStatus.statusDatetime, "", locale, timeZone)!}&nbsp;&nbsp;</#if>${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}</div>
+                                                <div><#if orderItemStatus.statusDatetime?has_content>${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDateTime(orderItemStatus.statusDatetime, "", locale, timeZone)!}&nbsp;&nbsp;</#if>${loopStatusItem.get("description",locale)?default(orderItemStatus.statusId)}</div>
                                             </#list>
                                         </div>
                                     </div>
@@ -322,11 +322,11 @@ under the License.
                                     / <@ofbizCurrency amount=orderItem.unitListPrice isoCode=currencyUomId/>
                                 </td>
                                 <td align="right" valign="top" nowrap="nowrap">
-                                    <@ofbizCurrency amount=Static["org.apache.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/>
+                                    <@ofbizCurrency amount=Static["org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false) isoCode=currencyUomId/>
                                 </td>
                                 <td align="right" valign="top" nowrap="nowrap">
                                     <#if orderItem.statusId != "ITEM_CANCELLED">
-                                        <@ofbizCurrency amount=Static["org.apache.ofbiz.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
+                                        <@ofbizCurrency amount=Static["org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper"].getOrderItemSubTotal(orderItem, orderAdjustments) isoCode=currencyUomId/>
                                     <#else>
                                         <@ofbizCurrency amount=0.00 isoCode=currencyUomId/>
                                     </#if>
@@ -347,11 +347,11 @@ under the License.
                                             <a href="<@ofbizUrl controlPath="/manufacturing/control">ShowProductionRun?productionRunId=${workEffort.workEffortId}</@ofbizUrl>"
                                                 class="buttontext">${workEffort.workEffortId}</a>
                                             ${uiLabelMap.OrderCurrentStatus}
-                                            ${(delegator.findOne("StatusItem", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}
+                                            ${(delegator.findOne("StatusItem", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}
                                         <#else>
                                             ${uiLabelMap.CommonFrom}
-                                            : <#if workEffort.estimatedStartDate?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDate(workEffort.estimatedStartDate, "", locale, timeZone)!}</#if> ${uiLabelMap.CommonTo}
-                                            : <#if workEffort.estimatedCompletionDate?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDate(workEffort.estimatedCompletionDate, "", locale, timeZone)!}</#if> ${uiLabelMap.OrderNumberOfPersons}
+                                            : <#if workEffort.estimatedStartDate?has_content>${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDate(workEffort.estimatedStartDate, "", locale, timeZone)!}</#if> ${uiLabelMap.CommonTo}
+                                            : <#if workEffort.estimatedCompletionDate?has_content>${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDate(workEffort.estimatedCompletionDate, "", locale, timeZone)!}</#if> ${uiLabelMap.OrderNumberOfPersons}
                                             : ${workEffort.reservPersons?default("")}
                                         </#if>
                                     </td>
@@ -422,7 +422,7 @@ under the License.
                             </tr>
                         </#if>
                         <#-- now show adjustment details per line item -->
-                        <#assign orderItemAdjustments = Static["org.apache.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentList(orderItem, orderAdjustments)>
+                        <#assign orderItemAdjustments = Static["org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper"].getOrderItemAdjustmentList(orderItem, orderAdjustments)>
                         <#if orderItemAdjustments?? && orderItemAdjustments?has_content>
                             <#list orderItemAdjustments as orderItemAdjustment>
                                 <#assign adjustmentType = orderItemAdjustment.getRelatedOne("OrderAdjustmentType", true)>
@@ -465,7 +465,7 @@ under the License.
                                         <#if orderItemAdjustment.amountAlreadyIncluded?has_content>
                                             <@ofbizCurrency amount=orderItemAdjustment.amountAlreadyIncluded isoCode=currencyUomId/>
                                         <#else>
-                                            <@ofbizCurrency amount=Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
+                                            <@ofbizCurrency amount=Static["org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper"].calcItemAdjustment(orderItemAdjustment, orderItem) isoCode=currencyUomId/>
                                         </#if>
                                     </td>
                                     <td colspan="2">&nbsp;</td>
@@ -493,7 +493,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- now show survey information per line item -->
-                        <#assign orderItemSurveyResponses = Static["org.apache.ofbiz.order.order.OrderReadHelper"].getOrderItemSurveyResponse(orderItem)>
+                        <#assign orderItemSurveyResponses = Static["org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper"].getOrderItemSurveyResponse(orderItem)>
                         <#if orderItemSurveyResponses?? && orderItemSurveyResponses?has_content>
                             <#list orderItemSurveyResponses as survey>
                                 <tr<#if "1" == itemClass> class="alternate-row"</#if>>
@@ -510,7 +510,7 @@ under the License.
                         <#if orderItem.estimatedShipDate??>
                             <tr<#if "1" == itemClass> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderEstimatedShipDate}</span>&nbsp;${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.estimatedShipDate, "", locale, timeZone)!}
+                                    <span class="label">${uiLabelMap.OrderEstimatedShipDate}</span>&nbsp;${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDate(orderItem.estimatedShipDate, "", locale, timeZone)!}
                                 </td>
                                 <td colspan="5">&nbsp;</td>
                             </tr>
@@ -518,7 +518,7 @@ under the License.
                         <#if orderItem.estimatedDeliveryDate??>
                             <tr<#if "1" == itemClass> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>&nbsp;${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.estimatedDeliveryDate, "", locale, timeZone)!}
+                                    <span class="label">${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>&nbsp;${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDate(orderItem.estimatedDeliveryDate, "", locale, timeZone)!}
                                 </td>
                                 <td colspan="5">&nbsp;</td>
                             </tr>
@@ -526,7 +526,7 @@ under the License.
                         <#if orderItem.shipAfterDate??>
                             <tr<#if "1" == itemClass> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderShipAfterDate}</span>&nbsp;${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.shipAfterDate, "", locale, timeZone)!}
+                                    <span class="label">${uiLabelMap.OrderShipAfterDate}</span>&nbsp;${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDate(orderItem.shipAfterDate, "", locale, timeZone)!}
                                 </td>
                                 <td colspan="5">&nbsp;</td>
                             </tr>
@@ -534,7 +534,7 @@ under the License.
                         <#if orderItem.shipBeforeDate??>
                             <tr<#if "1" == itemClass> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
-                                    <span class="label">${uiLabelMap.OrderShipBeforeDate}</span>&nbsp;${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.shipBeforeDate, "", locale, timeZone)!}
+                                    <span class="label">${uiLabelMap.OrderShipBeforeDate}</span>&nbsp;${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDate(orderItem.shipBeforeDate, "", locale, timeZone)!}
                                 </td>
                                 <td colspan="5">&nbsp;</td>
                             </tr>
@@ -659,7 +659,7 @@ under the License.
                                                href="<@ofbizUrl controlPath="/facility/control">ViewShipment?shipmentId=${shipmentReceipt.shipmentId}</@ofbizUrl>"
                                                class="buttontext">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId!}
                                         </#if>
-                                        &nbsp;<#if shipmentReceipt.datetimeReceived?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(shipmentReceipt.datetimeReceived, "", locale, timeZone)!}</#if>&nbsp;
+                                        &nbsp;<#if shipmentReceipt.datetimeReceived?has_content>${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDateTime(shipmentReceipt.datetimeReceived, "", locale, timeZone)!}</#if>&nbsp;
                                         <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;
                                         <a href="<@ofbizUrl controlPath="/facility/control">EditInventoryItem?inventoryItemId=${shipmentReceipt.inventoryItemId}</@ofbizUrl>"
                                            class="buttontext">${shipmentReceipt.inventoryItemId}</a>
@@ -693,7 +693,7 @@ under the License.
                                                 <div>
                                                 ${(comm.changeComments)!}
                                                 &nbsp;
-                                                <#if comm.changeDatetime?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(comm.changeDatetime, "", locale, timeZone)?default("0000-00-00 00:00:00")}</#if>  &nbsp;  ${uiLabelMap.CommonBy} -  [${(comm.changeUserLogin)!}]
+                                                <#if comm.changeDatetime?has_content>${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDateTime(comm.changeDatetime, "", locale, timeZone)?default("0000-00-00 00:00:00")}</#if>  &nbsp;  ${uiLabelMap.CommonBy} -  [${(comm.changeUserLogin)!}]
                                                 </div>
                                               </#if>
                                             </#if>
@@ -722,7 +722,7 @@ under the License.
                 <tr><td colspan="7"><hr /></td></tr>
                 <#list orderHeaderAdjustments as orderHeaderAdjustment>
                     <#assign adjustmentType = orderHeaderAdjustment.getRelatedOne("OrderAdjustmentType", false)>
-                    <#assign adjustmentAmount = Static["org.apache.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
+                    <#assign adjustmentAmount = Static["org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper"].calcOrderAdjustment(orderHeaderAdjustment, orderSubTotal)>
                     <#if adjustmentAmount != 0>
                         <tr>
                             <td align="right" colspan="5">

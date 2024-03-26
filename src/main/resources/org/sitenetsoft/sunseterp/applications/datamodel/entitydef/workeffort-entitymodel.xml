@@ -30,17 +30,17 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.apache.ofbiz.workeffort.timesheet -->
-  <!--  - org.apache.ofbiz.workeffort.workeffort -->
+  <!--  - org.sitenetsoft.sunseterp.applications.workeffort.timesheet -->
+  <!--  - org.sitenetsoft.sunseterp.applications.workeffort.workeffort -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.workeffort.timesheet -->
+  <!-- org.sitenetsoft.sunseterp.applications.workeffort.timesheet -->
   <!-- ========================================================= -->
 
     <entity entity-name="TimeEntry"
-            package-name="org.apache.ofbiz.workeffort.timesheet"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.timesheet"
             title="Time Entry">
       <field name="timeEntryId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -75,7 +75,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="Timesheet"
-            package-name="org.apache.ofbiz.workeffort.timesheet"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.timesheet"
             title="Timesheet">
       <field name="timesheetId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -100,7 +100,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="TimesheetRole"
-            package-name="org.apache.ofbiz.workeffort.timesheet"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.timesheet"
             title="Timesheet Role">
       <field name="timesheetId" type="id"></field>
       <field name="partyId" type="id"></field>
@@ -124,11 +124,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.workeffort.workeffort -->
+  <!-- org.sitenetsoft.sunseterp.applications.workeffort.workeffort -->
   <!-- ========================================================= -->
 
     <entity entity-name="ApplicationSandbox"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="WorkEffort Application Sandbox">
       <field name="applicationId" type="id"></field>
       <field name="workEffortId" type="id"></field>
@@ -148,7 +148,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="CommunicationEventWorkEff"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Communication Event Work Effort">
       <field name="workEffortId" type="id"></field>
       <field name="communicationEventId" type="id"></field>
@@ -163,7 +163,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="Deliverable"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Deliverable">
       <field name="deliverableId" type="id"></field>
       <field name="deliverableTypeId" type="id"></field>
@@ -175,14 +175,14 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="DeliverableType"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Deliverable Type">
       <field name="deliverableTypeId" type="id"></field>
       <field name="description" type="description"></field>
       <prim-key field="deliverableTypeId"/>
     </entity>
     <entity entity-name="WorkEffort"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort">
       <field name="workEffortId" type="id"></field>
       <field name="workEffortTypeId" type="id"></field>
@@ -286,7 +286,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortAssoc"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Association">
       <field name="workEffortIdFrom" type="id"></field>
       <field name="workEffortIdTo" type="id"></field>
@@ -312,7 +312,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortAssocAttribute"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Association Attribute">
       <field name="workEffortIdFrom" type="id"></field>
       <field name="workEffortIdTo" type="id"></field>
@@ -336,7 +336,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortAssocType"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             default-resource-name="WorkEffortEntityLabels"
             title="Work Effort Association Type">
       <field name="workEffortAssocTypeId" type="id"></field>
@@ -349,7 +349,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortAssocTypeAttr"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             default-resource-name="WorkEffortEntityLabels"
             title="Work Effort Association Type Attribute">
       <field name="workEffortAssocTypeId" type="id"></field>
@@ -368,7 +368,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortAttribute"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Attribute">
       <field name="workEffortId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -384,7 +384,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortBilling"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Billing">
       <field name="workEffortId" type="id"></field>
       <field name="invoiceId" type="id"></field>
@@ -405,7 +405,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortContactMech" table-name="WORK_EFFORT_CONTACT_MECH_NEW"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="WorkEffort Contact Mechanism">
       <field name="workEffortId" type="id"></field>
       <field name="contactMechId" type="id"></field>
@@ -425,7 +425,7 @@ under the License.
         <key-map field-name="contactMechId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortContent" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Content">
+    <entity entity-name="WorkEffortContent" package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort" title="WorkEffort Content">
         <field name="workEffortId" type="id"></field>
         <field name="contentId" type="id"></field>
         <field name="workEffortContentTypeId" type="id"></field>
@@ -445,7 +445,7 @@ under the License.
             <key-map field-name="workEffortContentTypeId"/>
         </relation>
     </entity>
-    <entity entity-name="WorkEffortContentType" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Content Type">
+    <entity entity-name="WorkEffortContentType" package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort" title="WorkEffort Content Type">
         <field name="workEffortContentTypeId" type="id"></field>
         <field name="parentTypeId" type="id"></field>
         <field name="description" type="description"></field>
@@ -455,7 +455,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="WorkEffortDeliverableProd"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Deliverable Produced">
       <field name="workEffortId" type="id"></field>
       <field name="deliverableId" type="id"></field>
@@ -469,7 +469,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortEventReminder"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Event Reminder">
       <field name="workEffortId" type="id"></field>
       <field name="sequenceId" type="id"></field>
@@ -501,7 +501,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortFixedAssetAssign"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Fixed Asset Assignment">
       <field name="workEffortId" type="id"></field>
       <field name="fixedAssetId" type="id"></field>
@@ -528,7 +528,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortFixedAssetStd"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Fixed Asset Standard">
       <field name="workEffortId" type="id"></field>
       <field name="fixedAssetTypeId" type="id"></field>
@@ -544,7 +544,7 @@ under the License.
         <key-map field-name="fixedAssetTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortGoodStandard" package-name="org.apache.ofbiz.workeffort.workeffort" title="Work Effort Good Standard">
+    <entity entity-name="WorkEffortGoodStandard" package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort" title="Work Effort Good Standard">
         <field name="workEffortId" type="id"></field>
         <field name="productId" type="id"></field>
         <field name="workEffortGoodStdTypeId" type="id"></field>
@@ -571,7 +571,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="WorkEffortGoodStandardType"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Good Standard Type">
       <field name="workEffortGoodStdTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
@@ -583,7 +583,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortIcalData"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort iCalendar Data">
         <field name="workEffortId" type="id"></field>
         <field name="icalData" type="very-long">
@@ -595,7 +595,7 @@ under the License.
         </relation>
     </entity>
     <entity entity-name="WorkEffortInventoryAssign"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Inventory Assignment">
       <field name="workEffortId" type="id"></field>
       <field name="inventoryItemId" type="id"></field>
@@ -614,7 +614,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortInventoryProduced"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Inventory Produced">
       <field name="workEffortId" type="id"></field>
       <field name="inventoryItemId" type="id"></field>
@@ -629,7 +629,7 @@ under the License.
     </entity>
     <!-- Work Effort Costing -->
     <entity entity-name="WorkEffortCostCalc"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Cost Calculation">
         <field name="workEffortId" type="id"></field>
         <field name="costComponentTypeId" type="id"></field>
@@ -650,7 +650,7 @@ under the License.
         </relation>
     </entity>
 
-    <entity entity-name="WorkEffortKeyword" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Keyword" never-cache="true">
+    <entity entity-name="WorkEffortKeyword" package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort" title="WorkEffort Keyword" never-cache="true">
         <field name="workEffortId" type="id"></field>
         <field name="keyword" type="short-varchar"></field>
         <field name="relevancyWeight" type="numeric"></field>
@@ -664,7 +664,7 @@ under the License.
         </index>
     </entity>
     <entity entity-name="WorkEffortNote"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Note">
       <field name="workEffortId" type="id"></field>
       <field name="noteId" type="id"></field>
@@ -678,7 +678,7 @@ under the License.
         <key-map field-name="noteId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortPartyAssignment" package-name="org.apache.ofbiz.workeffort.workeffort" title="Work Effort Party Assignment">
+    <entity entity-name="WorkEffortPartyAssignment" package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort" title="Work Effort Party Assignment">
       <field name="workEffortId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>
@@ -729,7 +729,7 @@ under the License.
             <key-map field-name="availabilityStatusId" rel-field-name="statusId"/>
         </relation>
     </entity>
-    <entity entity-name="WorkEffortPurposeType" package-name="org.apache.ofbiz.workeffort.workeffort" title="Work Effort Purpose Type"
+    <entity entity-name="WorkEffortPurposeType" package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort" title="Work Effort Purpose Type"
            default-resource-name="WorkEffortEntityLabels">
       <field name="workEffortPurposeTypeId" type="id"></field>
       <field name="parentTypeId" type="id"></field>
@@ -739,7 +739,7 @@ under the License.
         <key-map field-name="parentTypeId" rel-field-name="workEffortPurposeTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="WorkEffortReview" package-name="org.apache.ofbiz.workeffort.workeffort" title="WorkEffort Review">
+    <entity entity-name="WorkEffortReview" package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort" title="WorkEffort Review">
         <field name="workEffortId" type="id"></field>
         <field name="userLoginId" type="id-vlong"></field>
         <field name="reviewDate" type="date-time"></field>
@@ -760,7 +760,7 @@ under the License.
             <key-map field-name="statusId"/>
         </relation>
     </entity>
-    <entity entity-name="WorkEffortSearchConstraint" package-name="org.apache.ofbiz.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result Constraint">
+    <entity entity-name="WorkEffortSearchConstraint" package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result Constraint">
         <field name="workEffortSearchResultId" type="id"></field>
         <field name="constraintSeqId" type="id"></field>
         <field name="constraintName" type="long-varchar"></field>
@@ -778,7 +778,7 @@ under the License.
             <key-map field-name="workEffortSearchResultId"/>
         </relation>
     </entity>
-    <entity entity-name="WorkEffortSearchResult" package-name="org.apache.ofbiz.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result">
+    <entity entity-name="WorkEffortSearchResult" package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort" never-cache="true" title="WorkEffort Search Result">
         <field name="workEffortSearchResultId" type="id"></field>
         <field name="visitId" type="id"></field>
         <field name="orderByName" type="long-varchar"></field>
@@ -789,7 +789,7 @@ under the License.
         <prim-key field="workEffortSearchResultId"/>
     </entity>
     <entity entity-name="WorkEffortSkillStandard"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Skill Standard">
       <field name="workEffortId" type="id"></field>
       <field name="skillTypeId" type="id"></field>
@@ -806,7 +806,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortStatus"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Status">
       <field name="workEffortId" type="id"></field>
       <field name="statusId" type="id"></field>
@@ -827,7 +827,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortTransBox"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Transition Box">
       <field name="processWorkEffortId" type="id"></field>
       <field name="toActivityId" type="id-long"></field>
@@ -840,7 +840,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortType"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             default-resource-name="WorkEffortEntityLabels"
             title="Work Effort Type">
       <field name="workEffortTypeId" type="id"></field>
@@ -853,7 +853,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortTypeAttr"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Type Attribute">
       <field name="workEffortTypeId" type="id"></field>
       <field name="attrName" type="id-long"></field>
@@ -871,7 +871,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="WorkEffortSurveyAppl"
-            package-name="org.apache.ofbiz.workeffort.workeffort"
+            package-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort"
             title="Work Effort Survey Appl">
       <field name="workEffortId" type="id"/>
       <field name="surveyId" type="id"/>

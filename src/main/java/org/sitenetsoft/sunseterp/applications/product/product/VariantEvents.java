@@ -26,8 +26,8 @@ import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransaction
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**

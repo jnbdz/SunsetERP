@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.securepay;
 
+// TODO: Do we keep or not? It might be hard to find library for this.
+
 import org.sitenetsoft.sunseterp.applications.accounting.payment.PaymentGatewayServices;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties;
@@ -29,8 +31,8 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
-import securepay.jxa.api.Payment;
-import securepay.jxa.api.Txn;
+//import securepay.jxa.api.Payment;
+//import securepay.jxa.api.Txn;
 
 import java.math.BigDecimal;
 import java.util.Locale;
@@ -42,7 +44,7 @@ public class SecurePayPaymentServices {
     private static final String MODULE = SecurePayPaymentServices.class.getName();
     private static final String RESOURCE = "AccountingUiLabels";
 
-    public static Map<String, Object> doAuth(DispatchContext dctx, Map<String, Object> context) {
+    /*public static Map<String, Object> doAuth(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
@@ -503,5 +505,5 @@ public class SecurePayPaymentServices {
             returnValue = defaultValue;
         }
         return returnValue;
-    }
+    }*/
 }

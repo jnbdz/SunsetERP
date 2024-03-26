@@ -24,7 +24,7 @@ under the License.
     <include location="component://commonext/webapp/WEB-INF/controller.xml"/>
     <description>Content Manager Module Site Configuration File</description>
     
-    <handler name="simplecontent" type="view" class="org.apache.ofbiz.content.view.SimpleContentViewHandler"/>
+    <handler name="simplecontent" type="view" class="org.sitenetsoft.sunseterp.applications.content.view.SimpleContentViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -34,7 +34,7 @@ under the License.
     <!-- Events to run on every request after all other processing (chains exempt) -->
     <!--
     <postprocessor>
-        <event name="test" type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event name="test" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.event.TestEvent" invoke="test"/>
     </postprocessor>
     -->
 
@@ -49,7 +49,7 @@ under the License.
     </request-map>
 
     <request-map uri="chain">
-        <event type="java" path="org.apache.ofbiz.webapp.event.TestEvent" invoke="test"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.webapp.event.TestEvent" invoke="test"/>
         <response name="success" type="request" value="/view"/>
         <response name="error" type="view" value="error"/>
     </request-map>
@@ -441,19 +441,19 @@ under the License.
     
     <request-map uri="getContentAssocsJson">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.content.cms.ContentJsonEvents" invoke="getContentAssocs"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.content.cms.ContentJsonEvents" invoke="getContentAssocs"/>
         <response name="success" type="none" />
     </request-map>
 
     <request-map uri="moveContentJson">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.content.cms.ContentJsonEvents" invoke="moveContent"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.content.cms.ContentJsonEvents" invoke="moveContent"/>
         <response name="success" type="none" />
     </request-map>
 
     <request-map uri="deleteContentJson">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.content.cms.ContentJsonEvents" invoke="deleteContent"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.content.cms.ContentJsonEvents" invoke="deleteContent"/>
         <response name="success" type="none" />
     </request-map>
 
@@ -989,7 +989,7 @@ under the License.
     </request-map>
     <request-map uri="createDataResource">
         <security auth="true" https="true"/>
-        <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="persistDataResource"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.content.data.DataEvents" invoke="persistDataResource"/>
         <response name="success" type="view" value="EditDataResource"/>
         <response name="ELECTRONIC_TEXT" type="view" value="EditElectronicText"/>
         <response name="IMAGE_OBJECT" type="view" value="UploadImage"/>
@@ -1021,7 +1021,7 @@ under the License.
     <request-map uri="uploadImage">
         <security auth="true" https="true"/>
         <!--
-        <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="uploadImage"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.content.data.DataEvents" invoke="uploadImage"/>
             -->
         <event type="service" invoke="persistContentAndAssoc" path=""/>
         <response name="success" type="request" value="UploadImage"/>
@@ -1030,7 +1030,7 @@ under the License.
     <request-map uri="UploadImage"><security auth="true" https="true"/><response name="success" type="view" value="UploadImage"/></request-map>
     <request-map uri="img">
         <security auth="true" https="true"/>
-        <event type="java" path="org.apache.ofbiz.content.data.DataEvents" invoke="serveImage"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.content.data.DataEvents" invoke="serveImage"/>
         <response name="success" type="none"/>
         <response name="error" type="request" value="main"/>
     </request-map>
@@ -1425,7 +1425,7 @@ under the License.
     <request-map uri="ListLayout"><security auth="true" https="true"/><response name="success" type="view" value="ListLayout"/></request-map>
     <request-map uri="clipFindLayout">
         <security auth="true" https="true"/>
-        <event type="java" invoke="copyToClip" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event type="java" invoke="copyToClip" path="org.sitenetsoft.sunseterp.applications.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="FindLayout"/>
         <response name="error" type="view" value="FindLayout"/>
     </request-map>
@@ -1446,19 +1446,19 @@ under the License.
     </request-map>
     <request-map uri="createLayoutSubContent">
         <security auth="true" https="true"/>
-        <event type="java" invoke="createLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event type="java" invoke="createLayoutSubContent" path="org.sitenetsoft.sunseterp.applications.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutSubContent"/>
         <response name="error" type="view" value="EditLayoutSubContent"/>
     </request-map>
     <request-map uri="updateLayoutSubContent">
         <security auth="true" https="true"/>
-        <event type="java" invoke="updateLayoutSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event type="java" invoke="updateLayoutSubContent" path="org.sitenetsoft.sunseterp.applications.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutSubContent"/>
         <response name="error" type="view" value="EditLayoutSubContent"/>
     </request-map>
     <request-map uri="replaceSubContent">
         <security auth="true" https="true"/>
-        <event type="java" invoke="replaceSubContent" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event type="java" invoke="replaceSubContent" path="org.sitenetsoft.sunseterp.applications.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
@@ -1517,25 +1517,25 @@ under the License.
     </request-map>
     <request-map uri="createLayoutImage">
         <security auth="true" https="true"/>
-        <event type="java" invoke="createLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event type="java" invoke="createLayoutImage" path="org.sitenetsoft.sunseterp.applications.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
     <request-map uri="updateLayoutImage">
         <security auth="true" https="true"/>
-        <event type="java" invoke="updateLayoutImage" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event type="java" invoke="updateLayoutImage" path="org.sitenetsoft.sunseterp.applications.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
     <request-map uri="updateLayoutImageOnly">
         <security auth="true" https="true"/>
-        <event type="java" invoke="updateLayoutImageOnly" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event type="java" invoke="updateLayoutImageOnly" path="org.sitenetsoft.sunseterp.applications.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayoutImage"/>
         <response name="error" type="view" value="EditLayoutImage"/>
     </request-map>
     <request-map uri="cloneLayout">
         <security auth="true" https="true"/>
-        <event type="java" invoke="cloneLayout" path="org.apache.ofbiz.content.layout.LayoutEvents"/>
+        <event type="java" invoke="cloneLayout" path="org.sitenetsoft.sunseterp.applications.content.layout.LayoutEvents"/>
         <response name="success" type="view" value="EditLayout"/>
         <response name="error" type="view" value="EditLayout"/>
     </request-map>
@@ -1606,7 +1606,7 @@ under the License.
     </request-map>
     <request-map uri="persistImage">
         <security auth="true" https="true"/>
-        <event type="java" path="org.apache.ofbiz.content.content.UploadContentAndImage" invoke="uploadContentAndImage"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.content.content.UploadContentAndImage" invoke="uploadContentAndImage"/>
         <response name="success" type="view" value="CMSContentEdit"/>
         <response name="error" type="view" value="EditAddContent"/>
     </request-map>
@@ -1694,7 +1694,7 @@ under the License.
     
     <request-map uri="WebSiteCmsPreview">
         <security auth="true" https="true"/>
-        <event type="java" invoke="execute" path="org.apache.ofbiz.content.content.WebSiteCmsPreviewEvent"/>
+        <event type="java" invoke="execute" path="org.sitenetsoft.sunseterp.applications.content.content.WebSiteCmsPreviewEvent"/>
         <response name="success" type="none"/>
     </request-map>
     
@@ -1733,7 +1733,7 @@ under the License.
     </request-map>
     <request-map uri="updateContentAllKeywords">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.content.content.ContentEvents" invoke="updateAllContentKeywords"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.content.content.ContentEvents" invoke="updateAllContentKeywords"/>
         <response name="success" type="view" value="FindContent"/>
         <response name="error" type="view" value="FindContent"/>
     </request-map>

@@ -240,7 +240,7 @@ under the License.
                     <select name="geo_${rowKey}">
                       <#if product.originGeoId?has_content>
                         <#assign originGeoId = product.originGeoId>
-                        <#assign geo = delegator.findOne("Geo", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId", originGeoId), true)>
+                        <#assign geo = delegator.findOne("Geo", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("geoId", originGeoId), true)>
                         <option value="${originGeoId}">${geo.geoName!}</option>
                         <option value="${originGeoId}">---</option>
                       </#if>
@@ -263,7 +263,7 @@ under the License.
                 </tr>
                 <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)/>
                 <#if workOrderItemFulfillments?has_content>
-                  <#assign workOrderItemFulfillment = Static["org.apache.ofbiz.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
+                  <#assign workOrderItemFulfillment = Static["org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil"].getFirst(workOrderItemFulfillments)/>
                   <#if workOrderItemFulfillment?has_content>
                     <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", false)/>
                     <#if workEffort?has_content>

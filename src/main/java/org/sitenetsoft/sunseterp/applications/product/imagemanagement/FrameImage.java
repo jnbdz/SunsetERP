@@ -34,9 +34,9 @@ import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.jdom2.JDOMException;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;

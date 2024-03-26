@@ -138,7 +138,7 @@ under the License.
            <#if catalogCol?has_content>
            <select name='CURRENT_CATALOG_ID'>
             <#list catalogCol! as catalogId>
-              <#assign thisCatalogName = Static["org.apache.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
+              <#assign thisCatalogName = Static["org.sitenetsoft.sunseterp.applications.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
               <option value="${catalogId}" <#if currentCatalogId?default('') == catalogId>selected="selected"</#if> >${thisCatalogName}</option>
             </#list>
           </select>

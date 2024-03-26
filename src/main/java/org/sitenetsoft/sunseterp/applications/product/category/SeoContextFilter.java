@@ -33,9 +33,9 @@ import org.sitenetsoft.sunseterp.framework.webapp.control.WebAppConfigurationExc
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -177,8 +177,9 @@ public final class SeoContextFilter implements Filter {
                 if (redirectPath == null) {
                     if (UtilValidate.isEmpty(viewName)) {
                         // redirect without any url change in browser
-                        RequestDispatcher rd = request.getRequestDispatcher(SeoControlServlet.getDefaultPage());
-                        rd.forward(request, response);
+                        // TODO: Use Quarkus to handle this with Qute
+                        /*RequestDispatcher rd = request.getRequestDispatcher(SeoControlServlet.getDefaultPage());
+                        rd.forward(request, response);*/
                     } else {
                         int error = 404;
                         if (UtilValidate.isNotEmpty(errorCode)) {
@@ -214,7 +215,8 @@ public final class SeoContextFilter implements Filter {
                         || allowedPathList.contains(httpRequest.getServletPath())
                     || allowedPathList.contains(requestUri) || allowedPathList.contains("/" + viewName))
                     && !webServlets.contains(httpRequest.getServletPath())) {
-                request.setAttribute(SeoControlServlet.REQUEST_IN_ALLOW_LIST, Boolean.TRUE);
+                // TODO: Use Quarkus to handle this with Qute
+                //request.setAttribute(SeoControlServlet.REQUEST_IN_ALLOW_LIST, Boolean.TRUE);
             }
         }
 

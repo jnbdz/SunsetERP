@@ -275,7 +275,7 @@ under the License.
                         <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)!>
                         <#assign orderItemQuantity = itemInfo.quantity/>
                         <#assign orderProduct = orderItem.getRelatedOne("Product", false)!/>
-                        <#assign product = Static["org.apache.ofbiz.product.product.ProductWorker"].findProduct(delegator, itemInfo.productId)!/>
+                        <#assign product = Static["org.sitenetsoft.sunseterp.applications.product.product.ProductWorker"].findProduct(delegator, itemInfo.productId)!/>
                         <#assign inputQty = orderItemQuantity - packingSession.getPackedQuantity(orderId, orderItem.orderItemSeqId, shipGroupSeqId, itemInfo.productId)>
                         <tr>
                           <td><input type="checkbox" name="sel_${rowKey}" value="Y" <#if (inputQty >0)>checked=""</#if>/></td>
@@ -451,7 +451,7 @@ under the License.
                     <td>&nbsp;</td>
                   </tr>
                   <#list packedLines as line>
-                    <#assign product = Static["org.apache.ofbiz.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
+                    <#assign product = Static["org.sitenetsoft.sunseterp.applications.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
                     <tr>
                       <td>${line.getOrderItemSeqId()}</td>
                       <td>${line.getProductId()?default("N/A")}</td>
@@ -495,7 +495,7 @@ under the License.
                   <td>&nbsp;</td>
               </tr>
               <#list packedLines as line>
-                  <#assign product = Static["org.apache.ofbiz.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
+                  <#assign product = Static["org.sitenetsoft.sunseterp.applications.product.product.ProductWorker"].findProduct(delegator, line.getProductId())/>
                   <tr>
                       <td>${line.getOrderItemSeqId()}</td>
                       <td>${line.getProductId()?default("N/A")}</td>

@@ -30,8 +30,8 @@ import org.sitenetsoft.sunseterp.applications.product.catalog.CatalogWorker;
 import org.sitenetsoft.sunseterp.applications.product.category.CategoryWorker;
 import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;

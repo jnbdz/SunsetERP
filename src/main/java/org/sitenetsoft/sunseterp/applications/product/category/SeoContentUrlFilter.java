@@ -29,9 +29,9 @@ import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
 
-import javax.servlet.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -76,9 +76,10 @@ public class SeoContentUrlFilter implements Filter {
             }
             if (UtilValidate.isNotEmpty(urlContentId)) {
                 StringBuilder urlBuilder = new StringBuilder();
-                if (UtilValidate.isNotEmpty(SeoControlServlet.getControlServlet())) {
+                // TODO: Use Quarkus to handle this with Qute
+                /*if (UtilValidate.isNotEmpty(SeoControlServlet.getControlServlet())) {
                     urlBuilder.append("/" + SeoControlServlet.getControlServlet());
-                }
+                }*/
                 urlBuilder.append("/" + config.getInitParameter("viewRequest") + "?contentId=" + urlContentId);
 
                 // Set view query parameters

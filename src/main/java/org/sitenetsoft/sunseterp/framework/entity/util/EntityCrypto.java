@@ -259,7 +259,7 @@ public final class EntityCrypto {
         protected byte[] decodeKeyBytes(String keyText) throws GeneralException {
             byte[] keyBytes = Base64.decodeBase64(keyText);
             if (kek != null) {
-                keyBytes = saltedCipherService.decrypt(keyBytes, kek).getBytes();
+                keyBytes = saltedCipherService.decrypt(keyBytes, kek).getClonedBytes();
             }
             return keyBytes;
         }
@@ -277,9 +277,9 @@ public final class EntityCrypto {
         protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
             switch (encryptMethod) {
             case SALT:
-                return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+                return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getClonedBytes();
             default:
-                return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+                return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getClonedBytes();
             }
         }
 

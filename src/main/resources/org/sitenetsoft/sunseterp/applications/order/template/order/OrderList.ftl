@@ -190,23 +190,23 @@ under the License.
           </tr>
           <#list orderHeaderList as orderHeader>
             <#assign status = orderHeader.getRelatedOne("StatusItem", true)>
-            <#assign orh = Static["org.apache.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
+            <#assign orh = Static["org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper"].getHelper(orderHeader)>
             <#assign billToParty = orh.getBillToParty()!>
             <#assign billFromParty = orh.getBillFromParty()!>
             <#if billToParty?has_content>
-                <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
+                <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                 <#assign billTo = billToPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")/>
             <#else>
               <#assign billTo = ''/>
             </#if>
             <#if billFromParty?has_content>
-              <#assign billFrom = Static["org.apache.ofbiz.party.party.PartyHelper"].getPartyName(billFromParty, true)!>
+              <#assign billFrom = Static["org.sitenetsoft.sunseterp.framework.party.party.PartyHelper"].getPartyName(billFromParty, true)!>
             <#else>
               <#assign billFrom = ''/>
             </#if>
             <#assign productStore = orderHeader.getRelatedOne("ProductStore", true)! />
             <tr>
-              <td><#if orderHeader.orderDate?has_content>${Static["org.apache.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderHeader.orderDate, "", locale, timeZone)!}</#if></td>
+              <td><#if orderHeader.orderDate?has_content>${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut"].formatDateTime(orderHeader.orderDate, "", locale, timeZone)!}</#if></td>
               <td>
                 <a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class="buttontext">${orderHeader.orderId}</a>
               </td>

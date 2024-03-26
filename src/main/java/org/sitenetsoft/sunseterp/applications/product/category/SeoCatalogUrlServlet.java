@@ -25,11 +25,11 @@ import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -130,10 +130,11 @@ public class SeoCatalogUrlServlet extends HttpServlet {
             request.setAttribute("productId", productId);
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/"
+        // TODO: Use Quarkus to handle this with Qute
+        /*RequestDispatcher rd = request.getRequestDispatcher("/"
                 + (UtilValidate.isEmpty(SeoControlServlet.getControlServlet()) ? "" : (SeoControlServlet.getControlServlet() + "/"))
                 + (productId != null ? PRODUCT_REQUEST : CATEGORY_REQUEST));
-        rd.forward(request, response);
+        rd.forward(request, response);*/
     }
 
 

@@ -18,17 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.category;
 
-import org.apache.catalina.servlets.DefaultServlet;
-import org.apache.jasper.servlet.JspServlet;
+// TODO: Use Quarkus to handle this with Qute templates
+//import org.apache.catalina.servlets.DefaultServlet;
+//import org.apache.jasper.servlet.JspServlet;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.webapp.SeoConfigUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.control.ControlServlet;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Locale;

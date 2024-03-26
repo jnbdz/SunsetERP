@@ -99,7 +99,7 @@ under the License.
         <#assign listIndex = lowIndex>
         <#assign rowClass = "2">
         <#list productIds as productId><#-- note that there is no boundary range because that is being done before the list is put in the content -->
-          <#assign product = delegator.findOne("Product", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("productId", productId), false)>
+          <#assign product = delegator.findOne("Product", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("productId", productId), false)>
           <tr valign="middle"<#if "1" == rowClass> class="alternate-row"</#if>>
             <td>
               <input type="checkbox" name="selectResult" value="${productId}" onchange="checkProductToBagTextArea(this, '${productId}');"/>

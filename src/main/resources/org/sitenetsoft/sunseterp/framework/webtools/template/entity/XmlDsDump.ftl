@@ -122,7 +122,7 @@ under the License.
             </#if>
             <#assign entCount = entCount + 1>
             <#assign check = checkAll/>
-            <#if "true" == checkAll && "org.apache.ofbiz.entity.model.ModelViewEntity" == modelEntity.getClass().getName()>
+            <#if "true" == checkAll && "org.sitenetsoft.sunseterp.framework.entity.model.ModelViewEntity" == modelEntity.getClass().getName()>
                 <#assign check = "false"/>
             </#if>
             <#assign curEntityName = modelEntity.getEntityName()/>

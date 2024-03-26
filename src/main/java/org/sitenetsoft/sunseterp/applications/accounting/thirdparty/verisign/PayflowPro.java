@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.verisign;
 
+// TODO: Do we keep it? The code if keep will need to be reworked because the libraries are very different.
+
 import org.apache.commons.lang.StringUtils;
 import org.sitenetsoft.sunseterp.applications.accounting.payment.PaymentGatewayServices;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
@@ -35,8 +37,8 @@ import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
 import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
-import paypal.payflow.PayflowAPI;
-import paypal.payflow.SDKProperties;
+//import paypal.payflow.PayflowAPI;
+//import paypal.payflow.SDKProperties;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -54,7 +56,7 @@ public class PayflowPro {
      * @param context Map context of parameters.
      * @return Response map, including RESPMSG, and RESULT keys.
      */
-    public static Map<String, Object> ccProcessor(DispatchContext dctx, Map<String, ? extends Object> context) {
+    /*public static Map<String, Object> ccProcessor(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         GenericValue paymentPref = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTrans = (GenericValue) context.get("authTrans");

@@ -321,7 +321,7 @@ function paginateOrderList(viewSize, viewIndex, hideFields) {
               <select id="countryGeoId" name="countryGeoId">
                   <#if requestParameters.countryGeoId?has_content>
                       <#assign countryGeoId = requestParameters.countryGeoId>
-                      <#assign geo = delegator.findOne("Geo", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("geoId", countryGeoId), true)>
+                      <#assign geo = delegator.findOne("Geo", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("geoId", countryGeoId), true)>
                       <option value="${countryGeoId}" selected="selected">${geo.geoName!}</option>
                       <option value="" >${uiLabelMap.CommonAny}</option>
                   <#else>
@@ -510,7 +510,7 @@ document.lookuporder.orderId.focus();
         <#if orderList?has_content>
           <#assign alt_row = false>
           <#list orderList as orderHeader>
-            <#assign orh = Static["org.apache.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeader)>
+            <#assign orh = Static["org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper"].getHelper(orderHeader)>
             <#assign statusItem = orderHeader.getRelatedOne("StatusItem", true)>
             <#assign orderType = orderHeader.getRelatedOne("OrderType", true)>
             <#if "PURCHASE_ORDER" == orderType.orderTypeId>
@@ -533,7 +533,7 @@ document.lookuporder.orderId.focus();
               <td>
                 <div>
                   <#if displayParty?has_content>
-                      <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
+                      <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                       ${displayPartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}
                   <#else>
                     ${uiLabelMap.CommonNA}

@@ -40,7 +40,7 @@ jQuery(document).ready(function(){
                 <table>
                     <#assign userLoginApprovers  = EntityQuery.use(delegator).from("UserLogin").where("partyId", partyRole.partyId!).queryList()!/>
                     <#assign userLoginApprover = userLoginApprovers[0]>
-                    <#assign userLoginAndPartyDetails = delegator.findOne("UserLoginAndPartyDetails", Static["org.apache.ofbiz.base.util.UtilMisc"].toMap("partyId", userLoginApprover.partyId, "userLoginId", userLoginApprover.userLoginId), false)!>
+                    <#assign userLoginAndPartyDetails = delegator.findOne("UserLoginAndPartyDetails", Static["org.sitenetsoft.sunseterp.framework.base.util.UtilMisc"].toMap("partyId", userLoginApprover.partyId, "userLoginId", userLoginApprover.userLoginId), false)!>
                     <#if userLoginAndPartyDetails?has_content>
                         <#assign partyContentDetail  = EntityQuery.use(delegator).from("ContentApproval").where("roleTypeId", "IMAGEAPPROVER", "approvalStatusId", "IM_PENDING", "partyId", userLoginAndPartyDetails.partyId!).queryList()!/>
                         <#assign imageApproveSize = partyContentDetail.size()>

@@ -31,7 +31,7 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 
-import javax.servlet.ServletRequest;
+import jakarta.servlet.ServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;

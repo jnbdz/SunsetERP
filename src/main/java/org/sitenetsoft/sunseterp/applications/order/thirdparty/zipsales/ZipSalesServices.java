@@ -57,7 +57,7 @@ public class ZipSalesServices {
     private static final String DATE_PATTERN = "yyyyMMdd";
 
     // import table service
-    public static Map<String, Object> importFlatTable(DispatchContext dctx, Map<String, ? extends Object> context) {
+    /*public static Map<String, Object> importFlatTable(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         Security security = dctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -499,5 +499,5 @@ public class ZipSalesServices {
         } else {
             return useWhenNull;
         }
-    }
+    }*/
 }

@@ -28,9 +28,12 @@ import org.sitenetsoft.sunseterp.applications.product.category.CategoryWorker;
 import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
 import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
 
-import javax.servlet.ServletRequest;
+/*import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSession;*/
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -57,10 +60,10 @@ public final class CatalogWorker {
     /**
      * @deprecated - Use WebSiteWorker.getWebSite(ServletRequest) instead
      */
-    @Deprecated
+    /*@Deprecated
     public static GenericValue getWebSite(ServletRequest request) {
         return WebSiteWorker.getWebSite(request);
-    }
+    }*/
 
     public static List<String> getAllCatalogIds(ServletRequest request) {
         List<String> catalogIds = new LinkedList<>();

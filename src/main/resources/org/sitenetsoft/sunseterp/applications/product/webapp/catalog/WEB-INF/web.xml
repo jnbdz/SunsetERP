@@ -92,7 +92,7 @@ under the License.
         <description>Image URL Servlet</description>
         <display-name>ImageUrlServlet</display-name>
         <servlet-name>ImageUrlServlet</servlet-name>
-        <servlet-class>org.sitenetsoft.sunseterp.framework.product.imagemanagement.ImageUrlServlet</servlet-class>
+        <servlet-class>org.sitenetsoft.sunseterp.applications.product.imagemanagement.ImageUrlServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     

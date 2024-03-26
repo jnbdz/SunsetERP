@@ -13,6 +13,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
     implementation 'io.quarkus:quarkus-smallrye-openapi'
     implementation 'io.quarkus:quarkus-resteasy-reactive'
+    implementation 'io.quarkus:quarkus-arc'
     //implementation 'io.quarkus:quarkus-oidc'
     implementation 'io.quarkus:quarkus-elytron-security-properties-file'
     implementation 'io.quarkiverse.groovy:quarkus-groovy:3.8.1'
@@ -125,6 +126,10 @@ dependencies {
     //implementation 'com.paypal:paypalhttp:2.0.0'
     //implementation 'com.paypal:heap-dump-tool:1.1.6'
     //implementation 'com.paypal:rest-api-sdk:1.14.1'
+
+    implementation "io.quarkus:quarkus-resteasy-reactive-qute"
+    
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
 
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'

@@ -23,9 +23,9 @@ under the License.
 
     <form name="LookupParty" type="single" target="findparty" focus-field-name="partyId">
         <actions>
-            <set field="states" value="${groovy: org.apache.ofbiz.common.CommonWorkers.getStateList(delegator)}"/>
+            <set field="states" value="${groovy: org.sitenetsoft.sunseterp.framework.common.CommonWorkers.getStateList(delegator)}"/>
             <!-- Here is some alternate code to get states limited to a region
-                <set field="states" value="${groovy: org.apache.ofbiz.common.CommonWorkers.getAssociatedStateList(delegator,requestParameters.CUSTOMER_COUNTRY)}"/>
+                <set field="states" value="${groovy: org.sitenetsoft.sunseterp.framework.common.CommonWorkers.getAssociatedStateList(delegator,requestParameters.CUSTOMER_COUNTRY)}"/>
             -->
         </actions>
         <field name="statusId"><hidden value="PARTY_ENABLED"/></field>
@@ -146,7 +146,7 @@ under the License.
                 <field-map field-name="partyId" from-field="partyId"/>
             </entity-and>
             <set field="fieldId" value="partyClassificationGroupId"/>
-            <set field="partyClassificationGroupIds" value="${groovy:org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(partyClassifications, fieldId, true);}"/>
+            <set field="partyClassificationGroupIds" value="${groovy:org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil.getFieldListFromEntityList(partyClassifications, fieldId, true);}"/>
         </row-actions>
         <field name="partyId" sort-field="true" widget-style="buttontext">
             <hyperlink description="${partyId}" target="viewprofile">
@@ -158,7 +158,7 @@ under the License.
         <field name="userLoginId" use-when="userLoginSize == 1"><display description="${logins[0].userLoginId}"/></field>
         <field name="userLoginId" use-when="userLoginSize == 0"><display description="(${uiLabelMap.CommonNone})"/></field>
         <field name="externalId"><display description="${externalId}"/></field>
-        <field name="name"><display description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, true)}"/></field>
+        <field name="name"><display description="${groovy:org.sitenetsoft.sunseterp.applications.party.party.PartyHelper.getPartyName(delegator, partyId, true)}"/></field>
         <field name="partyTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="PartyType"/></field>
         <field name="mainRole" title="${uiLabelMap.PartyMainRole}"><display description="${mainRole.description}"/></field>
         <field name="createdDate" sort-field="true"><display type="date"/></field>
@@ -1096,9 +1096,9 @@ under the License.
             <set field="actualCurrencyUomId" from-field="actualCurrencyUomId" default-value="${defaultOrganizationPartyCurrencyUomId}"/>
         </actions>
         <row-actions>
-            <set field="total" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator, invoiceId, actualCurrency)}"/>
-            <set field="amountToApply" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId, actualCurrency)}"/>
-            <set field="amountApplied" value="${groovy:org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceApplied(delegator,invoiceId, org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp(), actualCurrency)}"/>
+            <set field="total" value="${groovy:org.sitenetsoft.sunseterp.applications.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator, invoiceId, actualCurrency)}"/>
+            <set field="amountToApply" value="${groovy:org.sitenetsoft.sunseterp.applications.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId, actualCurrency)}"/>
+            <set field="amountApplied" value="${groovy:org.sitenetsoft.sunseterp.applications.accounting.invoice.InvoiceWorker.getInvoiceApplied(delegator,invoiceId, org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime.nowTimestamp(), actualCurrency)}"/>
         </row-actions>
         <field name="invoiceId">
             <display-entity entity-name="Invoice" description=" " also-hidden="true">

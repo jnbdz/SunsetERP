@@ -19,7 +19,6 @@
 
 package org.sitenetsoft.sunseterp.applications.order.thirdparty.taxware;
 
-
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties;
@@ -30,7 +29,9 @@ import org.sitenetsoft.sunseterp.framework.datafile.ModelField;
 import org.sitenetsoft.sunseterp.framework.datafile.ModelRecord;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.datafile.Record;
 
+import javax.inject.Inject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -48,7 +49,7 @@ import java.util.List;
  */
 public class TaxwareUTL {
 
-    private static final String MODULE = TaxwareUTL.class.getName();
+    /*private static final String MODULE = TaxwareUTL.class.getName();
 
     // default data files
     DataFile outHead = null;
@@ -483,5 +484,5 @@ public class TaxwareUTL {
             }
         }
         return retRecords.size();
-    }
+    }*/
 }

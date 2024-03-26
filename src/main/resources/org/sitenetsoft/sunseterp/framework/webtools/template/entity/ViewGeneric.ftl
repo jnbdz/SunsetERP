@@ -278,8 +278,8 @@ function ShowTab(lname) {
     <div class="screenlet-body">
       <p>
       <#if value?has_content>
-        <#assign valueXmlDoc = Static["org.apache.ofbiz.entity.GenericValue"].makeXmlDocument([value]) />
-        ${Static["org.apache.ofbiz.base.util.UtilXml"].writeXmlDocument(valueXmlDoc)?replace("\n", "<br />")?replace("    ", "&nbsp;&nbsp;&nbsp;&nbsp;")}
+        <#assign valueXmlDoc = Static["org.sitenetsoft.sunseterp.framework.entity.GenericValue"].makeXmlDocument([value]) />
+        ${Static["org.sitenetsoft.sunseterp.framework.base.util.UtilXml"].writeXmlDocument(valueXmlDoc)?replace("\n", "<br />")?replace("    ", "&nbsp;&nbsp;&nbsp;&nbsp;")}
       </#if>
       </p>
     </div>

@@ -158,7 +158,7 @@ public final class CsrfUtil {
             requestUri = requestUri.substring(1);
         }
         if (requestUri.contains("#")) {
-            // e.g. "view/entityref_main#org.sitenetsoft.sunseterp.framework.accounting.budget" to "view/entityref_main"
+            // e.g. "view/entityref_main#org.sitenetsoft.sunseterp.applications.accounting.budget" to "view/entityref_main"
             requestUri = requestUri.substring(0, requestUri.indexOf("#"));
         }
         return requestUri;

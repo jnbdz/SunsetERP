@@ -135,9 +135,9 @@ under the License.
         <log level="info" message="subContent: ${subContent}"/>
         <log level="info" message="contentId: ${contentId}"/>
         <log level="info" message="dataResourceId: ${dataResourceId}"/>
-        <call-class-method class-name="org.apache.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="subContent" type="org.apache.ofbiz.entity.GenericEntity"/>
+        <call-class-method class-name="org.sitenetsoft.sunseterp.applications.content.ContentManagementWorker" method-name="mruAdd">
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="subContent" type="org.sitenetsoft.sunseterp.framework.entity.GenericEntity"/>
         </call-class-method>
         -->
     </simple-method>
@@ -168,12 +168,12 @@ under the License.
     <simple-method login-required="true" method-name="createLayoutImage" short-description="Create Layout Image">
         <log level="info" message="in createLayoutImage."/>
 
-        <call-class-method class-name="org.apache.ofbiz.content.layout.LayoutWorker" method-name="uploadImageAndParameters" ret-field="formInput">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+        <call-class-method class-name="org.sitenetsoft.sunseterp.applications.content.layout.LayoutWorker" method-name="uploadImageAndParameters" ret-field="formInput">
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
             <string value="imageData"/>
         </call-class-method>
 
-        <call-class-method class-name="org.apache.ofbiz.content.layout.LayoutWorker" method-name="returnByteBuffer" ret-field="byteWrap">
+        <call-class-method class-name="org.sitenetsoft.sunseterp.applications.content.layout.LayoutWorker" method-name="returnByteBuffer" ret-field="byteWrap">
             <field field="formInput" type="java.util.Map"/>
         </call-class-method>
 
@@ -228,9 +228,9 @@ under the License.
         <log level="info" message="subContent: ${subContent}"/>
         <log level="info" message="contentId: ${contentId}"/>
         <log level="info" message="dataResourceId: ${dataResourceId}"/>
-        <call-class-method class-name="org.apache.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="subContent" type="org.apache.ofbiz.entity.GenericEntity"/>
+        <call-class-method class-name="org.sitenetsoft.sunseterp.applications.content.ContentManagementWorker" method-name="mruAdd">
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="subContent" type="org.sitenetsoft.sunseterp.framework.entity.GenericEntity"/>
         </call-class-method>
         -->
     </simple-method>
@@ -284,9 +284,9 @@ under the License.
         <log level="info" message="subContent: ${subContent}"/>
         <log level="info" message="contentId: ${contentId}"/>
         <log level="info" message="dataResourceId: ${dataResourceId}"/>
-        <call-class-method class-name="org.apache.ofbiz.content.ContentManagementWorker" method-name="mruAdd">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
-            <field field="subContent" type="org.apache.ofbiz.entity.GenericEntity"/>
+        <call-class-method class-name="org.sitenetsoft.sunseterp.applications.content.ContentManagementWorker" method-name="mruAdd">
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
+            <field field="subContent" type="org.sitenetsoft.sunseterp.framework.entity.GenericEntity"/>
         </call-class-method>
         -->
     </simple-method>
@@ -314,9 +314,9 @@ under the License.
     </simple-method>
 
    <simple-method method-name="createGenericContent" short-description="Create Generic Content">
-        <call-class-method class-name="org.apache.ofbiz.content.layout.LayoutWorker"
+        <call-class-method class-name="org.sitenetsoft.sunseterp.applications.content.layout.LayoutWorker"
             method-name="uploadImageAndParameters" ret-field="formInput">
-            <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+            <field field="request" type="jakarta.servlet.http.HttpServletRequest"/>
             <string value="dataResourceName"/>
         </call-class-method>
 

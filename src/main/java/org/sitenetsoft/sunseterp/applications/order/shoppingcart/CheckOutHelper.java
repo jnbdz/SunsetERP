@@ -725,7 +725,7 @@ public class CheckOutHelper {
                     GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                     if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId",
                             "AGGREGATED")) {
-                        org.sitenetsoft.sunseterp.framework.product.config.ProductConfigWrapper config = this.cart.findCartItem(counter).getConfigWrapper();
+                        org.sitenetsoft.sunseterp.applications.product.config.ProductConfigWrapper config = this.cart.findCartItem(counter).getConfigWrapper();
                         Map<String, Object> inputMap = new HashMap<>();
                         inputMap.put("config", config);
                         inputMap.put("facilityId", productStore.getString("inventoryFacilityId"));

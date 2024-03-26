@@ -311,8 +311,8 @@ ${virtualJavaScript!}
         <#else>
           <input type="hidden" name="product_id${inlineCounter}" value="${product.productId}"/>
           <input type="hidden" name="add_product_id${inlineCounter}" value="${product.productId}"/>
-          <#assign isStoreInventoryNotAvailable = !(Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0?double))>
-          <#assign isStoreInventoryRequired = Static["org.apache.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
+          <#assign isStoreInventoryNotAvailable = !(Static["org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker"].isStoreInventoryAvailable(request, product, 1.0?double))>
+          <#assign isStoreInventoryRequired = Static["org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
           <#if isStoreInventoryNotAvailable>
             <#if isStoreInventoryRequired>
               <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>

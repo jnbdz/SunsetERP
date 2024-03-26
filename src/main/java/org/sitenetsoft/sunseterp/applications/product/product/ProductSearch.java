@@ -1065,7 +1065,7 @@ public class ProductSearch {
         }
 
     /* (non-Javadoc)
-     * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.LocalDispatcher,
+     * @see org.sitenetsoft.sunseterp.applications.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.sitenetsoft.sunseterp.framework.service.LocalDispatcher,
      * boolean, java.util.Locale)
      */
         @Override
@@ -1483,7 +1483,7 @@ public class ProductSearch {
             return true;
         }
         /* (non-Javadoc)
-         * @see org.apache.ofbiz.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.apache.ofbiz.service.
+         * @see org.sitenetsoft.sunseterp.applications.product.product.ProductSearch.ProductSearchConstraint#prettyPrintConstraint(org.sitenetsoft.sunseterp.framework.service.
          * LocalDispatcher, boolean, java.util.Locale)
          */
         @Override
