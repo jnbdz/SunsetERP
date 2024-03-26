@@ -30,16 +30,16 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.apache.ofbiz.service.schedule -->
-  <!--  - org.apache.ofbiz.service.semaphore -->
+  <!--  - org.sitenetsoft.sunseterp.framework.service.schedule -->
+  <!--  - org.sitenetsoft.sunseterp.framework.service.semaphore -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.service.schedule -->
+  <!-- org.sitenetsoft.sunseterp.framework.service.schedule -->
   <!-- ========================================================= -->
 
-    <entity entity-name="JobSandbox" package-name="org.apache.ofbiz.service.schedule" title="Job Scheduler Sandbox"
+    <entity entity-name="JobSandbox" package-name="org.sitenetsoft.sunseterp.framework.service.schedule" title="Job Scheduler Sandbox"
             sequence-bank-size="100" never-cache="true">
         <field name="jobId" type="id"></field>
         <field name="jobName" type="name"></field>
@@ -91,7 +91,7 @@ under the License.
         </index>
     </entity>
     <entity entity-name="RecurrenceInfo"
-            package-name="org.apache.ofbiz.service.schedule"
+            package-name="org.sitenetsoft.sunseterp.framework.service.schedule"
             title="Recurrence Info">
       <field name="recurrenceInfoId" type="id"></field>
       <field name="startDateTime" type="date-time"></field>
@@ -109,7 +109,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="RecurrenceRule"
-            package-name="org.apache.ofbiz.service.schedule"
+            package-name="org.sitenetsoft.sunseterp.framework.service.schedule"
             title="Recurrence Rule">
       <field name="recurrenceRuleId" type="id"></field>
       <field name="frequency" type="short-varchar"></field>
@@ -129,7 +129,7 @@ under the License.
       <field name="xName" type="very-long"></field>
       <prim-key field="recurrenceRuleId"/>
     </entity>
-    <entity entity-name="RuntimeData" package-name="org.apache.ofbiz.service.schedule" title="Runtime Data"
+    <entity entity-name="RuntimeData" package-name="org.sitenetsoft.sunseterp.framework.service.schedule" title="Runtime Data"
             sequence-bank-size="100">
         <field name="runtimeDataId" type="id"></field>
         <field name="runtimeInfo" type="very-long"></field>
@@ -140,7 +140,7 @@ under the License.
         In other words, they should be created once and left unmodified by user
         interaction. -->
     <entity entity-name="TemporalExpression"
-            package-name="org.apache.ofbiz.service.schedule"
+            package-name="org.sitenetsoft.sunseterp.framework.service.schedule"
             title="Temporal Expression">
       <field name="tempExprId" type="id"></field>
       <field name="tempExprTypeId" type="id"></field>
@@ -155,7 +155,7 @@ under the License.
     </entity>
 
     <entity entity-name="TemporalExpressionAssoc"
-            package-name="org.apache.ofbiz.service.schedule"
+            package-name="org.sitenetsoft.sunseterp.framework.service.schedule"
             title="Temporal Expression Association">
       <field name="fromTempExprId" type="id"><description>The "parent" expression</description></field>
       <field name="toTempExprId" type="id"><description>The "child" expression</description></field>
@@ -175,7 +175,7 @@ under the License.
     </entity>
 
     <view-entity entity-name="TemporalExpressionChild"
-            package-name="org.apache.ofbiz.service.schedule"
+            package-name="org.sitenetsoft.sunseterp.framework.service.schedule"
             title="Temporal Expression Children View">
       <member-entity entity-alias="TEA" entity-name="TemporalExpressionAssoc"/>
       <member-entity entity-alias="TE" entity-name="TemporalExpression"/>
@@ -188,7 +188,7 @@ under the License.
       </view-link>
     </view-entity>
 
-    <entity entity-name="JobManagerLock" package-name="org.apache.ofbiz.service.schedule" title="Lock Job Manager Scheduler">
+    <entity entity-name="JobManagerLock" package-name="org.sitenetsoft.sunseterp.framework.service.schedule" title="Lock Job Manager Scheduler">
         <field name="instanceId" type="id"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
@@ -206,9 +206,9 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.service.semaphore -->
+  <!-- org.sitenetsoft.sunseterp.framework.service.semaphore -->
   <!-- ========================================================= -->
-    <entity entity-name="ServiceSemaphore" package-name="org.apache.ofbiz.service.semaphore" title="Semaphore Lock"
+    <entity entity-name="ServiceSemaphore" package-name="org.sitenetsoft.sunseterp.framework.service.semaphore" title="Semaphore Lock"
             sequence-bank-size="100">
         <field name="serviceName" type="name"></field>
         <field name="lockedByInstanceId" type="id"></field>

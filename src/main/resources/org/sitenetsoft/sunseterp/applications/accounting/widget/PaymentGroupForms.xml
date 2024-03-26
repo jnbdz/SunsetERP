@@ -46,22 +46,22 @@ under the License.
         </field>
         <field name="paymentGroupTypeId" title="${uiLabelMap.FormFieldTitle_paymentGroupType}"><display-entity entity-name="PaymentGroupType"/></field>
         <field name="paymentGroupName"><display description="${paymentGroupName}"/></field>
-        <field name="depositSlip" title=" " widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'} @and ${groovy:org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
+        <field name="depositSlip" title=" " widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'} @and ${groovy:org.sitenetsoft.sunseterp.framework.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink description="${uiLabelMap.AccountingInvoicePDF}" target="DepositSlip.pdf" target-window="_BLANK" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>
         </field>
-        <field name="printCheck" title=" " widget-style="buttontext" use-when="${paymentGroupTypeId == 'CHECK_RUN'} @and ${groovy:org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
+        <field name="printCheck" title=" " widget-style="buttontext" use-when="${paymentGroupTypeId == 'CHECK_RUN'} @and ${groovy:org.sitenetsoft.sunseterp.framework.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink description="${uiLabelMap.AccountingInvoicePDF}" target="printChecks.pdf" target-window="_BLANK" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title=" " widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'} @and ${paymentGroupMemberAndTransList[0].finAccountTransStatusId != 'FINACT_TRNS_APPROVED'} @and ${groovy:org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
+        <field name="deleteLink" title=" " widget-style="buttontext" use-when="${paymentGroupTypeId == 'BATCH_PAYMENT'} @and ${paymentGroupMemberAndTransList[0].finAccountTransStatusId != 'FINACT_TRNS_APPROVED'} @and ${groovy:org.sitenetsoft.sunseterp.framework.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink description="${uiLabelMap.CommonCancel}" target="cancelPaymentGroup" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title=" " widget-style="buttontext" use-when="${paymentGroupTypeId == 'CHECK_RUN'} @and ${paymentGroupMemberAndTransList[0].finAccountTransStatusId != 'FINACT_TRNS_APPROVED'} @and ${groovy:org.apache.ofbiz.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
+        <field name="deleteLink" title=" " widget-style="buttontext" use-when="${paymentGroupTypeId == 'CHECK_RUN'} @and ${paymentGroupMemberAndTransList[0].finAccountTransStatusId != 'FINACT_TRNS_APPROVED'} @and ${groovy:org.sitenetsoft.sunseterp.framework.base.util.UtilValidate.isNotEmpty(paymentGroupMembers)}">
             <hyperlink description="${uiLabelMap.CommonCancel}" target="cancelCheckRunPayments" also-hidden="false">
                 <parameter param-name="paymentGroupId"/>
             </hyperlink>

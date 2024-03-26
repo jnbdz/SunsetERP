@@ -80,13 +80,13 @@ under the License.
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="paidInvoice" value="${groovy: org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(java.math.BigDecimal.ZERO)==0}" type="Boolean"/>
+            <set field="paidInvoice" value="${groovy: org.sitenetsoft.sunseterp.applications.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(java.math.BigDecimal.ZERO)==0}" type="Boolean"/>
             <set field="amountToApply" value="${groovy:
                 import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(locale).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
+                return(NumberFormat.getNumberInstance(locale).format(org.sitenetsoft.sunseterp.applications.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
             <set field="total" value="${groovy:
                 import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(locale).format(org.apache.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
+                return(NumberFormat.getNumberInstance(locale).format(org.sitenetsoft.sunseterp.applications.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
         </row-actions>
         <field name="billingAccountId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext">
@@ -114,7 +114,7 @@ under the License.
     <form name="BillingAccount" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <set field="availableBalance" value="${groovy:billingAccount != null ? org.apache.ofbiz.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
+            <set field="availableBalance" value="${groovy:billingAccount != null ? org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
         </actions>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
         <field name="billingAccountId"><display/></field>
@@ -131,7 +131,7 @@ under the License.
             <display type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
         <field name="netBalance" title="${uiLabelMap.AccountingBillingNetBalance}" position="2">
-            <display description="${groovy:org.apache.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
+            <display description="${groovy:org.sitenetsoft.sunseterp.applications.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display type="date-time"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThru}" position="2"><display type="date-time"/></field>
@@ -139,7 +139,7 @@ under the License.
     <form name="EditBillingAccount" type="single" target="updateBillingAccount"
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <set field="availableBalance" value="${groovy:billingAccount != null ? org.apache.ofbiz.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
+            <set field="availableBalance" value="${groovy:billingAccount != null ? org.sitenetsoft.sunseterp.applications.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
         </actions>
         <alt-target use-when="billingAccount==null" target="createBillingAccountAndRole"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>

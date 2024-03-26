@@ -30,17 +30,17 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.apache.ofbiz.security.cert                                -->
-  <!--  - org.apache.ofbiz.security.login                               -->
-  <!--  - org.apache.ofbiz.security.securitygroup                       -->
+  <!--  - org.sitenetsoft.sunseterp.framework.security.cert                                -->
+  <!--  - org.sitenetsoft.sunseterp.framework.security.login                               -->
+  <!--  - org.sitenetsoft.sunseterp.framework.security.securitygroup                       -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.security.cert -->
+  <!-- org.sitenetsoft.sunseterp.framework.security.cert -->
   <!-- ========================================================= -->
     <entity entity-name="X509IssuerProvision"
-            package-name="org.apache.ofbiz.security.cert"
+            package-name="org.sitenetsoft.sunseterp.framework.security.cert"
             never-cache="true"
             title="Valid issuer data for authentication of x.509 certificates">
       <field name="certProvisionId" type="id"></field>
@@ -55,11 +55,11 @@ under the License.
     </entity>
 
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.security.login -->
+  <!-- org.sitenetsoft.sunseterp.framework.security.login -->
   <!-- ========================================================= -->
 
     <entity entity-name="UserLogin"
-            package-name="org.apache.ofbiz.security.login"
+            package-name="org.sitenetsoft.sunseterp.framework.security.login"
             title="User Login">
       <field name="userLoginId" type="id-vlong"></field>
       <field name="currentPassword" type="long-varchar"></field>
@@ -83,7 +83,7 @@ under the License.
       <prim-key field="userLoginId"/>
     </entity>
     <entity entity-name="UserLoginPasswordHistory"
-            package-name="org.apache.ofbiz.security.login"
+            package-name="org.sitenetsoft.sunseterp.framework.security.login"
             never-cache="true"
             title="User Login Password History">
       <field name="userLoginId" type="id-vlong"></field>
@@ -97,7 +97,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="UserLoginHistory"
-            package-name="org.apache.ofbiz.security.login"
+            package-name="org.sitenetsoft.sunseterp.framework.security.login"
             never-cache="true"
             title="User Login History">
       <field name="userLoginId" type="id-vlong"></field>
@@ -117,7 +117,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="UserLoginSession"
-            package-name="org.apache.ofbiz.security.login"
+            package-name="org.sitenetsoft.sunseterp.framework.security.login"
             never-cache="true"
             title="User Login History">
       <field name="userLoginId" type="id-vlong"></field>
@@ -130,11 +130,11 @@ under the License.
     </entity>
     
   <!-- ========================================================= -->
-  <!-- org.apache.ofbiz.security.securitygroup -->
+  <!-- org.sitenetsoft.sunseterp.framework.security.securitygroup -->
   <!-- ========================================================= -->
 
     <entity entity-name="SecurityGroup"
-            package-name="org.apache.ofbiz.security.securitygroup"
+            package-name="org.sitenetsoft.sunseterp.framework.security.securitygroup"
             default-resource-name="SecurityEntityLabels"
             title="Security Component - Security Group">
       <field name="groupId" type="id"></field>
@@ -143,7 +143,7 @@ under the License.
       <prim-key field="groupId"/>
     </entity>
     <entity entity-name="SecurityGroupPermission"
-            package-name="org.apache.ofbiz.security.securitygroup"
+            package-name="org.sitenetsoft.sunseterp.framework.security.securitygroup"
             title="Security Component - Security Group Permission">
       <description>Defines a permission available to a security group; there is no FK to SecurityPermission because we want to leave open the possibility of ad-hoc permissions, especially for the Entity Data Maintenance pages which have TONS of permissions</description>
       <field name="groupId" type="id"></field>
@@ -161,7 +161,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="SecurityPermission"
-            package-name="org.apache.ofbiz.security.securitygroup"
+            package-name="org.sitenetsoft.sunseterp.framework.security.securitygroup"
             default-resource-name="SecurityEntityLabels"
             title="Security Component - Security Permission">
       <field name="permissionId" type="id-long"></field>
@@ -169,7 +169,7 @@ under the License.
       <prim-key field="permissionId"/>
     </entity>
     <view-entity entity-name="UserLoginAndSecurityGroup"
-          package-name="org.apache.ofbiz.security.securitygroup"
+          package-name="org.sitenetsoft.sunseterp.framework.security.securitygroup"
           never-cache="true"
           title="UserLogin And SecurityGroup View">
       <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
@@ -181,7 +181,7 @@ under the License.
       </view-link>
     </view-entity>
     <view-entity entity-name="UserLoginAndPermission"
-                 package-name="org.apache.ofbiz.security.securitygroup"
+                 package-name="org.sitenetsoft.sunseterp.framework.security.securitygroup"
                  never-cache="true"
                  title="UserLogin And Permission View">
         <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
@@ -200,7 +200,7 @@ under the License.
         </view-link>
     </view-entity>
     <entity entity-name="UserLoginSecurityGroup"
-            package-name="org.apache.ofbiz.security.securitygroup"
+            package-name="org.sitenetsoft.sunseterp.framework.security.securitygroup"
             title="Security Component - User Login Security Group">
       <description>Maps a UserLogin to a security group</description>
       <field name="userLoginId" type="id-vlong"></field>
@@ -221,7 +221,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ProtectedView"
-          package-name="org.apache.ofbiz.security.securitygroup"
+          package-name="org.sitenetsoft.sunseterp.framework.security.securitygroup"
           title="Security Component - Protected View">
       <description>Defines views protected from data leakage</description>
       <field name="groupId" type="id"></field>
@@ -239,7 +239,7 @@ under the License.
       </relation>
     </entity>
     <view-entity entity-name="UserLoginAndProtectedView"
-          package-name="org.apache.ofbiz.security.securitygroup"
+          package-name="org.sitenetsoft.sunseterp.framework.security.securitygroup"
           title="UserLogin And ProtectedView View">
       <member-entity entity-alias="ULSGPV" entity-name="UserLoginSecurityGroup"/>
       <member-entity entity-alias="PV" entity-name="ProtectedView"/>
@@ -250,7 +250,7 @@ under the License.
       </view-link>
     </view-entity>
     <entity entity-name="TarpittedLoginView"
-          package-name="org.apache.ofbiz.security.securitygroup"
+          package-name="org.sitenetsoft.sunseterp.framework.security.securitygroup"
           title="Security Component - Protected View">
       <description>Login View couple currently tarpitted : any access to the view for the login is denied</description>
       <field name="viewNameId" type="id-long"><description>name of view protected from data theft</description></field>
