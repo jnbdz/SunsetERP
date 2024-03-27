@@ -21,10 +21,10 @@ under the License.
 <test-suite suite-name="entitytests"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
-    <test-case case-name="entity-tests"><junit-test-suite class-name="org.apache.ofbiz.entity.test.EntityTestSuite"/></test-case>
-    <test-case case-name="entity-util-tests"><junit-test-suite class-name="org.apache.ofbiz.entity.test.EntityUtilTestSuite"/></test-case>
-    <test-case case-name="entity-crypto-tests"><junit-test-suite class-name="org.apache.ofbiz.entity.test.EntityCryptoTestSuite"/></test-case>
-    <test-case case-name="entity-query-tests"><junit-test-suite class-name="org.apache.ofbiz.entity.test.EntityQueryTestSuite"/></test-case>
+    <test-case case-name="entity-tests"><junit-test-suite class-name="org.sitenetsoft.sunseterp.framework.entity.test.EntityTestSuite"/></test-case>
+    <test-case case-name="entity-util-tests"><junit-test-suite class-name="org.sitenetsoft.sunseterp.framework.entity.test.EntityUtilTestSuite"/></test-case>
+    <test-case case-name="entity-crypto-tests"><junit-test-suite class-name="org.sitenetsoft.sunseterp.framework.entity.test.EntityCryptoTestSuite"/></test-case>
+    <test-case case-name="entity-query-tests"><junit-test-suite class-name="org.sitenetsoft.sunseterp.framework.entity.test.EntityQueryTestSuite"/></test-case>
     <test-case case-name="entity-util-properties-tests">
         <simple-method-test location="component://entity/minilang/EntityUtilPropertiesTests.xml"/>
     </test-case>

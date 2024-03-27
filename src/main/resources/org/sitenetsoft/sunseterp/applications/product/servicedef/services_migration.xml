@@ -25,7 +25,7 @@ under the License.
     <version>1.0</version>
 
     <service name="migrateProductPromoCodeEmail" engine="java"
-             location="org.apache.ofbiz.product.migrate.MigrationServices" invoke="migrateProductPromoCodeEmail" auth="true">
+             location="org.sitenetsoft.sunseterp.applications.product.migrate.MigrationServices" invoke="migrateProductPromoCodeEmail" auth="true">
         <description>Copy the ProductPromoCodeEmail entity to ProductPromoCodeContactMech</description>
         <permission-service service-name="productPriceGenericPermission" main-action="CREATE"/>
     </service>

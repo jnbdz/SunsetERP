@@ -84,7 +84,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="getDistanceBetweenGeoPoints" engine="java" location="org.apache.ofbiz.common.geo.GeoServices" auth="false" invoke="getDistanceBetweenGeoPoints">
+    <service name="getDistanceBetweenGeoPoints" engine="java" location="org.sitenetsoft.sunseterp.framework.common.geo.GeoServices" auth="false" invoke="getDistanceBetweenGeoPoints">
         <attribute name="fromLatitude" mode="IN" type="Double"/>
         <attribute name="fromLongitude" mode="IN" type="Double"/>
         <attribute name="toLatitude" mode="IN" type="Double"/>

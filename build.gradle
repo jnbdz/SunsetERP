@@ -61,7 +61,8 @@ dependencies {
     implementation 'org.apache.tika:tika-core:2.9.0'
     implementation 'org.apache.tika:tika-parsers:2.8.0'
     implementation 'org.owasp.esapi:esapi:2.5.3.1'
-    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:4.0.4'
+    // TODO: Review code where it is being used. It gets into conflicts with other libraries (Quarkus).
+    //implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:4.0.4'
     implementation 'org.apache.xmlgraphics:fop:2.9'
     implementation 'org.apache.commons:commons-text:1.10.0'
 

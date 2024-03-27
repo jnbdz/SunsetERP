@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.control;
 
-import org.apache.cxf.jaxrs.model.URITemplate;
+//import org.apache.cxf.jaxrs.model.URITemplate;
 import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
@@ -113,7 +113,7 @@ public final class RequestHandler {
      * @return a collection of request maps which might be empty
      */
     static Collection<RequestMap> resolveURI(ControllerConfig ccfg, HttpServletRequest req) {
-        Map<String, List<RequestMap>> requestMapMap = ccfg.getRequestMapMultiMap();
+        /*Map<String, List<RequestMap>> requestMapMap = ccfg.getRequestMapMultiMap();
         Collection<RequestMap> rmaps = resolveTemplateURI(requestMapMap, req);
         if (rmaps.isEmpty()) {
             Map<String, ConfigXMLReader.ViewMap> viewMapMap = ccfg.getViewMapMap();
@@ -133,7 +133,8 @@ public final class RequestHandler {
                 rmaps = null;
             }
         }
-        return rmaps != null ? rmaps : Collections.emptyList();
+        return rmaps != null ? rmaps : Collections.emptyList();*/
+        return Collections.emptyList();
     }
 
     /**
@@ -167,7 +168,8 @@ public final class RequestHandler {
      * @param request the HTTP request to match
      * @return a collection of request maps which might be empty but not {@code null}
      */
-    private static Collection<RequestMap> resolveTemplateURI(Map<String, List<RequestMap>> rMapMap,
+    // TODO: This was removed because it conflicts with Quarkus.
+    /*private static Collection<RequestMap> resolveTemplateURI(Map<String, List<RequestMap>> rMapMap,
                                                              HttpServletRequest request) {
         // Retrieve the request path without the leading '/' character.
         String path = request.getPathInfo().substring(1);
@@ -182,7 +184,7 @@ public final class RequestHandler {
             }
         }
         return Collections.emptyList();
-    }
+    }*/
 
     public static String getRequestUri(String path) {
         List<String> pathInfo = StringUtil.split(path, "/");

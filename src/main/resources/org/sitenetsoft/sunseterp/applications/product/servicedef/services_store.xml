@@ -80,13 +80,13 @@ under the License.
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductStoreId"/>
             </type-validate>
         </attribute>
-        <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="productStore" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false">
             <type-validate>
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductId"/>
             </type-validate>
         </attribute>
-        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="product" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="requireInventory" type="String" mode="OUT" optional="false"><!-- Y/N -->
          <type-validate>
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingRequireInventory"/>
@@ -101,13 +101,13 @@ under the License.
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductStoreId"/>
          </type-validate>
         </attribute>
-        <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="productStore" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false">
          <type-validate>
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductId"/>
          </type-validate>
         </attribute>
-        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="product" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
          <type-validate>
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>
@@ -127,13 +127,13 @@ under the License.
              <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductStoreId"/>
          </type-validate>
         </attribute>
-        <attribute name="productStore" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="productStore" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false">
          <type-validate>
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingProductId"/>
          </type-validate>
         </attribute>
-        <attribute name="product" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="true"></attribute>
+        <attribute name="product" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="IN" optional="true"></attribute>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false">
          <type-validate>
                 <fail-property resource="ProductErrorUiLabels" property="ProductRequiredFieldMissingQuantity"/>

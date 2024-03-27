@@ -32,7 +32,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime.nowTimestamp()}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
@@ -42,7 +42,7 @@ under the License.
         <auto-fields-service service-name="addSecurityPermissionToSecurityGroup"/>
         <field name="groupId"><hidden/></field>
         <field name="permissionId" title="${uiLabelMap.PermissionId}" required-field="true"/>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime.nowTimestamp()}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>

@@ -107,13 +107,13 @@ under the License.
         <xs:attribute type="xs:string" name="entity-group-reader" use="required"/>
         <xs:attribute type="xs:string" name="entity-eca-reader"/>
         <xs:attribute name="entity-eca-enabled" type="xs:boolean" default="true"/>
-        <xs:attribute type="xs:string" name="entity-eca-handler-class-name" default="org.apache.ofbiz.entityext.eca.DelegatorEcaHandler"/>
+        <xs:attribute type="xs:string" name="entity-eca-handler-class-name" default="org.sitenetsoft.sunseterp.framework.entityext.eca.DelegatorEcaHandler"/>
         <xs:attribute name="distributed-cache-clear-enabled"
                       type="xs:boolean" default="false"/>
-        <xs:attribute type="xs:string" name="distributed-cache-clear-class-name" default="org.apache.ofbiz.entityext.cache.EntityCacheServices"/>
+        <xs:attribute type="xs:string" name="distributed-cache-clear-class-name" default="org.sitenetsoft.sunseterp.framework.entityext.cache.EntityCacheServices"/>
         <xs:attribute type="xs:string" name="distributed-cache-clear-user-login-id" default="system"/>
         <xs:attribute type="xs:string" name="sequenced-id-prefix"/>
-        <xs:attribute type="xs:string" name="default-group-name" default="org.apache.ofbiz"/>
+        <xs:attribute type="xs:string" name="default-group-name" default="org.sitenetsoft.sunseterp"/>
         <xs:attribute type="xs:string" name="key-encrypting-key"/>
     </xs:attributeGroup>
     <xs:element name="group-map">

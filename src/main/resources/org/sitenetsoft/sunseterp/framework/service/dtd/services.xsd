@@ -480,7 +480,7 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.type-validate">
         <xs:attribute name="method" type="xs:string"/>
-        <xs:attribute name="class" type="xs:string" default="org.apache.ofbiz.base.util.UtilValidate"/>
+        <xs:attribute name="class" type="xs:string" default="org.sitenetsoft.sunseterp.framework.base.util.UtilValidate"/>
     </xs:attributeGroup>
     <xs:element name="fail-message">
         <xs:complexType>

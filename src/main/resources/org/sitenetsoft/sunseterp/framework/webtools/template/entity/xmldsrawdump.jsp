@@ -15,7 +15,7 @@ software distributed under the License is distributed on an
 KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
---%><%@ page import="java.io.*, java.util.*, java.net.*, org.w3c.dom.*, org.apache.ofbiz.security.*, org.apache.ofbiz.entity.*, org.apache.ofbiz.entity.condition.*, org.apache.ofbiz.entity.util.*, org.apache.ofbiz.base.util.*, org.apache.ofbiz.entity.model.*, org.apache.ofbiz.entity.transaction.*" %><jsp:useBean id="security" type="org.apache.ofbiz.security.Security" scope="request" /><jsp:useBean id="delegator" type="org.apache.ofbiz.entity.GenericDelegator" scope="request" /><%
+--%><%@ page import="java.io.*, java.util.*, java.net.*, org.w3c.dom.*, org.sitenetsoft.sunseterp.framework.security.*, org.sitenetsoft.sunseterp.framework.entity.*, org.sitenetsoft.sunseterp.framework.entity.condition.*, org.sitenetsoft.sunseterp.framework.entity.util.*, org.sitenetsoft.sunseterp.framework.base.util.*, org.sitenetsoft.sunseterp.framework.entity.model.*, org.sitenetsoft.sunseterp.framework.entity.transaction.*" %><jsp:useBean id="security" type="org.sitenetsoft.sunseterp.framework.security.Security" scope="request" /><jsp:useBean id="delegator" type="org.sitenetsoft.sunseterp.framework.entity.GenericDelegator" scope="request" /><%
   if(security.hasPermission("ENTITY_MAINT", session)) {
       TreeSet passedEntityNames = (TreeSet) session.getAttribute("xmlrawdump_entitylist");
       session.removeAttribute("xmlrawdump_entitylist");

@@ -436,7 +436,7 @@ under the License.
         <set field="quantityOnHandTotal" value="0" type="BigDecimal"/>
         <set from-field="parameters.productId" field="lookupMktgPkgParams.productId"/>
         <entity-one entity-name="Product" value-field="product"/>
-        <set field="isMarketingPkgAuto" value="${groovy: org.apache.ofbiz.entity.util.EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO')}" type="Boolean"/>
+        <set field="isMarketingPkgAuto" value="${groovy: org.sitenetsoft.sunseterp.framework.entity.util.EntityTypeUtil.hasParentType(delegator, 'ProductType', 'productTypeId', product.productTypeId, 'parentTypeId', 'MARKETING_PKG_AUTO')}" type="Boolean"/>
         <!-- In case of MARKETING_PKG_AUTO, pass MANUF_COMPONENT else PRODUCT_COMPONENT for MARKETING_PKG_PICK-->
         <if-compare field="isMarketingPkgAuto" operator="equals" value="true" type="Boolean">
             <set field="lookupMktgPkgParams.type" value="MANUF_COMPONENT"/>
@@ -812,7 +812,7 @@ under the License.
                 <set from-field="parameters.quantity" field="quantityNotTransferred"/>
                 <set field="locationTypeMap.enumTypeId" value="FACLOC_TYPE"/>
                 <find-by-and entity-name="Enumeration" list="locationTypeEnums" map="locationTypeMap"/>
-                <set field="locationTypeEnumIds" value="${groovy: return org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(locationTypeEnums, 'enumId', true);}" type="List"/>
+                <set field="locationTypeEnumIds" value="${groovy: return org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil.getFieldListFromEntityList(locationTypeEnums, 'enumId', true);}" type="List"/>
                 <set field="nothing" value="${groovy: locationTypeEnumIds.add(null)}" type="List"/>
                 <iterate list="locationTypeEnumIds" entry="locationTypeEnumId">
                     <find-by-and entity-name="InventoryItemAndLocation" map="lookupFieldMap" list="inventoryItemAndLocations" use-iterator="true" order-by-list="orderByList"/> 
@@ -870,7 +870,7 @@ under the License.
         <field-to-result field="quantityNotTransferred"/>
         <if-compare operator="greater" value="0" field="quantityNotTransferred">
             <add-error>
-                <fail-message message="${groovy: import org.apache.ofbiz.base.util.UtilProperties; return (UtilProperties.getMessage('ProductUiLabels', 'ProductInventoryATPNotAvailable', ['unavailableQuantity' : quantityNotTransferred, 'xferQty': parameters.quantity], locale))}"/>
+                <fail-message message="${groovy: import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties; return (UtilProperties.getMessage('ProductUiLabels', 'ProductInventoryATPNotAvailable', ['unavailableQuantity' : quantityNotTransferred, 'xferQty': parameters.quantity], locale))}"/>
             </add-error>
             <check-errors/>
         </if-compare>

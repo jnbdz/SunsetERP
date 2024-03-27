@@ -31,7 +31,7 @@ under the License.
     </service>
     
     <service name="sendTelecomMessage" engine="java" 
-             location="org.apache.ofbiz.common.telecom.TelecomServices" 
+             location="org.sitenetsoft.sunseterp.framework.common.telecom.TelecomServices"
              invoke="sendTelecomMessage" auth="true">
         <description>Service to send telecom message</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false" />

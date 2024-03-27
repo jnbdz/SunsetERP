@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 --%>
-<%@ page contentType="text/plain" %><%@ page import="java.util.*" %><%@ page import="org.apache.ofbiz.entity.*" %><%@ page import="org.apache.ofbiz.entity.model.*" %><jsp:useBean id="delegator" type="org.apache.ofbiz.entity.GenericDelegator" scope="request" /><jsp:useBean id="security" type="org.apache.ofbiz.security.Security" scope="request" /><%
+<%@ page contentType="text/plain" %><%@ page import="java.util.*" %><%@ page import="org.sitenetsoft.sunseterp.framework.entity.*" %><%@ page import="org.sitenetsoft.sunseterp.framework.entity.model.*" %><jsp:useBean id="delegator" type="org.sitenetsoft.sunseterp.framework.entity.GenericDelegator" scope="request" /><jsp:useBean id="security" type="org.sitenetsoft.sunseterp.framework.security.Security" scope="request" /><%
 if(security.hasPermission("ENTITY_MAINT", session)) {
   ModelReader reader = delegator.getModelReader();
   Collection<String> ec = reader.getEntityNames();

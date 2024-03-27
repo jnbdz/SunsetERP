@@ -378,10 +378,10 @@ under the License.
 
         <if-not-empty field="parameters.statusId">
             <now-timestamp field="newEntity.statusDateTime"/>
-            <call-class-method class-name="org.apache.ofbiz.workeffort.workeffort.WorkEffortPartyAssignmentServices" method-name="updateWorkflowEngine">
-                <field field="newEntity" type="org.apache.ofbiz.entity.GenericValue"/>
-                <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
-                <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <call-class-method class-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort.WorkEffortPartyAssignmentServices" method-name="updateWorkflowEngine">
+                <field field="newEntity" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
+                <field field="userLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
+                <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
             </call-class-method>
         </if-not-empty>
         <create-value value-field="newEntity"/>
@@ -399,10 +399,10 @@ under the License.
 
         <if-compare-field field="parameters.statusId" to-field="oldStatusId" operator="not-equals">
             <now-timestamp field="workEffortPartyAssignment.statusDateTime"/>
-            <call-class-method class-name="org.apache.ofbiz.workeffort.workeffort.WorkEffortPartyAssignmentServices" method-name="updateWorkflowEngine" >
-                <field field="workEffortPartyAssignment" type="org.apache.ofbiz.entity.GenericValue"/>
-                <field field="userLogin" type="org.apache.ofbiz.entity.GenericValue"/>
-                <field field="dispatcher" type="org.apache.ofbiz.service.LocalDispatcher"/>
+            <call-class-method class-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort.WorkEffortPartyAssignmentServices" method-name="updateWorkflowEngine" >
+                <field field="workEffortPartyAssignment" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
+                <field field="userLogin" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
+                <field field="dispatcher" type="org.sitenetsoft.sunseterp.framework.service.LocalDispatcher"/>
             </call-class-method>
         </if-compare-field>
         <store-value value-field="workEffortPartyAssignment"/>
@@ -882,8 +882,8 @@ under the License.
         </if-empty>
         <check-errors />
         <!-- index keywords -->
-        <call-class-method class-name="org.apache.ofbiz.workeffort.workeffort.WorkEffortKeywordIndex" method-name="indexKeywords">
-            <field field="workEffort" type="org.apache.ofbiz.entity.GenericValue"/>
+        <call-class-method class-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort.WorkEffortKeywordIndex" method-name="indexKeywords">
+            <field field="workEffort" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
 
@@ -916,8 +916,8 @@ under the License.
     <simple-method method-name="createWorkEffortKeywords" short-description="Create all Work Effort Keyword">
         <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
         <find-by-primary-key entity-name="WorkEffort" map="findWorkEffortMap" value-field="workEffortInstance"/>
-        <call-class-method class-name="org.apache.ofbiz.workeffort.workeffort.WorkEffortKeywordIndex" method-name="indexKeywords">
-            <field field="workEffortInstance" type="org.apache.ofbiz.entity.GenericValue"/>
+        <call-class-method class-name="org.sitenetsoft.sunseterp.applications.workeffort.workeffort.WorkEffortKeywordIndex" method-name="indexKeywords">
+            <field field="workEffortInstance" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
 
@@ -1321,7 +1321,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <list-to-list list="resultList" to-list="workEfforts"/>
-        <set field="workEfforts" from-field="groovy:org.apache.ofbiz.workeffort.workeffort.WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);" type="List"/>
+        <set field="workEfforts" from-field="groovy:org.sitenetsoft.sunseterp.applications.workeffort.workeffort.WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);" type="List"/>
         <field-to-result field="workEfforts"/>
     </simple-method>
     

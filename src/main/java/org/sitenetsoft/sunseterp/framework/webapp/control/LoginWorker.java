@@ -19,6 +19,7 @@
 package org.sitenetsoft.sunseterp.framework.webapp.control;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.http.HttpStatus;
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig.WebappInfo;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
@@ -28,9 +29,11 @@ import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityConditionList;
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityOperator;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelEntity;
+import org.sitenetsoft.sunseterp.framework.entity.model.ModelField;
 import org.sitenetsoft.sunseterp.framework.entity.serialize.XmlSerializer;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransactionException;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityCrypto;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
@@ -41,6 +44,8 @@ import org.sitenetsoft.sunseterp.framework.security.SecurityFactory;
 import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 
+import org.sitenetsoft.sunseterp.framework.service.ModelService;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.WebAppCache;
 import org.sitenetsoft.sunseterp.framework.webapp.WebAppUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.stats.VisitHandler;
@@ -67,6 +72,7 @@ import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -301,7 +307,7 @@ public final class LoginWorker {
      * @param response The HTTP response object for the current JSP or Servlet request.
      * @return String
      */
-    /*public static String checkLogin(HttpServletRequest request, HttpServletResponse response) {
+    public static String checkLogin(HttpServletRequest request, HttpServletResponse response) {
         GenericValue userLogin = checkLogout(request, response);
         // have to reget this because the old session object will be invalid
         HttpSession session = request.getSession();
@@ -363,7 +369,7 @@ public final class LoginWorker {
         }
 
         return "success";
-    }*/
+    }
 
     /**
      * An HTTP WebEvent handler that logs in a userLogin. This should run before the security check.
@@ -372,7 +378,7 @@ public final class LoginWorker {
      * @return Return a boolean which specifies whether or not the calling Servlet or
      *         JSP should generate its own content. This allows an event to override the default content.
      */
-    /*public static String login(HttpServletRequest request, HttpServletResponse response) {
+    public static String login(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         // Prevent session fixation by making Tomcat generate a new jsessionId (ultimately put in cookie).
         if (!session.isNew()) {  // Only do when really signing in.
@@ -595,7 +601,7 @@ public final class LoginWorker {
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return requirePasswordChange ? "requirePasswordChange" : "error";
         }
-    }*/
+    }
 
     /**
      * An HTTP WebEvent handler to impersonate a given userLogin without using password. This should run before the security check.
@@ -604,7 +610,7 @@ public final class LoginWorker {
      * @return Return a boolean which specifies whether or not the calling Servlet or
      *         JSP should generate its own content. This allows an event to override the default content.
      */
-    /*public static String impersonateLogin(HttpServletRequest request, HttpServletResponse response) {
+    public static String impersonateLogin(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String userLoginIdToImpersonate = request.getParameter("userLoginIdToImpersonate");
@@ -702,7 +708,7 @@ public final class LoginWorker {
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
-    }*/
+    }
 
     /**
      * An HTTP WebEvent handler to reverse an impersonate login.
@@ -711,7 +717,7 @@ public final class LoginWorker {
      * @return Return a boolean which specifies whether or not the calling Servlet or
      *         JSP should generate its own content. This allows an event to override the default content.
      */
-    /*public static String depersonateLogin(HttpServletRequest request, HttpServletResponse response) {
+    public static String depersonateLogin(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         GenericValue originUserLogin = (GenericValue) session.getAttribute("originUserLogin");
         session.removeAttribute("originUserLogin");
@@ -749,7 +755,7 @@ public final class LoginWorker {
 
         // Log back the impersonating user
         return doMainLogin(request, response, originUserLogin, null);
-    }*/
+    }
 
     protected static void setWebContextObjects(HttpServletRequest request, HttpServletResponse response, Delegator delegator,
                                                LocalDispatcher dispatcher) {
