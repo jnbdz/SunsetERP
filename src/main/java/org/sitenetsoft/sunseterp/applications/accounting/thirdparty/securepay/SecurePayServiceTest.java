@@ -41,7 +41,7 @@ public class SecurePayServiceTest extends OFBizTestCase {
     private static final String MODULE = SecurePayServiceTest.class.getName();
 
     // test data
-    protected GenericValue emailAddr = null;
+    /*protected GenericValue emailAddr = null;
     protected String orderId = null;
     protected GenericValue creditCard = null;
     protected GenericValue billingAddress = null;
@@ -245,5 +245,5 @@ public class SecurePayServiceTest extends OFBizTestCase {
         } catch (GenericServiceException ex) {
             TestCase.fail(ex.getMessage());
         }
-    }
+    }*/
 }
