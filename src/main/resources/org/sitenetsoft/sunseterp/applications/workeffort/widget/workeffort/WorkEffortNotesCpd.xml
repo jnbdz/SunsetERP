@@ -141,7 +141,7 @@ under the License.
             <wf:field name="workEffortId" entity-name="WorkEffort"><wf:hidden/></wf:field>
             <wf:field name="noteInfo" title="${uiLabelMap.CommonNote}"><wf:display/></wf:field>
             <wf:field name="noteParty" title="${uiLabelMap.CommonBy}">
-                <wf:display description="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/>
+                <wf:display description="${groovy:org.sitenetsoft.sunseterp.applications.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/>
             </wf:field>
             <wf:field name="menuAction" title=" ">
                 <wf:include-menu name="ListWorkEffortNotesInLineBar" location="component://workeffort/widget/workeffort/WorkEffortNotesCpd.xml"/>

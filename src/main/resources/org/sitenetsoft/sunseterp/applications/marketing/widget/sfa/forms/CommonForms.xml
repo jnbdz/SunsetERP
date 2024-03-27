@@ -24,7 +24,7 @@ under the License.
     <grid name="ViewPartiesCreatedByVCard" list-name="partiesCreated" header-row-style="header-row" default-table-style="basic-table">
         <row-actions>
             <entity-one entity-name="Party" value-field="party" use-cache="true"/>
-            <set field="partyName" value="${groovy:org.apache.ofbiz.party.party.PartyHelper.getPartyName(party, true)}"/>
+            <set field="partyName" value="${groovy:org.sitenetsoft.sunseterp.applications.party.party.PartyHelper.getPartyName(party, true)}"/>
             <entity-and entity-name="PartyAndContactMech" list="emailAddresses">
                 <field-map field-name="partyId"/>
                 <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>

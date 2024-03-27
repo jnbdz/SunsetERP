@@ -110,7 +110,7 @@ under the License.
     </service>
 
     <service name="signUpForContactList" engine="java"
-            location="org.apache.ofbiz.marketing.marketing.MarketingServices" invoke="signUpForContactList" auth="false">
+            location="org.sitenetsoft.sunseterp.applications.marketing.marketing.MarketingServices" invoke="signUpForContactList" auth="false">
         <description>Signs an input email up for a ContactList with _NA_ party using the system userLogin.
             The intent is for anonymous sign ups to email lists.  Also validates email format.</description>
         <attribute name="contactListId" type="String" mode="IN" optional="false"/>
@@ -218,7 +218,7 @@ under the License.
         <attribute name="oldContactMechId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="deleteContactListParty" default-entity-name="ContactListParty" engine="java"
-    	location="org.apache.ofbiz.marketing.marketing.MarketingServices" invoke="deleteContactListParty" auth="true">
+    	location="org.sitenetsoft.sunseterp.applications.marketing.marketing.MarketingServices" invoke="deleteContactListParty" auth="true">
     	<description>Remove Party from ContactList</description>
     	<auto-attributes include="pk" mode="IN" optional="true"/>
     </service>
@@ -573,7 +573,7 @@ under the License.
     </service>
 
     <!-- VCard services -->
-    <service name="importVCard" engine="java" location="org.apache.ofbiz.sfa.vcard.VCard" invoke="importVCard" transaction-timeout="7200">
+    <service name="importVCard" engine="java" location="org.sitenetsoft.sunseterp.applications.marketing.sfa.vcard.VCard" invoke="importVCard" transaction-timeout="7200">
         <attribute name="infile" type="java.nio.ByteBuffer" mode="IN" optional="false"/>
         <attribute name="partyType" type="String" mode="IN" optional="true"/>
         <attribute name="serviceContext" type="Map" mode="IN" optional="true"/>
@@ -581,7 +581,7 @@ under the License.
         <attribute name="partiesCreated" type="List" mode="OUT" optional="false"/>
         <attribute name="partiesExist" type="List" mode="OUT" optional="true"/>
     </service>
-    <service name="exportVCard" engine="java" location="org.apache.ofbiz.sfa.vcard.VCard" invoke="exportVCard">
+    <service name="exportVCard" engine="java" location="org.sitenetsoft.sunseterp.applications.marketing.sfa.vcard.VCard" invoke="exportVCard">
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
     </service>
 

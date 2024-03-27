@@ -149,7 +149,7 @@ under the License.
         <field name="contactListId"><hidden/></field>
         <field name="partyId" use-when="contactListParty==null" title="${uiLabelMap.MarketingContactListPartyId}" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyId" use-when="contactListParty!=null"><display/></field>
-        <field name="fromDate" use-when="contactListParty==null" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.apache.ofbiz.base.util.UtilDateTime.nowTimestamp()}"/></field>
+        <field name="fromDate" use-when="contactListParty==null" title="${uiLabelMap.CommonFromDate}" required-field="true"><date-time default-value="${groovy: org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime.nowTimestamp()}"/></field>
         <field name="fromDate" use-when="contactListParty!=null"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
 
@@ -208,7 +208,7 @@ under the License.
         </actions>
         <row-actions>
             <set field="thruDate" from-field="thruDate" type="Timestamp"/>
-            <set field="isDateAfterNow" value="${groovy:org.apache.ofbiz.base.util.UtilValidate.isDateAfterNow(thruDate)}" type="Boolean"/>
+            <set field="isDateAfterNow" value="${groovy:org.sitenetsoft.sunseterp.framework.base.util.UtilValidate.isDateAfterNow(thruDate)}" type="Boolean"/>
         </row-actions>
 
         <field name="contactListId"><hidden/></field>
@@ -623,7 +623,7 @@ under the License.
     <form name="CreateWebSiteContactList" type="single" target="createWebSiteContactList" 
             default-map-name="contactList" title="" header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <set field="fromDate" value="${groovy: import org.apache.ofbiz.base.util.UtilDateTime; return UtilDateTime.nowTimestamp();}" type="Timestamp"/>
+            <set field="fromDate" value="${groovy: import org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime; return UtilDateTime.nowTimestamp();}" type="Timestamp"/>
         </actions>
         <field name="contactListId"><display/></field>
         <field name="contactListName"><display/></field>

@@ -19,7 +19,7 @@
 package org.sitenetsoft.sunseterp.framework.security;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.cxf.jaxrs.model.URITemplate;
+//import org.apache.cxf.jaxrs.model.URITemplate;
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
@@ -28,9 +28,6 @@ import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.webapp.control.*;
 
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpSession;
-//import javax.ws.rs.core.MultivaluedHashMap;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.ws.rs.core.MultivaluedHashMap;
@@ -240,9 +237,10 @@ public final class CsrfUtil {
         return requestMap;
     }
 
+    // TODO: Most code commented out here, as it is conflicting with Quarkus.
     static ConfigXMLReader.RequestMap findRequestMap(Map<String, ConfigXMLReader.RequestMap> requestMapMap,
             String urlWithoutControlPath) {
-        String path = urlWithoutControlPath;
+        /*String path = urlWithoutControlPath;
         if (urlWithoutControlPath.startsWith("/")) {
             path = urlWithoutControlPath.substring(1);
         }
@@ -261,7 +259,7 @@ public final class CsrfUtil {
         // the path could be request uri with orderride
         if (path.contains("/")) {
             return requestMapMap.get(path.substring(0, path.indexOf("/")));
-        }
+        }*/
         return null;
     }
 

@@ -26,7 +26,7 @@
     </test-case>
     
     <test-case case-name="content-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.content.ContentTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.content.ContentTests"/>
     </test-case> 
 </test-suite>
 

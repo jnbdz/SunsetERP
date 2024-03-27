@@ -24,7 +24,7 @@
 
     <!-- DataResource services -->
     <service name="sendContentToFtp" engine="java"
-            location="org.apache.ofbiz.content.ftp.FtpServices" invoke="sendContentToFtp" auth="true">
+            location="org.sitenetsoft.sunseterp.applications.content.ftp.FtpServices" invoke="sendContentToFtp" auth="true">
         <description>Send content to FtpAddress</description>
         <attribute name="contentId" type="String" mode="IN"/>
         <attribute name="contactMechId" type="String" mode="IN"/>

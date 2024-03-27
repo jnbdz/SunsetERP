@@ -581,7 +581,7 @@ under the License.
 
     <form name="EditICalendar" default-map-name="workEffort" target="updateICalendar" type="single">
         <actions>
-            <set field="serverRootUrl" value="${groovy: org.apache.ofbiz.base.util.UtilHttp.getServerRootUrl(request)}"/>
+            <set field="serverRootUrl" value="${groovy: org.sitenetsoft.sunseterp.framework.base.util.UtilHttp.getServerRootUrl(request)}"/>
         </actions>
         <alt-target target="createICalendar" use-when="workEffort==null"/>
         <field name="workEffortTypeId"><hidden value="PUBLISH_PROPS"></hidden></field>
@@ -656,7 +656,7 @@ under the License.
                 <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <field-map field-name="statusId" value="PRTYASGN_ASSIGNED"/>
             </entity-and>
-            <set field="serverRootUrl" value="${groovy: org.apache.ofbiz.base.util.UtilHttp.getServerRootUrl(request)}"/>
+            <set field="serverRootUrl" value="${groovy: org.sitenetsoft.sunseterp.framework.base.util.UtilHttp.getServerRootUrl(request)}"/>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}">
             <hyperlink description="${workEffortId}" target="EditICalendar" also-hidden="false" target-type="plain">

@@ -13,4 +13,7 @@ public class GreetingResource {
     public String hello() {
         return "Hello from RESTEasy Reactive";
     }
+
+
+
 }

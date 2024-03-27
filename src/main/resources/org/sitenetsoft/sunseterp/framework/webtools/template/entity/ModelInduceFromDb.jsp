@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 --%>
-<%@ page import="java.util.*, java.io.*, java.net.*, java.sql.*, org.apache.ofbiz.base.util.*, org.apache.ofbiz.entity.*, org.apache.ofbiz.entity.model.*, org.apache.ofbiz.entity.datasource.*" %><jsp:useBean id="delegator" type="org.apache.ofbiz.entity.GenericDelegator" scope="request" /><jsp:useBean id="security" type="org.apache.ofbiz.security.Security" scope="request" /><%
+<%@ page import="java.util.*, java.io.*, java.net.*, java.sql.*, org.sitenetsoft.sunseterp.framework.base.util.*, org.sitenetsoft.sunseterp.framework.entity.*, org.sitenetsoft.sunseterp.framework.entity.model.*, org.sitenetsoft.sunseterp.framework.entity.datasource.*" %><jsp:useBean id="delegator" type="org.sitenetsoft.sunseterp.framework.entity.GenericDelegator" scope="request" /><jsp:useBean id="security" type="org.sitenetsoft.sunseterp.framework.security.Security" scope="request" /><%
 
 if(security.hasPermission("ENTITY_MAINT", session)) {
   String helperName = request.getParameter("helperName");

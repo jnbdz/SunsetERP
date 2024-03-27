@@ -204,7 +204,7 @@
     </service-->
 
     <service name="getAssocAndContentAndDataResourceCache" default-entity-name="ContentAssocDataResourceViewFrom"
-        engine="java" location="org.apache.ofbiz.content.content.ContentServicesComplex"
+        engine="java" location="org.sitenetsoft.sunseterp.applications.content.content.ContentServicesComplex"
         invoke="getAssocAndContentAndDataResourceCache" auth="false">
         <description>Get a ContentAssocDataResourceView</description>
         <auto-attributes entity-name="ContentAssocDataResourceViewFrom" include="all"
@@ -226,11 +226,11 @@
         <attribute mode="IN" name="contentAssocPredicateId" optional="true" type="String"/>
         <attribute mode="IN" name="contentIdFrom" optional="true" type="String"/>
         <attribute mode="OUT" name="entityList" optional="true" type="List"/>
-        <attribute mode="OUT" name="view" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
+        <attribute mode="OUT" name="view" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
     </service>
 
     <service name="getAssocAndContentAndDataResource" default-entity-name="ContentAssocDataResourceViewFrom"
-            engine="java" location="org.apache.ofbiz.content.content.ContentServicesComplex" invoke="getAssocAndContentAndDataResource" auth="false">
+            engine="java" location="org.sitenetsoft.sunseterp.applications.content.content.ContentServicesComplex" invoke="getAssocAndContentAndDataResource" auth="false">
         <description>Get a ContentAssocDataResourceView</description>
         <auto-attributes entity-name="ContentAssocDataResourceViewFrom" include="all" mode="OUT" optional="true">
             <exclude field-name="contentIdStart"/>
@@ -249,7 +249,7 @@
     </service>
 
     <service name="traverseContent" auth="false" engine="java" invoke="traverseContent"
-        location="org.apache.ofbiz.content.content.ContentServices">
+        location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices">
         <description>Follow a content and return descendants</description>
         <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
@@ -267,12 +267,12 @@
         <attribute mode="OUT" name="nodeMap" optional="true" type="Map"/>
     </service>
     <service name="getContent" engine="java"
-        location="org.apache.ofbiz.content.ContentManagementServices" invoke="getContent" auth="false">
+        location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="getContent" auth="false">
         <description>Get Content of passed contentId</description>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
-        <attribute mode="OUT" name="view" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
+        <attribute mode="OUT" name="view" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
     </service>
-    <service name="getSubContent" engine="java" location="org.apache.ofbiz.content.ContentManagementServices" invoke="getSubContent" auth="false">
+    <service name="getSubContent" engine="java" location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="getSubContent" auth="false">
         <description>Get subContent of passed contentId/mapKey or subContentId</description>
         <attribute mode="IN" name="mapKey" optional="true" type="String"/>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
@@ -281,12 +281,12 @@
         <attribute mode="IN" name="assocTypesString" optional="true" type="String"/>
         <attribute mode="IN" name="contentTypes" optional="true" type="List"/>
         <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
-        <attribute mode="OUT" name="view" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
-        <attribute mode="OUT" name="content" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
+        <attribute mode="OUT" name="view" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
+        <attribute mode="OUT" name="content" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
     </service>
 
     <service name="persistContentAndAssoc" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="persistContentAndAssoc" auth="true">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="persistContentAndAssoc" auth="true">
         <description>Create a Content, DataResource and/or ContentAssoc</description>
         <permission-service service-name="genericContentPermission" main-action="CREATE"/>
         <auto-attributes entity-name="ContentDataResourceView" include="all" mode="IN" optional="true">
@@ -323,7 +323,7 @@
              the service in a request event, so I added new ones without removing lists -->
         <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
         <attribute mode="IN" name="contentPurposeString" optional="true" type="String"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
         <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
         <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
@@ -336,7 +336,7 @@
 
     <service name="persistDataResourceAndData" engine="java"
         transaction-timeout="7200"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="persistDataResourceAndData" auth="true">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="persistDataResourceAndData" auth="true">
         <description>Persist a  DataResource and data</description>
         <auto-attributes entity-name="DataResource" include="all" mode="IN" optional="true" >
             <exclude field-name="dataResourceId"/>
@@ -355,7 +355,7 @@
              the service in a request event, so I added new ones without removing lists -->
         <attribute mode="IN" name="targetOperationString" optional="true" type="String"/>
         <attribute mode="IN" name="contentPurposeString" optional="true" type="String"/>
-        <attribute mode="IN" name="userLogin" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         <attribute mode="IN" name="imageData" optional="true" type="java.nio.ByteBuffer"/>
         <attribute mode="IN" name="_imageData_contentType" optional="true" type="String"/>
         <attribute mode="IN" name="_imageData_fileName" optional="true" type="String"/>
@@ -366,7 +366,7 @@
 
     <service name="findContentParents" engine="java"
         transaction-timeout="7200"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="findContentParents" auth="true">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="findContentParents" auth="true">
         <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
                 <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
@@ -382,7 +382,7 @@
     </service>
 
     <service name="deactivateAssocs" engine="java"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="deactivateAssocs" auth="true">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="deactivateAssocs" auth="true">
         <description>Supply thruDate to all ContentAssoc that come "before" current one</description>
         <attribute mode="IN" name="contentIdTo" optional="false" type="String">
             <type-validate>
@@ -403,7 +403,7 @@
 
     <service name="deactivateContentAssoc" engine="java"
         transaction-timeout="7200"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="deactivateContentAssoc" auth="true">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="deactivateContentAssoc" auth="true">
         <description>Set thruDate to now for ContentAssoc entity</description>
         <attribute mode="IN" name="contentIdTo" optional="true" type="String"/>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
@@ -434,7 +434,7 @@
     </service>
     <!-- SubContent Render Services -->
     <service name="renderSubContentAsText" engine="java"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="renderSubContentAsText" auth="false">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="renderSubContentAsText" auth="false">
         <description>Get the subcontent and render</description>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
         <attribute mode="IN" name="mapKey" optional="true" type="String"/>
@@ -452,23 +452,23 @@
         <attribute mode="IN" name="locale" optional="true" type="String"/>
         <attribute mode="IN" name="mimeTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="fromDate" optional="true" type="Timestamp"/>
-        <attribute mode="IN" name="subContentDataResourceView" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
-        <attribute mode="OUT" name="view" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="subContentDataResourceView" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
+        <attribute mode="OUT" name="view" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         <attribute mode="OUT" name="textData" optional="true" type="String"/>
     </service>
     <service name="renderContentAsText" engine="java"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="renderContentAsText" auth="false">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="renderContentAsText" auth="false">
         <description>Get the subcontent and render</description>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
         <attribute mode="IN" name="outWriter" optional="true" type="java.io.Writer"/>
         <attribute mode="IN" name="templateContext" optional="true" type="Map"/>
         <attribute mode="IN" name="locale" optional="true" type="String"/>
         <attribute mode="IN" name="mimeTypeId" optional="true" type="String"/>
-        <attribute mode="IN" name="subContentDataResourceView" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="subContentDataResourceView" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         <attribute mode="OUT" name="textData" optional="true" type="String"/>
     </service>
     <service name="renderDataResourceAsText" engine="java"
-            location="org.apache.ofbiz.content.data.DataServices" invoke="renderDataResourceAsText" auth="false">
+            location="org.sitenetsoft.sunseterp.applications.content.data.DataServices" invoke="renderDataResourceAsText" auth="false">
         <description>Get the dataResource and render</description>
         <attribute mode="IN" name="dataResourceId" optional="false" type="String">
             <type-validate>
@@ -487,12 +487,12 @@
         </attribute>
         <attribute mode="IN" name="locale" optional="true" type="String"/>
         <attribute mode="IN" name="mimeTypeId" optional="true" type="String"/>
-        <attribute mode="IN" name="subContentDataResourceView" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="subContentDataResourceView" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
         <attribute mode="OUT" name="textData" optional="true" type="String"/>
     </service>
 
     <service name="updateSiteRoles" auth="true" engine="java"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateSiteRoles">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="updateSiteRoles">
         <description>Update site roles</description>
         <attribute mode="IN" name="partyId" optional="true" type="String"/>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
@@ -509,7 +509,7 @@
     </service>
 
     <service name="linkContentToPubPt" engine="java"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="linkContentToPubPt" auth="true" >
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="linkContentToPubPt" auth="true" >
     <description>Attach content to publish point</description>
         <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
@@ -529,14 +529,14 @@
     </service>
 
     <service name="updateSiteRolesDyn" auth="true" engine="java" validate="false"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateSiteRolesDyn">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="updateSiteRolesDyn">
         <description>Update site roles</description>
         <attribute mode="IN" name="partyId" optional="true" type="String"/>
         <attribute mode="IN" name="contentId" optional="true" type="String"/>
     </service>
 
     <service name="updateOrRemove" engine="java"
-        location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateOrRemove" auth="true" validate="false">
+        location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="updateOrRemove" auth="true" validate="false">
         <description>Update or remove a child entity based on value of "action"</description>
         <attribute name="entityName" type="String" mode="IN" optional="false">
             <type-validate>
@@ -566,7 +566,7 @@
         </group>
     </service>
     <service name="resequenceContentAssocChildren" auth="true" engine="java" transaction-timeout="7200"
-             location="org.apache.ofbiz.content.ContentManagementServices" invoke="resequence">
+             location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="resequence">
         <description>Reorder sequence numbers in ContentAssoc entities for a given parent id</description>
         <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
@@ -581,18 +581,18 @@
     </service>
 
     <service name="changeLeafToNode" validate="true" auth="true" engine="java" transaction-timeout="7200"
-        location="org.apache.ofbiz.content.ContentManagementServices" invoke="changeLeafToNode">
+        location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="changeLeafToNode">
         <description>Moves dataResource to separate content associated with current content so that node can have only children, no content of its own</description>
         <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
                 <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContentId"/>
             </type-validate>
         </attribute>
-        <attribute mode="IN" name="userLogin" optional="true" type="org.apache.ofbiz.entity.GenericValue"/>
+        <attribute mode="IN" name="userLogin" optional="true" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue"/>
     </service>
 
     <service name="updatePageType" auth="true" engine="java" validate="true" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="updatePageType">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="updatePageType">
         <description>Change contentTypeId to OUTLINE/PAGE/SUBPAGE_NODE</description>
         <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
@@ -603,7 +603,7 @@
     </service>
 
     <service name="resetToOutlineMode" auth="true" engine="java" validate="true" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="resetToOutlineMode">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="resetToOutlineMode">
         <description>Set content and kids to OUTLINE_NODE</description>
         <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
@@ -614,18 +614,18 @@
     </service>
 
     <service name="clearContentAssocViewCache" auth="true" engine="java" validate="true" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="clearContentAssocViewCache">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="clearContentAssocViewCache">
         <description>Clear cache</description>
     </service>
 
     <service name="clearContentAssocDataResourceViewCache" auth="true" engine="java" validate="true" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="clearContentAssocDataResourceViewCache">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="clearContentAssocDataResourceViewCache">
         <description>Clear cache</description>
     </service>
 
 
     <service name="findSubNodes" auth="false" engine="java" validate="true" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="findSubNodes">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="findSubNodes">
         <description>Get children of content</description>
         <attribute mode="IN" name="contentId" optional="false" type="String">
             <type-validate>
@@ -636,9 +636,9 @@
     </service>
 
     <service name="initContentChildCounts" engine="java"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="initContentChildCounts">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="initContentChildCounts">
         <description>Set childLeafCount and childBranchCount to appropriate values</description>
-        <attribute name="content" type="org.apache.ofbiz.entity.GenericValue" mode="IN" optional="false">
+        <attribute name="content" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="IN" optional="false">
             <type-validate>
                 <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContent"/>
             </type-validate>
@@ -646,7 +646,7 @@
     </service>
 
     <service name="incrementContentChildStats" engine="java"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="incrementContentChildStats">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="incrementContentChildStats">
         <description>Set childLeafCount and childBranchCount in parent Content entities</description>
         <attribute name="contentId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -657,7 +657,7 @@
     </service>
 
     <service name="decrementContentChildStats" engine="java"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="decrementContentChildStats">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="decrementContentChildStats">
         <description>Set childLeafCount and childBranchCount in parent Content entities</description>
         <attribute name="contentId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -668,7 +668,7 @@
     </service>
 
     <service name="updateContentChildStats" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateContentChildStats">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="updateContentChildStats">
         <description>Set childLeafCount and childBranchCount in passed id and those below</description>
         <attribute name="contentId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -679,7 +679,7 @@
     </service>
 
     <service name="updateImage" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.data.DataServices" invoke="updateImage">
+            location="org.sitenetsoft.sunseterp.applications.content.data.DataServices" invoke="updateImage">
         <description>Update image</description>
         <attribute name="dataResourceId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -694,7 +694,7 @@
     </service>
 
     <service name="createImage" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.data.DataServices" invoke="createImage">
+            location="org.sitenetsoft.sunseterp.applications.content.data.DataServices" invoke="createImage">
         <description>Create image</description>
         <attribute name="dataResourceId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -709,7 +709,7 @@
     </service>
 
     <service name="updateContentSubscription" engine="java" transaction-timeout="7200" auth="true"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateContentSubscription">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="updateContentSubscription">
         <description>Creates or updates ContentRole</description>
         <attribute name="partyId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -730,7 +730,7 @@
         </attribute>
     </service>
     <service name="updateContentSubscriptionByProduct" engine="java" transaction-timeout="7200" auth="true"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateContentSubscriptionByProduct">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="updateContentSubscriptionByProduct">
         <description>Creates or updates ContentRole</description>
         <attribute name="partyId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -750,7 +750,7 @@
         </attribute>
     </service>
     <service name="updateContentSubscriptionByOrder" engine="java" transaction-timeout="7200" auth="true"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="updateContentSubscriptionByOrder">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="updateContentSubscriptionByOrder">
         <description>Creates or updates ContentRole</description>
         <attribute name="orderId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -759,7 +759,7 @@
         </attribute>
     </service>
     <service name="followNodeChildren" auth="true" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.ContentManagementServices" invoke="followNodeChildren">
+            location="org.sitenetsoft.sunseterp.applications.content.ContentManagementServices" invoke="followNodeChildren">
         <description>Descend thru content tree and execute service at each node</description>
         <attribute name="contentId" type="String" mode="IN" optional="false">
             <type-validate>
@@ -774,9 +774,9 @@
         <attribute name="contentAssocTypeId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="publishContent" auth="true" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="publishContent">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="publishContent">
         <description>Change statusId to published (CTNT_PUBLISHED)</description>
-        <attribute mode="IN" name="content" optional="false" type="org.apache.ofbiz.entity.GenericValue">
+        <attribute mode="IN" name="content" optional="false" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue">
             <type-validate>
                 <fail-property resource="ContentErrorUiLabels" property="ContentRequiredFieldMissingContent"/>
             </type-validate>
@@ -785,7 +785,7 @@
 
     <!-- these three services are for use in screen widget files -->
     <service name="getPrefixedMembers" auth="false" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="getPrefixedMembers">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="getPrefixedMembers">
         <description>Gets all the members of the input map that start with the prefix</description>
         <attribute mode="IN" name="mapIn" optional="true" type="java.util.Map"/>
         <attribute name="prefix" type="String" mode="IN" optional="false">
@@ -796,14 +796,14 @@
         <attribute mode="OUT" name="mapOut" optional="true" type="java.util.Map"/>
     </service>
     <service name="splitString" auth="false" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="splitString">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="splitString">
         <description>Splits input string </description>
         <attribute name="inputString" type="String" mode="IN" optional="true"/>
         <attribute name="delimiter" type="String" mode="IN" optional="true"/>
         <attribute mode="OUT" name="outputList" optional="true" type="java.util.List"/>
     </service>
     <service name="joinString" auth="false" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="joinString">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="joinString">
         <description>Splits input string </description>
         <attribute name="inputList" type="java.util.List" mode="IN" optional="false">
             <type-validate>
@@ -814,7 +814,7 @@
         <attribute mode="OUT" name="outputString" optional="true" type="String"/>
     </service>
     <service name="urlEncodeArgs" auth="false" engine="java" transaction-timeout="7200"
-            location="org.apache.ofbiz.content.content.ContentServices" invoke="urlEncodeArgs">
+            location="org.sitenetsoft.sunseterp.applications.content.content.ContentServices" invoke="urlEncodeArgs">
         <description>URL encodes map</description>
         <attribute name="mapIn" type="java.util.Map" mode="IN" optional="false">
             <type-validate>
@@ -904,7 +904,7 @@
 
     <!-- blog RSS services -->
     <service name="generateBlogRssFeed" engine="java" auth="false"
-            location="org.apache.ofbiz.content.blog.BlogRssServices" invoke="generateBlogRssFeed">
+            location="org.sitenetsoft.sunseterp.applications.content.blog.BlogRssServices" invoke="generateBlogRssFeed">
         <description>Blog RSS Feed</description>
         <implements service="rssFeedInterface"/>
         <attribute name="blogContentId" type="String" mode="IN" optional="false">

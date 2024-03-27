@@ -701,11 +701,11 @@ under the License.
             </type-validate>
         </attribute>
         <attribute name="partyBenefitTypes" type="java.util.List" mode="OUT" optional="true"/>
-        <attribute name="employment" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="emplPosition" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="emplPositionType" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="emplPositionRateType" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
-        <attribute name="emplPositionRateAmount" type="org.apache.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="employment" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPosition" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPositionType" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPositionRateType" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="OUT" optional="true"/>
+        <attribute name="emplPositionRateAmount" type="org.sitenetsoft.sunseterp.framework.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
 
     <service name="createJobRequisition" engine="entity-auto" default-entity-name="JobRequisition" invoke="create" auth="true">

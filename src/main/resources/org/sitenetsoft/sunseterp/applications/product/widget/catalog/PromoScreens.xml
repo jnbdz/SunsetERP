@@ -276,7 +276,7 @@ under the License.
                             </fail-widgets>
                         </section>
                         <screenlet title="${uiLabelMap.PageTitleFindProductPromotionCode}: ${groovy: productPromoUses.size()} / ${groovy: 
-                        [org.apache.ofbiz.entity.util.EntityUtil.getFieldListFromEntityList(productPromoCodes, 'useLimitPerCode', false).sum(), 
+                        [org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil.getFieldListFromEntityList(productPromoCodes, 'useLimitPerCode', false).sum(),
                         productPromo.useLimitPerPromotion].min()} ${uiLabelMap.PageTitleFindProductPromotionCodeRedeemed}">
                             <include-grid name="ListProductPromoCodes" location="component://product/widget/catalog/PromoForms.xml"/>
                         </screenlet>

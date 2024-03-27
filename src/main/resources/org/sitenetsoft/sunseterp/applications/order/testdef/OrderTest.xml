@@ -25,21 +25,21 @@ under the License.
         <entity-xml action="load" entity-xml-url="component://order/testdef/data/OrderTestData.xml"/>
     </test-case>
     <test-case case-name="order-test">
-        <junit-test-suite class-name="org.apache.ofbiz.order.test.OrderTest"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.test.OrderTest"/>
     </test-case>
     <test-case case-name="purchaseOrder-test">
-        <junit-test-suite class-name="org.apache.ofbiz.order.test.PurchaseOrderTest"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.test.PurchaseOrderTest"/>
     </test-case>
     <test-case case-name="salesOrder-test">
-        <junit-test-suite class-name="org.apache.ofbiz.order.test.SalesOrderTest"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.test.SalesOrderTest"/>
     </test-case>
     <test-case case-name="order-tests-xml">
-        <junit-test-suite class-name="org.apache.ofbiz.order.OrderTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.OrderTests"/>
     </test-case>
     <test-case case-name="order-return-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.order.OrderReturnTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.OrderReturnTests"/>
     </test-case>
     <test-case case-name="order-requirement-tests">
-        <junit-test-suite class-name="org.apache.ofbiz.order.OrderRequirementTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.OrderRequirementTests"/>
     </test-case>
 </test-suite>

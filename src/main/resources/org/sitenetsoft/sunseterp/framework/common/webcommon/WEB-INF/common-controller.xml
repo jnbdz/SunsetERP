@@ -27,27 +27,27 @@ under the License.
 
     <preprocessor>
         <!-- Events to run on every request before security (chains exempt) -->
-        <event name="check509CertLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="check509CertLogin"/>
-        <event name="checkRequestHeaderLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
-        <event name="checkServletRequestRemoteUserLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
-        <event name="checkExternalLoginKey" type="java" path="org.apache.ofbiz.webapp.control.ExternalLoginKeysManager" invoke="checkExternalLoginKey"/>
-        <event name="checkJWTLogin" type="java" path="org.apache.ofbiz.webapp.control.JWTManager" invoke="checkJWTLogin"/>
-        <event name="checkProtectedView" type="java" path="org.apache.ofbiz.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
-        <event name="extensionConnectLogin" type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionConnectLogin"/>
+        <event name="check509CertLogin" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="check509CertLogin"/>
+        <event name="checkRequestHeaderLogin" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="checkRequestHeaderLogin"/>
+        <event name="checkServletRequestRemoteUserLogin" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="checkServletRequestRemoteUserLogin"/>
+        <event name="checkExternalLoginKey" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.ExternalLoginKeysManager" invoke="checkExternalLoginKey"/>
+        <event name="checkJWTLogin" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.JWTManager" invoke="checkJWTLogin"/>
+        <event name="checkProtectedView" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.ProtectViewWorker" invoke="checkProtectedView"/>
+        <event name="extensionConnectLogin" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="extensionConnectLogin"/>
     </preprocessor>
     <postprocessor>
         <!-- Events to run on every request after all other processing (chains exempt) -->
     </postprocessor>
 
     <after-login>
-        <event name="showLastVisit" type="java" path="org.apache.ofbiz.webapp.AfterLoginEvents" invoke="showLastVisit"/>
+        <event name="showLastVisit" type="java" path="org.sitenetsoft.sunseterp.framework.webapp.AfterLoginEvents" invoke="showLastVisit"/>
     </after-login>
 
     <!-- Security Mappings -->
     <request-map uri="checkLogin">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="impersonated" type="view" value="impersonated"/>
         <response name="error" type="view" value="login"/>
@@ -55,45 +55,45 @@ under the License.
     <request-map uri="ajaxCheckLogin">
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="extensionCheckLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="ajaxLogin"/>
     </request-map>
     <request-map uri="impersonateLogin">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="impersonateLogin"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="impersonateLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="depersonateLogin">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="depersonateLogin"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="depersonateLogin"/>
         <response name="success" type="view" value="main"/>
         <response name="error" type="view-last"/>
     </request-map>
     <request-map uri="login">
         <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="login"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="login"/>
         <response name="success" type="view" value="main"/>
         <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="logout">
         <security https="true" auth="true" csrf-token="false"/>
-        <event type="java" path="org.apache.ofbiz.webapp.control.LoginWorker" invoke="logout"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker" invoke="logout"/>
         <response name="success" type="request-redirect" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="forgotPassword">
         <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.securityext.login.LoginEvents" invoke="forgotPassword"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.securityext.login.LoginEvents" invoke="forgotPassword"/>
         <response name="success" type="view" value="forgotPassword"/>
         <response name="error" type="view" value="forgotPassword"/>
         <response name="auth" type="request-redirect" value="main" />
     </request-map>
     <request-map uri="forgotPasswordReset">
         <security https="true" auth="false" />
-        <event type="java" path="org.apache.ofbiz.securityext.login.LoginEvents" invoke="changePasswordRequest"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.applications.securityext.login.LoginEvents" invoke="changePasswordRequest"/>
         <response name="success" type="request-redirect" value="main" />
         <response name="error" type="view" value="forgotPassword" />
     </request-map>
@@ -114,14 +114,14 @@ under the License.
     <request-map uri="ListLocales"><security https="true" auth="false"/><response name="success" type="view" value="ListLocales" save-last-view="true"/></request-map>
     <request-map uri="setSessionLocale">
         <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="setSessionLocale"/>
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
     <request-map uri="ListTimezones"><security https="true" auth="false"/><response name="success" type="view" value="ListTimezones" save-last-view="true"/></request-map>
     <request-map uri="setSessionTimeZone">
         <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionTimeZone"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="setSessionTimeZone"/>
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
@@ -138,7 +138,7 @@ under the License.
     </request-map>
     <request-map uri="setSessionTheme">
         <security https="true" auth="true"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="setSessionTheme"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="setSessionTheme"/>
         <response name="success" type="view-last" value="main"/>
         <response name="error" type="request" value="main"/>
     </request-map>
@@ -207,7 +207,7 @@ under the License.
     <!-- Standard json response, For security reason (OFBIZ-5409) tries to keep only the initially called service attributes -->
     <request-map uri="json">
         <security direct-request="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="jsonResponseFromRequestAttributes"/>
         <response name="success" type="none"/>
     </request-map>
 
@@ -229,7 +229,7 @@ under the License.
     <!-- Common captcha image request, the captcha code is stored in the session using _CAPTCHA_CODE_ as the key -->
     <request-map uri="captcha.jpg">
         <security https="false" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="getCaptcha"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="getCaptcha"/>
         <response name="success" type="none"/>
     </request-map>
 
@@ -246,7 +246,7 @@ under the License.
     </request-map>
     <request-map uri="js">
         <security direct-request="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="jsResponseFromRequest"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="jsResponseFromRequest"/>
         <response name="success" type="none"/>
     </request-map>
 
@@ -269,13 +269,13 @@ under the License.
     <!-- Common JavaScript uiLabel Request, to receive uiLabels within regular JS Code -->
     <request-map uri="getJSONuiLabelArray">
         <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="getJSONuiLabelArray"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="getJSONuiLabelArray"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
     </request-map>
     <request-map uri="getJSONuiLabel">
         <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="getJSONuiLabel"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="getJSONuiLabel"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
     </request-map>
@@ -283,7 +283,7 @@ under the License.
     <!-- Common JavaScript loadJWT Request, to receive JwtToken within regular JS Code -->
     <request-map uri="loadJWT">
         <security https="true" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="loadJWT"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="loadJWT"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
     </request-map>
@@ -326,7 +326,7 @@ under the License.
 
     <request-map uri="qrcode">
         <security auth="true" https="false" />
-        <event type="java" path="org.apache.ofbiz.common.qrcode.QRCodeEvents" invoke="serveQRCodeImage"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.qrcode.QRCodeEvents" invoke="serveQRCodeImage"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
     </request-map>
@@ -342,7 +342,7 @@ under the License.
 
     <request-map uri="openSourceFile">
         <security https="false" auth="false"/>
-        <event type="java" path="org.apache.ofbiz.common.CommonEvents" invoke="openSourceFile"/>
+        <event type="java" path="org.sitenetsoft.sunseterp.framework.common.CommonEvents" invoke="openSourceFile"/>
         <response name="success" type="none" />
         <response name="error" type="none" />
     </request-map>
