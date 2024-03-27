@@ -21,6 +21,11 @@ package org.sitenetsoft.sunseterp.applications.product.category;
 // TODO: Use Quarkus to handle this with Qute templates
 //import org.apache.catalina.servlets.DefaultServlet;
 //import org.apache.jasper.servlet.JspServlet;
+import io.quarkus.qute.Template;
+import io.quarkus.qute.TemplateInstance;
+import jakarta.inject.Inject;
+import io.quarkus.qute.Template;
+import io.quarkus.qute.TemplateInstance;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.webapp.SeoConfigUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.control.ControlServlet;
@@ -43,6 +48,9 @@ public class SeoControlServlet extends ControlServlet {
     private static String defaultPage = null;
     private static String controlServlet = null;
     public static final String REQUEST_IN_ALLOW_LIST = "_REQUEST_IN_ALLOW_LIST_";
+
+    @Inject
+    Template defaultTemplate;
 
     public SeoControlServlet() {
         super();
@@ -70,21 +78,13 @@ public class SeoControlServlet extends ControlServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String uri = URLEncoder.encode(request.getRequestURI(), "UTF-8");
-        if (request.getAttribute(REQUEST_IN_ALLOW_LIST) != null || request.getAttribute("_jsp_" + uri) != null) {
-            if (request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jsp")
-                    || request.getRequestURI().toLowerCase(Locale.getDefault()).endsWith(".jspx")) {
-                JspServlet jspServlet = new JspServlet();
-                jspServlet.init(this.getServletConfig());
-                jspServlet.service(request, response);
-            } else {
-                DefaultServlet defaultServlet = new DefaultServlet();
-                defaultServlet.init(this.getServletConfig());
-                defaultServlet.service(request, response);
-            }
-            return;
+        TemplateInstance instance = defaultTemplate.instance();
+        try {
+            String renderedTemplate = instance.render();
+            response.getWriter().write(renderedTemplate);
+        } catch (IOException ie) {
+            throw new ServletException("IO Error in view", ie);
         }
-        super.doGet(request, response);
     }
 
     public static String getDefaultPage() {
