@@ -1,20 +1,19 @@
 package org.sitenetsoft.sunseterp;
 
-import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.openapi.annotations.media.Content;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
-import org.sitenetsoft.sunseterp.framework.webapp.control.LoginWorker;
 import jakarta.ws.rs.core.Response;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-@Path("/auth")
+public class AuthResource {}
+
+/*@Path("/auth")
 public class AuthResource {
 
     private final Set<String> authInfos = Collections.synchronizedSet(new LinkedHashSet<>());
@@ -80,4 +79,4 @@ public class AuthResource {
         return Response.ok(authInfos).build();
     }
 
-}
+}*/
