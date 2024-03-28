@@ -18,14 +18,19 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.container;
 
-/*import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
-//import org.sitenetsoft.sunseterp.framework.start.Config;
-//import org.sitenetsoft.sunseterp.framework.start.StartupCommand;
-//import org.sitenetsoft.sunseterp.framework.start.StartupException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
+import org.sitenetsoft.sunseterp.framework.start.Config;
+import org.sitenetsoft.sunseterp.framework.start.StartupCommand;
+import org.sitenetsoft.sunseterp.framework.start.StartupException;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
-
-import java.util.*;*/
 
 /**
  * An object that loads containers (background processes).
@@ -40,12 +45,11 @@ import java.util.*;*/
  * {@code start} method. When OFBiz shuts down, a separate shutdown thread will call
  * the {@code unload} method.
  */
-public class ContainerLoader {}
-/*public class ContainerLoader {
+public class ContainerLoader {
 
     private static final String MODULE = ContainerLoader.class.getName();
 
-    private final Deque<Container> loadedContainers = new LinkedList<>();*/
+    private final Deque<Container> loadedContainers = new LinkedList<>();
 
     /**
      * Starts the containers.
@@ -55,7 +59,7 @@ public class ContainerLoader {}
      * will halt loader loading, so it should be thrown only when OFBiz can't
      * operate without it.
      */
-    /*public synchronized void load(Config config, List<StartupCommand> ofbizCommands) throws StartupException {
+    public synchronized void load(Config config, List<StartupCommand> ofbizCommands) throws StartupException {
         // Load mandatory container providing access to containers from components.
         try {
             ComponentContainer cc = new ComponentContainer();
@@ -79,7 +83,7 @@ public class ContainerLoader {}
      * @param b the second collection which can be {@code null}
      * @return {@code true} if {@code a} and {@code b} have an intersection or are both empty.
      */
-    /*private static boolean intersects(Collection<?> a, Collection<?> b) {
+    private static boolean intersects(Collection<?> a, Collection<?> b) {
         return UtilValidate.isEmpty(a) && UtilValidate.isEmpty(b)
                 || !Collections.disjoint(a, b);
     }
@@ -91,8 +95,8 @@ public class ContainerLoader {}
      * @return a list of loaded containers.
      * @throws StartupException when a container fails to load.
      */
-    /*private static List<Container> loadContainersFromConfigurations(Collection<String> loaders,
-            List<StartupCommand> ofbizCommands) throws StartupException {
+    private static List<Container> loadContainersFromConfigurations(Collection<String> loaders,
+                                                                    List<StartupCommand> ofbizCommands) throws StartupException {
         List<Container> loadContainers = new ArrayList<>();
         for (ContainerConfig.Configuration containerCfg : ComponentConfig.getAllConfigurations()) {
             if (intersects(containerCfg.loaders(), loaders)) {
@@ -157,7 +161,7 @@ public class ContainerLoader {}
     /**
      * Stops the containers.
      */
-    /*public synchronized void unload() {
+    public synchronized void unload() {
         Debug.logInfo("Shutting down containers", MODULE);
         loadedContainers.descendingIterator().forEachRemaining(loadedContainer -> {
             Debug.logInfo("Stopping container " + loadedContainer.getName(), MODULE);
@@ -169,4 +173,4 @@ public class ContainerLoader {}
             Debug.logInfo("Stopped container " + loadedContainer.getName(), MODULE);
         });
     }
-}*/
+}

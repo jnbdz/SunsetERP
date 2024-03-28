@@ -1,0 +1,104 @@
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+
+org.sitenetsoft.sunseterp.framework.minilang.method.callops.CallClassMethod$CallClassMethodFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.callops.CallObjectMethod$CallObjectMethodFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.callops.CallScript$CallScriptFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.callops.CallService$CallServiceFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.callops.CallServiceAsynch$CallServiceAsynchFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.callops.CallSimpleMapProcessor$CallSimpleMapProcessorFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.callops.CallSimpleMethod$CallSimpleMethodFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.callops.Return$ReturnFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.callops.SetServiceFields$SetServiceFieldsFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.conditional.CompareCondition$CompareConditionFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.conditional.CompareFieldCondition$CompareFieldConditionFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.conditional.EmptyCondition$EmptyConditionFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.conditional.HasPermissionCondition$HasPermissionConditionFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.conditional.MasterIf$MasterIfFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.conditional.RegexpCondition$RegexpConditionFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.conditional.ValidateMethodCondition$ValidateMethodConditionFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.ClearCacheLine$ClearCacheLineFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.ClearEntityCaches$ClearEntityCachesFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.CloneValue$CloneValueFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.CreateValue$CreateValueFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.EntityAnd$EntityAndFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.EntityCondition$EntityConditionFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.EntityCount$EntityCountFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.EntityData$EntityDataFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.EntityOne$EntityOneFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.FilterListByAnd$FilterListByAndFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.FilterListByDate$FilterListByDateFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.FindByAnd$FindByAndFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.FindByPrimaryKey$FindByPrimaryKeyFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.GetRelated$GetRelatedFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.GetRelatedOne$GetRelatedOneFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.MakeNextSeqId$MakeNextSeqIdFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.MakeValue$MakeValueFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.OrderValueList$OrderValueListFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.RefreshValue$RefreshValueFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.RemoveByAnd$RemoveByAndFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.RemoveList$RemoveListFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.RemoveRelated$RemoveRelatedFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.RemoveValue$RemoveValueFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.SequencedIdToEnv$SequencedIdFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.SetCurrentUserLogin$SetCurrentUserLoginFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.SetNonpkFields$SetNonpkFieldsFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.SetPkFields$SetPkFieldsFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.StoreList$StoreListFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.StoreValue$StoreValueFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.TransactionBegin$TransactionBeginFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.TransactionCommit$TransactionCommitFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.entityops.TransactionRollback$TransactionRollbackFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.AddError$AddErrorFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.Assert$AssertFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.Break$BreakFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.CheckErrors$CheckErrorsFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.CheckId$CheckIdFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.ClearField$ClearFieldFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.Continue$ContinueFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.CreateObject$CreateObjectFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.FieldToList$FieldToListFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.FirstFromList$FirstFromListFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.Iterate$IterateFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.IterateMap$IterateMapFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.ListToList$ListToListFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.Loop$LoopFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.MapToMap$MapToMapFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.Now$NowFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.Now$NowDateToEnvFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.Now$NowTimestampFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.OrderMapList$OrderMapListFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.SetCalendar$SetCalendarFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.SetOperation$SetOperationFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.StringAppend$StringAppendFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.StringToList$StringToListFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.ToString$ToStringFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.envops.While$WhileFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.eventops.FieldToRequest$FieldToRequestFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.eventops.FieldToSession$FieldToSessionFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.eventops.RequestParametersToList$RequestParametersToListFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.eventops.RequestToField$RequestToFieldFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.eventops.SessionToField$SessionToFieldFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.eventops.WebappPropertyToField$WebappPropertyToFieldFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.ifops.CheckPermission$CheckPermissionFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.ifops.IfInstanceOf$IfInstanceOfFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.ifops.IfNotEmpty$IfNotEmptyFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.otherops.Calculate$CalculateFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.otherops.Log$LogFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.otherops.PropertyToField$PropertyToFieldFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.otherops.Trace$TraceFactory
+org.sitenetsoft.sunseterp.framework.minilang.method.serviceops.FieldToResult$FieldToResultFactory

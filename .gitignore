@@ -37,3 +37,46 @@ nb-configuration.xml
 
 # Plugin directory
 /.quarkus/cli/plugins/
+
+# OFBiz .gitignore
+bin/
+build/
+applications/*/build
+framework/*/build
+/plugins/
+runtime/git-rebase/*
+runtime/SvnInfo.ftl
+runtime/GitInfo.ftl
+runtime/test-list-build.xml
+runtime/logs/access_log.*
+runtime/logs/*.log*
+runtime/logs/*.html*
+runtime/logs/test-results/*
+runtime/logs/birt
+runtime/data/derby/*
+runtime/data/utilcache.*
+runtime/catalina/work/*
+runtime/tempfiles/*
+runtime/indexes/products/
+!runtime/tempfiles/README
+changelog
+.classpath
+.project
+.settings
+.gradle/
+.groovy
+.pc
+.DS_Store
+desktop.ini
+.idea
+*.iml
+*.ipr
+*.iws
+*~
+*#
+.*.swp
+.*.swo
+*.patch
+node_modules/
+/docs/asciidoc/images/
+

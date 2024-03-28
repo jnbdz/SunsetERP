@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.start;
 
-//import org.sitenetsoft.sunseterp.framework.base.container.ContainerLoader;
-//import org.sitenetsoft.sunseterp.framework.start.Start.ServerState;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-//import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicReference;
+
+import org.sitenetsoft.sunseterp.framework.base.container.ContainerLoader;
+import org.sitenetsoft.sunseterp.framework.start.Start.ServerState;
 
 /**
  * The StartupControlPanel controls OFBiz by executing high level
@@ -57,31 +57,34 @@ final class StartupControlPanel {
     /**
      * Execute the startup sequence for OFBiz
      */
-    /*static void start(Config config, AtomicReference<ServerState> serverState, List<StartupCommand> ofbizCommands,
-            ContainerLoader loader) throws StartupException {
+    static void start(Config config, AtomicReference<ServerState> serverState, List<StartupCommand> ofbizCommands,
+                      ContainerLoader loader) throws StartupException {
         createLogDirectoryIfMissing(config.getLogDir().toString());
 
-        if (config.isUseShutdownHook()) {
+        // TODO: Shutdown hook
+        /*if (config.isUseShutdownHook()) {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> shutdownServer(loader, serverState)));
         } else {
             System.out.println("Shutdown hook disabled");
-        }
+        }*/
 
-        loadContainers(config, loader, ofbizCommands, serverState);
+        // TODO: Load containers
+        //loadContainers(config, loader, ofbizCommands, serverState);
 
-        if (config.isShutdownAfterLoad()) {
+        // TODO: Shutdown or start
+        /*if (config.isShutdownAfterLoad()) {
             shutdownServer(loader, serverState);
             System.exit(0);
         } else {
             // Print startup message.
             String ls = System.lineSeparator();
             System.out.println(ls + "   ____  __________  _" + ls
-                                  + "  / __ \\/ ____/ __ )(_)___" + ls
-                                  + " / / / / /_  / __  / /_  /" + ls
-                                  + "/ /_/ / __/ / /_/ / / / /_" + ls
-                                  + "\\____/_/   /_____/_/ /___/  is started and ready." + ls);
-        }
-    }*/
+                    + "  / __ \\/ ____/ __ )(_)___" + ls
+                    + " / / / / /_  / __  / /_  /" + ls
+                    + "/ /_/ / __/ / /_/ / / / /_" + ls
+                    + "\\____/_/   /_____/_/ /___/  is started and ready." + ls);
+        }*/
+    }
 
     /**
      * Properly exit from the system when a StartupException cannot or
@@ -100,7 +103,7 @@ final class StartupControlPanel {
         System.exit(1);
     }
 
-    /*static void shutdownServer(ContainerLoader loader, AtomicReference<ServerState> serverState) {
+    static void shutdownServer(ContainerLoader loader, AtomicReference<ServerState> serverState) {
         ServerState currentState;
         do {
             currentState = serverState.get();
@@ -113,7 +116,7 @@ final class StartupControlPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     private static void loadGlobalOfbizSystemProperties(String globalOfbizPropertiesFileName) throws StartupException {
         String systemProperties = System.getProperty(globalOfbizPropertiesFileName);
@@ -135,10 +138,10 @@ final class StartupControlPanel {
         }
     }
 
-    /*private static void loadContainers(Config config,
-            ContainerLoader loader,
-            List<StartupCommand> ofbizCommands,
-            AtomicReference<ServerState> serverState) throws StartupException {
+    private static void loadContainers(Config config,
+                                       ContainerLoader loader,
+                                       List<StartupCommand> ofbizCommands,
+                                       AtomicReference<ServerState> serverState) throws StartupException {
         synchronized (StartupControlPanel.class) {
             if (serverState.get() == ServerState.STOPPING) {
                 return;
@@ -146,5 +149,5 @@ final class StartupControlPanel {
             loader.load(config, ofbizCommands);
         }
         serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
-    }*/
+    }
 }

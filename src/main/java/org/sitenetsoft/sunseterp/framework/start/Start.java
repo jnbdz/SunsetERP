@@ -85,11 +85,11 @@ public final class Start {
             //System.out.println("Shutting down server : " + AdminClient.requestShutdown(INSTANCE.config));
             break;
         case START:
-            /*try {
+            try {
                 StartupControlPanel.start(INSTANCE.config, INSTANCE.serverState, ofbizCommands, INSTANCE.loader);
             } catch (StartupException e) {
                 StartupControlPanel.fullyTerminateSystem(e);
-            }*/
+            }
             break;
         }
     }
