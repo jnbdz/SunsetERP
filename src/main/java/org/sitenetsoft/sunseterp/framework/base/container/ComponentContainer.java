@@ -69,6 +69,18 @@ public class ComponentContainer implements Container {
         }
         this.name = name;
 
+        // Remove
+        /*try {
+            for (ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
+                System.out.println("Loading component: " + def.getLocation());
+                System.out.println("Component type: " + def.getType());
+                System.out.println("Component toString: " + def.toString());
+                System.out.println("ofbizHome: " + ofbizHome);
+            }
+        } catch (ComponentException e) {
+            throw new ContainerException(e);
+        }*/
+
         // load the components from framework/base/config/component-load.xml (root components)
         try {
             for (ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
@@ -94,6 +106,9 @@ public class ComponentContainer implements Container {
      */
     private void loadComponent(Path dir, ComponentDef component) throws IOException {
         Path location = component.getLocation().isAbsolute() ? component.getLocation() : dir.resolve(component.getLocation());
+        System.out.println("Loading component location: " + location);
+        System.out.println("Loading component type: " + component.getType());
+
         switch (component.getType()) {
         case COMPONENT_DIRECTORY:
             loadComponentDirectory(location);
@@ -115,9 +130,14 @@ public class ComponentContainer implements Container {
         if (Files.exists(directoryName) && Files.isDirectory(directoryName)) {
             Path componentLoad = directoryName.resolve(ComponentLoaderConfig.COMPONENT_LOAD_XML_FILENAME);
 
+            // TODO
+            System.out.println("loadComponentDirectory - componentLoad: " + componentLoad);
+
             if (Files.exists(componentLoad)) {
+                System.out.println("loadComponentDirectory - componentLoad exists");
                 loadComponentsInDirectoryUsingLoadFile(directoryName, componentLoad);
             } else {
+                System.out.println("loadComponentDirectory - componentLoad does **not** exist");
                 loadComponentsInDirectory(directoryName);
             }
         } else {

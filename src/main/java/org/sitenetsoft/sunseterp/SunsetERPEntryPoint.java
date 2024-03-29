@@ -10,9 +10,6 @@ public class SunsetERPEntryPoint {
         // ...
 
         Start.main(args);
-        System.out.println("===============______________________===================");
-        System.out.println("SunsetERPEntryPoint.main()");
-        System.out.println("===============______________________===================");
 
         // Start the Quarkus application
         Quarkus.run(args);

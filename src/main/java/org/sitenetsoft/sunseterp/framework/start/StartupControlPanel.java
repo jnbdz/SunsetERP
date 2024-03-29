@@ -61,6 +61,8 @@ final class StartupControlPanel {
                       ContainerLoader loader) throws StartupException {
         createLogDirectoryIfMissing(config.getLogDir().toString());
 
+        System.out.println("isUseShutdownHook: " + config.isUseShutdownHook());
+
         // TODO: Shutdown hook
         /*if (config.isUseShutdownHook()) {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> shutdownServer(loader, serverState)));
@@ -69,7 +71,7 @@ final class StartupControlPanel {
         }*/
 
         // TODO: Load containers
-        //loadContainers(config, loader, ofbizCommands, serverState);
+        loadContainers(config, loader, ofbizCommands, serverState);
 
         // TODO: Shutdown or start
         /*if (config.isShutdownAfterLoad()) {
@@ -148,6 +150,7 @@ final class StartupControlPanel {
             }
             loader.load(config, ofbizCommands);
         }
+        // TODO
         serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
     }
 }

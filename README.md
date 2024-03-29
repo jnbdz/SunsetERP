@@ -6,7 +6,7 @@
 
 SunsetERP is based on a heavily modified version of [OFBiz](https://ofbiz.apache.org/) to run on Quarkus.
 
-Here are some of the features of SunsetERP:
+Here are some of the features of SunsetERP/OFBiz:
 - Accounting (agreements, invoicing, vendor management, general ledger)
 - Asset maintenance
 - Catalogue and product management
@@ -42,22 +42,15 @@ SunsetERP benefits from OFBiz usage of standard business data models.
   - So for more SSO and authentication options you will have to use Keycloak or some other system.
 
 ## What stays the same
-It is important to not straw away to far from the original OFBiz architecture and data model. This is to make sure that the project stays compatible with OFBiz plugins that already exist.
-
-It is important that it does not feel like a different project.
-
-You can see this project as a fork of OFBiz.
-
-The Data Models will stay untouched, but we might add new ones if need be.
-
-Entity Engine will stay untouched. It is the core of OFBiz, and it is very well made and very much loved.
-
-Since Quarkus is used there might be some heavy handed changes to the usage of Groovy. It is not out of disdain of it but rather that Quarkus with GraalVM does not support it very well. That said there is nothing stopping anyone from creating a seperate application that uses Groovy that communicates with SunsetERP via REST and SOAP.
+- It is important to not stray away to far from the original OFBiz architecture and data model. This is to make sure that the project stays compatible with OFBiz plugins that already exist.
+- It is important that it does not feel like a different project.
+- The Data Models will stay untouched, but we might add new ones if need be.
+- Entity Engine will stay untouched.
+- Since Quarkus is used some changes to the usage of Groovy is to be expected.
 
 ### Why keep SOAP?
-SOAP is still used in many places and is still a very valid way of communicating with other systems. It is also very easy to use with Java.
-
-SOAP in the world of accounting, banking and finance is still very much used. It is also used in the world of logistics and supply chain management.
+- SOAP is still used in many places and is still a very valid way of communicating with other systems. It is also very easy to use with Java.
+- SOAP in the world of accounting, banking and finance is still very much used. It is also used in the world of logistics and supply chain management.
 
 ## Project Status
 Still in dev mode.
@@ -67,6 +60,29 @@ Still in dev mode.
 - Have a similar plugin system as Keycloak
 - Adapt ofbiz-plugins to this new setup
 - Adapt it for better Process Mining
+
+## TODO
+- [X] Change the name of the directories to use `sunseterp` instead of `ofbiz`
+- [X] Create API for framework infos and health
+- [] Load all components from OFBiz
+- [] Create a REST API for all components from OFBiz with the help of OpenAPI
+- [] Error handling for Rest APIs
+  - [] Create a custom exception handler
+  - [] Create a custom error response
+  - [] Centralize error handling and error messages
+- [] Create a SOAP API for all components that might need SOAP
+- [] Error handling for SOAP APIs
+- [] Update code with the changes that are from the OFBiz repository
+- [] Update code to support the latest Quarkus version
+- [] Add support for the latest Java version
+- [] Change library `AWT` for image modification (e.g.: `net.coobird.thumbnailator`, `org.apache.xmlgraphics`, `Twelvemonkeys ImageIO`) - Quarkus might not support AWT fully, and it is a bit old
+- [] Add Unit Tests
+- [] Add OpenTelemetry for tracing
+- [] Integration with Keycloak
+- [] Add integration tests
+- [] Add support for OpenSearch and ElasticSearch
+- [] `.github/workflows` for CI/CD
+- [] (Optional) Integration with Vault and other secret management systems
 
 ## Comparisons
 - [Comparison of shopping cart software](https://en.wikipedia.org/wiki/Comparison_of_shopping_cart_software)
