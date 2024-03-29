@@ -64,6 +64,7 @@ public class ContainerLoader {
         try {
             ComponentContainer cc = new ComponentContainer();
             cc.init(ofbizCommands, "component-container", null);
+            // TODO: ???
             loadedContainers.add(cc);
         } catch (ContainerException e) {
             throw new StartupException("Cannot init() component-container", e);
@@ -74,7 +75,7 @@ public class ContainerLoader {
         loadedContainers.addAll(loadContainersFromConfigurations(config.getLoaders(), ofbizCommands));
 
         // Start all containers loaded from above steps
-        startLoadedContainers();
+        //startLoadedContainers();
     }
 
     /**

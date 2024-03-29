@@ -87,6 +87,7 @@ public final class Config {
 
         // set this class fields
         ofbizHome = getOfbizHome(getProperty(props, "ofbiz.home", "."));
+        //resourcesDir = getOfbizHome(getProperty(props, "ofbiz.home", "."));
         adminAddress = getAdminAddress(getProperty(props, "ofbiz.admin.host", "127.0.0.1"));
         adminKey = getProperty(props, "ofbiz.admin.key", "NA");
         portOffset = getPortOffsetValue(ofbizCommands, "0");
