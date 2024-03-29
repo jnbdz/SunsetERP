@@ -87,4 +87,38 @@ public class SunsetErpResource {
         return Response.noContent().header("Health-Status", "OK").build();
     }
 
+    @GET
+    @Path("/version")
+    @Operation(
+            summary = "Check system health",
+            description = "Returns the health status of the system if the user is authorized and the profile is 'dev'"
+    )
+    @APIResponse(
+            responseCode = "200",
+            description = "OK"
+    )
+    // When not logged in, the user is unauthorized
+    @APIResponse(
+            responseCode = "401",
+            description = "Unauthorized"
+    )
+    // When logged in, the user is forbidden to access the resource
+    @APIResponse(
+            responseCode = "403",
+            description = "Forbidden",
+            content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(implementation = Error.class))
+    )
+    public Response version() {
+        String profile = profile();
+        String allowDisplayInfo = System.getProperty("sunseterp.api.version.access", "false");
+        if (!Boolean.parseBoolean(allowDisplayInfo) && !"dev".equals(profile)) {
+            return Response.status(Response.Status.FORBIDDEN).entity(new Error("Access to the resource is forbidden")).build();
+        }
+        return Response.ok("SunsetERP 1.0").build();
+    }
+
+    // TODO: Status endpoint for SunsetERP, and the resources it is connected to like the database, OpenSearch, ElasticSearch, etc.
+    // TODO: Add access to OpenAPI documentation
+    // TODO: Add access to the Swagger UI
+    // TODO: Add access to the json-schema documentation
 }
