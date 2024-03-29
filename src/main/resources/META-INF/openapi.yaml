@@ -1,0 +1,21 @@
+openapi: 3.1.0
+security:
+  - bearerAuth: []
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+info:
+  title: SunsetERP API
+  version: 1.0.0
+  description: This is the API documentation for the Sunset ERP system.
+  termsOfService: https://sitenetsoft.org/projects/sunseterp/terms/
+  contact:
+      name: SiteNetSoft
+      url: https://sitenetsoft.com/contact/
+      email: sunseterp@sitenetsoft.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
