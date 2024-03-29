@@ -62,27 +62,27 @@ Still in dev mode.
 - Adapt it for better Process Mining
 
 ## TODO
-- [X] Change the name of the directories to use `sunseterp` instead of `ofbiz`
-- [X] Create API for framework infos and health
-- [] Load all components from OFBiz
-- [] Create a REST API for all components from OFBiz with the help of OpenAPI
-- [] Error handling for Rest APIs
-  - [] Create a custom exception handler
-  - [] Create a custom error response
-  - [] Centralize error handling and error messages
-- [] Create a SOAP API for all components that might need SOAP
-- [] Error handling for SOAP APIs
-- [] Update code with the changes that are from the OFBiz repository
-- [] Update code to support the latest Quarkus version
-- [] Add support for the latest Java version
-- [] Change library `AWT` for image modification (e.g.: `net.coobird.thumbnailator`, `org.apache.xmlgraphics`, `Twelvemonkeys ImageIO`) - Quarkus might not support AWT fully, and it is a bit old
-- [] Add Unit Tests
-- [] Add OpenTelemetry for tracing
-- [] Integration with Keycloak
-- [] Add integration tests
-- [] Add support for OpenSearch and ElasticSearch
-- [] `.github/workflows` for CI/CD
-- [] (Optional) Integration with Vault and other secret management systems
+- [x] Change the name of the directories to use `sunseterp` instead of `ofbiz`
+- [x] Create API for framework infos and health
+- [ ] Load all components from OFBiz
+- [ ] Create a REST API for all components from OFBiz with the help of OpenAPI
+- [ ] Error handling for Rest APIs
+  - [ ] Create a custom exception handler
+  - [ ] Create a custom error response
+  - [ ] Centralize error handling and error messages
+- [ ] Create a SOAP API for all components that might need SOAP
+- [ ] Error handling for SOAP APIs
+- [ ] Update code with the changes that are from the OFBiz repository
+- [ ] Update code to support the latest Quarkus version
+- [ ] Add support for the latest Java version
+- [ ] Change library `AWT` for image modification (e.g.: `net.coobird.thumbnailator`, `org.apache.xmlgraphics`, `Twelvemonkeys ImageIO`) - Quarkus might not support AWT fully, and it is a bit old
+- [ ] Add Unit Tests
+- [ ] Add OpenTelemetry for tracing
+- [ ] Integration with Keycloak
+- [ ] Add integration tests
+- [ ] Add support for OpenSearch and ElasticSearch
+- [ ] `.github/workflows` for CI/CD
+- [ ] (Optional) Integration with Vault and other secret management systems
 
 ## Comparisons
 - [Comparison of shopping cart software](https://en.wikipedia.org/wiki/Comparison_of_shopping_cart_software)
