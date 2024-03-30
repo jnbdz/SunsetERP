@@ -151,6 +151,6 @@ final class StartupControlPanel {
             loader.load(config, ofbizCommands);
         }
         // TODO
-        serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
+        //serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
     }
 }

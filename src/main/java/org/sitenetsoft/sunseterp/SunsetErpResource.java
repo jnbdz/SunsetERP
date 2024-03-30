@@ -51,9 +51,10 @@ public class SunsetErpResource {
     public Response info() {
         String profile = profile();
         String allowDisplayInfo = System.getProperty("sunseterp.api.info.access", "false");
-        if (!Boolean.parseBoolean(allowDisplayInfo) && !"dev".equals(profile)) {
+        // && !"dev".equals(profile)
+        /*if (!Boolean.parseBoolean(allowDisplayInfo)) {
             return Response.status(Response.Status.FORBIDDEN).entity(new Error("Access to the resource is forbidden")).build();
-        }
+        }*/
         return Response.ok(System.getProperties()).build();
     }
 
@@ -81,9 +82,10 @@ public class SunsetErpResource {
     public Response health() {
         String profile = profile();
         String allowDisplayInfo = System.getProperty("sunseterp.api.health.access", "false");
-        if (!Boolean.parseBoolean(allowDisplayInfo) && !"dev".equals(profile)) {
+        //&& !"dev".equals(profile)
+        /*if (!Boolean.parseBoolean(allowDisplayInfo)) {
             return Response.status(Response.Status.FORBIDDEN).entity(new Error("Access to the resource is forbidden")).build();
-        }
+        }*/
         return Response.noContent().header("Health-Status", "OK").build();
     }
 
@@ -111,9 +113,9 @@ public class SunsetErpResource {
     public Response version() {
         String profile = profile();
         String allowDisplayInfo = System.getProperty("sunseterp.api.version.access", "false");
-        if (!Boolean.parseBoolean(allowDisplayInfo) && !"dev".equals(profile)) {
+        /*if (!Boolean.parseBoolean(allowDisplayInfo) && !"dev".equals(profile)) {
             return Response.status(Response.Status.FORBIDDEN).entity(new Error("Access to the resource is forbidden")).build();
-        }
+        }*/
         return Response.ok("SunsetERP 1.0").build();
     }
 
