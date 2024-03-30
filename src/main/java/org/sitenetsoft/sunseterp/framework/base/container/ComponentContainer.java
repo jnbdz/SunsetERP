@@ -54,42 +54,42 @@ public class ComponentContainer implements Container {
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
-        init(name, Start.getInstance().getConfig().getOfbizHome());
+        init(name, Start.getInstance().getConfig().getOfbizResourcesPath());
     }
 
     /**
      * Loads components found in a directory.
      * @param name  the name of this container
-     * @param ofbizHome  the directory where to search for components
+     * @param ofbizResourcesPath  the directory where to search for components
      * @throws ContainerException when components are already loaded or when failing to load them.
      */
-    void init(String name, Path ofbizHome) throws ContainerException {
+    void init(String name, Path ofbizResourcesPath) throws ContainerException {
         if (!loaded.compareAndSet(false, true)) {
             throw new ContainerException("Components already loaded, cannot start");
         }
         this.name = name;
 
         // Remove
-        /*try {
+        try {
             for (ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
                 System.out.println("Loading component: " + def.getLocation());
                 System.out.println("Component type: " + def.getType());
                 System.out.println("Component toString: " + def.toString());
-                System.out.println("ofbizHome: " + ofbizHome);
+                System.out.println("ofbizHome: " + ofbizResourcesPath);
             }
         } catch (ComponentException e) {
             throw new ContainerException(e);
-        }*/
+        }
 
         // load the components from framework/base/config/component-load.xml (root components)
-        try {
+        /*try {
             for (ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
                 loadComponent(ofbizHome, def);
             }
             ComponentConfig.sortDependencies();
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
-        }
+        }*/
         Debug.logInfo("All components loaded", MODULE);
     }
 

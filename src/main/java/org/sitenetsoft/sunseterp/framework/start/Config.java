@@ -35,6 +35,8 @@ public final class Config {
     private static final Path DEFAULT_LOG_DIRECTORY = Paths.get("runtime", "logs");
 
     private final Path ofbizHome;
+    private final Path resourcesPath;
+    private final Path ofbizResourcesPath;
     private final InetAddress adminAddress;
     private final String adminKey;
     private final int portOffset;
@@ -80,6 +82,14 @@ public final class Config {
         return ofbizHome;
     }
 
+    public Path getResourcesPath() {
+        return resourcesPath;
+    }
+
+    public Path getOfbizResourcesPath() {
+        return ofbizResourcesPath;
+    }
+
     Config(List<StartupCommand> ofbizCommands) throws StartupException {
 
         // fetch OFBiz Properties object
@@ -87,7 +97,9 @@ public final class Config {
 
         // set this class fields
         ofbizHome = getOfbizHome(getProperty(props, "ofbiz.home", "."));
-        //resourcesDir = getOfbizHome(getProperty(props, "ofbiz.home", "."));
+        resourcesPath = getResourcesPath(getProperty(props, "sunseterp.resources.path", "."));
+        System.setProperty("sunseterp.resources.path", resourcesPath.toString());
+        ofbizResourcesPath = getOFBizResourcesPath(getProperty(props, "sunseterp.ofbiz.resources.path", "."));
         adminAddress = getAdminAddress(getProperty(props, "ofbiz.admin.host", "127.0.0.1"));
         adminKey = getProperty(props, "ofbiz.admin.key", "NA");
         portOffset = getPortOffsetValue(ofbizCommands, "0");
@@ -101,6 +113,7 @@ public final class Config {
 
         // set system properties
         System.setProperty("ofbiz.home", ofbizHome.toString());
+        System.setProperty("sunseterp.ofbiz.resources.path", ofbizResourcesPath.toString());
         System.setProperty("java.awt.headless", getProperty(props, "java.awt.headless", "true"));
         System.setProperty("derby.system.home", getProperty(props, "derby.system.home", "runtime/data/derby"));
 
@@ -116,6 +129,36 @@ public final class Config {
 
     private static Path getOfbizHome(String homeProp) {
         return Paths.get(homeProp).toAbsolutePath().normalize();
+    }
+
+    private static Path getResourcesPath(String resourcesPath) {
+        if (resourcesPath.equals(".")) {
+            // If the user did not provide a path, use the default path
+            String userDir = System.getProperty("user.dir");
+            Path defaultPath = Paths.get(
+                    userDir,
+                    "..",
+                    "..",
+                    "..",
+                    "resources");
+            return defaultPath.toAbsolutePath().normalize();
+        } else {
+            // If the user provided a path, use it
+            return Paths.get(resourcesPath).toAbsolutePath().normalize();
+        }
+    }
+
+    private static Path getOFBizResourcesPath(String resourcesPath) {
+        if (resourcesPath.equals(".")) {
+            // If the user did not provide a path, use the default path
+            String userDir = System.getProperty("sunseterp.resources.path");
+            Path defaultPath = Paths.get(
+                    userDir, "main", "org", "sitenetsoft", "sunseterp");
+            return defaultPath.toAbsolutePath().normalize();
+        } else {
+            // If the user provided a path, use it
+            return Paths.get(resourcesPath).toAbsolutePath().normalize();
+        }
     }
 
     private static Path getAbsolutePath(Properties props, String key, Path defaultValue, Path ofbizHome) {

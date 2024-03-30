@@ -46,7 +46,7 @@ import java.util.stream.Collectors;
 public final class Start {
 
     private Config config = null;
-    private ContainerLoader loader = new ContainerLoader();
+    private final ContainerLoader loader = new ContainerLoader();
     private final AtomicReference<ServerState> serverState = new AtomicReference<>(ServerState.STARTING);
 
     // Singleton, do not change
