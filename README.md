@@ -64,6 +64,8 @@ Still in dev mode.
 ## TODO
 - [x] Change the name of the directories to use `sunseterp` instead of `ofbiz`
 - [x] Create API for framework infos and health
+- [x] Update Gradle
+- [x] Update Quarkus
 - [ ] Load all components from OFBiz
 - [ ] Create a REST API for all components from OFBiz with the help of OpenAPI
 - [ ] Error handling for Rest APIs
@@ -73,7 +75,7 @@ Still in dev mode.
 - [ ] Create a SOAP API for all components that might need SOAP
 - [ ] Error handling for SOAP APIs
 - [ ] Update code with the changes that are from the OFBiz repository
-- [ ] Update code to support the latest Quarkus version
+- [x] Update code to support the latest Quarkus version
 - [ ] Add support for the latest Java version
 - [ ] Change library `AWT` for image modification (e.g.: `net.coobird.thumbnailator`, `org.apache.xmlgraphics`, `Twelvemonkeys ImageIO`) - Quarkus might not support AWT fully, and it is a bit old
 - [ ] Add Unit Tests
