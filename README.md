@@ -66,25 +66,204 @@ Still in dev mode.
 - [x] Create API for framework infos and health
 - [x] Update Gradle
 - [x] Update Quarkus
-- [ ] Load all components from OFBiz
+- [ ] What is the version of OFBiz did I used to start?
+- [ ] Refactor `build.gralde`
+  - [ ] Analyse
+  - [ ] Refactor and make sure the code is being merge properly
+  - [ ] Refactor CLASSPATH (`System.getProperty("java.class.path");`)
+    - [ ] Analyse is `component-load.xml` for `applications/` and `framework/` are being removed from Gradle level
+    - [ ] Add the different paths for framework and applications since we are dividing not like OFBiz that merges them
+      - [ ] Document this somewhere
+    - [ ] Add the different paths for resources so that they can be found when `.getRecourse()` method is called
+  - [ ] Refactor the tasks
+    - [ ] Plugin management tasks
+    - [ ] Clean tasks
+    - [ ] Others
+  - [ ] Refactor eclipse stuff
+- [ ] Documentation refactoring
+  - [ ] Analyse
+  - [ ] Move all the doc in the `./docs/` directory
+  - [ ] Refactor if needed the `build.gradle` to be able to generate the documentation
+  - [ ] Make sure that it outputs in those formats at least: 
+    - [ ] HTML
+    - [ ] PDF
+    - [ ] ePub
+    - [ ] GitHub Wiki
+    - [ ] Readthedocs
+- [ ] Start writing documentation for SunsetERP
+  - [ ] Document components of `build.gradle`
+  - [ ] Document the structure and the delta with OFBiz
+  - [ ] Document about the resources
+- [ ] Load all components from OFBiz (the Gradle refactoring needs to be done first)
+- [ ] Replace but also keep `component-load.xml` with `component-load.properties` using cascading
+- [ ] Replace the other *XML* format configuration file with `.properties` using cascading (trying to standarized all the configurations with what already exists with Quarkus) (keep support for *XML* because of not wanting to break plugins *"for now"*)
+- [ ] Replace and keep Entities with YAML (some *XML* are too complicated to be readable and usable with `.properties`)
+- [ ] Nice to have: little `Gradle` script to replace *XML* with `.properties` or YAML and check the rest of the code to see what else needs to be refactored to work with SunsetERP (since the merging will be different)
+- [ ] Add load all data
+  - [ ] Analyse
+  - [ ] Add the refactored code from `build.gradle`
 - [ ] Create a REST API for all components from OFBiz with the help of OpenAPI
+  - [ ] Analyse
+  - [ ] Use OFBiz services to generate API endpoints
+  - [ ] Analyse if `controller.xml` can be used
+- [ ] Adapt code so that it uses HATEOAS to make sure it is fully complies with RestFul standard
+  - [ ] Analyse
 - [ ] Error handling for Rest APIs
   - [ ] Create a custom exception handler
   - [ ] Create a custom error response
   - [ ] Centralize error handling and error messages
 - [ ] Create a SOAP API for all components that might need SOAP
+  - [ ] Analyse (might not use)
 - [ ] Error handling for SOAP APIs
-- [ ] Update code with the changes that are from the OFBiz repository
+  - [ ] Analyse
 - [x] Update code to support the latest Quarkus version
-- [ ] Add support for the latest Java version
+- [ ] Add support for the latest Java version (Quarkus 3.9 the version currently used only supports Java version 17 and 21... So the version switch should be to Java 21)
 - [ ] Change library `AWT` for image modification (e.g.: `net.coobird.thumbnailator`, `org.apache.xmlgraphics`, `Twelvemonkeys ImageIO`) - Quarkus might not support AWT fully, and it is a bit old
 - [ ] Add Unit Tests
+   - [ ] Analyse
+- [ ] Add Unit Tests for OpenAPI
+  - [ ] Analyse (does it even exist? Validation?)
+- [ ] Update code with the changes that are from the OFBiz repository
 - [ ] Add OpenTelemetry for tracing
 - [ ] Integration with Keycloak
+  - [ ] Analyse
 - [ ] Add integration tests
 - [ ] Add support for OpenSearch and ElasticSearch
 - [ ] `.github/workflows` for CI/CD
-- [ ] (Optional) Integration with Vault and other secret management systems
+- [ ] **Optional** Integration with Vault, Mozilla Sops and other secret management systems
+- [ ] Add performance tests
+  - [ ] Analyse (e.g.: eBPF, BCC)
+  - [ ] Create jMeter test profiles
+- [ ] Refactor code to make it faster
+  - [ ] Analyse (maybe do it at the same time as adding performance testing)
+- [ ] Add support for `./lib/` for Keycloak plugin management (OFBiz also has it)
+- [ ] Add integration testing
+  - [ ] Analyse (What to test? How to test?)
+  - [ ] Databases: 
+    - [ ] PostgresSQL
+    - [ ] MySQL, MariaDB
+    - [ ] MSSQL
+  - [ ] Search
+    - [ ] Solr
+    - [ ] OpenSearch
+    - [ ] ElasticSearch
+  - [ ] Data transfer
+    - [ ] Kafka
+    - [ ] Apache Airflow
+    - [ ] SQS (maybe others from AWS)
+  - [ ] Data storage
+    - [ ] Ceph
+    - [ ] S3
+  - [ ] OpenTelemetry compliance
+  - [ ] Logging performance (Netflix)
+- [ ] Add security tests
+  - [ ] Analyse (Can Kali help? What others are doing? Other similar standards to PCI-DSS)
+  - [ ] PCI-DSS ([PCI-DSS | endoflife.date](https://endoflife.date/pci-dss), [PCI DSS v4.0 Resource Hub | Blog | PCI Security Standard](https://blog.pcisecuritystandards.org/pci-dss-v4-0-resource-hub))
+  - [ ] GitHub Workflow that will search CVEs to see of it affects one of the libraries and what version
+    - [ ] Analyse (what is in market)
+- [ ] Add privacy tests (new EU and Qc regulations)
+  - [ ] Analyse
+- [ ] Test for legal (copyright)
+  - [ ] Analyse (GitHub workflow)
+- [ ] Tests microservices
+  - [ ] Analyse (what is in market... Chaos Monkey, etc.) (since we are using Quarkus with Keycloak, OpenSearch, etc. we need to make sure that they are working properly even when one of those services goes down)
+- [ ] Redo front-end with HTMX+jQuery+PatternFly+Sunset special pattern (remove \n \r tidy up)
+  - [ ] Analyse
+  - [ ] Redo what was already done with HTMX
+  - [ ] Unit tests
+  - [ ] HTML validation
+  - [ ] CSS validation
+  - [ ] Lint validation
+  - [ ] Functional testing with Cypress
+  - [ ] Refactor flt files to use HTMX+handlebars.js
+  - [ ] Refactor widgets to use HTMX+handlebars.js
+  - [ ] Refactor screens to use HTMX+handlebars.js
+  - [ ] Refactor forms to use HTMX+handlebars.js
+  - [ ] Refactor menus to use HTMX+handlebars.js
+  - [ ] Refactor themes to use HTMX+handlebars.js
+  - [ ] Refactor images to use HTMX+handlebars.js
+  - [ ] Refactor actions to use HTMX+handlebars.js
+  - [ ] Remove all the screen code stuff since it is not needed anymore
+  - [ ] Remove all the request-map, `controller.xml` stuff since it is not needed anymore
+  - [ ] Remove all the `web.xml` stuff since it is not needed anymore
+  - [ ] Remove all the Freemarker (template engine) stuff since it is not needed anymore
+- [ ] Process Mining testing
+  - [ ] Analyse (make sure that SunsetERP returns what is needed for Process Mining. Also, is it possible to automate tests for Process mining? Document...)
+- [ ] Create tool to automate delta testing between SunsetERP and OFBiz to alert of any changes (the changes will always be done manually)
+  - [ ] Analyse (GitHub Workflows)
+- [ ] Add support for BRM and BPM from kie
+  - [ ] Analyse
+- [ ] Add Editor.js or Quilljs... maybe both?
+  - [ ] Analyse
+- [ ] Copy as many features from WordPress as possible for Blogs (RSS feeds, etc.)
+- [ ] Add functions for CRM
+  - [ ] Analyse
+  - [ ] Add support for Twilio and other phone services (log calls and SMS/MMS) (record calls (gstreamer), record SMS/MMS, etc) (audio to text (gstreamer and PyTorch or whatever))
+  - [ ] Add support for social media (posts, chat, etc.)
+- [ ] Add payment support
+  - [ ] Analyse (PayPal and Stripe are the minimums)
+  - [ ] PayPal
+  - [ ] Stripe
+- [ ] Tax libraries support
+  - [ ] Analyse (taxware... maybe there are others)
+- [ ] Add more accounting features
+  - [ ] Analyse
+- [ ] Add more features to ticketing
+  - [ ] Analyse
+- [ ] Cellphone code
+  - [ ] Analyse (using the same principle as the web frontend)
+  - [ ] Android
+    - [ ] Analyse (PatternFly has a library for Kotlin)
+  - [ ] iOS (iPhone and iPad)
+    - [ ] Analyse (PatternFly??? or use Apple's GUI but still follow the frontend principal)
+- [ ] Desktop code
+  - [ ] Analyse
+  - [ ] Windows (C# .NET WEF or whatever is the latest)
+  - [ ] MacOS (Swift)
+  - [ ] Linux (GTK, QT, X11, Wayland)
+- [ ] BI tools integration
+  - [ ] Analyse
+- [ ] Create demos
+  - [ ] Blog website
+  - [ ] Wiki (wiki type website for internal and external content)
+  - [ ] eCommerce (the usual and inventory management, inventory from other sources, online marketplace (PayPal and Stripe))
+  - [ ] Employee management (similar to others) (give their hours, vacation management, employee budgets, custom components)
+  - [ ] CRM (Twilio, similar functions to Salesforce, etc.)
+  - [ ] Payment management (Accounting)
+  - [ ] Budgeting (Accounting)
+    - [ ] Analyse (what is the market (e.g.: MovieMagic), etc.)
+  - [ ] Bank (we have too)
+  - [ ] Insurance service application (use kie as much as possible, examples of complex business logic)
+  - [ ] ISP provider (sell cellphone, sell cellphone services, sell internet access, call in technicians, manage inventory, usage, subscription management, invoice, etc)
+  - [ ] Uber clone
+- [ ] Divorce `./framework` and `./applications` (maybe bring it up)
+  - [ ] Analyse (the framework should be a seperate project with the entity engine and applications should be components a dev could add or remove or even modify (adding it to plugins or `libs` or even Restful))
+  - [ ] Analyse if possible to use `@decorators` to clean up the code and modernize it
+  - [ ] It needs to be possible to call other applications without needing to `import` the code (should be possible to `import` or do a RestFul call)
+    - [ ] Analyse
+- [ ] Create a separate library for the framework and give it a name and each application should have their own repo
+- [ ] Divorce *entity engine* from *applications* so that a Gradle script can build the data model in a separate env like CI/CD without needing to include all the code in the application code (lets make this light)
+- [ ] Re-write all the demos to support the new structure
+- [ ] Add AI for QA
+  - [ ] Analyse (what is in the market)
+  - [ ] Add AI for testing
+  - [ ] Add AI for code review (AWS CodeGuru)
+  - [ ] Security testing AI (AWS GuardDuty)
+- [ ] Come up with some new ideas!
+
+Abstraction: 
+> 1. A developer should be able to easily build a ERP microservices env.
+> 2. A developer should not need to put too much energy on the front end and not have any business (or very little) in the front-end (no more Angular and React or whatever else that causes people to replicate everything on the frontend (INSANITY!!))
+> 3. API first (HATEOAS)
+> 4. Decoupling should be easy
+> 5. Make applications lighter and more portable
+> 6. Add features to be more attractive vs Salesforce and Odoo
+> 7. Better testing to catch more issues (currently there are broken parts of OFBiz and for some reason it hasn't been caught)
+> 8. So in other words, we need better QA
+> 9. Demos help others see what can be done and how
+
+Here is what the architecture should look like after the refactoring: 
+![Architecture](./docs/asciidoc/images/sunseterp-ofbiz-architecture.png)
 
 ## Comparisons
 - [Comparison of shopping cart software](https://en.wikipedia.org/wiki/Comparison_of_shopping_cart_software)
