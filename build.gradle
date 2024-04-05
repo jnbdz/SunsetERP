@@ -1,6 +1,11 @@
+import org.asciidoctor.gradle.jvm.AsciidoctorTask
+
 plugins {
     id 'java'
     id 'io.quarkus'
+    id 'org.asciidoctor.jvm.convert' version '3.3.2' // 4.0.2 does not compile
+    id 'org.asciidoctor.jvm.pdf' version '3.3.2'     // 4.0.2 does not compile
+    id 'org.owasp.dependencycheck' version '9.0.9' apply false //Not tested after 7.4.4
 }
 
 repositories {
@@ -8,148 +13,8 @@ repositories {
     mavenLocal()
 }
 
-dependencies {
-    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
-    implementation 'io.quarkus:quarkus-smallrye-openapi'
-    implementation 'io.quarkus:quarkus-resteasy-reactive'
-    implementation 'io.quarkus:quarkus-rest-links:3.9.1'
-    //implementation 'io.quarkus:quarkus-resteasy-reactive-jsonb'
-    implementation 'io.quarkus:quarkus-arc'
-    //implementation 'io.quarkus:quarkus-oidc'
-    implementation 'io.quarkus:quarkus-elytron-security-properties-file'
-    implementation 'io.quarkiverse.groovy:quarkus-groovy:3.9.1'
-    implementation 'io.quarkus:quarkus-smallrye-health'
-    implementation 'io.quarkiverse.groovy:quarkus-groovy-junit5:3.9.1'
-    implementation 'io.quarkus:quarkus-arc'
-
-    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    // TODO:
-    // NEW:
-    // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
-    implementation 'org.apache.shiro:shiro-core:2.0.0'
-    implementation 'javax.transaction:jta:1.1'
-    // TODO:
-    // NEW:
-    // https://mvnrepository.com/artifact/jakarta.transaction/jakarta.transaction-api
-    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
-    implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
-    implementation 'oro:oro:2.0.8'
-    implementation 'com.ibm.icu:icu4j:74.2'
-
-    implementation 'javax.jms:javax.jms-api:2.0.1'
-    // TODO:
-    // NEW:
-    // https://mvnrepository.com/artifact/jakarta.jms/jakarta.jms-api
-    implementation 'jakarta.jms:jakarta.jms-api:3.1.0'
-    implementation 'wsdl4j:wsdl4j:1.6.3'
-    implementation 'org.apache.commons:commons-dbcp2:2.12.0'
-    implementation 'org.apache.commons:commons-pool2:2.12.0'
-    implementation 'org.apache.commons:commons-collections4:4.4'
-    implementation 'org.apache.geronimo.components:geronimo-transaction:4.0.0'
-    implementation 'javax.el:javax.el-api:3.0.0'
-    // TODO:
-    // NEW:
-    // https://mvnrepository.com/artifact/jakarta.el/jakarta.el-api
-    implementation 'jakarta.el:jakarta.el-api:6.0.0-RC1'
-    implementation 'org.freemarker:freemarker:2.3.32'
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
-
-    //implementation 'javax.mail:javax.mail-api:1.6.2'
-    implementation 'jakarta.mail:jakarta.mail-api:2.1.3'
-    //implementation 'com.sun.mail:javax.mail:1.6.2'
-    implementation 'com.sun.mail:jakarta.mail:2.0.1'
-    implementation 'org.apache.commons:commons-lang3:3.14.0'
-    implementation 'org.clojure:clojure:1.11.2'
-    //implementation 'org.clojure:java.api:0.4.0'
-    implementation 'org.apache.axis2:axis2-kernel:1.8.2'
-    implementation 'org.apache.axis2:axis2-adb:1.8.2'
-    implementation 'org.apache.axis2:axis2-java2wsdl:1.8.2'
-    implementation 'org.apache.axis2:axis2-transport-http:1.8.2'
-
-    //implementation 'commons-lang:commons-lang:2.6'
-    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20240325.1'
-    implementation 'commons-validator:commons-validator:1.8.0'
-    implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.33'
-    implementation 'org.jsoup:jsoup:1.17.2'
-    implementation 'org.apache.tika:tika-core:2.9.1'
-    implementation 'org.apache.tika:tika-parsers:2.9.1'
-    implementation 'org.owasp.esapi:esapi:2.5.3.1'
-    // TODO: Review code where it is being used. It gets into conflicts with other libraries (Quarkus).
-    //implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:4.0.4'
-    implementation 'org.apache.xmlgraphics:fop:2.9'
-    implementation 'org.apache.commons:commons-text:1.11.0'
-
-    implementation 'org.apache.commons:commons-csv:1.10.0'
-    //implementation 'com.lowagie:itext:2.1.7'
-    // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
-    implementation 'com.itextpdf:itextpdf:5.5.13.3'
-    implementation 'org.apache.commons:commons-imaging:1.0-alpha3'
-    implementation 'net.lingala.zip4j:zip4j:2.11.5'
-    implementation 'com.google.re2j:re2j:1.7'
-    // 2.1.3
-    implementation 'de.odysseus.juel:juel:2.1.3'
-    // TODO:
-    // NEW:
-    // https://mvnrepository.com/artifact/de.odysseus.juel/juel-impl
-    implementation 'de.odysseus.juel:juel-impl:2.2.7'
-    implementation 'xerces:xercesImpl:2.12.2'
-    implementation 'net.sourceforge.nekohtml:nekohtml:1.9.22'
-    implementation 'commons-net:commons-net:3.10.0'
-    implementation 'com.google.zxing:core:3.5.3'
-    implementation 'com.google.zxing:javase:3.5.3'
-    implementation 'org.apache.pdfbox:pdfbox:3.0.2'
-    //implementation 'com.lowagie:itext:4.2.2'
-    implementation 'org.apache.ant:ant:1.10.14'
-    implementation 'org.apache.ant:ant-junit:1.10.14'
-    implementation 'com.auth0:java-jwt:4.4.0'
-    implementation 'io.quarkus:quarkus-mailer:3.9.1'
-    //implementation 'net.fortuna:ical4j:4.0.0' // Cannot be found
-    implementation 'org.mnode.ical4j:ical4j:4.0.0-rc5' // Works with import net.fortuna.ical4j.*;
-
-    // Resource
-    implementation 'com.rometools:rome:2.1.0'
-
-    implementation 'org.apache.sshd:sshd-core:2.12.1'  // Use the latest available version
-    //implementation 'org.apache.sshd:sshd-client:2.10.0'  // Use the latest available version
-
-    implementation 'org.apache.sshd:sshd-sftp:2.12.1'  // Use the latest available version
-
-    // TODO: This needs to be changed to org.junit.jupiter:junit-jupiter-api:5.10.0
-    implementation 'junit:junit:4.13.2'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    implementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-
-    implementation 'org.springframework:spring-test:6.1.5'
-
-    implementation 'org.jdom:jdom2:2.0.6.1'
-
-    implementation 'org.apache.poi:poi:5.2.5'
-    implementation 'org.apache.poi:poi-ooxml:5.2.5'
-
-    // TODO Maybe remove the support for this or change the code for com.cybersource:cybersource-sdk-java since it is
-    // not secure.
-    implementation 'com.cybersource:cybersource-sdk-java:6.2.13'
-
-    // TODO (Should it be kept or not) The classes you're trying to import are part of the PayPal Merchant SDK for Java.
-    // Unfortunately, this SDK has been deprecated and is no longer available in public Maven repositories.
-    // However, you can still download the SDK directly from the PayPal's Github repository and manually add it to your project.
-    // The repository URL is: https://github.com/paypal/merchant-sdk-java
-    //implementation 'com.paypal.sdk:paypal-core:1.7.2'
-    //implementation 'com.paypal:com.paypal.sdk:1.0'
-    //implementation 'com.paypal:paypalhttp:2.0.0'
-    //implementation 'com.paypal:heap-dump-tool:1.1.6'
-    //implementation 'com.paypal:rest-api-sdk:1.14.1'
-
-    implementation "io.quarkus:quarkus-resteasy-reactive-qute"
-    
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
-
-    testImplementation 'io.quarkus:quarkus-junit5'
-    testImplementation 'io.rest-assured:rest-assured'
-}
+apply from: 'common.gradle'
+apply from: 'dependencies.gradle'
 
 /*task downloadTikaParsers(type: Copy) {
     from configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.find {
@@ -157,6 +22,235 @@ dependencies {
     }.file
     into "${buildDir}/tmp/dependencyDownload"
 }*/
+
+// Only used for release branches
+static def getCurrentGitBranch() {
+    return "git branch --show-current".execute().text.trim()
+}
+
+/* ========================================================
+ * Tasks
+ * ======================================================== */
+
+// ========== Task group labels ==========
+def cleanupGroup = 'Cleaning'
+def docsGroup = 'Documentation'
+def ofbizServer = 'SunsetERP Server'
+def ofbizPlugin = 'SunsetERP Plugin'
+def sysadminGroup = 'System Administration'
+
+// ========== Documentation tasks ==========
+tasks.withType(AsciidoctorTask) { task ->
+    inProcess = JAVA_EXEC
+    forkOptions {
+        jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
+    }
+    outputOptions {
+        // I hate we have to do this - but JRuby (asciidoctorj-pdf) and Windows don't mix well
+        if (System.properties['os.name'].toLowerCase().contains('windows')) {
+            backends = ['html5']
+        } else {
+            backends = ['html5', 'pdf']
+        }
+    }
+    attributes \
+        'doctype': 'book',
+            'revnumber': getCurrentGitBranch(),
+            'experimental': '',
+            'allow-uri-read': true,
+            'icons': 'font',
+            'sectnums': '',
+            'chapter-label': '',
+            'toc': 'left@',
+            'toclevels': '3'
+}
+
+tasks.register('deleteOfbizDocumentation') {
+    doFirst { delete "${buildDir}/asciidoc/ofbiz" }
+}
+
+tasks.register('deletePluginDocumentation') {
+    doFirst {
+        if (!project.hasProperty('pluginId')) {
+            throw new GradleException('Missing property \"pluginId\"')
+        }
+        if (!(activeComponents().stream().anyMatch { it.name == pluginId })) {
+            throw new GradleException("Could not find plugin with id ${pluginId}")
+        }
+        delete "${buildDir}/asciidoc/plugins/${pluginId}"
+    }
+}
+
+tasks.register('deleteAllPluginsDocumentation') {
+    doFirst { delete "${buildDir}/asciidoc/plugins" }
+}
+
+tasks.register('generateReadmeFiles', AsciidoctorTask) {
+    group = docsGroup
+    doFirst { delete "${buildDir}/asciidoc/readme" }
+    description 'Generate OFBiz README files'
+    sourceDir "${rootDir}"
+    // CHANGELOG.adoc should be only present in the current stable version
+    sources {
+        include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc', 'DOCKER.adoc'
+    }
+    outputDir file("${buildDir}/asciidoc/readme/")
+}
+
+tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
+    group = docsGroup
+    dependsOn deleteOfbizDocumentation
+    description 'Generate SunsetERP documentation manuals'
+    activeComponents().each { component ->
+        copy {
+            from "${component}/src/docs/asciidoc/images/${component.name}"
+            include '**/*.*'
+            into "${rootDir}/docs/asciidoc/images/${component.name}"
+        }
+    }
+    sourceDir "${rootDir}/docs/asciidoc"
+    outputDir file("${buildDir}/asciidoc/ofbiz")
+    doLast {
+        activeComponents().each { component ->
+            delete "${rootDir}/docs/asciidoc/images/${component.name}"
+        }
+    }
+}
+
+tasks.register('generatePluginDocumentation') {
+    group = docsGroup
+    dependsOn deletePluginDocumentation
+    description 'Generate plugin documentation. Expects pluginId flag'
+    activeComponents()
+            .findAll { project.hasProperty('pluginId') && it.name == pluginId }
+            .each { component ->
+                def pluginAsciidoc = task "${component.name}Documentation"(type: AsciidoctorTask) {
+                    def asciidocFolder = new File("${component}/src/docs/asciidoc")
+                    if (asciidocFolder.exists()) {
+                        copy {
+                            from "${rootDir}/docs/asciidoc/images/OFBiz-Logo.svg"
+                            into "${component}/src/docs/asciidoc/images"
+                        }
+                        sourceDir file("${component}/src/docs/asciidoc")
+                        outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                        doLast { println "Documentation generated for plugin ${component.name}" }
+                    } else {
+                        println "No documentation found for plugin ${component.name}"
+                    }
+                    doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
+                    mustRunAfter deletePluginDocumentation
+                }
+                dependsOn pluginAsciidoc
+                doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
+            }
+}
+
+tasks.register('generateAllPluginsDocumentation') {
+    group = docsGroup
+    dependsOn deleteAllPluginsDocumentation
+    file("${pluginsDir}").eachDir { plugin ->
+        activeComponents().each { component ->
+            if (component.name == plugin.name) {
+                if (subprojectExists(":plugins:${plugin.name}")) {
+                    // Note: the "-" between "component.name" and "Documentation" allows to differentiate from
+                    // the other inner task temporary created by the generatePluginDocumentation task
+                    def pluginAsciidoc = task "${component.name}-Documentation"(type: AsciidoctorTask) {
+                        def asciidocFolder = new File("${component}/src/docs/asciidoc")
+                        doFirst {
+                            if (asciidocFolder.exists()) {
+                                copy {
+                                    from "${rootDir}/docs/asciidoc/images/OFBiz-Logo.svg"
+                                    into "${component}/src/docs/asciidoc/images"
+                                }
+                            }
+                        }
+                        if (asciidocFolder.exists()) {
+                            sourceDir file("${component}/src/docs/asciidoc")
+                            outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                            doLast { println "Documentation generated for plugin ${component.name}" }
+                        }
+                        mustRunAfter deleteAllPluginsDocumentation
+                        doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
+                    }
+                    dependsOn pluginAsciidoc
+                }
+            }
+        }
+    }
+}
+
+// ========== Clean up tasks ==========
+tasks.register('cleanCatalina') {
+    group = cleanupGroup
+    doLast { delete "${rootDir}/runtime/catalina/work" }
+}
+tasks.register('cleanData') {
+    group = cleanupGroup
+    doLast { deleteAllInDirWithExclusions("${rootDir}/runtime/data/", ['README', 'derby.properties']) }
+}
+tasks.register('cleanDownloads') {
+    group = cleanupGroup
+    doLast {
+        delete fileTree(dir: "${rootDir}/framework/base/lib", includes: ['activemq-*.jar'])
+        delete fileTree(dir: "${rootDir}/framework/entity/lib/jdbc", includes: ['postgresql-*.jar'])
+        delete fileTree(dir: "${rootDir}/framework/entity/lib/jdbc", includes: ['mysql-*.jar'])
+    }
+}
+tasks.register('cleanLogs') {
+    group = cleanupGroup
+    doLast { deleteAllInDirWithExclusions("${rootDir}/runtime/logs/", ['README']) }
+}
+tasks.register('cleanOutput') {
+    group = cleanupGroup
+    doLast { deleteAllInDirWithExclusions("${rootDir}/runtime/output/", ['README']) }
+}
+tasks.register('cleanIndexes') {
+    group = cleanupGroup
+    doLast { deleteAllInDirWithExclusions("${rootDir}/runtime/indexes/", ['README', 'index.properties']) }
+}
+tasks.register('cleanTempfiles') {
+    group = cleanupGroup
+    doLast {
+        deleteAllInDirWithExclusions("${rootDir}/runtime/tempfiles/", ['README'])
+        deleteAllInDirWithExclusions("${rootDir}/runtime/tmp/", ['README'])
+    }
+}
+tasks.register('cleanUploads') {
+    group = cleanupGroup
+    doLast { deleteAllInDirWithExclusions("${rootDir}/runtime/uploads/", []) }
+}
+tasks.register('cleanXtra') {
+    group = cleanupGroup
+    doLast {
+        delete fileTree(dir: "${rootDir}",
+                includes: ['**/.nbattrs', '**/*~', '**/.#*', '**/.DS_Store', '**/*.rej', '**/*.orig'])
+    }
+}
+
+/* ========================================================
+ * Helper Functions
+ * ======================================================== */
+
+def deleteAllInDirWithExclusions(dirName, exclusions) {
+    ant.delete (includeEmptyDirs: 'true', verbose: 'on') {
+        fileset(dir: dirName, includes: '**/*', erroronmissingdir: 'false') {
+            exclusions.each { exclusion ->
+                exclude name: exclusion
+            }
+        }
+    }
+}
+
+/*
+ * Keep this task below all other clean tasks  The location of
+ * declaration is important because it means that it will automatically
+ * run whenever the task cleanAll executes (dependency matched by regex)
+ */
+def cleanTasks = tasks.findAll { it.name ==~ /^clean.+/ }
+tasks.register('cleanAll') {
+    dependsOn cleanTasks + clean
+    description 'Execute all cleaning tasks.'
+}
 
 group 'org.sitenetsoft'
 version '1.0.0-SNAPSHOT'
