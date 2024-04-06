@@ -39,8 +39,6 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 
 # OFBiz .gitignore
-bin/
-build/
 applications/*/build
 framework/*/build
 /plugins/
@@ -60,18 +58,10 @@ runtime/tempfiles/*
 runtime/indexes/products/
 !runtime/tempfiles/README
 changelog
-.classpath
-.project
 .settings
-.gradle/
 .groovy
 .pc
-.DS_Store
 desktop.ini
-.idea
-*.iml
-*.ipr
-*.iws
 *~
 *#
 .*.swp
