@@ -16,17 +16,20 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+import groovy.xml.XmlSlurper
+import groovy.xml.slurpersupport.NodeChild
+
 import java.util.stream.Stream
 import java.util.stream.Collectors
 
 mkdir "${rootDir}/plugins"
 
 // The ‘file’ argument can be either a string or a file.
-Stream<Node> xmlChildren(file) {
+static Stream<Node> xmlChildren(file) {
     new XmlParser().parse(file).children().stream()
 }
 
-Stream<File> subdirs(File dir) {
+static Stream<File> subdirs(File dir) {
     def res = []
     dir.eachDir res.&add
     res.stream()
@@ -39,8 +42,10 @@ boolean isComponentEnabled(File componentDir) {
 }
 
 List<File> activeComponents() {
-    xmlChildren("${rootDir}/framework/base/config/component-load.xml")
+    println "Running activeComponents function..."
+    def result = xmlChildren("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/base/config/component-load.xml")
         .map { "${rootDir}/" + it.@'parent-directory' }
+            .peek { println "Directory: $it" }
         .flatMap({ dir ->
             File loader = file(dir + '/component-load.xml')
             if (loader.exists()) {
@@ -49,11 +54,16 @@ List<File> activeComponents() {
                 subdirs file(dir)
             }
         })
+            .peek { println "Component: $it" }
         .filter(this.&isComponentEnabled)
-        .collect(Collectors.toList()) + file("${rootDir}/framework/start")
+            .peek { println "Enabled component: $it" }
+        .collect(Collectors.toList()) + file("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/start")
+    println "Result: $result"
+    return result
 }
 
 ext {
+    xmlChildren = this.&xmlChildren
     subdirs = this.&subdirs
     activeComponents = this.&activeComponents.memoize()
     isComponentEnabled = this.&isComponentEnabled.memoize()

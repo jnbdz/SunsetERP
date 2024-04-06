@@ -158,7 +158,7 @@ Still in dev mode.
   - [ ] Logging performance (Netflix)
 - [ ] Add security tests
   - [ ] Analyse (Can Kali help? What others are doing? Other similar standards to PCI-DSS)
-  - [ ] PCI-DSS ([PCI-DSS | endoflife.date](https://endoflife.date/pci-dss), [PCI DSS v4.0 Resource Hub | Blog | PCI Security Standard](https://blog.pcisecuritystandards.org/pci-dss-v4-0-resource-hub))
+  - [ ] PCI-DSS ([PCI-DSS | endoflife.date](https://endoflife.date/pci-dss), [PCI DSS v4.0 Resource Hub | Blog | PCI Security Standard](https://blog.pcisecuritystandards.org/pci-dss-v4-0-resource-hub), [PA/DSS certified](https://www.pcisecuritystandards.org/assessors_and_solutions/payment_applications?category=PA-DSS+certified))
   - [ ] GitHub Workflow that will search CVEs to see of it affects one of the libraries and what version
     - [ ] Analyse (what is in market)
 - [ ] Add privacy tests (new EU and Qc regulations)

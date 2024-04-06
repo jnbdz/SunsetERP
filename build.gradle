@@ -1,11 +1,31 @@
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 
+import java.util.stream.Collectors
+
+/* ========================================================
+ * Project setup
+ * ======================================================== */
+
 plugins {
     id 'java'
+    id 'checkstyle'
+    id 'codenarc'
     id 'io.quarkus'
     id 'org.asciidoctor.jvm.convert' version '3.3.2' // 4.0.2 does not compile
     id 'org.asciidoctor.jvm.pdf' version '3.3.2'     // 4.0.2 does not compile
     id 'org.owasp.dependencycheck' version '9.0.9' apply false //Not tested after 7.4.4
+}
+
+/* OWASP plugin
+ *
+ * If project property "enableOwasp" is flagged then
+ * gradle will download required dependencies and
+ * activate Gradle's OWASP plugin and its related tasks.
+ *
+ * Syntax: gradlew -PenableOwasp dependencyCheckAnalyze
+ */
+if (project.hasProperty('enableOwasp')) {
+    apply plugin: 'org.owasp.dependencycheck'
 }
 
 repositories {
@@ -15,6 +35,29 @@ repositories {
 
 apply from: 'common.gradle'
 apply from: 'dependencies.gradle'
+
+// global properties
+ext.os = System.getProperty('os.name').toLowerCase()
+ext.gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
+ext.pluginsDir = "${rootDir}/plugins"
+
+javadoc {
+    title="SunsetERP " + getCurrentGitBranch() + " API"
+    failOnError = true
+    options {
+        source '17'
+        encoding 'UTF-8'
+        charSet 'UTF-8'
+        // Those external Javadoc links should correspond to the actual
+        // versions declared in the 'dependencies' block.
+        links(
+                'https://docs.oracle.com/javase/17/docs/api',
+                'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
+                'http://docs.groovy-lang.org/docs/groovy-3.0.20/html/api',
+                'https://commons.apache.org/proper/commons-cli/apidocs'
+        )
+    }
+}
 
 /*task downloadTikaParsers(type: Copy) {
     from configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.find {
@@ -26,6 +69,41 @@ apply from: 'dependencies.gradle'
 // Only used for release branches
 static def getCurrentGitBranch() {
     return "git branch --show-current".execute().text.trim()
+}
+
+def excludedJavaSources = [
+        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/cybersource/IcsPaymentServices.java',
+        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/orbital/OrbitalPaymentServices.java',
+        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/paypal/PayPalServices.java',
+        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/securepay/SecurePayPaymentServices.java',
+        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/securepay/SecurePayServiceTest.java',
+        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/verisign/PayflowPro.java',
+        'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareException.java',
+        'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareServices.java',
+        'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareUTL.java'
+]
+
+// Checks SunsetERP and OFBiz Java coding conventions.
+checkstyle {
+    // Defining a maximum number of "tolerated" errors ensures that
+    // this number cannot increase in the future. It corresponds to
+    // the sum of errors found last time it was changed after using the
+    // 'checkstyle' tool present in the framework and in the official
+    // plugins.
+    tasks.checkstyleMain.maxErrors = 0
+    // Currently there are no errors so we can show new one when they appear
+    showViolations = true
+}
+//gitHooks {
+    //hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
+//}
+
+// Checks OFBiz Groovy coding conventions.
+codenarc {
+    setConfigFile(new File('config/codenarc/codenarc.groovy'))
+    setMaxPriority1Violations(0)
+    setMaxPriority2Violations(410)
+    setMaxPriority3Violations(3975)
 }
 
 /* ========================================================
@@ -97,15 +175,15 @@ tasks.register('generateReadmeFiles', AsciidoctorTask) {
     outputDir file("${buildDir}/asciidoc/readme/")
 }
 
-tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
+/*tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
     group = docsGroup
     dependsOn deleteOfbizDocumentation
     description 'Generate SunsetERP documentation manuals'
     activeComponents().each { component ->
         copy {
-            from "${component}/src/docs/asciidoc/images/${component.name}"
-            include '**/*.*'
-            into "${rootDir}/docs/asciidoc/images/${component.name}"
+            from "${component}/src/docs/asciidoc/images/${component.name}"*/
+            //include '**/*.*'
+/*            into "${rootDir}/docs/asciidoc/images/${component.name}"
         }
     }
     sourceDir "${rootDir}/docs/asciidoc"
@@ -115,9 +193,9 @@ tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
             delete "${rootDir}/docs/asciidoc/images/${component.name}"
         }
     }
-}
+}*/
 
-tasks.register('generatePluginDocumentation') {
+/*tasks.register('generatePluginDocumentation') {
     group = docsGroup
     dependsOn deletePluginDocumentation
     description 'Generate plugin documentation. Expects pluginId flag'
@@ -177,7 +255,7 @@ tasks.register('generateAllPluginsDocumentation') {
             }
         }
     }
-}
+}*/
 
 // ========== Clean up tasks ==========
 tasks.register('cleanCatalina') {
@@ -228,6 +306,41 @@ tasks.register('cleanXtra') {
 }
 
 /* ========================================================
+ * Test Gradle Common Functions
+ * ======================================================== */
+
+tasks.register('testXmlChildren') {
+    doLast {
+        def testFilePath = "${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/applications/component-load.xml"
+        def result = xmlChildren(testFilePath).collect(Collectors.toList())
+        println "Result: $result"
+    }
+}
+
+tasks.register('testSubdirs') {
+    doLast {
+        def testDirPath = "${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/applications"
+        def result = subdirs(new File(testDirPath)).collect(Collectors.toList())
+        println "Result: $result"
+    }
+}
+
+tasks.register('testIsComponentEnabled') {
+    doLast {
+        def testDirPath = "${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/applications/accounting"
+        def result = isComponentEnabled(new File(testDirPath))
+        println "Result: $result"
+    }
+}
+
+tasks.register('testActiveComponents') {
+    doLast {
+        def result = activeComponents().collect(Collectors.toList())
+        println "Result: $result"
+    }
+}
+
+/* ========================================================
  * Helper Functions
  * ======================================================== */
 
@@ -271,3 +384,14 @@ compileJava {
 compileTestJava {
     options.encoding = 'UTF-8'
 }
+
+/*tasks.startScripts {
+    doLast {
+        // Alter the start script for Unix systems.
+        unixScript.text =
+                unixScript.text.replace('CLASSPATH=$APP_HOME/lib','CLASSPATH=$APP_HOME/config/:$APP_HOME/lib-extra/*:$APP_HOME/lib')
+        // Alter the start script for Windows systems.
+        windowsScript.text =
+                windowsScript.text.replace('CLASSPATH=%APP_HOME%\\lib','CLASSPATH=%APP_HOME%\\conf\\;%APP_HOME%\\lib-extra\\*;%APP_HOME%\\lib')
+    }
+}*/
