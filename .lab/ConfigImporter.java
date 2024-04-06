@@ -1,9 +1,13 @@
 import io.quarkus.runtime.StartupEvent;
-import javax.enterprise.event.Observes;
-import javax.enterprise.context.ApplicationScoped;
+//import javax.enterprise.event.Observes;
+import jakarta.enterprise.event.Observes;
+//import javax.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.ApplicationScoped;
 import java.io.File;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.DocumentBuilder;
+//import javax.xml.parsers.DocumentBuilderFactory;
+import jakarta.xml.parsers.DocumentBuilderFactory;
+//import javax.xml.parsers.DocumentBuilder;
+import jakarta.xml.parsers.DocumentBuilder;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
