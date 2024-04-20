@@ -20,7 +20,7 @@ under the License.
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns="http://ofbiz.apache.org/Widget-Form" targetNamespace="http://ofbiz.apache.org/Widget-Form">
     <xs:include schemaLocation="http://ofbiz.apache.org/dtds/widget-common.xsd" />
 
-  <!-- ================== FORMS ==================== -->
+    <!-- ================== FORMS ==================== -->
     <xs:element name="forms">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
@@ -169,8 +169,8 @@ under the License.
             <xs:attribute type="xs:string" name="override-list-size">
                 <xs:annotation>
                     <xs:documentation>The total number of rows in the original list (used for pagination).
-                                      If not specified, the size of the list will be used. Accepts ${} notation.
-                                      You may use any value, true makes sense, when using performFindList, but one value must be passed.
+                        If not specified, the size of the list will be used. Accepts ${} notation.
+                        You may use any value, true makes sense, when using performFindList, but one value must be passed.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
@@ -619,7 +619,7 @@ under the License.
         </xs:complexType>
     </xs:element>
 
-  <!-- ================== FIELDS ==================== -->
+    <!-- ================== FIELDS ==================== -->
     <xs:element name="AllFields" abstract="true"/>
     <xs:element name="field">
         <xs:complexType>
@@ -748,7 +748,7 @@ under the License.
                         Used to specify a condition that must be true to use this field; the condition should be written using the
                         Java syntax and can operate on values in the form context; conditional fields are evaluated in reverse
                         order so the last field defined that evaluates to true is the one that is rendered.
-            </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="ignore-when" type="xs:string">
@@ -757,7 +757,7 @@ under the License.
                         This attribute is defined to enable ignoring a field on a form of type list or multi,
                         which is not possible using use-when attribute. Like use-when it should be written using java syntax.
                         The condition should be evaluated in the form context without looking for data coming from list that feeds the form.
-                        </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="encode-output" type="xs:boolean" default="true">
@@ -765,7 +765,7 @@ under the License.
                     <xs:documentation>
                         This is for textual output only. If true data shown in fields will be encoded so that it does not interfere with markup of the target output.
                         For example, if output is HTML then data presented will be HTML encoded so that all HTML-specific characters are escaped.
-            </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="event">
@@ -798,7 +798,7 @@ under the License.
                         Will default to form's default-required-field-style.
                         If field is required, but required-field-style is empty, an '*' will be placed to the right of text,
                         textarea and password fields.
-                </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="sort-field" type="xs:boolean" default="false"/>
@@ -806,27 +806,27 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link.
                         Will default to form's default-sort-field-style.
-                </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="sort-field-help-text">
                 <xs:annotation>
                     <xs:documentation>Help text to be displayed when the mouse hovers over the column heading.
-                </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="sort-field-asc-style">
                 <xs:annotation>
                     <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link ordered ascending.
                         Will default to form's default-sort-field-asc-style.
-                </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="sort-field-desc-style">
                 <xs:annotation>
                     <xs:documentation>The name of a style (like a CSS class) to apply to the sort field link ordered descending.
                         Will default to form's default-sort-field-desc-style.
-                </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="form-name">
@@ -869,7 +869,7 @@ under the License.
         </xs:complexType>
     </xs:element>
 
-  <!-- ================== FIELD TYPES ==================== -->
+    <!-- ================== FIELD TYPES ==================== -->
     <xs:element name="check" substitutionGroup="AllFields">
         <xs:complexType>
             <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -877,7 +877,14 @@ under the License.
                 <xs:element ref="list-options" />
                 <xs:element ref="option" />
             </xs:choice>
-            <xs:attribute name="all-checked" type="xs:boolean"/>
+            <xs:attribute name="all-checked" type="xs:boolean">
+                <xs:annotation>
+                    <xs:documentation>
+                        None option is checked by default.
+                        You may check options by setting field names as in QuoteForms.xml#FindQuotes
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="container" substitutionGroup="AllFields">
@@ -1077,7 +1084,7 @@ under the License.
                     <xs:documentation>
                         Specifies the size of the field (as a number of characters),
                         when the text to display exceed the given size it is truncated and add the complete text as a hint
-                     </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute name="cache" type="xs:boolean" default="true"/>
@@ -1448,6 +1455,14 @@ under the License.
                     <xs:documentation>The message displayed in confirmation box</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="propagate-callback" type="xs:boolean" default="false">
+                <xs:annotation>
+                    <xs:documentation>If you are on an edition process with different steps and you want to wait the end of the complete action before using the callback,
+                        use propagate-callback="true". The submit will understand that you want to continue your process and will not close the modal to refresh the screen.
+                        The callback action will be kept within the different steps
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
     <xs:element name="text" substitutionGroup="AllFields">
@@ -1502,6 +1517,13 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>In here you can specify which buttons you want to see and in which order separated by blanks. Available buttons are:formatblock fontname fontsize newline bold italic underline left center right number bullet indent outdent undo redo color hilite rule link image
                         table clean html spellcheck |(separator) Default is that all buttons are shown</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="placeholder">
+                <xs:annotation>
+                    <xs:documentation>
+                        Content of the HTML placeholder attribute (https://developer.mozilla.org/fr/docs/Web/HTML/Element/textarea#placeholder), text to be displayed to the user when textarea is empty. Similar to text input placeholder.
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
         </xs:complexType>
@@ -1726,7 +1748,7 @@ under the License.
                         If specified the list entry will be placed in the local
                         context, otherwise each list entry must be a Map that will be expanded
                         into the local context.
-                </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="key-name" use="required">
@@ -1736,7 +1758,7 @@ under the License.
                         to the server; this should be the full name of the location of the
                         key value in the context, given the list-entry-name or expanded
                         list-entry Map as the options you would most likely use.
-                </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="description" default="${description}">
@@ -1798,7 +1820,7 @@ under the License.
     </xs:complexType>
     <xs:element name="sub-hyperlink" type="sub-hyperlink"/>
 
-  <!-- ================== ACTIONS ==================== -->
+    <!-- ================== ACTIONS ==================== -->
     <xs:element name="actions">
         <xs:complexType>
             <xs:sequence>
