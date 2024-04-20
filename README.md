@@ -317,22 +317,22 @@ Might need to investigate:
   - [ ] Analyse (GitHub workflow)
 - [ ] Tests microservices
   - [ ] Analyse (what is in market... Chaos Monkey, etc.) (since we are using Quarkus with Keycloak, OpenSearch, etc. we need to make sure that they are working properly even when one of those services goes down)
-- [ ] Redo front-end with HTMX+jQuery+PatternFly+Sunset special pattern (remove \n \r tidy up)
+- [ ] Redo front-end with HTMX+RVST+HTMT+jQuery+PatternFly special pattern (remove \n \r tidy up)
   - [ ] Analyse
-  - [ ] Redo what was already done with HTMX
+  - [ ] Redo what was already done with HTMX+RVST+HTMT+jQuery+PatternFly special pattern
   - [ ] Unit tests
   - [ ] HTML validation
   - [ ] CSS validation
   - [ ] Lint validation
   - [ ] Functional testing with Cypress
-  - [ ] Refactor flt files to use HTMX+handlebars.js
-  - [ ] Refactor widgets to use HTMX+handlebars.js
-  - [ ] Refactor screens to use HTMX+handlebars.js
-  - [ ] Refactor forms to use HTMX+handlebars.js
-  - [ ] Refactor menus to use HTMX+handlebars.js
-  - [ ] Refactor themes to use HTMX+handlebars.js
-  - [ ] Refactor images to use HTMX+handlebars.js
-  - [ ] Refactor actions to use HTMX+handlebars.js
+  - [ ] Refactor flt files to use HTMX+RVST+HTMT
+  - [ ] Refactor widgets to use HTMX+RVST+HTMT
+  - [ ] Refactor screens to use HTMX+RVST+HTMT
+  - [ ] Refactor forms to use HTMX+RVST+HTMT
+  - [ ] Refactor menus to use HTMX+RVST+HTMT
+  - [ ] Refactor themes to use HTMX+RVST+HTMT
+  - [ ] Refactor images to use HTMX+RVST+HTMT
+  - [ ] Refactor actions to use HTMX+RVST+HTMT
   - [ ] Remove all the screen code stuff since it is not needed anymore
   - [ ] Remove all the request-map, `controller.xml` stuff since it is not needed anymore
   - [ ] Remove all the `web.xml` stuff since it is not needed anymore
@@ -343,7 +343,7 @@ Might need to investigate:
   - [ ] Analyse (GitHub Workflows)
 - [ ] Add support for BRM and BPM from kie
   - [ ] Analyse
-- [ ] Add Editor.js or Quilljs... maybe both?
+- [ ] Add [Editor.js](https://editorjs.io/) or [Quilljs](https://quilljs.com/)... maybe both?
   - [ ] Analyse
 - [ ] Copy as many features from WordPress as possible for Blogs (RSS feeds, etc.)
 - [ ] Add functions for CRM
