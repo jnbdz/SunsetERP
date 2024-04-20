@@ -197,6 +197,34 @@ Still in dev mode.
   - `build.gradle` - Related to `groovyScripts`
 - [commit (Feb 4, 2024)](https://github.com/apache/ofbiz-framework/commit/0d9ac6e4b22d1e0ba84913c43afe7243847ea833)
   - `framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/LoginWorker.java`
+- [commit (Feb 5, 2024)](https://github.com/apache/ofbiz-framework/commit/e4514d2f54e558064ad4253e49db51b6f3502a9a) - Groovy
+- [commit (Feb 5, 2024)](https://github.com/apache/ofbiz-framework/commit/6ca26af8413e670a9f58c1bb9b624951b16e6b33)
+  - `VERSION`
+- [commit (Feb 5, 2024)](https://github.com/apache/ofbiz-framework/commit/c156ab44141ff166f6620e754ac01df00d5e8a1f)
+  - Groovy
+- [commit (Feb 5, 2024)](https://github.com/apache/ofbiz-framework/commit/b39705474062afe91aec6a35a6311cc4a242e078)
+  - `build.gradle`
+- [commit (Feb 5, 2024)](https://github.com/apache/ofbiz-framework/commit/6d31c0d3ebcffe62b2a0adc8af04564d4033d990)
+  - `build.gradle`
+- [commit (Feb 5, 2024)](https://github.com/apache/ofbiz-framework/commit/8945a9cbb30677f0dc1a9d543a0b3537268a2b98)
+  - `build.gradle`
+- [commit (Feb 5, 2024)](https://github.com/apache/ofbiz-framework/commit/56bd57a3747b1760dd133a557638b5f50f8eeda9)
+  - `build.gradle`
+- [commit (Feb 6, 2024)](https://github.com/apache/ofbiz-framework/commit/6708f750ee51319f48a8e59238630dae76c21976)
+  - `framework/common/webcommon/WEB-INF/common-controller.xml`
+- [commit (Feb 6, 2024)](https://github.com/apache/ofbiz-framework/commit/eadf86aa7e4e98efdc03d7141dfc8ee874f26e5a)
+  - `applications/party/widget/partymgr/PartyMenus.xml` - View stuff
+- [commit (Feb 8, 2024)](https://github.com/apache/ofbiz-framework/commit/cd67b3e5ab10fe8d9703eeef2cb2f752a3f971ae)
+  - `docker/examples/postgres-demo/docker-compose.yml`
+- [commit (Feb 8, 2024)](https://github.com/apache/ofbiz-framework/commit/7f2e61c14af16004505524f8b74c17a0c321c889) - Doc stuff
+- [commit (Feb 8, 2024)](https://github.com/apache/ofbiz-framework/commit/836b55ef78dd46acb39aea55503407354a62f125) - Doc stuff
+- [commit (Feb 9, 2024)](https://github.com/apache/ofbiz-framework/commit/14b80e952fc2730972026276fadf0ea379157255) - Front end
+- [commit (Feb 9, 2024)](https://github.com/apache/ofbiz-framework/commit/0b7145f86cfb81c9887f4e3ffb7b8e9053433f4d) - Doc stuff
+- [commit (Feb 9, 2024)](https://github.com/apache/ofbiz-framework/commit/26e7e96cb280a695a3981b2be0369d62991379e8) - Doc stuff
+- [commit (Feb 10, 2024)](https://github.com/apache/ofbiz-framework/commit/e1b053e0b49fdbcb6021f035ae82e0a60ec9e3af) - Doc stuff
+- [commit (Feb 14, 2024)](https://github.com/apache/ofbiz-framework/commit/11ae98b9983c2ff9808e680791da6380df43f7a4) - Doc stuff
+- [commit (Feb 14, 2024)](https://github.com/apache/ofbiz-framework/commit/e24688c1ad8e53a9fd227fcc9e29d8b9e2c3a56e) - Doc stuff
+- [commit (Feb 14, 2024)](https://github.com/apache/ofbiz-framework/commit/a34a8799ba70a20e2b3388bf5f4a1d9ca0021263) - Front end
 
 ## Notes about Paths:
 ```groovy
