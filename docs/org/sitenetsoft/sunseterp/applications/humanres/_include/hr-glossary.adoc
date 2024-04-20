@@ -1,0 +1,139 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+[glossary]
+= HR Glossary
+
+[comment]
+It's important to sort glossary entries in alphabetic order to avoid duplication or search failing.
+
+[#BENEFITS]
+Employment Benefits::
+Employment imply salary but not only, most of time, there are some benefit packages associated. Examples are
+vacation,health or life insurance, sick leave or retirement plan. Cost of these package may be partly or completely
+paid by the entreprise. Example can be see in <<_step_4_employee_associated_benefits>> in <<_tutorial_employment_and_salary>>.
+
+[#EMPLOYMENT]
+Employment::
+Employment defines the relationship between your Company and a person who is an
+ employee. The employment relationship tracks employee benefits  preferences, pay
+history, and unemployment claims and agreements. +
+For more detail see <<_employments>> chapter.
+
+[#EMPLOYEE]
+Employee::
+An employee is a person (and so a party) who has an employment relationship with your Company. +
+For more detail see <<_employees>> chapter.
+
+[#EMPLOYEE_POSITION_TYPE]
+Employee Position Type::
+Employee Position Type is a name that describes a position (<<_employee_positions, Employee Positions>>).
+You can define your own position types in Global HR Settings > Position
+Types.
+
+[NOTE]
+Business Analyst, Programmer and System Administrator are examples of position types in the OFBiz
+demo data.
+
+[#EXEMPT_FLAG]
+Exempt Flag::
+The exempt flag can be used to indicate if an employee position is exempt or non-exempt
+ under the fair labor Standards Act (FLSA).
+
+[#FULFILLMENT]
+Fulfillment::
+A fulfillment associates a person with a position. A person can fulfill more than
+ one position and a position can have more then one person.
+
+[#FULLTIME_FLAG]
+Fulltime Flag::
+The fulltime flag can be used to indicate if an employee position is for a full
+or part time position.
+
+[#HR_APP_MENU]
+HR App Menu::
+The main menu that opens the high level features of the HR App i.e. Employees,
+Employments, Employee Position etc.
+
+[#NUMBER_OF_EMPLOYEES]
+Number of Employees::
+Number of employees that are reported in the Party Group Information screenlet of
+the groups profile (Visit Party Profile screen).
+
+[#QUALIFICATIONS]
+Qualifications::
+Qualifications for an individual person or organization are in the Employees Qualifications
+menu item. To find and update the qualifications of people and organizations visit
+Qualifications menu.
+
+[#PARTY_QUALIFICATION_TYPE]
+Party Qualification Type::
+Party qualifications define a person or organizations accomplishments that indicate
+their suitability to perform a job. Qualifications are organized into qualification
+groups for the purpose of managing and reporting.
+
+[#POSITION]
+Position:: A Employee Position is a job that can be filled by more then one person over time or at the same time.
+Positions are defined by a type of work. For example there may be 20 positions in an organization for a secretary.
+Each position is related to a department in the organization. +
+For more details have a look at <<_employee_positions>> in HR core object chapter.
+
+[#RATING]
+Rating::
+Rating is a user defined numeric rating for a skill. (See Skills Menu)
+
+[#RESPONSIBILITY]
+Responsibility::
+Responsibilities define duties assigned to a position. They are defined in
+Responsibility Types and assigned in Employee Position Responsibilities.
+
+[#SALARY_FLAG]
+Salary Flag::
+The salary flag can be used to indicate if an employee position is salaried or
+paid hourly.
+
+[#SKILL]
+Skill::
+Skill is some ability or knowledge possessed by a person or organization that is
+ needed to perform a job for the company. See Skills
+
+[#SKILL_LEVEL]
+Skill Level::
+Skill level is a user defined numeric rating a skill. It is up to the user to
+assign some meaning to the level. For example 1=Entry, 2=Intermediate, 3=Expert
+(See Skills Menu).
+
+[#SKILL_GROUP]
+Skill Group::
+Skill goup is a name that describes a collection of skills that have common
+attributes (See Skills Menu).
+
+[#TEMPORARY_FLAG]
+Temporary Flag::
+A temporary flag can be used to indicate if an employee position is permanent or
+temporary.
+
+[#TERMINATION_REASON]
+Termination Reason::
+The termination reason is a name describing the cause related to a termination
+type e.g. Type: resigned for reason: found new job.
+
+[#TERMINATION_TYPE]
+Termination Type::
+The termination type is a name for the kind of termination e.i. Resigned, fired,
+ retired, layoff.

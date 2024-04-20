@@ -1,0 +1,61 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= Employments
+
+An employment is a relationship between a person and your Company.
+The Human Resources application tracks employment benefits, pay history,
+unemployment claims and employment agreements for each employed person.
+
+When you create new employee, an employee relationship is created automatically (/!\ see <<_createemployee>> functional Bug).
+
+NOTE: If a person was entered into the application by some other means then you
+will have to create the employee relationship manually in the Party Manager application.
+
+The employment record includes the start and end date of the employment.
+When the employment ends you include the type of termination and a reason.
+For example, an employee may have been let go because of poor performance.
+(In this case the 'type' could be 'fired and the reason could be 'poor performance')
+
+The Employments screen can be used to create an employment or search for existing
+employments.
+
+To other explanation, look at the process <<_employee_salary_and_benefits_administration>> introduction. +
+A Database diagram for main link with other entities exist in <<DATAMODEL-EMPLOYMENT, HR Data model - Employment>>
+
+== Employments management in UI
+
+=== Create or Edit Employment
+This screen allows you to create a new employment or edit an existing one.
+
+To create a new employment relationship between Company and an employee
+
+* Select the Employee Party Id
+* Enter the start date for the employment (e.g. Hire Date)
+* Click Create
+
+Once created the employment detail screen will be displayed where you can update a range of information related
+ to the employment such as benefits, payment preferences and unemployment claims
+
+= List Employments
+This screen displays a list of Employments for an employee.
+
+NOTE:Usually a person will have only a single employment with an employer.
+
+The employment details (e.g benefits, payroll preferences, etc) can be modified by clicking 'Edit'.
+

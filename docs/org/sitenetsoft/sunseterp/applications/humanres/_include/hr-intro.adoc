@@ -1,0 +1,144 @@
+////
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+////
+= About Human Resources
+
+The people who work for your company are human capital and are its most important
+asset. Selecting a software platform that increases the value of your companies human
+capital and delivers benefits, services and opportunities to your workforce, is
+critical to your companies success.
+That platform must be able to accurately and reliability process worker transactions,
+collect decision support information, and communicate between management, workers
+and outside resources.
+
+The OFBiz Human Resource application (HR App) can provide a stable foundation for
+building that platform.
+
+include::HELP-hr-main.adoc[leveloffset=+1]
+
+= HR Processes
+
+Human Resources Management can be divided into several distinct processes.
+
+* <<_organization_job_position_and_definition>>
+* <<_employee_training_and_development>>
+* <<_performance_management_and_employee_evaluation>>
+* <<_employee_salary_and_benefits_administration>>
+* <<_recruitment_candidate_selection_and_hiring>>
+
+== Organization, Job Position and Definition
+
+Many companies organize departments in a tree structure.
+There is no special meaning attached to the word department. +
+It is used to describe any sub-division of a business organization.
+
+In each department there are some <<_employee_positions, Employee positions>> (or Job position) +
+Generally <<_employee_positions, Job positions>> are authorized by a budget and fulfilled by people. The
+ person fulfilling the position may be a permanent employee, a temporary employee
+or a contractor.
+
+* Positions may be salary or hourly, full-time or part time.
+* Positions have responsibilities.
+* Positions are defined by a type of work.
+
+Your Companies organizational tree is shown on the main page of the HR App, and you can manage each part of it
+(view, add, remove departments; assign job position to department or manage its <<EMPLOYMENT, employments>>)
+
+If you need to define one or more department, you must create it in the Party component. +
+Create a Party-Group and associated to it the role type Internal Organization (INTERNAL_ORGANIZATIO).
+After that the department appear in the drop-down when you select "Add Internal Organization" in the contextual menu
+(click right) of the Companies organizational tree in HR component.
+
+If you need to define one or more <<_employee_positions, Job positions>>, you must create it in the Employee Position
+ HR sub-component ( Main HR Menu, option Employee Position) and maybe previously create some <<EMPLOYEE_POSITION_TYPE, Position Type>>
+ in Global HR Settings HR sub-component.
+
+
+== Employee Salary and Benefits Administration
+
+Being able to manage employee salaries and associated benefits is a key part of
+any Human Resources system.
+
+Salary is *not* related to a <<_employee_positions>> (also named Job Position) because when
+a person which fulfill a Job Position change to an other, salary does'nt change in every time. Some organization
+are waiting person demonstrate his capabilities for the new Job Position to change salary.
+
+Salary is *not* related only to a Person, because in some company there are multiple subsidiaries or affiliate company,
+so Salary (and associated benefits) is related to <<_employments>> (a subtype of Party Relationship).
+
+In hightly structured company, Salary is organized with a pay schedule which have normally two level <<_pay_grades, Grade and step>>. +
+In Apache OFBiz, you can manage salary (and other point) directly by amount or with <<_pay_grades, Grade-Step>> or with a mix of them.
+
+In the OFBiz Human Resources application you can:
+
+* Create Pay Grades and Salary Steps within each Pay Grade
+* Assign a Pay Grade and Salary Step to a Job Position Type
+* Manage Employment and
+** his Pay History
+** his associated Benefits
+** his Leaves (Holidays, ill, family event,..)
+* Calculate salaries and Generate Payslips
+
+
+== Employee Training and Development
+
+Training and professional development is important for an organization because it
+ensures that your employees have the knowledge they need to perform their work.
+It can also help to fill any gaps in skills and improve their proficiency.
+
+In the OFBiz Human Resources application you can:
+
+* Define and create training courses
+* Schedule courses on a global training calendar
+* Make course available (or unavailable) for enrollment
+* Review and approve requests from employees to attend
+
+== Performance Management and Employee Evaluation
+
+Evaluating and managing the performance of employees is another main Human Resources
+function. Performance reviews can be created for an employee and used to evaluate
+the work that they have done in a particular job position. Comments and ratings
+can also be added.
+
+In the OFBiz Human Resources application you can:
+
+* Create a new Performance Review for an employee
+* Add individual review items such as Attitude, Communication or Technical Skills
+* Add ratings or comments to each item
+
+If an evaluation has gone well then the employee can be considered for promotion
+to another job position, or can be given other benefits such as a salary increase.
+
+== Recruitment, Candidate Selection and Hiring
+
+Recruitment is about at attracting applicants that match the skills and experience
+ you are looking for in a particular job position. Candidates can apply and after
+reviewing their details, those who are the best match in terms of qualifications
+and experience are short listed for interview. The final step is deciding upon the
+ final candidate that you want to hire and the employment contract details that
+are related to that.
+
+In the OFBiz Human Resources application you can:
+
+* Create a Requisition for new job positions
+* Create Internal Job Postings
+* Apply for job positions
+* Review Resumes / CVs
+* Arrange and Grade Interviews
+
+(add a test to check if createEmployment works for not yet employee (ex: party which are before only candidat)
