@@ -61,6 +61,83 @@ Still in dev mode.
 - Adapt ofbiz-plugins to this new setup
 - Adapt it for better Process Mining
 
+## History
+- Confirmed have change for: [commit (on Aug 29, 2023)](https://github.com/apache/ofbiz-framework/commit/950be5b0aa2283147be6fc2ebdded06d09831627)
+- The following change until Oct 2, 2023 are in none Java files (Groovy, Gradle and themes)
+- Starting from this commit the changes are missing: [commit (Oct 2, 2023)](https://github.com/apache/ofbiz-framework/commit/d462fc88b6088baa25d02b09829df85fe6a176ca)
+  - `framework/widget/dtd/widget-form.xsd` - was updated
+- [commit (Oct 10, 2023)](https://github.com/apache/ofbiz-framework/commit/a0f9c2f99fb4deda7ae135af0be369e2cece3ab6) - unimportant front end
+- [commit (Oct 11, 2023)](https://github.com/apache/ofbiz-framework/commit/14b97433ded543211a812277fe55b7fc9f241108) - Java library version
+- [commit (Oct 13, 2023)](https://github.com/apache/ofbiz-framework/commit/2e084e71f2068e8ad3c0f7869313ac5261b3fb4c) - Java library version
+- [commit (Nov 2, 2023)](https://github.com/apache/ofbiz-framework/commit/46701da3c3cffa5b4b3adea384050efb7b6179ef) - Need to apply the changes from OFBiz
+  - `framework/service/entitydef/entitymodel.xml`
+  - `framework/service/src/main/java/org/apache/ofbiz/service/job/JobManager.java`
+  - `framework/service/src/main/java/org/apache/ofbiz/service/job/PersistedServiceJob.java`
+- [commit (Nov 13, 2023)](https://github.com/apache/ofbiz-framework/commit/bfda8a6770eb0dcc1b6644d8639339fb8e44f40b) - Java library version
+- [commit (Nov 20, 2023)](https://github.com/apache/ofbiz-framework/commit/577e968a3d6a3040cecb32f748e8e240189e2e9d) - Groovy
+- [commit (Nov 24, 2023)](https://github.com/apache/ofbiz-framework/commit/9935270fcc1c883d4869e79e382df848737b8764) - Front end
+  - `framework/widget/src/main/java/org/apache/ofbiz/widget/model/ModelFormField.java`
+  - `framework/widget/src/main/java/org/apache/ofbiz/widget/model/XmlWidgetFieldVisitor.java`
+- [commit (Dec 5, 2023)](https://github.com/apache/ofbiz-framework/commit/ca0433d0e40ed9ac1cb73ad53be4a555ca9a3542) - Front end
+- [commit (Dec 5, 2023)](https://github.com/apache/ofbiz-framework/commit/afe62e2d7cdcf753bf44e53a3426529bac869fce)
+  - `framework/base/testdef/basetests.xml`
+- [commit (Dec 14, 2023)](https://github.com/apache/ofbiz-framework/commit/fb51a0ea5c4f7ff95b1586a5ca1c26e1ec50736f)
+  - `framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/LoginWorker.java`
+- [commit (Dec 14, 2023)](https://github.com/apache/ofbiz-framework/commit/212fd5f4a1cc49495ce9c66ff96cf9a08326d547)
+  - `framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/LoginWorker.java`
+- [commit (Dec 14, 2023)](https://github.com/apache/ofbiz-framework/commit/b87ff9e5b62d46bcf37f15e4a3f4c217cfd83ca9)
+  - `framework/common/src/main/java/org/apache/ofbiz/common/CommonEvents.java`
+  - The rest is UI stuff and controller stuff
+- [commit (Dec 15, 2023)](https://github.com/apache/ofbiz-framework/commit/ee02a33509589856ab1ad08399e8dcee6b0edf58)
+  - `framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/LoginWorker.java`
+- [commit (Dec 18, 2023)](https://github.com/apache/ofbiz-framework/commit/b6411f87c351d1696b54fdfc9a3609937dbec13f)
+  - `framework/common/data/GeoData_IN.xml`
+- [commit (Dec 23, 2023)](https://github.com/apache/ofbiz-framework/commit/0530a58d3a912520b7f9e46c5ccde98fd3737bf5) - Front end
+- [commit (Dec 31, 2023)](https://github.com/apache/ofbiz-framework/commit/fd52ae3fe0bcc5edebff6f3fba939475f83c4a41) - 
+  - pullAllPlugins and pullPlugin scripts
+- [commit (Jan 1, 2024)](https://github.com/apache/ofbiz-framework/commit/cdb3e6e207e85879aa1744ed1464648bc9252327)
+  - `.github/workflows/docker-image.yaml`
+  - `.github/workflows/gradle.yaml`
+  - `pullAllPluginsSource.sh`
+- [commit (Jan 1, 2024)](https://github.com/apache/ofbiz-framework/commit/c7f606fe98621b8233d70e1c1f9793c525117c4c)
+  - `NOTICE`
+  - `applications/datamodel/data/demo/AccountingDemoData.xml`
+- [commit (Jan 1, 2024)](https://github.com/apache/ofbiz-framework/commit/1eb5a52af41d096e56eb4671922075a01041515e)
+  - `README.adoc`
+  - `build.gradle` - It seems they commented out the code to pull plugin source
+- [commit (Jan 2, 2024)](https://github.com/apache/ofbiz-framework/commit/e16c0b3ed5e428a9bc308c0a4266bd245e719db6)
+  - pull plugin stuff
+- [commit (Jan 2, 2024)](https://github.com/apache/ofbiz-framework/commit/2ed2cadca55f1d090359156c553f07705b4bed3a)
+  - pull plugin stuff (empty?)
+- [commit (Jan 3, 2024)](https://github.com/apache/ofbiz-framework/commit/d2f682c2d46a6c4b04153c986e72d7c4d9c43db8)
+  - `README.adoc`
+  - pull plugin stuff
+- [commit (Jan 3, 2024)](https://github.com/apache/ofbiz-framework/commit/9bd538be3eef75eba33ae1c40e88ba7f90b2bdce)
+  - pull plugin stuff
+- [commit (Jan 4, 2024)](https://github.com/apache/ofbiz-framework/commit/bdbc08a4c2d91e11fae583655611ad84fa1f6c67)
+  - pull plugin stuff
+- [commit (Jan 4, 2024)](https://github.com/apache/ofbiz-framework/commit/7942b2b519f5433cf47481a2968442388b2b3e56)
+  - pull plugin stuff
+- [commit (Jan 4, 2024)](https://github.com/apache/ofbiz-framework/commit/95c0e0fbab6294f5505e3ec9b781b949cbe67afc)
+  - front end
+- [commit (Jan 6, 2024)](https://github.com/apache/ofbiz-framework/commit/a7665c37656c3aa6be7f820e0c379380a57aed2c)
+  - pull plugin stuff
+- [commit (Jan 8, 2024)](https://github.com/apache/ofbiz-framework/commit/708607d9cf3e99dc7558e2d24187fcb3eeebf0c6)
+  - front end
+- [commit (Jan 8, 2024)](https://github.com/apache/ofbiz-framework/commit/648c212e769759038bbb7fccacd1ada3af09899d)
+  - `.github/workflows/docker-image.yaml`
+- [commit (Jan 12, 2024)](https://github.com/apache/ofbiz-framework/commit/d17d06fd7c654621446320a98b45b3ebb859c648)
+  - `framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/ControlFilter.java`
+- [commit (Jan 23, 2024)](https://github.com/apache/ofbiz-framework/commit/a41f0540ba3c7f99a1deb1d2d1efb55510cd19e1)
+  - `applications/content/src/main/java/org/apache/ofbiz/content/content/ContentWrapper.java`
+  - `applications/order/src/main/java/org/apache/ofbiz/order/order/OrderContentWrapper.java`
+  - `applications/party/src/main/java/org/apache/ofbiz/party/content/PartyContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/category/CategoryContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/config/ProductConfigItemContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductPromoContentWrapper.java`
+- [commit (Jan 23, 2024)]()
+
 ## TODO
 - [x] Change the name of the directories to use `sunseterp` instead of `ofbiz`
 - [x] Create API for framework infos and health
