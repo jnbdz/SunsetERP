@@ -136,7 +136,80 @@ Still in dev mode.
   - `applications/product/src/main/java/org/apache/ofbiz/product/config/ProductConfigItemContentWrapper.java`
   - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductContentWrapper.java`
   - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductPromoContentWrapper.java`
-- [commit (Jan 23, 2024)]()
+- [commit (Jan 23, 2024)](https://github.com/apache/ofbiz-framework/commit/a07c44f51660f091feec66723017b3366b243b11)
+  - `applications/datamodel/entitydef/order-entitymodel.xml`
+  - `applications/order/src/main/java/org/apache/ofbiz/order/shoppingcart/ShoppingCart.java`
+  - `applications/order/src/main/java/org/apache/ofbiz/order/shoppingcart/ShoppingCartItem.java`
+  - `applications/product/servicedef/services_pricepromo.xml`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/price/PriceServices.java`
+- [commit (Jan 29, 2024)](https://github.com/apache/ofbiz-framework/commit/fb6796f6cd74c95f682ab0788ae05412e1a26bf7)
+  - `applications/accounting/src/main/java/org/apache/ofbiz/accounting/thirdparty/eway/GatewayConnector.java`
+  - `applications/accounting/src/main/java/org/apache/ofbiz/accounting/thirdparty/paypal/PayPalEvents.java`
+  - `applications/content/src/main/java/org/apache/ofbiz/content/data/DataResourceWorker.java`
+  - `framework/base/src/main/java/org/apache/ofbiz/base/config/UrlLoader.java`
+  - `framework/base/src/main/java/org/apache/ofbiz/base/conversion/NetConverters.java`
+  - `framework/base/src/main/java/org/apache/ofbiz/base/location/StandardUrlLocationResolver.java`
+  - `framework/base/src/main/java/org/apache/ofbiz/base/util/HttpClient.java`
+  - `framework/base/src/main/java/org/apache/ofbiz/base/util/UtilURL.java`
+  - `framework/base/src/test/java/org/apache/ofbiz/base/conversion/MiscTests.java`
+  - `framework/common/src/main/java/org/apache/ofbiz/common/email/EmailServices.java`
+  - `framework/service/src/test/groovy/org/apache/ofbiz/service/ModelServiceTest.groovy` - groovy
+  - `framework/webtools/src/main/groovy/org/apache/ofbiz/webtools/datafile/ViewDataFile.groovy` - groovy
+  - `framework/webtools/src/main/java/org/apache/ofbiz/webtools/artifactinfo/ArtifactInfoFactory.java`
+- [commit (Feb 1, 2024)](https://github.com/apache/ofbiz-framework/commit/6a35d40d3b333d04f79704169035ed1bfc49c55e)
+  - Some changes in `build.gradle`
+- [commit (Feb 2, 2024)](https://github.com/apache/ofbiz-framework/commit/79242f65b3337be7c5218ef8902a16cc4e14134e)
+  - `applications/order/src/main/java/org/apache/ofbiz/order/shoppingcart/ShoppingCartItem.java`
+- [commit (Feb 2, 2024)](https://github.com/apache/ofbiz-framework/commit/279bb92f1ad267aea4945f319d84627503365f79)
+  - `framework/minilang/src/main/java/org/apache/ofbiz/minilang/MiniLangRuntimeException.java`
+  - `framework/minilang/src/main/java/org/apache/ofbiz/minilang/SimpleMethod.java`
+  - `framework/minilang/src/main/java/org/apache/ofbiz/minilang/ValidationException.java`
+  - `framework/minilang/src/main/java/org/apache/ofbiz/minilang/method/envops/Break.java`
+  - `framework/minilang/src/main/java/org/apache/ofbiz/minilang/method/envops/Continue.java`
+- [commit (Feb 2, 2024)](https://github.com/apache/ofbiz-framework/commit/55996c7ad077d50dac0d56ff7646e022efe9ff5d)
+  - `framework/minilang/src/main/java/org/apache/ofbiz/minilang/SimpleMethod.java`
+- [commit (Feb 2, 2024)](https://github.com/apache/ofbiz-framework/commit/3ebe5debb7305c02b5ca9fb3556ac47f0ec18cf9) - doc stuff
+- [commit (Feb 2, 2024)](https://github.com/apache/ofbiz-framework/commit/a2f3ec88309f8440fe65b227ff3fc2df279dde24) - `build.gradle`
+- [commit (Feb 2, 2024)](https://github.com/apache/ofbiz-framework/commit/502c56b3d9fb6bb5daf86bff364597d3548a6b3c)
+  - `applications/content/src/main/java/org/apache/ofbiz/content/content/ContentWrapper.java`
+  - `applications/order/src/main/java/org/apache/ofbiz/order/order/OrderContentWrapper.java`
+  - `applications/party/src/main/java/org/apache/ofbiz/party/content/PartyContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/category/CategoryContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/config/ProductConfigItemContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductPromoContentWrapper.java`
+  - `applications/workeffort/src/main/java/org/apache/ofbiz/workeffort/content/WorkEffortContentWrapper.java`
+- [commit (Feb 2, 2024)](https://github.com/apache/ofbiz-framework/commit/e7502ac544327a5d1c5602572219570cbedc3847)
+  - `applications/content/src/main/java/org/apache/ofbiz/content/content/ContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductPromoContentWrapper.java`
+- [commit (Feb 2, 2024)](https://github.com/apache/ofbiz-framework/commit/625b80dbc626db35dddbaa62057e34b20ae7c38c)
+  - `applications/product/src/main/java/org/apache/ofbiz/product/category/CategoryContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/config/ProductConfigItemContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductPromoContentWrapper.java`
+  - `applications/workeffort/src/main/java/org/apache/ofbiz/workeffort/content/WorkEffortContentWrapper.java`
+- [commit (Feb 2, 2024)](https://github.com/apache/ofbiz-framework/commit/1d9df1edd0441f0638b866d0a8eb56c10b512ed9)
+  - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductContentWrapper.java`
+  - `applications/product/src/main/java/org/apache/ofbiz/product/product/ProductPromoContentWrapper.java`
+- [commit (Feb 3, 2024)](https://github.com/apache/ofbiz-framework/commit/4b9fe4a2ea36ab4baf3ef73119813d5d1f3450f9)
+  - `VERSION` - Does not seem to be important
+- [commit (Feb 3, 2024)](https://github.com/apache/ofbiz-framework/commit/c81a7ad5f9b803cd6a553f9a0cdd1a9e868633d2)
+  - `build.gradle` - Related to `groovyScripts`
+- [commit (Feb 4, 2024)](https://github.com/apache/ofbiz-framework/commit/0d9ac6e4b22d1e0ba84913c43afe7243847ea833)
+  - `framework/webapp/src/main/java/org/apache/ofbiz/webapp/control/LoginWorker.java`
+
+## Notes about Paths:
+```groovy
+groovyScripts {
+        groovy {
+            srcDirs += getDirectoryInActiveComponentsIfExists('src/main/groovy')
+            compileClasspath += sourceSets.main.compileClasspath
+            compileClasspath += sourceSets.main.output
+        }
+```
+Might need to investigate: 
+- `sourceSets.main.compileClasspath`
+- `sourceSets.main.output`
 
 ## TODO
 - [x] Change the name of the directories to use `sunseterp` instead of `ofbiz`
