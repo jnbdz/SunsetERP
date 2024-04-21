@@ -62,7 +62,7 @@ Please see below for details of the proposed configuration:
 
 ----
 The Apache OFBiz Project // <1>
-:imagesdir: ./images // <2>
+:imagesdir: ./docs/asciidoc/images // <2>
 ifdef::backend-pdf[] // <3>
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center] // <4>
 :source-highlighter: rouge // <5>
@@ -143,7 +143,7 @@ So, for include file use
 
 and for image, it's necessary to add on top of main file
 
-  :imagesdir: ./images/${compnentName}
+  :imagesdir: ./docs/asciidoc/images/${compnentName}
 
 and so include them with
 
