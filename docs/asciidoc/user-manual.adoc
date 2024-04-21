@@ -19,7 +19,7 @@ under the License.
 = Apache OFBiz User Manual
 The Apache OFBiz Project
 :doctype: book
-:imagesdir: ./images
+:imagesdir: ./docs/asciidoc/images/
 ifdef::backend-pdf[]
 :title-logo-image: image::OFBiz-Logo.svg[Apache OFBiz Logo, pdfwidth=4.25in, align=center]
 :source-highlighter: rouge

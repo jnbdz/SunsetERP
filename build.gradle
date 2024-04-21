@@ -179,6 +179,7 @@ tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
     group = docsGroup
     dependsOn deleteOfbizDocumentation
     description 'Generate OFBiz documentation manuals'
+
     activeComponents().each { component ->
         // Define the base path to remove
         def basePathToRemove = "/src/main/resources/org/sitenetsoft/sunseterp/"
@@ -188,7 +189,6 @@ tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
 
         // Construct the final documentation path
         def docPath = "${rootDir}/docs/org/sitenetsoft/sunseterp/${relativeComponentPath}"
-        //println "Component: ${docPath}"
 
         copy {
             from "${docPath}/images/${component.name}"
@@ -205,27 +205,7 @@ tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
     }
 }
 
-/*tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
-    group = docsGroup
-    dependsOn deleteOfbizDocumentation
-    description 'Generate SunsetERP documentation manuals'
-    activeComponents().each { component ->
-        copy {
-            from "${component}/src/docs/asciidoc/images/${component.name}"*/
-            //include '**/*.*'
-/*            into "${rootDir}/docs/asciidoc/images/${component.name}"
-        }
-    }
-    sourceDir "${rootDir}/docs/asciidoc"
-    outputDir file("${buildDir}/asciidoc/ofbiz")
-    doLast {
-        activeComponents().each { component ->
-            delete "${rootDir}/docs/asciidoc/images/${component.name}"
-        }
-    }
-}*/
-
-/*tasks.register('generatePluginDocumentation') {
+tasks.register('generatePluginDocumentation') {
     group = docsGroup
     dependsOn deletePluginDocumentation
     description 'Generate plugin documentation. Expects pluginId flag'
@@ -285,7 +265,7 @@ tasks.register('generateAllPluginsDocumentation') {
             }
         }
     }
-}*/
+}
 
 // ========== Clean up tasks ==========
 tasks.register('cleanCatalina') {
