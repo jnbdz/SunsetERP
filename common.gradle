@@ -29,10 +29,16 @@ static Stream<Node> xmlChildren(file) {
     new XmlParser().parse(file).children().stream()
 }
 
-static Stream<File> subdirs(File dir) {
+/*static Stream<File> subdirs(File dir) {
     def res = []
     dir.eachDir res.&add
     res.stream()
+}*/
+
+static Stream<File> subdirs(File dir) {
+    def res = []
+    dir.eachDir { res.add(it) }
+    return res.stream()
 }
 
 boolean isComponentEnabled(File componentDir) {
@@ -41,11 +47,42 @@ boolean isComponentEnabled(File componentDir) {
                                              .with { it.@enabled in [null, 'true'] }
 }
 
-List<File> activeComponents() {
+/*List<File> activeComponents() {
     println "Running activeComponents function..."
+    println "${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/base/config/component-load.xml"
+    println xmlChildren("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/base/config/component-load.xml").collect(Collectors.toList())
+    println "------------------------------------------"
+    println xmlChildren("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/base/config/component-load.xml")
+            .map { dir ->
+                // TODO: We need to add the path for documentation since it is now divorce from the source code
+                // "${rootDir}/docs/org/sitenetsoft/sunseterp/" + dir.@'parent-directory'
+                Stream.of("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/" + dir.@'parent-directory',
+                        "${rootDir}/src/main/java/org/sitenetsoft/sunseterp/" + dir.@'parent-directory')
+            }
+            .flatMap { it }
+            .flatMap({ dir ->
+                File loader = file(dir + '/component-load.xml')
+                if (loader.exists()) {
+                    xmlChildren(loader).map { file dir + '/' + it.@'component-location' }
+                } else {
+                    subdirs file(dir)
+                    //println(dir)
+                }
+            }).collect(Collectors.toList()).toString()
+
+            //.collect(Collectors.toList()).toString()
+    //.map { dir ->
+            //    ["${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/" + dir.@'parent-directory',
+            //     "${rootDir}/src/main/java/org/sitenetsoft/sunseterp/" + dir.@'parent-directory']
+            //}.toList().toString()
+
+    //println xmlChildren("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/base/config/component-load.xml")
+    //        .map { "${rootDir}/" + it.@'parent-directory' + "/src/main/resources/org/sitenetsoft/sunseterp/" + it.@'parent-directory' }
+    //        .toList().toString()
+    println("==========================================")
+
     def result = xmlChildren("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/base/config/component-load.xml")
         .map { "${rootDir}/" + it.@'parent-directory' }
-            .peek { println "Directory: $it" }
         .flatMap({ dir ->
             File loader = file(dir + '/component-load.xml')
             if (loader.exists()) {
@@ -60,6 +97,67 @@ List<File> activeComponents() {
         .collect(Collectors.toList()) + file("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/start")
     println "Result: $result"
     return result
+}*/
+
+/*List<File> activeComponents() {
+    xmlChildren("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/base/config/component-load.xml")
+            //.map { "${rootDir}/" + it.@'parent-directory' }
+            .map { dir ->
+                Stream.of("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/" + dir.@'parent-directory',
+                        "${rootDir}/src/main/java/org/sitenetsoft/sunseterp/" + dir.@'parent-directory',
+                        "${rootDir}/docs/asciidoc/org/sitenetsoft/sunseterp/" + dir.@'parent-directory')
+            }
+            .peek{ println "Directories: " + it }
+            .flatMap({ dir ->
+                File loader = file(dir + '/component-load.xml')
+                println "loader: " + dir
+                xmlChildren(loader).map {
+                    println "component: " + dir
+                    file dir + '/' + it.@'component-location'
+                }*/
+                /*File loader = file(dir + '/component-load.xml')
+                println "------------------------"
+                if (loader.exists()) {
+                    println "loader: " + dir
+                    xmlChildren(loader).map { file dir + '/' + it.@'component-location' }
+                } else {*/
+                    //println "subdirs: " + dir
+                    //subdirs file(dir)
+                //}
+            /*})
+            .filter(this.&isComponentEnabled)
+            .collect(Collectors.toList()) + file("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/start")
+}*/
+
+List<File> activeComponents() {
+    List<File> components = xmlChildren("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/base/config/component-load.xml")
+            .collect { dir ->
+                // Create a list of directories based on the XML configuration
+                [
+                        "${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/" + dir.@'parent-directory',
+                        "${rootDir}/src/main/java/org/sitenetsoft/sunseterp/" + dir.@'parent-directory',
+                        "${rootDir}/docs/asciidoc/org/sitenetsoft/sunseterp/" + dir.@'parent-directory'
+                ]
+            }
+            .flatten() // Flatten the nested lists into a single list
+            .collect { String path -> new File(path) } // Convert paths to File objects
+            .findAll { it.exists() && it.isDirectory() } // Filter for existing directories
+            .collectMany { dir ->
+                // Process each directory to find component configurations
+                File loader = new File(dir, 'component-load.xml')
+                if (loader.exists()) {
+                    xmlChildren(loader).collect { node ->
+                        new File(dir, node.@'component-location')
+                    }
+                } else {
+                    subdirs(dir).collect(Collectors.toList())
+                }
+            }
+            .findAll(this.&isComponentEnabled) // Filter for enabled components
+            .toList()
+
+    //println "Directories and components processed: $components"
+    return components + new File("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/start")
 }
 
 ext {

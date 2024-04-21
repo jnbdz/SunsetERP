@@ -175,6 +175,36 @@ tasks.register('generateReadmeFiles', AsciidoctorTask) {
     outputDir file("${buildDir}/asciidoc/readme/")
 }
 
+tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
+    group = docsGroup
+    dependsOn deleteOfbizDocumentation
+    description 'Generate OFBiz documentation manuals'
+    activeComponents().each { component ->
+        // Define the base path to remove
+        def basePathToRemove = "/src/main/resources/org/sitenetsoft/sunseterp/"
+
+        // Extract the relative component path by removing the base path
+        def relativeComponentPath = component.absolutePath.replace("${rootDir}${basePathToRemove}", "")
+
+        // Construct the final documentation path
+        def docPath = "${rootDir}/docs/org/sitenetsoft/sunseterp/${relativeComponentPath}"
+        //println "Component: ${docPath}"
+
+        copy {
+            from "${docPath}/images/${component.name}"
+            include '**/*.*'
+            into "${rootDir}/docs/asciidoc/images/${component.name}"
+        }
+    }
+    sourceDir "${rootDir}/docs/asciidoc"
+    outputDir file("${buildDir}/asciidoc/ofbiz")
+    doLast {
+        activeComponents().each { component ->
+            delete "${rootDir}/docs/asciidoc/images/${component.name}"
+        }
+    }
+}
+
 /*tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
     group = docsGroup
     dependsOn deleteOfbizDocumentation
@@ -335,7 +365,41 @@ tasks.register('testIsComponentEnabled') {
 
 tasks.register('testActiveComponents') {
     doLast {
-        def result = activeComponents().collect(Collectors.toList())
+        def result = activeComponents()//.collect(Collectors.toList())
+        println "Result: $result"
+    }
+}
+
+tasks.register('testActive') {
+    doLast {
+        activeComponents().each { component ->
+            println component
+        }
+    }
+}
+
+tasks.register('printClasspath') {
+    doLast {
+        println "Runtime classpath:"
+        configurations.runtimeClasspath.each { println it }
+
+        println "Compile classpath:"
+        configurations.compileClasspath.each { println it }
+
+        println "Test classpath:"
+        configurations.testRuntimeClasspath.each { println it }
+
+        println "Test compile classpath:"
+        configurations.testCompileClasspath.each { println it }
+
+        println "Resources:"
+        sourceSets.main.resources.srcDirs.each { println it }
+    }
+}
+
+tasks.register('getDirectoryInActiveComponentsIfExists') {
+    doLast {
+        def result = getDirectoryInActiveComponentsIfExists("applications")
         println "Result: $result"
     }
 }
@@ -352,6 +416,12 @@ def deleteAllInDirWithExclusions(dirName, exclusions) {
             }
         }
     }
+}
+
+def getDirectoryInActiveComponentsIfExists(String dirName) {
+    activeComponents()
+            .collect { file(it.toString() + '/' + dirName) }
+            .findAll { it.exists() }
 }
 
 /*
