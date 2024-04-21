@@ -244,10 +244,10 @@ Might need to investigate:
 - [x] Create API for framework infos and health
 - [x] Update Gradle
 - [x] Update Quarkus
-- [ ] What is the version of OFBiz did I used to start?
+- [x] What is the version of OFBiz did I used to start? -- anything after [commit (on Aug 29, 2023)](https://github.com/apache/ofbiz-framework/commit/950be5b0aa2283147be6fc2ebdded06d09831627). For the documentation: **2024-04-20**.
 - [ ] Refactor `build.gralde`
   - [ ] Analyse
-  - [ ] Refactor and make sure the code is being merge properly
+  - [ ] Refactor and make sure the code is being merged properly
   - [ ] Refactor CLASSPATH (`System.getProperty("java.class.path");`)
     - [ ] Analyse is `component-load.xml` for `applications/` and `framework/` are being removed from Gradle level
     - [ ] Add the different paths for framework and applications since we are dividing not like OFBiz that merges them
@@ -259,17 +259,17 @@ Might need to investigate:
     - [ ] Others
   - [ ] Refactor eclipse stuff
 - [ ] Documentation refactoring
-  - [ ] Analyse
-  - [ ] Move all the doc in the `./docs/` directory
-  - [ ] Refactor if needed the `build.gradle` to be able to generate the documentation
+  - [x] Analyse
+  - [x] Move all the doc in the `./docs/` directory -- **2024-04-20**.
+  - [x] Refactor if needed the `build.gradle` to be able to generate the documentation
   - [ ] Make sure that it outputs in those formats at least: 
-    - [ ] HTML
-    - [ ] PDF
+    - [x] HTML
+    - [x] PDF
     - [ ] ePub
     - [ ] GitHub Wiki
     - [ ] Readthedocs
-- [ ] Start writing documentation for SunsetERP
-  - [ ] Document components of `build.gradle`
+- [x] Start writing documentation for SunsetERP
+  - [x] Document components of `build.gradle`
   - [ ] Document the structure and the delta with OFBiz
   - [ ] Document about the resources
 - [ ] Load all components from OFBiz (the Gradle refactoring needs to be done first)
