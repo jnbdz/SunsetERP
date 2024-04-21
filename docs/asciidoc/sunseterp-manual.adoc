@@ -41,37 +41,38 @@ That said it does not stop at being RESTful. SunsetERP is outsourcing some of th
 are better suited to handle the specific functionality. For instance, the SunsetERP project uses the RedHat Keycloak for
 authentication and authorization. This allows SunsetERP to focus on the core ERP functionality.
 
-Here is comprehensive list of the technologies and features used with the SunsetERP project:
-- OpenAPI for the RESTful API documentation
-- HTMX+RVST+HTMT+PatternFly for the front end
-- Quarkus+Graalvm for the backend
-- Keycloak for authentication and authorization
-- OpenTelemetry for monitoring and tracing
-- Kogito for business automation and decision management
-- Kie Server for business rules and process automation
-- Better integration with ElasticSearch and OpenSearch
-- Performance logging
-- Added QA tests:
-   - Load (JMeter)
-   - Security (OWASP ZAP, SonarQube, and Dependency-Check)
-   - Performance (Gatling, BCC, JMH, JMH Profiler, JMH Visualizer)
-   - Integration (Karate)
-   - Frontend (Cypress)
-   - API (RestAssured)
-   - Microservices (Chaos Monkey)
-   - HTML, CSS, JS (HTMLHint, CSSLint, ESLint, and W3C validation)
-   - Code (SonarQube, Checkstyle, PMD, SpotBugs, FindBugs, and Jacoco)
-   - Copyright (Apache Rat, Apache Whisker, and Apache License Header) (https://creadur.apache.org/)
-   - Container (Dockerfile Linter, seccomp, and Docker Bench Security)
-- Added documentation export formats (EPUB, and GitHub Wiki)
-- GitHub Actions for CI/CD
-- GitHub Pages for the documentation
-- GitHub Discussions for the community
-- GitHub Sponsors for the funding
-- GitHub Security Advisories for the security
-- GitHub Dependabot for the dependencies
-- GitHub CodeQL for the code analysis
-- AWS CodeGuru for the code review
+Here is a comprehensive list of the technologies and features used with the SunsetERP project:
+
+* OpenAPI for the RESTful API documentation
+* HTMX+RVST+HTMT+PatternFly for the front end
+* Quarkus+Graalvm for the backend
+* Keycloak for authentication and authorization
+* OpenTelemetry for monitoring and tracing
+* Kogito for business automation and decision management
+* Kie Server for business rules and process automation
+* Better integration with ElasticSearch and OpenSearch
+* Performance logging
+* Added QA tests:
+** Load (JMeter)
+** Security (OWASP ZAP, SonarQube, and Dependency-Check)
+** Performance (Gatling, BCC, JMH, JMH Profiler, JMH Visualizer)
+** Integration (Karate)
+** Frontend (Cypress)
+** API (RestAssured)
+** Microservices (Chaos Monkey)
+** HTML, CSS, JS (HTMLHint, CSSLint, ESLint, and W3C validation)
+** Code (SonarQube, Checkstyle, PMD, SpotBugs, FindBugs, and Jacoco)
+** Copyright (Apache Rat, Apache Whisker, and Apache License Header) (https://creadur.apache.org/)
+** Container (Dockerfile Linter, seccomp, and Docker Bench Security)
+* Added documentation export formats (EPUB, and GitHub Wiki)
+* GitHub Actions for CI/CD
+* GitHub Pages for the documentation
+* GitHub Discussions for the community
+* GitHub Sponsors for the funding
+* GitHub Security Advisories for the security
+* GitHub Dependabot for the dependencies
+* GitHub CodeQL for the code analysis
+* AWS CodeGuru for the code review
 
 Many of the features of the SunsetERP project are still in development.
 
