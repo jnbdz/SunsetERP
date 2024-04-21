@@ -29,17 +29,51 @@ image::https://img.shields.io/badge/License-Apache%202.0-blue.svg[link="http://w
 == Introduction
 
 Welcome to the SunsetERP manual. This manual is intended to provide a comprehensive guide to the SunsetERP project. The
-SunsetERP project is a web-based Enterprise Resource Planning (ERP) system that is designed to be easy to use and easy
-to deploy. The project is built on-top of the Apache OFBiz project, which is a mature open-source ERP system.
+SunsetERP project is a Enterprise Resource Planning (ERP) system that is designed to be easy to use and easy
+to deploy. The project is built with Apache OFBiz project, which is a mature open-source ERP system.
 
-That is nice, but what is the difference between SunsetERP and Apache OFBiz? The main difference is that SunsetERP is
-RESTful first. Apache OFBiz was designed in the early 2000s and is based on a traditional web application architecture.
+SunsetERP differs from Apache OFBiz project in that it is RESTful first and built on top of Quarkus. Making it perfect
+for cloud-first and also taking advantage of Quarkus performance with the help of Graalvm.
 
-This makes it easier to integrate SunsetERP with other systems and to build modern web applications on top of it.
+This makes it easier to integrate SunsetERP with other systems and to build modern web applications on with of it.
 
-That said it does not stop at being RESTful. SunsetERP is outsourcing some of the functionality to external services that
-are better suited to handle the specific functionality. For example, the SunsetERP project uses the RedHat Keycloak for
+That said it does not stop at being RESTful. SunsetERP is outsourcing some of the functionalities to external services that
+are better suited to handle the specific functionality. For instance, the SunsetERP project uses the RedHat Keycloak for
 authentication and authorization. This allows SunsetERP to focus on the core ERP functionality.
+
+Here is comprehensive list of the technologies and features used with the SunsetERP project:
+- OpenAPI for the RESTful API documentation
+- HTMX+RVST+HTMT+PatternFly for the front end
+- Quarkus+Graalvm for the backend
+- Keycloak for authentication and authorization
+- OpenTelemetry for monitoring and tracing
+- Kogito for business automation and decision management
+- Kie Server for business rules and process automation
+- Better integration with ElasticSearch and OpenSearch
+- Performance logging
+- Added QA tests:
+   - Load (JMeter)
+   - Security (OWASP ZAP, SonarQube, and Dependency-Check)
+   - Performance (Gatling, BCC, JMH, JMH Profiler, JMH Visualizer)
+   - Integration (Karate)
+   - Frontend (Cypress)
+   - API (RestAssured)
+   - Microservices (Chaos Monkey)
+   - HTML, CSS, JS (HTMLHint, CSSLint, ESLint, and W3C validation)
+   - Code (SonarQube, Checkstyle, PMD, SpotBugs, FindBugs, and Jacoco)
+   - Copyright (Apache Rat, Apache Whisker, and Apache License Header) (https://creadur.apache.org/)
+   - Container (Dockerfile Linter, seccomp, and Docker Bench Security)
+- Added documentation export formats (EPUB, and GitHub Wiki)
+- GitHub Actions for CI/CD
+- GitHub Pages for the documentation
+- GitHub Discussions for the community
+- GitHub Sponsors for the funding
+- GitHub Security Advisories for the security
+- GitHub Dependabot for the dependencies
+- GitHub CodeQL for the code analysis
+- AWS CodeGuru for the code review
+
+Many of the features of the SunsetERP project are still in development.
 
 == Getting Started
 
