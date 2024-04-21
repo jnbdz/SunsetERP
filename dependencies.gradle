@@ -137,6 +137,13 @@ dependencies {
 
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
 
+    // Include AsciidoctorJ API for AsciiDoc processing
+    //asciidoctor 'org.asciidoctor:asciidoctorj:2.5.12'
+    // Include AsciidoctorJ PDF for PDF generation
+    //asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.6.0'
+    // Include AsciidoctorJ EPUB3 for EPUB generation
+    //implementation 'org.asciidoctor:asciidoctorj-epub3:2.1.0'
+
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
 }

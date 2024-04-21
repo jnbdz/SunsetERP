@@ -1,4 +1,6 @@
+import org.apache.tools.ant.filters.ReplaceTokens
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
+import org.codehaus.groovy.runtime.GStringImpl
 
 import java.util.stream.Collectors
 
@@ -7,6 +9,7 @@ import java.util.stream.Collectors
  * ======================================================== */
 
 plugins {
+    id 'application'
     id 'java'
     id 'checkstyle'
     id 'codenarc'
@@ -35,11 +38,12 @@ repositories {
 
 apply from: 'common.gradle'
 apply from: 'dependencies.gradle'
+apply plugin: 'maven-publish'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
 ext.gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
-ext.pluginsDir = "${rootDir}/plugins"
+ext.pluginsDir = "${rootDir}/plugins" as GStringImpl
 
 javadoc {
     title="SunsetERP " + getCurrentGitBranch() + " API"
@@ -82,6 +86,12 @@ def excludedJavaSources = [
         'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareServices.java',
         'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareUTL.java'
 ]
+
+jar.manifest.attributes(
+        'Implementation-Title': project.name,
+        'Main-Class': application.mainClass,
+        'Class-Path': getJarClasspath()
+)
 
 // Checks SunsetERP and OFBiz Java coding conventions.
 checkstyle {
@@ -142,6 +152,30 @@ tasks.withType(AsciidoctorTask) { task ->
             'toc': 'left@',
             'toclevels': '3'
 }
+
+/*tasks.withType(AsciidoctorTask) { task ->
+    inProcess = JAVA_EXEC
+    forkOptions {
+        jvmArgs("--add-opens", "java.base/sun.nio.ch=ALL-UNNAMED", "--add-opens", "java.base/java.io=ALL-UNNAMED")
+    }
+    outputOptions {
+        if (System.properties['os.name'].toLowerCase().contains('windows')) {
+            backends = ['html5']
+        } else {
+            backends = ['html5', 'pdf']
+        }
+    }
+    attributes \
+        'doctype': 'book',
+            'revnumber': getCurrentGitBranch(),
+            'experimental': '',
+            'allow-uri-read': true,
+            'icons': 'font',
+            'sectnums': '',
+            'chapter-label': 'Chapter',
+            'toc': 'auto',
+            'toclevels': '3'
+}*/
 
 tasks.register('deleteOfbizDocumentation') {
     doFirst { delete "${buildDir}/asciidoc/ofbiz" }
@@ -263,6 +297,257 @@ tasks.register('generateAllPluginsDocumentation') {
                     dependsOn pluginAsciidoc
                 }
             }
+        }
+    }
+}
+
+// ========== OFBiz Plugin Management ==========
+tasks.register('createPlugin') {
+    group =  ofbizPlugin
+    description = 'create a new plugin component based on specified templates'
+
+    doLast {
+        if (!project.hasProperty('pluginResourceName')) {
+            ext.pluginResourceName = pluginId.capitalize()
+        }
+        if (!project.hasProperty('webappName')) {
+            ext.webappName = pluginId
+        }
+        if (!project.hasProperty('basePermission')) {
+            ext.basePermission = pluginId.toUpperCase()
+        }
+
+        def filterTokens = ['component-name'         : pluginId,
+                            'component-resource-name': pluginResourceName,
+                            'webapp-name'            : webappName,
+                            'base-permission'        : basePermission]
+        def templateDir = "${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/resources/templates"
+        def pluginDir = "${pluginsDir}/${pluginId}"
+
+        ['config', 'dtd', 'entitydef', 'lib', 'patches/test', 'patches/qa',
+         'patches/production', 'src/main/groovy', 'minilang', 'servicedef', 'src/main/java', 'src/test/java', 'testdef',
+         'widget', "webapp/${webappName}/error", "webapp/${webappName}/WEB-INF"].each {
+            mkdir pluginDir + '/' + it
+        }
+
+        [[tempName: 'ofbiz-component.xml', newName: 'ofbiz-component.xml', location: ''],
+         [tempName: 'build.gradle', newName: 'build.gradle', location: ''],
+         [tempName: 'TypeData.xml', newName: "${pluginResourceName}TypeData.xml", location: 'data'],
+         [tempName: 'SecurityPermissionSeedData.xml', newName: "${pluginResourceName}SecurityPermissionSeedData.xml", location: 'data'],
+         [tempName: 'SecurityGroupDemoData.xml', newName: "${pluginResourceName}SecurityGroupDemoData.xml", location: 'data'],
+         [tempName: 'DemoData.xml', newName: "${pluginResourceName}DemoData.xml", location: 'data'],
+         [tempName: 'HELP.adoc', newName: 'HELP.adoc', location: ''],
+         [tempName: 'README.adoc', newName: 'README.adoc', location: ''],
+         [tempName: 'entitymodel.xml', newName: 'entitymodel.xml', location: 'entitydef'],
+         [tempName: 'services.xml', newName: 'services.xml', location: 'servicedef'],
+         [tempName: 'Tests.xml', newName: "${pluginResourceName}Tests.xml", location: 'testdef'],
+         [tempName: 'UiLabels.xml', newName: "${pluginResourceName}UiLabels.xml", location: 'config'],
+         [tempName: 'index.jsp', newName: 'index.jsp', location: "webapp/${webappName}"],
+         [tempName: 'controller.xml', newName: 'controller.xml', location: "webapp/${webappName}/WEB-INF"],
+         [tempName: 'web.xml', newName: 'web.xml', location: "webapp/${webappName}/WEB-INF"],
+         [tempName: 'CommonScreens.xml', newName: 'CommonScreens.xml', location: 'widget'],
+         [tempName: 'Screens.xml', newName: "${pluginResourceName}Screens.xml", location: 'widget'],
+         [tempName: 'Menus.xml', newName: "${pluginResourceName}Menus.xml", location: 'widget'],
+         [tempName: 'Forms.xml', newName: "${pluginResourceName}Forms.xml", location: 'widget']
+        ].each { tmpl ->
+            generateFileFromTemplate(templateDir + '/' + tmpl.tempName,
+                    pluginDir + '/' + tmpl.location, filterTokens, tmpl.newName)
+        }
+
+        println "plugin successfully created in directory ${pluginsDir}/${pluginId}."
+    }
+}
+
+tasks.register('installPlugin') {
+    group = ofbizPlugin
+    description = 'executes plugin install task if it exists'
+
+    doFirst {
+        if (!project.hasProperty('pluginId')) {
+            throw new GradleException('Missing property \"pluginId\"')
+        }
+    }
+
+    if (project.hasProperty('pluginId')) {
+        activeComponents()
+                .findAll { it.name == pluginId }
+                .each { component ->
+                    if (taskExistsInproject(":plugins:${pluginId}", 'install')) {
+                        dependsOn ":plugins:${pluginId}:install"
+                        doLast { println "installed plugin ${pluginId}" }
+                    } else {
+                        doLast { println "No install task defined for plugin ${pluginId}, nothing to do" }
+                    }
+                }
+    }
+}
+
+tasks.register('uninstallPlugin') {
+    group = ofbizPlugin
+    description = 'executes plugin uninstall task if it exists'
+
+    doFirst {
+        if (!project.hasProperty('pluginId')) {
+            throw new GradleException('Missing property \"pluginId\"')
+        }
+        if (!subprojectExists(":plugins:${pluginId}")) {
+            throw new GradleException("Plugin \"${pluginId}\" does not exist")
+        }
+    }
+
+    if (project.hasProperty('pluginId') && taskExistsInproject(":plugins:${pluginId}", 'uninstall')) {
+        dependsOn ":plugins:${pluginId}:uninstall"
+        doLast { println "uninstalled plugin ${pluginId}" }
+    } else {
+        doLast { println "No uninstall task defined for plugin ${pluginId}" }
+    }
+}
+
+tasks.register('removePlugin') {
+    group = ofbizPlugin
+    description = 'Uninstall a plugin and delete its files'
+
+    if (project.hasProperty('pluginId') && subprojectExists(":plugins:${pluginId}")) {
+        dependsOn uninstallPlugin
+    }
+
+    doLast {
+        if (file("${pluginsDir}/${pluginId}").exists()) {
+            delete "${pluginsDir}/${pluginId}"
+        } else {
+            throw new GradleException("Directory not found: ${pluginsDir}/${pluginId}")
+        }
+    }
+}
+
+/*tasks.register('createPluginArchive', Zip) {
+    from "${pluginsDir}/${pluginId}"
+}*/
+
+/*publishing {
+    publications {
+        ofbizPluginPublication(MavenPublication) {
+            artifactId pluginId
+            groupId project.hasProperty('pluginGroup') ? pluginGroup : 'org.apache.ofbiz.plugin'
+            version project.hasProperty('pluginVersion') ? pluginVersion : '0.1.0-SNAPSHOT'
+
+            artifact createPluginArchive
+
+            pom.withXml {
+                if (project.hasProperty('pluginDescription')) {
+                    asNode().appendNode('description', pluginDescription)
+                } else {
+                    asNode().appendNode('description', "Publication of OFBiz plugin ${pluginId}")
+                }
+            }
+        }
+    }
+}*/
+
+tasks.register('createPluginArchive', Zip) {
+    // Delay the configuration to execution phase
+    doFirst {
+        from "${pluginsDir}/${project.pluginId}"
+    }
+}
+
+publishing {
+    publications {
+        ofbizPluginPublication(MavenPublication) {
+            artifactId = project.findProperty('pluginId') ?: 'defaultPluginId'
+            groupId = project.findProperty('pluginGroup') ?: 'org.apache.ofbiz.plugin'
+            version = project.findProperty('pluginVersion') ?: '0.1.0-SNAPSHOT'
+
+            artifact tasks.named('createPluginArchive').get()
+
+            pom.withXml {
+                if (project.hasProperty('pluginDescription')) {
+                    asNode().appendNode('description', project.pluginDescription)
+                } else {
+                    asNode().appendNode('description', "Publication of OFBiz plugin ${project.pluginId}")
+                }
+            }
+        }
+    }
+}
+
+tasks.register('pushPlugin') {
+    group = ofbizPlugin
+    description = 'push an existing plugin to local maven repository'
+
+    doFirst {
+        if (!project.hasProperty('pluginId') || !subprojectExists(":plugins:${project.pluginId}")) {
+            throw new GradleException("Plugin ${project.pluginId} does not exist or no pluginId provided, cannot publish")
+        }
+    }
+
+    // Task dependencies to manage the order of execution
+    dependsOn 'createPluginArchive'
+    dependsOn 'publishToMavenLocal'
+}
+
+/*tasks.register('pushPlugin') {
+    group = ofbizPlugin
+    description = 'push an existing plugin to local maven repository'
+
+    if (project.hasProperty('pluginId')) {
+        doFirst {
+            if (!subprojectExists(":plugins:${pluginId}")) {
+                throw new GradleException("Plugin ${pluginId} does not exist, cannot publish")
+            }
+        }
+
+        if (subprojectExists(":plugins:${pluginId}")) {
+            dependsOn publishToMavenLocal
+        }
+
+    } else {
+        doFirst { throw new GradleException('Missing property \"pluginId\"') }
+    }
+}*/
+
+tasks.register('pullPlugin') {
+    group = ofbizPlugin
+    description = 'Download and install a plugin with all dependencies'
+
+    doLast {
+        if (!project.hasProperty('dependencyId')) {
+            throw new GradleException('You must pass the dependencyId of the plugin')
+        }
+
+        // Connect to a remote maven repository if defined
+        if (project.hasProperty('repoUrl')) {
+            repositories {
+                maven {
+                    url repoUrl
+                    if (project.hasProperty('repoUser') && project.hasProperty('repoPassword')) {
+                        credentials {
+                            username repoUser
+                            password repoPassword
+                        }
+                    }
+                }
+            }
+        }
+
+        // download plugin and dependencies
+        dependencies {
+            ofbizPlugins dependencyId
+        }
+
+        // reverse the order of dependencies to install them before the plugin
+        def ofbizPluginArchives = new ArrayList(configurations.ofbizPlugins.files)
+        Collections.reverse(ofbizPluginArchives)
+
+        // Extract and install plugin and dependencies
+        ofbizPluginArchives.each { pluginArchive ->
+            ext.pluginId = dependencyId.tokenize(':').get(1)
+            println "installing plugin: ${pluginId}"
+            copy {
+                from zipTree(pluginArchive)
+                into "${pluginsDir}/${pluginId}"
+            }
+            gradlewSubprocess(['installPlugin', "-PpluginId=${pluginId}"])
         }
     }
 }
@@ -402,6 +687,33 @@ def getDirectoryInActiveComponentsIfExists(String dirName) {
     activeComponents()
             .collect { file(it.toString() + '/' + dirName) }
             .findAll { it.exists() }
+}
+
+def generateFileFromTemplate(templateFileInFullPath, targetDirectory, filterTokens, newFileName) {
+    copy {
+        from (templateFileInFullPath) {
+            filter ReplaceTokens, tokens: filterTokens
+            rename templateFileInFullPath.tokenize('/').last(), newFileName
+        }
+        into targetDirectory
+    }
+}
+
+def getJarClasspath() {
+    def mapper = os.contains('windows') ? { '\\' + "$it" } : { "$it" }
+    configurations.runtimeClasspath.collect(mapper).join(' ')
+}
+
+def subprojectExists(fullyQualifiedProject) {
+    subprojects.stream()
+            .anyMatch { it.path == fullyQualifiedProject.toString() }
+}
+
+def taskExistsInproject(fullyQualifiedProject, taskName) {
+    subprojects.stream()
+            .filter { it.path == fullyQualifiedProject.toString() }
+            .flatMap { it.tasks.stream() }
+            .anyMatch { it.name == taskName }
 }
 
 /*
