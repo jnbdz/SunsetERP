@@ -1,4 +1,4 @@
-<img src="https://avatars.githubusercontent.com/u/237008" alt="Sunset" style="width: 300px;" align="right">
+<img src="docs/asciidoc/images/SunsetERP-logo.png" alt="Sunset" style="width: 300px;" align="right">
 
 # 🌇 SunsetERP 🌇
 
@@ -522,6 +522,4 @@ Monitor your application's health using SmallRye Health
 [Related guide section...](https://quarkus.io/guides/smallrye-health)
 
 ## Copyright
-<p>
-<em>Source of profile picture: <a href="https://www.flickr.com/photos/44073224@N04/24217734339/in/photostream/">Bernal Saborio</a></em> <a href="https://creativecommons.org/licenses/by-sa/2.0/"><img src="https://raw.githubusercontent.com/jnbdz/jnbdz/main/assets/80x15-by-sa.svg" alt="by-sa"></a>
-</p>
+Jean-Nicolas Boulay Desjardins and Apache Foundation. All rights reserved. 2024.
