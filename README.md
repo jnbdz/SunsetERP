@@ -2,7 +2,12 @@
 
 # 🌇 SunsetERP 🌇
 
-**WARNING:** This project is still in development. It is not ready for production use or any use at all. But help is always welcome!
+---
+
+**<span style="color:red">WARNING:</span>** This project is still in development. It is not ready for production use or any use at all. 
+But help is always welcome!
+
+---
 
 SunsetERP is based on a heavily modified version of [OFBiz](https://ofbiz.apache.org/) to run on Quarkus.
 
