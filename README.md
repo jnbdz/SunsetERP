@@ -1,4 +1,4 @@
-<img src="docs/asciidoc/images/SunsetERP-logo.png" alt="Sunset" style="width: 300px;" align="right">
+<img src="./docs/asciidoc/images/SunsetERP-logo.png" alt="Sunset" style="width: 300px;" align="right">
 
 # 🌇 SunsetERP 🌇
 
