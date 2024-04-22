@@ -87,6 +87,14 @@ def excludedJavaSources = [
         'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareUTL.java'
 ]
 
+sourceSets {
+    main {
+        java {
+            exclude excludedJavaSources
+        }
+    }
+}
+
 jar.manifest.attributes(
         'Implementation-Title': project.name,
         'Main-Class': application.mainClass,
@@ -635,6 +643,13 @@ tasks.register('testActiveComponents') {
     }
 }
 
+tasks.register('testActiveResourceComponentsForClassPath') {
+    doLast {
+        def result = activeResourceComponentsForClassPath()
+        println "Result: $result"
+    }
+}
+
 tasks.register('testActive') {
     doLast {
         activeComponents().each { component ->
@@ -757,3 +772,23 @@ compileTestJava {
                 windowsScript.text.replace('CLASSPATH=%APP_HOME%\\lib','CLASSPATH=%APP_HOME%\\conf\\;%APP_HOME%\\lib-extra\\*;%APP_HOME%\\lib')
     }
 }*/
+
+tasks.withType(CreateStartScripts).configureEach {
+    doLast {
+        // Generate the custom classpath
+        def customClassPaths = activeResourceComponentsForClassPath()
+
+        // Update the Unix start script
+        unixScript.text = unixScript.text.replace(
+                'CLASSPATH=$APP_HOME/lib',
+                "CLASSPATH=${customClassPaths}:$APP_HOME/../../../resources/org/sitenetsoft/sunseterp/framework/base/config/:$APP_HOME/config/:$APP_HOME/lib-extra/*:$APP_HOME/lib"
+        )
+
+        // Update the Windows start script
+        // TODO: The changed to backslashes for Windows
+        windowsScript.text = windowsScript.text.replace(
+                'CLASSPATH=%APP_HOME%\\lib',
+                "CLASSPATH=${customClassPaths.replace(':', ';')};%APP_HOME%\\conf\\;%APP_HOME%\\lib-extra\\*;%APP_HOME%\\lib"
+        )
+    }
+}
