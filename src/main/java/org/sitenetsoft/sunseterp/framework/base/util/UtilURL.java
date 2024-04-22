@@ -19,10 +19,16 @@
 package org.sitenetsoft.sunseterp.framework.base.util;
 
 import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Map;
+import java.io.IOException;
+import java.lang.reflect.Field;
+import java.net.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 /**
  * URL Utilities - Simple Class for flexibly working with properties files
@@ -35,20 +41,6 @@ public final class UtilURL {
 
     private UtilURL() { }
 
-    /**
-     * Return the URL map
-     * @return the URL map
-     */
-    public static Map<String, URL> getUrlMap() {
-        return URL_MAP;
-    }
-
-    /**
-     * Returns a <code>URL</code> instance from a resource name.
-     * Returns <code>null</code> if the resource is not found.
-     * @param contextClass the context class
-     * @return the URL
-     */
     public static <C> URL fromClass(Class<C> contextClass) {
         String resourceName = contextClass.getName();
         int dotIndex = resourceName.lastIndexOf('.');
@@ -93,11 +85,13 @@ public final class UtilURL {
      */
     public static URL fromResource(String resourceName, ClassLoader loader) {
         URL url = URL_MAP.get(resourceName);
+        URI uri;
         if (url != null) {
             try {
-                return new URL(url.toString());
-            } catch (MalformedURLException e) {
-                Debug.logWarning(e, "Exception thrown while copying URL: ", MODULE);
+                uri = new URI(url.toString());
+                url = uri.toURL();
+            } catch (IllegalArgumentException | URISyntaxException | MalformedURLException e) {
+                Debug.logWarning(e, "Exception thrown while copying URL", MODULE);
             }
         }
         if (loader == null) {
@@ -109,11 +103,21 @@ public final class UtilURL {
             }
         }
 
+        //String classPath = System.getProperty("java.class.path");
+        //System.out.println("Current CLASSPATH: " + classPath);
+
         url = loader.getResource(resourceName);
         if (url != null) {
             URL_MAP.put(resourceName, url);
             return url;
         }
+        url = fromResourcesPath(resourceName);
+        if (url != null) {
+            URL_MAP.put(resourceName, url);
+            return url;
+        }
+        System.out.println("URL not found: " + resourceName);
+        System.out.println("URL: " + url);
         url = ClassLoader.getSystemResource(resourceName);
         if (url != null) {
             URL_MAP.put(resourceName, url);
@@ -136,6 +140,42 @@ public final class UtilURL {
         return url;
     }
 
+    public static void listClasspath() {
+        // Get the classpath string from the system properties
+        String classpath = System.getProperty("java.class.path");
+        // Get the path separator used on the current operating system
+        String pathSeparator = File.pathSeparator;
+
+        // Split the classpath string into individual paths
+        String[] classpathEntries = classpath.split(pathSeparator);
+
+        // Print each entry in the classpath
+        System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+        System.out.println("Classpath entries:");
+        for (String entry : classpathEntries) {
+            System.out.println(entry);
+            //listJarContents(fromFilename(entry));
+        }
+        System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+    }
+
+    public static void listJarContents(URL jarUrl) {
+        try {
+            // Convert URL to a JarFile
+            JarFile jar = new JarFile(jarUrl.toURI().getPath());
+
+            System.out.println("Contents of the JAR:");
+            Enumeration<JarEntry> entries = jar.entries();
+            while (entries.hasMoreElements()) {
+                JarEntry entry = entries.nextElement();
+                System.out.println(entry.getName());
+            }
+            jar.close();
+        } catch (IOException | URISyntaxException e) {
+            System.err.println("Error accessing JAR: " + e.getMessage());
+        }
+    }
+
     public static URL fromFilename(String filename) {
         if (filename == null) {
             return null;
@@ -155,16 +195,19 @@ public final class UtilURL {
 
     public static URL fromUrlString(String urlString) {
         URL url = null;
+        URI uri;
         try {
-            url = new URL(urlString);
-        } catch (MalformedURLException e) {
-            // We purposely don't want to do anything here
+            uri = new URI(urlString);
+            url = uri.toURL();
+        } catch (IllegalArgumentException | URISyntaxException | MalformedURLException e) {
+            // We purposely don't want to do anything here.
         }
         return url;
     }
 
     public static URL fromOfbizHomePath(String filename) {
         String ofbizHome = System.getProperty("ofbiz.home");
+        System.out.println("ofbizHome: " + ofbizHome);
         if (ofbizHome == null) {
             Debug.logWarning("No ofbiz.home property set in environment", MODULE);
             return null;
@@ -177,6 +220,109 @@ public final class UtilURL {
         return fromFilename(newFilename);
     }
 
+    /*public static URL fromResourcesPath(String filename) {
+        String ofbizHome = System.getProperty("ofbiz.home");
+
+        if (ofbizHome == null) {
+            Debug.logWarning("No ofbiz.home property set in environment", MODULE);
+            return null;
+        }
+        String newFilename = ofbizHome;
+        if (!newFilename.endsWith("/") && !filename.startsWith("/")) {
+            newFilename = newFilename + "/";
+        }
+        newFilename = newFilename + filename;
+        return fromFilename(newFilename);
+    }*/
+
+    /*public static URL fromResourcesPath(String filename) {
+        String ofbizHome = System.getProperty("ofbiz.home");
+
+        if (ofbizHome == null) {
+            Debug.logWarning("No ofbiz.home property set in environment", MODULE);
+            return null;
+        }
+
+        // Define the root directories to search
+        String[] rootDirs = {"applications", "framework"};
+
+        // Iterate over each root directory
+        for (String rootDir : rootDirs) {
+            Path basePath = Paths.get(ofbizHome, "..", "..", "..", "resources", "main", "org", "sitenetsoft", "sunseterp", rootDir);
+
+            try {
+                Files.walk(basePath, 1) // Use 1 to limit depth to immediate subdirectories
+                        .filter(Files::isDirectory) // Ensure it is a directory
+                        .forEach(dir -> {
+                            Path configPath = dir.resolve("config");
+                            if (Files.isDirectory(configPath)) {
+                                Path filePath = configPath.resolve(filename);
+                                if (Files.exists(filePath)) {
+                                    URL url = null;
+                                    try {
+                                        url = filePath.toUri().toURL();
+                                        System.out.println("Found URL: " + url); // For demonstration, you'd return or store these URLs as needed
+                                        return url;
+                                    } catch (Exception e) {
+                                        Debug.logError(e, "Failed to convert file path to URL", MODULE);
+                                    }
+                                }
+                            }
+                        });
+            } catch (Exception e) {
+                Debug.logError(e, "Error walking through directory " + basePath, MODULE);
+            }
+        }
+
+        return null; // Return null or handle as needed if the file isn't found
+    }*/
+
+    public static URL fromResourcesPath(String filename) {
+        String ofbizHome = System.getProperty("ofbiz.home");
+
+        if (ofbizHome == null) {
+            Debug.logWarning("No ofbiz.home property set in environment", MODULE);
+            return null;
+        }
+
+        // Define the root directories to search
+        String[] rootDirs = {"applications", "framework"};
+
+        // Convert the forEach to a stream and use findFirst to short-circuit and return when the first match is found
+        for (String rootDir : rootDirs) {
+            Path basePath = Paths.get(ofbizHome, "..", "..", "..", "resources", "main", "org", "sitenetsoft", "sunseterp", rootDir);
+
+            try {
+                Optional<URL> foundUrl = Files.walk(basePath, 1) // Use 1 to limit depth to immediate subdirectories
+                        .filter(Files::isDirectory) // Ensure it is a directory
+                        .map(dir -> dir.resolve("config"))
+                        .filter(Files::isDirectory)
+                        .map(configPath -> configPath.resolve(filename))
+                        .filter(Files::exists)
+                        .map(filePath -> {
+                            try {
+                                System.out.println("Found URL: " + filePath.toUri().toURL());
+                                return filePath.toUri().toURL();
+                            } catch (MalformedURLException e) {
+                                Debug.logError(e, "Failed to convert file path to URL", MODULE);
+                                return null;
+                            }
+                        })
+                        .filter(Objects::nonNull)
+                        .findFirst();
+
+                if (foundUrl.isPresent()) {
+                    return foundUrl.get();
+                }
+            } catch (IOException e) {
+                Debug.logError(e, "Error walking through directory " + basePath, MODULE);
+            }
+        }
+
+        return null; // Return null if the file isn't found after all attempts
+    }
+
+
     public static String getOfbizHomeRelativeLocation(URL fileUrl) {
         String ofbizHome = System.getProperty("ofbiz.home");
         String path = fileUrl.getPath();
@@ -186,4 +332,5 @@ public final class UtilURL {
         }
         return path;
     }
+
 }

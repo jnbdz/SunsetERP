@@ -160,6 +160,13 @@ List<File> activeComponents() {
     return components + new File("${rootDir}/src/main/resources/org/sitenetsoft/sunseterp/framework/start")
 }
 
+ext.activeResourceComponentsForClassPath = { ->
+    List<String> classPaths = activeComponents().collect { component ->
+        component.absolutePath.replace("${rootDir}/src/main", '$APP_HOME')
+    }
+    return classPaths.join(':') // Adjust the join if needed for different OSs
+}
+
 ext {
     xmlChildren = this.&xmlChildren
     subdirs = this.&subdirs
