@@ -63,7 +63,7 @@ public final class Debug {
         LEVEL_STRING_MAP.put("always", Debug.ALWAYS);
 
         // initialize LEVEL_ON_CACHE
-        Properties properties = UtilProperties.createProperties("framework/base/util/cache/debug.properties");
+        Properties properties = UtilProperties.createProperties("org/sitenetsoft/sunseterp/framework/base/config/debug.properties");
         if (properties != null) {
             for (int i = 0; i < LEVEL_ON_CACHE.length; i++) {
                 LEVEL_ON_CACHE[i] = (i == Debug.ALWAYS || "true".equalsIgnoreCase(properties.getProperty(LEVEL_PROPS[i])));

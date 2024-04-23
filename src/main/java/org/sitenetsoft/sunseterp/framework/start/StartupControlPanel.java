@@ -63,12 +63,12 @@ final class StartupControlPanel {
 
         System.out.println("isUseShutdownHook: " + config.isUseShutdownHook());
 
-        // TODO: Shutdown hook
-        /*if (config.isUseShutdownHook()) {
+        // TODO: Shutdown hook ???
+        if (config.isUseShutdownHook()) {
             Runtime.getRuntime().addShutdownHook(new Thread(() -> shutdownServer(loader, serverState)));
         } else {
             System.out.println("Shutdown hook disabled");
-        }*/
+        }
 
         // TODO: Load containers
         loadContainers(config, loader, ofbizCommands, serverState);
@@ -140,6 +140,7 @@ final class StartupControlPanel {
         }
     }
 
+    // TODO: Are containers needed in Quarkus?
     private static void loadContainers(Config config,
                                        ContainerLoader loader,
                                        List<StartupCommand> ofbizCommands,
@@ -148,9 +149,10 @@ final class StartupControlPanel {
             if (serverState.get() == ServerState.STOPPING) {
                 return;
             }
+            // TODO: Replace for Quarkus.. Maybe... This might not be needed. I had to commented code because it loads servlet and Quarkus is not using servlet
             loader.load(config, ofbizCommands);
         }
         // TODO
-        //serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
+        serverState.compareAndSet(ServerState.STARTING, ServerState.RUNNING);
     }
 }

@@ -19,7 +19,7 @@
 package org.sitenetsoft.sunseterp.framework.base.component;
 
 import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilResourceLocator;
+//import org.sitenetsoft.sunseterp.framework.base.util.UtilResourceLocator;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
@@ -66,8 +66,11 @@ public final class ComponentLoaderConfig {
      *         or refer to non-existent component directory.
      */
     public static List<ComponentDef> getRootComponents() throws ComponentException {
-        // URL xmlUrl = UtilURL.fromResource(COMPONENT_LOAD_XML_FILENAME);
-        URL xmlUrl = UtilResourceLocator.locateResource(COMPONENT_LOAD_XML_FILENAME);
+        System.out.println("---------getRootComponents--------------");
+        System.out.println("getRootComponents: "+COMPONENT_LOAD_XML_FILENAME);
+        // TODO: This is where it starts having issues
+        URL xmlUrl = UtilURL.fromResource(COMPONENT_LOAD_XML_FILENAME);
+        System.out.println("getRootComponents: "+xmlUrl);
         return getComponentsFromConfig(xmlUrl);
     }
 
@@ -78,6 +81,7 @@ public final class ComponentLoaderConfig {
      * @throws ComponentException when the {@code component-load.xml} file is invalid.
      */
     public static List<ComponentDef> getComponentsFromConfig(URL configUrl) throws ComponentException {
+        System.out.println("getComponentsFromConfig: "+configUrl);
         Document document = parseDocumentFromUrl(configUrl);
         List<? extends Element> toLoad = UtilXml.childElementList(document.getDocumentElement());
         List<ComponentDef> componentsFromConfig = new ArrayList<>();
@@ -160,6 +164,7 @@ public final class ComponentLoaderConfig {
      * @throws ComponentException when {@code configUrl} is {@code null} or is invalid.
      */
     private static Document parseDocumentFromUrl(URL configUrl) throws ComponentException {
+        System.out.println("parseDocumentFromUrl: "+configUrl);
         if (configUrl == null) {
             throw new ComponentException("configUrl cannot be null");
         }

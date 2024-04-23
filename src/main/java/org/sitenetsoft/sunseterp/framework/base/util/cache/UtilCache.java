@@ -162,28 +162,34 @@ public final class UtilCache<K, V> implements Serializable, EvictionListener<Obj
     }
 
     private void setPropertiesParams(String settingsResourceName, String[] propNames) {
-        ResourceBundle res = ResourceBundle.getBundle(settingsResourceName);
-        // @TODO: Why always cache???
-        Debug.log("ResourceBundle for settingsResourceName: " + settingsResourceName + " is " + res, MODULE);
+        try {
+            ResourceBundle res = ResourceBundle.getBundle(settingsResourceName);
+            System.out.println("res: "+res.toString());
+            // @TODO: Why always cache???
+            Debug.log("ResourceBundle for settingsResourceName: " + settingsResourceName + " is " + res, MODULE);
 
-        if (res != null) {
-            String value = getPropertyParam(res, propNames, "maxSize");
-            if (UtilValidate.isNotEmpty(value)) {
-                this.sizeLimit = Integer.parseInt(value);
+            if (res != null) {
+                String value = getPropertyParam(res, propNames, "maxSize");
+                if (UtilValidate.isNotEmpty(value)) {
+                    this.sizeLimit = Integer.parseInt(value);
+                }
+                value = getPropertyParam(res, propNames, "maxInMemory");
+                if (UtilValidate.isNotEmpty(value)) {
+                    this.maxInMemory = Integer.parseInt(value);
+                }
+                value = getPropertyParam(res, propNames, "expireTime");
+                if (UtilValidate.isNotEmpty(value)) {
+                    this.expireTimeNanos = TimeUnit.NANOSECONDS.convert(Long.parseLong(value), TimeUnit.MILLISECONDS);
+                }
+                value = getPropertyParam(res, propNames, "useSoftReference");
+                if (value != null) {
+                    useSoftReference = "true".equals(value);
+                }
             }
-            value = getPropertyParam(res, propNames, "maxInMemory");
-            if (UtilValidate.isNotEmpty(value)) {
-                this.maxInMemory = Integer.parseInt(value);
-            }
-            value = getPropertyParam(res, propNames, "expireTime");
-            if (UtilValidate.isNotEmpty(value)) {
-                this.expireTimeNanos = TimeUnit.NANOSECONDS.convert(Long.parseLong(value), TimeUnit.MILLISECONDS);
-            }
-            value = getPropertyParam(res, propNames, "useSoftReference");
-            if (value != null) {
-                useSoftReference = "true".equals(value);
-            }
+        } catch (MissingResourceException e) {
+            Debug.logWarning(e, "Error getting ResourceBundle for settingsResourceName: " + settingsResourceName, MODULE);
         }
+
     }
 
     private static Object fromKey(Object key) {

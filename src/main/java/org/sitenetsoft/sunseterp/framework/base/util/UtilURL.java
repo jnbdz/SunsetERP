@@ -20,7 +20,6 @@ package org.sitenetsoft.sunseterp.framework.base.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
 import java.net.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,6 +28,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+import java.util.stream.Stream;
 
 /**
  * URL Utilities - Simple Class for flexibly working with properties files
@@ -103,9 +103,7 @@ public final class UtilURL {
             }
         }
 
-        //String classPath = System.getProperty("java.class.path");
-        //System.out.println("Current CLASSPATH: " + classPath);
-
+        // TODO: Have someone review why the CLASSPATH is not working as expected
         url = loader.getResource(resourceName);
         if (url != null) {
             URL_MAP.put(resourceName, url);
@@ -140,7 +138,8 @@ public final class UtilURL {
         return url;
     }
 
-    public static void listClasspath() {
+    // TODO: Remove
+    /*public static void listClasspath() {
         // Get the classpath string from the system properties
         String classpath = System.getProperty("java.class.path");
         // Get the path separator used on the current operating system
@@ -159,6 +158,7 @@ public final class UtilURL {
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
     }
 
+    // TODO: Remove
     public static void listJarContents(URL jarUrl) {
         try {
             // Convert URL to a JarFile
@@ -174,7 +174,7 @@ public final class UtilURL {
         } catch (IOException | URISyntaxException e) {
             System.err.println("Error accessing JAR: " + e.getMessage());
         }
-    }
+    }*/
 
     public static URL fromFilename(String filename) {
         if (filename == null) {
@@ -227,63 +227,6 @@ public final class UtilURL {
             Debug.logWarning("No ofbiz.home property set in environment", MODULE);
             return null;
         }
-        String newFilename = ofbizHome;
-        if (!newFilename.endsWith("/") && !filename.startsWith("/")) {
-            newFilename = newFilename + "/";
-        }
-        newFilename = newFilename + filename;
-        return fromFilename(newFilename);
-    }*/
-
-    /*public static URL fromResourcesPath(String filename) {
-        String ofbizHome = System.getProperty("ofbiz.home");
-
-        if (ofbizHome == null) {
-            Debug.logWarning("No ofbiz.home property set in environment", MODULE);
-            return null;
-        }
-
-        // Define the root directories to search
-        String[] rootDirs = {"applications", "framework"};
-
-        // Iterate over each root directory
-        for (String rootDir : rootDirs) {
-            Path basePath = Paths.get(ofbizHome, "..", "..", "..", "resources", "main", "org", "sitenetsoft", "sunseterp", rootDir);
-
-            try {
-                Files.walk(basePath, 1) // Use 1 to limit depth to immediate subdirectories
-                        .filter(Files::isDirectory) // Ensure it is a directory
-                        .forEach(dir -> {
-                            Path configPath = dir.resolve("config");
-                            if (Files.isDirectory(configPath)) {
-                                Path filePath = configPath.resolve(filename);
-                                if (Files.exists(filePath)) {
-                                    URL url = null;
-                                    try {
-                                        url = filePath.toUri().toURL();
-                                        System.out.println("Found URL: " + url); // For demonstration, you'd return or store these URLs as needed
-                                        return url;
-                                    } catch (Exception e) {
-                                        Debug.logError(e, "Failed to convert file path to URL", MODULE);
-                                    }
-                                }
-                            }
-                        });
-            } catch (Exception e) {
-                Debug.logError(e, "Error walking through directory " + basePath, MODULE);
-            }
-        }
-
-        return null; // Return null or handle as needed if the file isn't found
-    }*/
-
-    public static URL fromResourcesPath(String filename) {
-        String ofbizHome = System.getProperty("ofbiz.home");
-
-        if (ofbizHome == null) {
-            Debug.logWarning("No ofbiz.home property set in environment", MODULE);
-            return null;
-        }
 
         // Define the root directories to search
         String[] rootDirs = {"applications", "framework"};
@@ -320,8 +263,60 @@ public final class UtilURL {
         }
 
         return null; // Return null if the file isn't found after all attempts
-    }
+    }*/
 
+    public static URL fromResourcesPath(String filename) {
+        String ofbizHome = System.getProperty("ofbiz.home");
+
+        if (ofbizHome == null) {
+            Debug.logWarning("No ofbiz.home property set in environment", MODULE);
+            return null;
+        }
+
+        // Define the root directories to search
+        String[] rootDirs = {"applications", "framework"};
+
+        // Iterate over root directories and search in all subdirectories
+        for (String rootDir : rootDirs) {
+            Path basePath = Paths.get(
+                    ofbizHome, "..", "..", "..", "resources", "main", "org", "sitenetsoft", "sunseterp", rootDir);
+
+            try {
+                Optional<URL> foundUrl = Files.walk(basePath, 1) // Use 1 to limit depth to immediate subdirectories
+                        .filter(Files::isDirectory) // Ensure it is a directory
+                        .flatMap(dir -> {
+                            try {
+                                return Files.list(dir); // List all directories at the same level
+                            } catch (IOException e) {
+                                Debug.logError(e, "Error listing directories in " + dir, MODULE);
+                                return Stream.empty(); // In case of an error, return an empty stream
+                            }
+                        })
+                        .filter(Files::isDirectory) // Ensure it is a directory
+                        .map(subDir -> subDir.resolve(filename))
+                        .filter(Files::exists)
+                        .map(filePath -> {
+                            try {
+                                System.out.println("Found URL: " + filePath.toUri().toURL());
+                                return filePath.toUri().toURL();
+                            } catch (MalformedURLException e) {
+                                Debug.logError(e, "Failed to convert file path to URL", MODULE);
+                                return null;
+                            }
+                        })
+                        .filter(Objects::nonNull)
+                        .findFirst();
+
+                if (foundUrl.isPresent()) {
+                    return foundUrl.get();
+                }
+            } catch (IOException e) {
+                Debug.logError(e, "Error walking through directory " + basePath, MODULE);
+            }
+        }
+
+        return null; // Return null if the file isn't found after all attempts
+    }
 
     public static String getOfbizHomeRelativeLocation(URL fileUrl) {
         String ofbizHome = System.getProperty("ofbiz.home");

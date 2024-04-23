@@ -31,6 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Stream;
@@ -54,43 +55,55 @@ public class ComponentContainer implements Container {
 
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
-        init(name, Start.getInstance().getConfig().getOfbizResourcesPath());
+        init(name, Start.getInstance().getConfig().getOfbizHome());
     }
 
     /**
      * Loads components found in a directory.
      * @param name  the name of this container
-     * @param ofbizResourcesPath  the directory where to search for components
+     * @param ofbizHome  the directory where to search for components
      * @throws ContainerException when components are already loaded or when failing to load them.
      */
-    void init(String name, Path ofbizResourcesPath) throws ContainerException {
+    void init(String name, Path ofbizHome) throws ContainerException {
         if (!loaded.compareAndSet(false, true)) {
             throw new ContainerException("Components already loaded, cannot start");
         }
         this.name = name;
 
-        // Remove
-        try {
+        // TODO: Remove
+        /*try {
+            System.out.println("init()");
             for (ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
                 System.out.println("Loading component: " + def.getLocation());
                 System.out.println("Component type: " + def.getType());
                 System.out.println("Component toString: " + def.toString());
-                System.out.println("ofbizHome: " + ofbizResourcesPath);
+                System.out.println("ofbizHome: " + ofbizHome);
             }
         } catch (ComponentException e) {
             throw new ContainerException(e);
-        }
+        }*/
 
         // load the components from framework/base/config/component-load.xml (root components)
-        /*try {
+        try {
             for (ComponentDef def: ComponentLoaderConfig.getRootComponents()) {
-                loadComponent(ofbizHome, def);
+                if (def.getLocation().toString().contains("plugins")) {
+                    // TODO: setup the plugins directory
+                    //loadComponent(ofbizHome, def);
+                    System.out.println("Trying to load plugins");
+                    System.out.println("Loading component: " + def.getLocation());
+                } else {
+                    loadComponent(Paths.get(String.valueOf(ofbizHome), "..", "..", "..", "resources", "main", "org", "sitenetsoft", "sunseterp"), def);
+                }
             }
+            System.out.println("--- Sorting dependencies ---");
             ComponentConfig.sortDependencies();
+            System.out.println("--- DONE! --- Sorting dependencies ---");
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
-        }*/
+        }
+        System.out.println("All components loaded");
         Debug.logInfo("All components loaded", MODULE);
+        System.out.println("All --- Done --- components loaded");
     }
 
     @Override

@@ -530,8 +530,8 @@ public class EntityDataLoadContainer implements Container {
     private static List<URL> retireveDataUrlsFromFileList(List<String> files) throws ContainerException {
         List<URL> fileUrls = new ArrayList<>();
         for (String file: files) {
-            // URL url = UtilURL.fromResource(file);
-            URL url = UtilResourceLocator.locateResource(file);
+            URL url = UtilURL.fromResource(file);
+            // URL url = UtilResourceLocator.locateResource(file);
             if (url == null) {
                 throw new ContainerException("Unable to locate data file: " + file);
             } else {

@@ -171,14 +171,13 @@ public final class Config {
         String fullyQualifiedFileName = "org/sitenetsoft/sunseterp/framework/start/config/" + fileName;
         Properties props = new Properties();
 
-        Object obj = getClass().getClassLoader().getResource(fullyQualifiedFileName);
-
         try (InputStream propsStream = getClass().getClassLoader().getResourceAsStream(fullyQualifiedFileName)) {
             props.load(propsStream);
         } catch (IOException e) {
             throw new StartupException(e);
         }
 
+        // TODO: Is this in the OFBiz codebase or did I add it?
         System.out.println("Config.java using configuration file " + fileName);
         return props;
     }
