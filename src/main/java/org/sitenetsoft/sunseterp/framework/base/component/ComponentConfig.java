@@ -553,8 +553,8 @@ public final class ComponentConfig {
             return fileUrl;
         } else if ("classpath".equals(resourceLoaderInfo.type)) {
             String fullLocation = getFullLocation(resourceLoaderName, location);
-            URL url = UtilResourceLocator.locateResource(fullLocation);
-            // URL url = UtilURL.fromResource(fullLocation);
+            //URL url = UtilResourceLocator.locateResource(fullLocation);
+            URL url = UtilURL.fromResource(fullLocation);
             if (url == null) {
                 throw new ComponentException("Classpath Resource not found: " + fullLocation);
             }

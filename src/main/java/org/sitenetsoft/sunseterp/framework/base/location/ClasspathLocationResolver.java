@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.location;
 
-import org.sitenetsoft.sunseterp.framework.base.util.UtilResourceLocator;
+//import org.sitenetsoft.sunseterp.framework.base.util.UtilResourceLocator;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
 
 import java.net.MalformedURLException;

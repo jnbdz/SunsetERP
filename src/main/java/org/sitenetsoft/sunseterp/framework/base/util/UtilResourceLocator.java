@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 public final class UtilResourceLocator {
 
-    private static final String MODULE = UtilURL.class.getName();
+    /*private static final String MODULE = UtilURL.class.getName();
 
     public static URL locateResource(String resourceName) {
         URL url = UtilURL.getUrlMap().get(resourceName);
@@ -62,6 +62,6 @@ public final class UtilResourceLocator {
 
         String packagePath = extractedPackage.replace(".", "/");
         return packagePath + "/config/" + resourceName;
-    }
+    }*/
 
 }

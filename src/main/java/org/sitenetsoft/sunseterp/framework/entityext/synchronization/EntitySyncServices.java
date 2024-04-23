@@ -539,8 +539,8 @@ public class EntitySyncServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String fileName = (String) context.get("xmlFileName");
         Locale locale = (Locale) context.get("locale");
-        // URL xmlFile = UtilURL.fromResource(fileName);
-        URL xmlFile = UtilResourceLocator.locateResource(fileName);
+        URL xmlFile = UtilURL.fromResource(fileName);
+        // URL xmlFile = UtilResourceLocator.locateResource(fileName);
         if (xmlFile != null) {
             Document xmlSyncDoc = null;
             try {

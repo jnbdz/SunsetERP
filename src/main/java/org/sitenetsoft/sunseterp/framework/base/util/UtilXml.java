@@ -1029,8 +1029,8 @@ public final class UtilXml {
         @Override
         public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
             hasDTD = false;
-            URL confUrl = UtilResourceLocator.locateResource("localdtds.properties");
-            //URL confUrl = UtilURL.fromResource("localdtds.properties");
+            //URL confUrl = UtilResourceLocator.locateResource("localdtds.properties");
+            URL confUrl = UtilURL.fromResource("localdtds.properties");
             String dtd = UtilProperties.getSplitPropertyValue(confUrl, publicId);
             if (UtilValidate.isNotEmpty(dtd)) {
                 if (Debug.verboseOn()) {
@@ -1038,8 +1038,8 @@ public final class UtilXml {
                             + "], systemId [" + systemId + "] and the dtd file is [" + dtd + "]", MODULE);
                 }
                 try {
-                    // URL dtdURL = UtilURL.fromResource(dtd);
-                    URL dtdURL = UtilResourceLocator.locateResource(dtd);
+                    URL dtdURL = UtilURL.fromResource(dtd);
+                    // URL dtdURL = UtilResourceLocator.locateResource(dtd);
                     if (dtdURL == null) {
                         throw new GeneralException("Local DTD not found - " + dtd);
                     }
@@ -1066,8 +1066,8 @@ public final class UtilXml {
                     filename = systemId.substring(lastSlash + 1);
                 }
 
-                //URL resourceUrl = UtilURL.fromResource(filename);
-                URL resourceUrl = UtilResourceLocator.locateResource(filename);
+                URL resourceUrl = UtilURL.fromResource(filename);
+                // URL resourceUrl = UtilResourceLocator.locateResource(filename);
 
                 if (resourceUrl != null) {
                     InputStream resStream = resourceUrl.openStream();

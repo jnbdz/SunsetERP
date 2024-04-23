@@ -78,7 +78,28 @@ import java.util.stream.Collectors;
  * For more information about the AccessLogValve pattern visit the
  * <a href="https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve">Documentation</a>
  */
-public class CatalinaContainer {}
+public class CatalinaContainer implements Container {
+    @Override
+    public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
+
+    }
+
+    @Override
+    public boolean start() throws ContainerException {
+        return false;
+    }
+
+    @Override
+    public void stop() throws ContainerException {
+
+    }
+
+    @Override
+    public String getName() {
+        return "";
+    }
+}
+
 /*public class CatalinaContainer implements Container {
 
     private static final String MODULE = CatalinaContainer.class.getName();

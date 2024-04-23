@@ -55,12 +55,12 @@ public class GeronimoTransactionFactory implements TransactionFactory {
 
     @Override
     public TransactionManager getTransactionManager() {
-        return geronimoTransactionManager;
+        return (TransactionManager) geronimoTransactionManager;
     }
 
     @Override
     public UserTransaction getUserTransaction() {
-        return geronimoTransactionManager;
+        return (UserTransaction) geronimoTransactionManager;
     }
 
     @Override

@@ -108,8 +108,8 @@ public final class ServiceConfigUtil {
     }
 
     private static Document getXmlDocument() throws GenericConfigException {
-        URL confUrl = UtilResourceLocator.locateResource(SERVICE_ENGINE_XML_FILENAME);
-        //URL confUrl = UtilURL.fromResource(SERVICE_ENGINE_XML_FILENAME);
+        // URL confUrl = UtilResourceLocator.locateResource(SERVICE_ENGINE_XML_FILENAME);
+        URL confUrl = UtilURL.fromResource(SERVICE_ENGINE_XML_FILENAME);
         if (confUrl == null) {
             throw new GenericConfigException("Could not find the " + SERVICE_ENGINE_XML_FILENAME + " file");
         }

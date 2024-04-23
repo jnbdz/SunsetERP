@@ -19,7 +19,7 @@
 package org.sitenetsoft.sunseterp.framework.base.config;
 
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilResourceLocator;
+//import org.sitenetsoft.sunseterp.framework.base.util.UtilResourceLocator;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
@@ -68,8 +68,8 @@ public abstract class ResourceLoader {
             throws GenericConfigException {
         ResourceLoader loader;
         Element rootElement;
-        //URL xmlUrl = UtilURL.fromResource(xmlFilename);
-        URL xmlUrl = UtilResourceLocator.locateResource(xmlFilename);
+        URL xmlUrl = UtilURL.fromResource(xmlFilename);
+        //URL xmlUrl = UtilResourceLocator.locateResource(xmlFilename);
         if (xmlUrl == null) {
             throw new GenericConfigException("Could not find the " + xmlFilename + " file");
         }
@@ -136,8 +136,8 @@ public abstract class ResourceLoader {
     }
 
     public static Document readXmlDocument(String xmlFilename) throws GenericConfigException {
-        //URL confUrl = UtilURL.fromResource(xmlFilename);
-        URL confUrl = UtilResourceLocator.locateResource(xmlFilename);
+        URL confUrl = UtilURL.fromResource(xmlFilename);
+        //URL confUrl = UtilResourceLocator.locateResource(xmlFilename);
 
         if (confUrl == null) {
             throw new GenericConfigException("ERROR: could not find the [" + xmlFilename + "] XML file on the classpath");

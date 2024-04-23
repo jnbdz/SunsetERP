@@ -19,21 +19,19 @@
 
 package org.sitenetsoft.sunseterp.framework.entity;
 
-/*import org.sitenetsoft.sunseterp.framework.base.concurrent.ExecutionPool;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.Future;
+
+import org.sitenetsoft.sunseterp.framework.base.concurrent.ExecutionPool;
 import org.sitenetsoft.sunseterp.framework.base.container.Container;
 import org.sitenetsoft.sunseterp.framework.base.container.ContainerConfig;
 import org.sitenetsoft.sunseterp.framework.base.container.ContainerException;
-//import org.sitenetsoft.sunseterp.framework.start.StartupCommand;
+import org.sitenetsoft.sunseterp.framework.start.StartupCommand;
 import org.sitenetsoft.sunseterp.framework.base.util.StringUtil;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Future;*/
-
-public class DelegatorContainer {}
-
-/*public class DelegatorContainer implements Container {
+public class DelegatorContainer implements Container {
     private String name;
     private List<String> preloadedDelegatorNames;
 
@@ -67,4 +65,5 @@ public class DelegatorContainer {}
     public String getName() {
         return name;
     }
-}*/
+}
+

@@ -60,8 +60,8 @@ public final class EntityConfig {
 
     private EntityConfig() throws GenericEntityConfException {
         Element element;
-        // URL confUrl = UtilURL.fromResource(ENTITY_ENGINE_XML_FILENAME);
-        URL confUrl = UtilResourceLocator.locateResource(ENTITY_ENGINE_XML_FILENAME);
+        URL confUrl = UtilURL.fromResource(ENTITY_ENGINE_XML_FILENAME);
+        // URL confUrl = UtilResourceLocator.locateResource(ENTITY_ENGINE_XML_FILENAME);
         if (confUrl == null) {
             throw new GenericEntityConfException("Could not find the " + ENTITY_ENGINE_XML_FILENAME + " file");
         }
