@@ -14,6 +14,4 @@ public class GreetingResource {
         return "Hello from RESTEasy Reactive";
     }
 
-
-
 }

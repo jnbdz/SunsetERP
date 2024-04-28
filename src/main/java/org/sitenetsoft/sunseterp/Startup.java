@@ -8,8 +8,8 @@ import org.sitenetsoft.sunseterp.framework.start.Start;
 @ApplicationScoped
 public class Startup {
 
-    void onStart(@Observes StartupEvent ev) {
+    /*void onStart(@Observes StartupEvent ev) {
         String[] args = {}; // You can replace this with actual arguments if needed
         Start.main(args);
-    }
+    }*/
 }
