@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.sitenetsoft.sunseterp.framework.catalina.container;
+package org.sitenetsoft.sunseterp.framework.controller.container;
 
 /*import org.apache.catalina.*;
 import org.apache.catalina.authenticator.SingleSignOn;
@@ -41,47 +41,41 @@ import org.apache.catalina.valves.AccessLogValve;
 import org.apache.catalina.webresources.StandardRoot;*/
 // TODO
 //import org.apache.coyote.http2.Http2Protocol;
+
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
 import org.sitenetsoft.sunseterp.framework.base.concurrent.ExecutionPool;
 import org.sitenetsoft.sunseterp.framework.base.container.Container;
 import org.sitenetsoft.sunseterp.framework.base.container.ContainerConfig;
 import org.sitenetsoft.sunseterp.framework.base.container.ContainerConfig.Configuration;
 import org.sitenetsoft.sunseterp.framework.base.container.ContainerException;
-import org.sitenetsoft.sunseterp.framework.start.Start;
-import org.sitenetsoft.sunseterp.framework.start.StartupCommand;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.start.StartupCommand;
 import org.sitenetsoft.sunseterp.framework.webapp.WebAppUtil;
-/*import org.apache.tomcat.JarScanner;
-import org.apache.tomcat.util.IntrospectionUtils;
-import org.apache.tomcat.util.descriptor.web.FilterDef;
-import org.apache.tomcat.util.descriptor.web.FilterMap;
-import org.apache.tomcat.util.net.SSLHostConfig;
-import org.apache.tomcat.util.net.SSLHostConfigCertificate;
-import org.apache.tomcat.util.scan.StandardJarScanner;*/
 import org.xml.sax.SAXException;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.stream.Collectors;
 
 /**
- * CatalinaContainer -  Tomcat
+ * ControllerContainer  -
  *
  * For more information about the AccessLogValve pattern visit the
- * <a href="https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve">Documentation</a>
  */
-public class CatalinaContainer implements Container {
+public class ControllerContainer implements Container {
+
+    private static final String MODULE = ControllerContainer.class.getName();
+
+    private String name;
+
     @Override
     public void init(List<StartupCommand> ofbizCommands, String name, String configFile) throws ContainerException {
+        this.name = name;
+        ContainerConfig.Configuration configuration = ContainerConfig.getConfiguration(name);
 
+        //loadWebapps(configuration);
     }
 
     @Override
@@ -98,6 +92,75 @@ public class CatalinaContainer implements Container {
     public String getName() {
         return "";
     }
+
+    private static void loadWebapps(Configuration configuration, Configuration.Property clusterProp) {
+        //ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(new ThreadGroup(MODULE),
+        //        "catalina-startup", Runtime.getRuntime().availableProcessors(), 0, true);
+        //List<Future<Context>> futures = new ArrayList<>();
+
+        List<ComponentConfig.WebappInfo> webResourceInfos = ComponentConfig.getAllWebappResourceInfos();
+        Collections.reverse(webResourceInfos); // allow higher level webapps to override lower ones
+
+        Set<String> webappsMounts = new HashSet<>();
+        webResourceInfos.forEach(appInfo -> webappsMounts.addAll(getWebappMounts(appInfo)));
+
+        for (ComponentConfig.WebappInfo appInfo: webResourceInfos) {
+            if (webappsMounts.removeAll(getWebappMounts(appInfo))) {
+                // webapp is not yet loaded
+                if (!appInfo.getLocation().isEmpty()) {
+                    // TODO: It exists
+                    //futures.add(executor.submit(createCallableContext(appInfo, clusterProp, configuration)));
+                }
+            } else {
+                /* webapp is loaded already (overridden). Therefore, disable
+                 * app bar display on overridden apps and do not load */
+                appInfo.setAppBarDisplay(false);
+                Debug.logInfo("Duplicate webapp mount (overridding); not loading : "
+                        + appInfo.getName() + " / " + appInfo.location(), MODULE);
+            }
+        }
+        //ExecutionPool.getAllFutures(futures);
+        //executor.shutdown();
+    }
+
+    private static List<String> getWebappMounts(ComponentConfig.WebappInfo webappInfo) {
+        List<String> allAppsMounts = new ArrayList<>();
+        String engineName = webappInfo.getServer();
+        String mount = webappInfo.getContextRoot();
+        List<String> virtualHosts = webappInfo.getVirtualHosts();
+        if (virtualHosts.isEmpty()) {
+            allAppsMounts.add(engineName + ":DEFAULT:" + mount);
+        } else {
+            virtualHosts.forEach(virtualHost -> allAppsMounts.add(engineName + ":" + virtualHost + ":" + mount));
+        }
+        return allAppsMounts;
+    }
+
+    private static String getWebappRootLocation(ComponentConfig.WebappInfo appInfo) {
+        return appInfo.getComponentConfig().rootLocation()
+                .resolve(appInfo.getLocation().replace('\\', '/'))
+                .normalize()
+                .toString();
+    }
+
+    private static String getWebappMountPoint(ComponentConfig.WebappInfo appInfo) {
+        String mount = appInfo.getMountPoint();
+        if (mount.endsWith("/*")) {
+            mount = mount.substring(0, mount.length() - 2);
+        }
+        return mount;
+    }
+
+    /*private static boolean isContextDistributable(Configuration configuration,
+                                                  ComponentConfig.WebappInfo appInfo) throws ContainerException {
+        boolean appIsDistributable = ContainerConfig.getPropertyValue(configuration, "apps-distributable", true);
+        try {
+            boolean isDistributable = WebAppUtil.isDistributable(appInfo);
+            return appIsDistributable && isDistributable;
+        } catch (SAXException | IOException e) {
+            throw new ContainerException(e);
+        }
+    }*/
 }
 
 /*public class CatalinaContainer implements Container {
@@ -422,120 +485,9 @@ public class CatalinaContainer implements Container {
         }
 
         return engineValves;
-    }
-
-    private static List<Connector> prepareTomcatConnectors(Configuration configuration) throws ContainerException {
-        List<Configuration.Property> connectorProps = configuration.getPropertiesWithValue("connector");
-        if (UtilValidate.isEmpty(connectorProps)) {
-            throw new ContainerException("Cannot load CatalinaContainer; no connectors defined!");
-        }
-        return connectorProps.stream()
-            .filter(connectorProp -> UtilValidate.isNotEmpty(connectorProp.properties()))
-            .map(connectorProp -> prepareConnector(connectorProp))
-            .collect(Collectors.toList());
-    }
-
-    private static Connector prepareConnector(Configuration.Property connectorProp) {
-        Connector connector = new Connector(ContainerConfig.getPropertyValue(connectorProp, "protocol", "HTTP/1.1"));
-        connector.setPort(ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().getPortOffset());
-        if ("true".equals(ContainerConfig.getPropertyValue(connectorProp, "upgradeProtocol", "false"))) {
-            connector.addUpgradeProtocol(new Http2Protocol());
-            Debug.logInfo("Tomcat " + connector + ": enabled HTTP/2", MODULE);
-        }
-        connectorProp.properties().values().stream()
-                .filter(prop -> {
-                    String name = prop.name();
-                    String value = prop.value();
-                    return !"protocol".equals(name) && !"upgradeProtocol".equals(name) && !"port".equals(name) && !"sslHostConfig".equals(value);
-                })
-                .forEach(prop -> {
-                    String name = prop.name();
-                    String value = prop.value();
-                    if (IntrospectionUtils.setProperty(connector, name, value)) {
-                        if (name.indexOf("Pass") != -1) {
-                            // this property may be a password, do not include its value in the logs
-                            Debug.logInfo("Tomcat " + connector + ": set " + name, MODULE);
-                        } else {
-                            Debug.logInfo("Tomcat " + connector + ": set " + name + "=" + value, MODULE);
-                        }
-                    } else {
-                        Debug.logWarning("Tomcat " + connector + ": ignored parameter " + name, MODULE);
-                    }
-                });
-        prepareSslHostConfigs(connector, connectorProp).forEach(connector::addSslHostConfig);
-        return connector;
-    }
-
-    private static List<SSLHostConfig> prepareSslHostConfigs(Connector connector, Configuration.Property connectorProp) {
-        return connectorProp.getPropertiesWithValue("sslHostConfig").stream()
-                .filter(sslHostConfigProp -> UtilValidate.isNotEmpty(sslHostConfigProp.properties()))
-                .map(sslHostConfigProp -> prepareSslHostConfig(connector, sslHostConfigProp))
-                .collect(Collectors.toList());
-    }
-
-    private static SSLHostConfig prepareSslHostConfig(Connector connector, Configuration.Property sslHostConfigProp) {
-        SSLHostConfig sslHostConfig = new SSLHostConfig();
-        sslHostConfigProp.properties().values().stream()
-                .filter(prop -> {
-                    String value = prop.value();
-                    return !"certificate".equals(value);
-                })
-                .forEach(prop -> {
-                    String name = prop.name();
-                    String value = prop.value();
-                    if (IntrospectionUtils.setProperty(sslHostConfig, name, value)) {
-                        if (name.indexOf("Pass") != -1) {
-                            // this property may be a password, do not include its value in the logs
-                            Debug.logInfo("Tomcat " + connector + " " + sslHostConfig.getHostName() + ": set " + name, MODULE);
-                        } else {
-                            Debug.logInfo("Tomcat " + connector + " " + sslHostConfig.getHostName() + ": set " + name + "=" + value, MODULE);
-                        }
-                    } else {
-                        Debug.logWarning("Tomcat " + connector + " " + sslHostConfig.getHostName() + ": ignored parameter " + name, MODULE);
-                    }
-                });
-        prepareSslHostConfigCerts(connector, sslHostConfig, sslHostConfigProp).forEach(sslHostConfig::addCertificate);
-        return sslHostConfig;
-    }
-
-    private static List<SSLHostConfigCertificate> prepareSslHostConfigCerts(Connector connector, SSLHostConfig sslHostConfig,
-                                                                            Configuration.Property sslHostConfigProp) {
-        return sslHostConfigProp.getPropertiesWithValue("certificate").stream()
-                .filter(certProp -> UtilValidate.isNotEmpty(certProp.properties()))
-                .map(certProp -> prepareSslHostConfigCert(connector, sslHostConfig, certProp))
-                .collect(Collectors.toList());
-    }
-
-    private static SSLHostConfigCertificate prepareSslHostConfigCert(Connector connector, SSLHostConfig sslHostConfig,
-                                                                     Configuration.Property certProp) {
-        String certificateType = ContainerConfig.getPropertyValue(certProp, "certificateType", SSLHostConfigCertificate.DEFAULT_TYPE.name());
-        SSLHostConfigCertificate sslHostConfigCert = new SSLHostConfigCertificate(sslHostConfig,
-                SSLHostConfigCertificate.Type.valueOf(certificateType));
-        certProp.properties().values().stream()
-                .filter(prop -> {
-                    String name = prop.name();
-                    return !"certificateType".equals(name);
-                })
-                .forEach(prop -> {
-                    String name = prop.name();
-                    String value = prop.value();
-                    if (IntrospectionUtils.setProperty(sslHostConfigCert, name, value)) {
-                        if (name.indexOf("Pass") != -1) {
-                            // this property may be a password, do not include its value in the logs
-                            Debug.logInfo("Tomcat " + connector + " " + sslHostConfig.getHostName() + " certificate: set " + name, MODULE);
-                        } else {
-                            Debug.logInfo("Tomcat " + connector + " " + sslHostConfig.getHostName() + " certificate: set " + name + "=" + value,
-                                    MODULE);
-                        }
-                    } else {
-                        Debug.logWarning("Tomcat " + connector + " " + sslHostConfig.getHostName() + " certificate: ignored parameter " + name,
-                                MODULE);
-                    }
-                });
-        return sslHostConfigCert;
     }*/
 
-    /*private static void loadWebapps(Tomcat tomcat, Configuration configuration, Configuration.Property clusterProp) {
+    /*private static void loadWebapps(Configuration configuration, Configuration.Property clusterProp) {
         ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(new ThreadGroup(MODULE),
                 "catalina-startup", Runtime.getRuntime().availableProcessors(), 0, true);
         List<Future<Context>> futures = new ArrayList<>();
@@ -577,8 +529,8 @@ public class CatalinaContainer implements Container {
         return allAppsMounts;
     }
 
-    private static Callable<Context> createCallableContext(Tomcat tomcat, ComponentConfig.WebappInfo appInfo,
-            Configuration.Property clusterProp, ContainerConfig.Configuration configuration) {
+    private static Callable<Context> createCallableContext(ComponentConfig.WebappInfo appInfo,
+            Configuration.Property clusterProp, Configuration configuration) {
 
         Debug.logInfo("Creating context [" + appInfo.getName() + "]", MODULE);
         Host host = prepareHost(tomcat, appInfo.getVirtualHosts());
@@ -591,7 +543,7 @@ public class CatalinaContainer implements Container {
         };
     }
 
-    private static StandardContext prepareContext(Host host, ContainerConfig.Configuration configuration,
+    private static StandardContext prepareContext(Host host, Configuration configuration,
             ComponentConfig.WebappInfo appInfo, Configuration.Property clusterProp) throws ContainerException {
 
         StandardContext context = new StandardContext();
@@ -667,8 +619,8 @@ public class CatalinaContainer implements Container {
         return mount;
     }
 
-    private static boolean isContextDistributable(ContainerConfig.Configuration configuration,
-            ComponentConfig.WebappInfo appInfo) throws ContainerException {
+    private static boolean isContextDistributable(Configuration configuration,
+                                                  ComponentConfig.WebappInfo appInfo) throws ContainerException {
         boolean appIsDistributable = ContainerConfig.getPropertyValue(configuration, "apps-distributable", true);
         try {
             boolean isDistributable = WebAppUtil.isDistributable(appInfo);

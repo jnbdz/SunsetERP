@@ -1,20 +1,23 @@
 dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    implementation 'io.quarkus:quarkus-resteasy-reactive-jackson'
-    implementation 'io.quarkus:quarkus-smallrye-openapi'
-    implementation 'io.quarkus:quarkus-resteasy-reactive'
-    implementation 'io.quarkus:quarkus-rest-links:3.9.1'
+    implementation 'io.quarkus:quarkus-rest-jackson:3.10.0'
+    implementation 'io.quarkus:quarkus-smallrye-openapi:3.10.0'
+    implementation 'io.quarkus:quarkus-rest:3.10.0'
+    implementation 'io.quarkus:quarkus-rest-links:3.10.0'
     //implementation 'io.quarkus:quarkus-resteasy-reactive-jsonb'
-    implementation 'io.quarkus:quarkus-arc'
-    //implementation 'io.quarkus:quarkus-oidc'
-    implementation 'io.quarkus:quarkus-elytron-security-properties-file'
-    implementation 'io.quarkiverse.groovy:quarkus-groovy:3.9.1'
-    implementation 'io.quarkus:quarkus-smallrye-health'
-    implementation 'io.quarkiverse.groovy:quarkus-groovy-junit5:3.9.1'
-    implementation 'io.quarkus:quarkus-arc'
+    implementation 'io.quarkus:quarkus-arc:3.10.0'
+    implementation 'io.quarkus:quarkus-oidc:3.10.0'
+    implementation 'io.quarkus:quarkus-keycloak-authorization:3.10.0'
+    implementation 'io.quarkus:quarkus-elytron-security-properties-file:3.10.0'
+    implementation 'io.quarkiverse.groovy:quarkus-groovy:3.10.0'
+    implementation 'io.quarkus:quarkus-smallrye-health:3.10.0'
+    implementation 'io.quarkiverse.groovy:quarkus-groovy-junit5:3.10.0'
 
     implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
     implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
+
     // TODO:
     // NEW:
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
@@ -137,6 +140,9 @@ dependencies {
 
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
 
+    // https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk18on
+    implementation 'org.bouncycastle:bcpkix-jdk18on:1.78.1'
+
     // Include AsciidoctorJ API for AsciiDoc processing
     //asciidoctor 'org.asciidoctor:asciidoctorj:2.5.12'
     // Include AsciidoctorJ PDF for PDF generation
@@ -144,6 +150,11 @@ dependencies {
     // Include AsciidoctorJ EPUB3 for EPUB generation
     //implementation 'org.asciidoctor:asciidoctorj-epub3:2.1.0'
 
+    // Doc: https://quarkus.io/guides/tests-with-coverage
+    // Doc: https://quarkus.io/guides/getting-started-testing
+
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
+    // https://quarkus.io/guides/security-testing
+    testImplementation "io.quarkus:quarkus-test-security"
 }

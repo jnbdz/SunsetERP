@@ -104,3 +104,103 @@ With this new front end approach the arhitecture of the project is much simpler 
 is a reviewed diagram of the architecture:
 
 image::sunseterp-ofbiz-architecture.png[]
+
+== Back End
+
+The back end of SunsetERP is built using Quarkus, making it a cloud-native application and taking advantage of Graalvm
+performance. Also, it is RESTful first, uses OpenAPI for the RESTful API documentation, and uses Keycloak for
+authentication and authorization.
+
+=== Starting Flow
+
+1. Startup.java (org.sitenetsoft.sunseterp)
+2. Start.java (org.sitenetsoft.sunseterp.framework.start)
+  - main() - From here it looks for commands set in the command
+  - Based on the command set it evaluates in a switch case and calls the respective command (help, status, shutdown and start)
+  - In this context the START command is called
+  - This calls the start() method in StartupControlPanel.java (org.sitenetsoft.sunseterp.framework.start)
+3. StartupControlPanel.java (org.sitenetsoft.sunseterp.framework.start)
+    - start() - calls
+    - Note: so far the code is the same as OFBiz
+    - TODO: some code might need to be changed or removed
+    - loadContainers() - This method loads the containers
+    - loader.load(config, ofbizCommands); - This method loads the configuration and the commands
+4. ContainerLoader.java (org.sitenetsoft.sunseterp.framework.base.container)
+    - load() - This method loads the containers
+5. ComponentContainer.java (org.sitenetsoft.sunseterp.framework.base.container)
+    - init() - This method loads the components
+    - The init() calls another init() method in the ComponentContainer.java
+    -
+
+==== Simplify Starting Flow
+Quarkus -> OFBiz loads the components (resources files) -> OFBiz loads the containers
+
+Components in the context of OFBiz seem to be configuration files that are loaded.
+
+The containers can then respond to the passed commands and configuration files (components) that were loaded.
+
+Containers are listed in the resources ofbiz-component.xml file. The element <container> is used to define a container.
+
+There are different types of loaders for the containers:
+- main -
+- rmi -
+- test -
+- load-data -
+- main,rmi,load-data,test - Can be multiple loaders
+
+Here is a comprehensive list of the containers used in the OFBiz framework:
+- org.sitenetsoft.sunseterp.framework.base.container.AdminServerContainer (resources/org/sitenetsoft/sunseterp/framework/base/ofbiz-component.xml)
+- org.sitenetsoft.sunseterp.framework.base.container.ComponentContainer (not in a ofbiz-component.xml file)
+  - TODO: Is it even been loaded
+- org.sitenetsoft.sunseterp.framework.base.container.NamingServiceContainer (resources/org/sitenetsoft/sunseterp/framework/base/ofbiz-component.xml)
+  - TODO: What is it for?
+- org.sitenetsoft.sunseterp.framework.catalina.container.CatalinaContainer (resources/org/sitenetsoft/sunseterp/framework/catalina/ofbiz-component.xml)
+- org.sitenetsoft.sunseterp.framework.entity.DelegatorContainer (resources/org/sitenetsoft/sunseterp/framework/entity/ofbiz-component.xml)
+- org.sitenetsoft.sunseterp.framework.entityext.data.EntityDataLoadContainer (resources/org/sitenetsoft/sunseterp/framework/entityext/ofbiz-component.xml)
+  - Handles the loading of data when the command is sent
+- org.sitenetsoft.sunseterp.framework.service.ServiceContainer (resources/org/sitenetsoft/sunseterp/framework/service/ofbiz-component.xml)
+- org.sitenetsoft.sunseterp.framework.service.rmi.RmiServiceContainer (resources/org/sitenetsoft/sunseterp/framework/service/ofbiz-component.xml)
+  - TODO: Does not seem to be causing errors when maybe it should
+  - TODO: What is it for?
+  - TODO: Refactoring needed
+- org.sitenetsoft.sunseterp.framework.testtools.TestRunContainer (resources/org/sitenetsoft/sunseterp/framework/testtools/ofbiz-component.xml)
+
+Flow diagram of the SunsetERP project:
+
+==== Components
+
+Seemed to be the configuration files that are loaded.
+
+==== Containers
+
+Containers are the classes that are loaded based on the configuration files (componends). They can respond to the passed
+commands and/or configuration files (components) that were loaded.
+
+==== Services
+
+Services in OFBiz are the classes that are loaded based on the configuration files (componends). They are often used by
+the controller.xml file.
+
+Services in OFBiz have simple configuration files in XML format. From there it can invoke some Java code (TODO: maybe Groovy)
+it also can interact with the database via the entity engine. This permits to limit the amount of code required and make
+it easier for a low skilled developer to work with the project. It can also be claimed that it low-code.
+
+==== Entities
+
+==== Entity Ext
+
+==== Controller.xml
+
+More often than not the Controller.xml calls a service or services.
+
+It can also configure what is supposed to return to the user in the advent of an error or success.
+
+Again, like services XML configuration files it is simple and easy to understand. It is also low-code.
+
+==== web.xml
+
+Originally the web.xml was used to configure the web application for the servlet container. Since Quarkus does not use
+servelt containers the way web.xml is used is different. Some of the
+
+== QA Tests
+

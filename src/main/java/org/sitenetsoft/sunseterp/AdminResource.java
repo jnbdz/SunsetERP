@@ -5,15 +5,15 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 
-@Path("/")
-public class GreetingResource {
+import io.quarkus.security.Authenticated;
+
+@Path("/api/admin")
+@Authenticated
+public class AdminResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from RESTEasy Reactive";
+    public String admin() {
+        return "granted";
     }
-
-
-
 }

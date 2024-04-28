@@ -15,7 +15,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import java.util.*;
 
 @Path("/sunseterp")
-@Tag(name = "SunsetERP API", description = "All Sunset ERP related endpoints")
+@Tag(name = "SunsetERP API", description = "Resources SunsetERP endpoints.")
 public class SunsetErpResource {
 
     @ConfigProperty(name = "sunseterp.api.info.access.ips", defaultValue = "127.0.0.1")
