@@ -1,5 +1,7 @@
 package org.sitenetsoft.sunseterp;
 
+import jakarta.annotation.security.RolesAllowed;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
@@ -11,7 +13,16 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-public class AuthResource {}
+
+@Path("/secure")
+public class AuthResource {
+
+    @GET
+    @RolesAllowed("user")
+    public String secureMethod() {
+        return "This is a secured method";
+    }
+}
 
 /*@Path("/auth")
 public class AuthResource {

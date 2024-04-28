@@ -40,6 +40,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletRequest;*/
 import jakarta.servlet.ServletContext;
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -166,6 +167,57 @@ public final class WebAppUtil {
         }
         return delegator;
     }
+
+    /*public static boolean isDistributable(WebappInfo appinfo) throws IOException, SAXException {
+        WebXml webxml = getWebXml(appinfo);
+        return webxml.isDistributable();
+    }
+
+    /**
+     * Returns a <code>WebXml</code> instance that models the web application's <code>web.xml</code> file.
+     * @param webAppInfo
+     * @throws IOException
+     * @throws SAXException
+     */
+    /*private static WebXml getWebXml(WebappInfo webAppInfo) throws IOException, SAXException {
+        Assert.notNull("webAppInfo", webAppInfo);
+        Path webXmlFileLocation = webAppInfo.location().resolve(WEB_APP_FILE_NAME);
+        return parseWebXmlFile(webXmlFileLocation, true);
+    }
+
+    /**
+     * Parses the specified <code>web.xml</code> file into a <code>WebXml</code> instance.
+     * @param webXmlLocation
+     * @param validate
+     * @throws IOException
+     * @throws SAXException
+     */
+    /*private static WebXml parseWebXmlFile(Path webXmlLocation, boolean validate) throws IOException, SAXException {
+        Objects.requireNonNull(webXmlLocation, "webXmlFileLocation");
+        WebXml result = WEB_XML_CACHE.get(webXmlLocation);
+        if (result == null) {
+            if (Files.notExists(webXmlLocation)) {
+                throw new IllegalArgumentException(webXmlLocation + " does not exist.");
+            }
+
+            boolean namespaceAware = true;
+            result = new WebXml();
+            LocalResolver lr = new LocalResolver(new DefaultHandler());
+            ErrorHandler handler = new LocalErrorHandler(webXmlLocation.toString(), lr);
+            Digester digester = DigesterFactory.newDigester(validate, namespaceAware, new WebRuleSet(), false);
+            digester.push(result);
+            digester.setErrorHandler(handler);
+            try (InputStream is = Files.newInputStream(webXmlLocation)) {
+                InputSource iso = new InputSource(is);
+                iso.setSystemId(webXmlLocation.toString());
+                digester.parse(iso);
+            } finally {
+                digester.reset();
+            }
+            result = WEB_XML_CACHE.putIfAbsentAndGet(webXmlLocation, result);
+        }
+        return result;
+    }*/
 
 }
 /*public final class WebAppUtil {

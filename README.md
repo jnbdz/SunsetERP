@@ -66,6 +66,21 @@ Still in dev mode.
 - Adapt ofbiz-plugins to this new setup
 - Adapt it for better Process Mining
 
+## Endpoints
+- `/sunseterp/v1/health` - Health check
+- `/sunseterp/v1/info` - Info about the framework
+- `/sunseterp/v1/openapi` - OpenAPI documentation
+- `/sunseterp/v1/applications` - List of applications
+- `/sunseterp/v1/applications/{application}` - Info about the application
+- `/sunseterp/v1/applications/{application}/openapi` - OpenAPI documentation for the application
+- `/sunseterp/v1/applications/{application}/{actions}` - Actions for the application
+- `/sunseterp/v1/applications/{application}/{actions}/openapi` - OpenAPI documentation for the actions
+- `/sunseterp/v1/applications/{application}/services` - List of services for the application
+- `/sunseterp/v1/applications/{application}/services/{service}` - Info about the service
+- `/sunseterp/v1/applications/{application}/services/{service}/openapi` - OpenAPI documentation for the service
+- `/q/openapi` - OpenAPI documentation
+- `/q/swagger-ui` - Swagger UI
+
 ## History
 - Confirmed have change for: [commit (on Aug 29, 2023)](https://github.com/apache/ofbiz-framework/commit/950be5b0aa2283147be6fc2ebdded06d09831627)
 - The following change until Oct 2, 2023 are in none Java files (Groovy, Gradle and themes)
@@ -251,7 +266,7 @@ Might need to investigate:
 - [x] Update Quarkus
 - [x] What is the version of OFBiz did I used to start? -- anything after [commit (on Aug 29, 2023)](https://github.com/apache/ofbiz-framework/commit/950be5b0aa2283147be6fc2ebdded06d09831627). For the documentation: **2024-04-20**.
 - [ ] Refactor `build.gralde`
-  - [ ] Analyse
+  - [x] Analyse
   - [ ] Refactor and make sure the code is being merged properly
   - [ ] Refactor CLASSPATH (`System.getProperty("java.class.path");`)
     - [ ] Analyse is `component-load.xml` for `applications/` and `framework/` are being removed from Gradle level
@@ -263,6 +278,11 @@ Might need to investigate:
     - [ ] Clean tasks
     - [ ] Others
   - [ ] Refactor eclipse stuff
+  - [ ] Add plugin management
+    - [x] Analyse
+    - [x] Add task for creating plugin
+    - [ ] Add task for removing plugin (not tested)
+    - [ ] Add task for updating plugin (not tested)
 - [ ] Documentation refactoring
   - [x] Analyse
   - [x] Move all the doc in the `./docs/` directory -- **2024-04-20**.
@@ -277,7 +297,22 @@ Might need to investigate:
   - [x] Document components of `build.gradle`
   - [ ] Document the structure and the delta with OFBiz
   - [ ] Document about the resources
-- [ ] Load all components from OFBiz (the Gradle refactoring needs to be done first)
+- [x] Load all components from OFBiz (the Gradle refactoring needs to be done first)
+- [ ] Refactor containers
+  - [ ] Analyse
+  - [ ] Create ControllerContainer (refactor CatalinaContainer)
+    - [x] Analyse
+    - [ ] Generate code from `web.xml` and `controller.xml` configuration files
+    - [ ] Add elements if they don't exist for OpenAPI
+  - [ ] AdminServerContainer
+  - [ ] EntityDataLoaderContainer
+  - [ ] ComponentContainer
+  - [ ] NamingServiceContainer
+  - [ ] DelegatorContainer
+  - [ ] ServiceContainer
+  - [ ] RmiServiceContainer
+  - [ ] TestRunContainer
+- [ ] Investigate the thread stuff (Analyse)
 - [ ] Replace but also keep `component-load.xml` with `component-load.properties` using cascading
 - [ ] Replace the other *XML* format configuration file with `.properties` using cascading (trying to standarized all the configurations with what already exists with Quarkus) (keep support for *XML* because of not wanting to break plugins *"for now"*)
 - [ ] Replace and keep Entities with YAML (some *XML* are too complicated to be readable and usable with `.properties`)
@@ -464,6 +499,10 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 ## Running the application in dev mode
 
 You can run your application in dev mode that enables live coding using:
+```shell script
+./run-dev.sh
+```
+Old: 
 ```shell script
 ./gradlew quarkusDev
 ```
