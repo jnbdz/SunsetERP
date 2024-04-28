@@ -36,19 +36,27 @@
 #  --hostname-strict=false \
 #  --https-key-store-file=/etc/keycloak-keystore.jks
 
+# lsof -i -P -n | grep LISTEN | grep -i 8543
 
+# TODO: Check if the port 8543 is already in use and throw an error if it is. Make it easier to detect the problem.
+# TODO: In the `else` check if it is container is running. podman ps | grep -i keycloak
 
+podman run --rm \
+  -p 8543:8443 \
+  -e KEYCLOAK_ADMIN=admin \
+  -e KEYCLOAK_ADMIN_PASSWORD=admin \
+  -v ./config/SunsetERP-realm.json:/opt/keycloak/conf/SunsetERP-realm.json \
+  -v "$(pwd)"/config/keycloak-keystore.jks:/etc/keycloak-keystore.jks \
+  --name keycloak \
+  quay.io/keycloak/keycloak:24.0.3 \
+  -Dkeycloak.migration.action=import \
+  -Dkeycloak.migration.provider=singleFile \
+  -Dkeycloak.migration.file=/opt/keycloak/conf/SunsetERP-realm.json \
+  -Dkeycloak.migration.strategy=OVERWRITE_EXISTING \
+  start --hostname-strict=false --https-key-store-file=/etc/keycloak-keystore.jks --optimized
 
-  podman run --rm \
-    -p 8543:8443 \
-    -e KEYCLOAK_ADMIN=admin \
-    -e KEYCLOAK_ADMIN_PASSWORD=admin \
-    -v ./sunseterp-client.json:/opt/keycloak/conf/sunseterp-client.json \
-    -v "$(pwd)"/config/keycloak-keystore.jks:/etc/keycloak-keystore.jks \
-    --name keycloak \
-    quay.io/keycloak/keycloak:24.0.3 \
-    -Dkeycloak.migration.action=import \
-    -Dkeycloak.migration.provider=singleFile \
-    -Dkeycloak.migration.file=/opt/keycloak/conf/sunseterp-client.json \
-    -Dkeycloak.migration.strategy=OVERWRITE_EXISTING \
-    start --hostname-strict=false --https-key-store-file=/etc/keycloak-keystore.jks --optimized
+# old:
+# -v ./sunseterp-client.json:/opt/keycloak/conf/sunseterp-client.json \
+
+# Export realm:
+# podman exec -it keycloak bash -c "/opt/keycloak/bin/kc.sh export --log-level off --file /opt/keycloak/bin/SunsetERP-realm.json --realm SunsetERP 2>/dev/null && cat /opt/keycloak/bin/SunsetERP-realm.json" > SunsetERP-realm-2.json
