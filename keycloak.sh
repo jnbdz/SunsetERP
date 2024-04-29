@@ -1,62 +1,83 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
+#####################################################################
+# Licensed to the SiteNetSoft + SunsetERP (SNS+SERP) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The SNS+SERP licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
 #
-# Copyright 2024 the original author or authors.
+# http://www.apache.org/licenses/LICENSE-2.0
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+#####################################################################
 
-#podman run \
-#  --rm \
-#  -p 8080:8080 \
-#  -e KEYCLOAK_DATABASE_VENDOR=dev-file \
-#  -e KEYCLOAK_USER=admin \
-#  -e KEYCLOAK_PASSWORD=admin \
-#  --name keycloak bitnami/keycloak:latest
+# Run Keycloak with a realm
+run_keycloak() {
+  local realm="${1:-SunsetERP}"
+  local realmFile="${realm}-realm.json"
+  local realmExportPath="${2:-./config/${realmFile}}"
+  local keycloakVersion="24.0.3"
 
-#podman run -p 8080:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin quay.io/keycloak/keycloak:24.0.3 start-dev
+  # Check if the realm is provided
+  if [ -z "${realm}" ]; then
+    echo "Usage: run_keycloak <realm>"
+    exit 1
+  fi
 
-#podman run --rm \
-#  --name keycloak \
-#  -e KEYCLOAK_ADMIN=admin \
-#  -e KEYCLOAK_ADMIN_PASSWORD=admin \
-#  -p 8543:8443 \
-#  -v "$(pwd)"/config/keycloak-keystore.jks:/etc/keycloak-keystore.jks \
-#  quay.io/keycloak/keycloak:24.0.3 start  \
-#  --hostname-strict=false \
-#  --https-key-store-file=/etc/keycloak-keystore.jks
+  # Check if Podman or Docker is installed
+  if [ -z "$(command -v podman)" ]; then
+    if [ -z "$(command -v docker)" ]; then
+      echo "Podman and Docker are not installed. Please install one of them."
+      exit 1
+    fi
+  fi
 
-# lsof -i -P -n | grep LISTEN | grep -i 8543
+  # Check if the Keycloak container is running
+  if [ -n "$(command -v podman)" ]; then
+    if [ -n "$(docker ps | grep -i keycloak)" ]; then
+      echo "Keycloak container is running."
+      exit 1
+    fi
+  else
+    if [ -n "$(podman ps | grep -i keycloak)" ]; then
+      echo "Keycloak container is running."
+      exit 1
+    fi
+  fi
 
-# TODO: Check if the port 8543 is already in use and throw an error if it is. Make it easier to detect the problem.
-# TODO: In the `else` check if it is container is running. podman ps | grep -i keycloak
+  # Check if the port is already in use
+  if [ -n "$(lsof -i -P -n | grep LISTEN | grep -i 8543)" ]; then
+    echo "Port 8543 is already in use. Please stop the process using the port."
+    echo ""
+    lsof -i -P -n | grep LISTEN | awk '{ print $1 " " $2 }' | column -t
+    echo ""
+    exit 1
+  fi
 
-podman run --rm \
-  -p 8543:8443 \
-  -e KEYCLOAK_ADMIN=admin \
-  -e KEYCLOAK_ADMIN_PASSWORD=admin \
-  -v ./config/SunsetERP-realm.json:/opt/keycloak/conf/SunsetERP-realm.json \
-  -v "$(pwd)"/config/keycloak-keystore.jks:/etc/keycloak-keystore.jks \
-  --name keycloak \
-  quay.io/keycloak/keycloak:24.0.3 \
-  -Dkeycloak.migration.action=import \
-  -Dkeycloak.migration.provider=singleFile \
-  -Dkeycloak.migration.file=/opt/keycloak/conf/SunsetERP-realm.json \
-  -Dkeycloak.migration.strategy=OVERWRITE_EXISTING \
-  start --hostname-strict=false --https-key-store-file=/etc/keycloak-keystore.jks --optimized
+  podman run --rm \
+    -p 8543:8443 \
+    -e KEYCLOAK_ADMIN=admin \
+    -e KEYCLOAK_ADMIN_PASSWORD=admin \
+    -v ./config/SunsetERP-realm.json:/opt/keycloak/conf/SunsetERP-realm.json \
+    -v "$(pwd)"/config/keycloak-keystore.jks:/etc/keycloak-keystore.jks \
+    --name keycloak \
+    quay.io/keycloak/keycloak:${keycloakVersion} \
+    -Dkeycloak.migration.action=import \
+    -Dkeycloak.migration.provider=singleFile \
+    -Dkeycloak.migration.file=/opt/keycloak/conf/SunsetERP-realm.json \
+    -Dkeycloak.migration.strategy=OVERWRITE_EXISTING \
+    start --hostname-strict=false --https-key-store-file=/etc/keycloak-keystore.jks --optimized
 
-# old:
-# -v ./sunseterp-client.json:/opt/keycloak/conf/sunseterp-client.json \
+  # old:
+  # -v ./sunseterp-client.json:/opt/keycloak/conf/sunseterp-client.json \
 
-# Export realm:
-# podman exec -it keycloak bash -c "/opt/keycloak/bin/kc.sh export --log-level off --file /opt/keycloak/bin/SunsetERP-realm.json --realm SunsetERP 2>/dev/null && cat /opt/keycloak/bin/SunsetERP-realm.json" > SunsetERP-realm-2.json
+}
+run_keycloak "$@"
