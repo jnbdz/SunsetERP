@@ -1,0 +1,19 @@
+version: '2'
+services:
+  beats:
+    image: docker.elastic.co/beats/filebeat:7.10.0
+    volumes:
+      - 'filebeat_data:/usr/share/filebeat'
+    environment:
+      - FILEBEAT_CONFIG_DIR=filebeat.yml
+      - FILEBEAT_LOG_DIR=/usr/share/filebeat/logs
+      - FILEBEAT_DATA_DIR=/usr/share/filebeat/data
+      - FILEBEAT_REGISTRY_FILE=/usr/share/filebeat/data/registry
+      - FILEBEAT_CONFIG_DIR=/usr/share/filebeat/config
+      - FILEBEAT_CONFIG_PATH=/usr/share/filebeat/config/filebeat.yml
+      - FILEBEAT_LOG_LEVEL=info
+      - FILEBEAT_LOG_TO_STDERR=true
+      - FILEBEAT_LOG_JSON=false
+      - FILEBEAT_HTTP_ENABLED=false
+      - FILEBEAT_HTTP_PORT=5066
+      - FILEBEAT_HTTP_HOST=

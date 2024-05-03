@@ -1,0 +1,8 @@
+version: '2'
+services:
+  redis:
+    image: docker.io/bitnami/redis:latest
+    environment:
+      - REDIS_PASSWORD=bitnami_keycloak
+    volumes:
+      - 'redis_data:/bitnami/redis'

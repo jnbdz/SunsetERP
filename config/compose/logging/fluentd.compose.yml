@@ -1,0 +1,10 @@
+version: '2'
+services:
+  fluentd:
+    image: docker.io/bitnami/fluentd:latest
+    ports:
+      - "24224:24224"
+    volumes:
+      - 'fluentd_data:/bitnami/fluentd'
+    environment:
+      - FLUENTD_CONF=fluentd.conf

@@ -135,6 +135,18 @@ def ofbizServer = 'SunsetERP Server'
 def ofbizPlugin = 'SunsetERP Plugin'
 def sysadminGroup = 'System Administration'
 
+// ========== ERP Elements Command tasks ==========
+
+tasks.register('SunsetERP', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'org.sitenetsoft.sunseterp.cli.Main'
+    if (project.hasProperty('args')) {
+        args = project.args.tokenize()
+    } else {
+        args = ['help']
+    }
+}
+
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
     inProcess = JAVA_EXEC

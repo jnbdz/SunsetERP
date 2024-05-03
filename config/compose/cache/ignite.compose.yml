@@ -1,0 +1,10 @@
+version: '2'
+services:
+  ignite:
+    image: docker.io/bitnami/ignite:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - IGNITE_USER=bn_keycloak
+      - IGNITE_DATABASE=bitnami_keycloak
+    volumes:
+      - 'ignite_data:/bitnami/ignite'

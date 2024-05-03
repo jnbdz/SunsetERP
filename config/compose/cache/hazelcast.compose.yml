@@ -1,0 +1,8 @@
+version: '2'
+services:
+  hazelcast:
+    image: docker.io/bitnami/hazelcast:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'hazelcast_data:/bitnami/hazelcast'

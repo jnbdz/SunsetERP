@@ -1,0 +1,13 @@
+version: '2'
+services:
+  sunseterp:
+    image: docker.io/.../sunseterp:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - PROFILES_ACTIVE=staging
+      - DATASOURCE_URL=jdbc:postgresql://postgresql:5432/bitnami_keycloak
+      - DATASOURCE_USERNAME=bn_keycloak
+      - DATASOURCE_PASSWORD=
+    depends_on:
+      - postgresql

@@ -1,0 +1,11 @@
+version: '2'
+services:
+  opensearch:
+    image: docker.io/amazon/opensearch:1.0.0
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - 'opensearch_data:/usr/share/elasticsearch/data'

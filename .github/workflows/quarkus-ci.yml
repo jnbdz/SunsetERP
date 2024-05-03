@@ -1,0 +1,72 @@
+name: Quarkus CI
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  build-and-test-jvm:
+    name: Build and test JVM
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ format('{0}-gradle-{1}', runner.os, hashFiles('**/*.gradle*', '**/gradle-wrapper.properties')) }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build and run tests
+        run: ./gradlew test
+
+  build-and-test-native:
+    name: Build and test native
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install GraalVM 21
+        uses: DeLaGuardo/setup-graalvm@5.1
+        with:
+          graalvm-version: '21-java17'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ format('{0}-gradle-{1}', runner.os, hashFiles('**/*.gradle*', '**/gradle-wrapper.properties')) }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Build native executable
+        run: ./gradlew buildNative
+
+      - name: Execute native tests
+        run: ./build/native-image/application

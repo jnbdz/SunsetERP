@@ -1,0 +1,9 @@
+version: '2'
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:${keycloakVersion}
+    ports:
+      - "8080:8080"
+      - "8543:8443"
+    environment:
+      - KEYCLOAK_CREATE_ADMIN_USER=true

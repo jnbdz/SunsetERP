@@ -1,9 +1,6 @@
-package org.sitenetsoft.sunseterp;
+package org.sitenetsoft.sunseterp.cli;
 
 import picocli.CommandLine;
-
-import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Inject;
 
 @CommandLine.Command(name = "entity", mixinStandardHelpOptions = true, version = "entity 1.0",
         description = "Entity command")
