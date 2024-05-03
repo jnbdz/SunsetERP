@@ -1,0 +1,10 @@
+version: '2'
+services:
+  flume:
+    image: docker.io/bitnami/flume:latest
+    ports:
+      - "44444:44444"
+    volumes:
+      - 'flume_data:/bitnami/flume'
+    environment:
+      - FLUME_CONF=flume.conf

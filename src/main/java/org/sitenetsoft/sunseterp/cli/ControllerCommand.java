@@ -1,4 +1,4 @@
-package org.sitenetsoft.sunseterp;
+package org.sitenetsoft.sunseterp.cli;
 
 import picocli.CommandLine;
 

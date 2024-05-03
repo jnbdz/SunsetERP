@@ -1,0 +1,10 @@
+version: '2'
+services:
+  percona:
+    image: docker.io/bitnami/percona:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - PERCONA_USER=bn_keycloak
+      - PERCONA_DATABASE=bitnami_keycloak
+    volumes:
+      - 'percona_data:/bitnami/percona'

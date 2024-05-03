@@ -1,0 +1,10 @@
+version: '2'
+services:
+  mysql:
+    image: docker.io/bitnami/mysql:latest
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_USER=bn_keycloak
+      - MYSQL_DATABASE=bitnami_keycloak
+    volumes:
+      - 'mysql_data:/bitnami/mysql'

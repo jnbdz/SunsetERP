@@ -1,4 +1,4 @@
-package org.sitenetsoft.sunseterp;
+package org.sitenetsoft.sunseterp.cli;
 
 import picocli.CommandLine;
 
@@ -7,24 +7,24 @@ import picocli.CommandLine;
 public class ServiceCommand {
         @CommandLine.Command(name = "list", description = "List services")
         public void list() {
-            System.out.println("List all entities...");
+            System.out.println("List all services...");
         }
 
         @CommandLine.Command(name = "cleanAll", description = "Clean all services")
         public void cleanAll() {
             // Implement cleanAll functionality here
-            System.out.println("Cleaning all entities...");
+            System.out.println("Cleaning all services...");
         }
 
         @CommandLine.Command(name = "loadAll", description = "Load all services")
         public void loadAll() {
             // Implement loadAll functionality here
-            System.out.println("Loading all entities...");
+            System.out.println("Loading all services...");
         }
 
         @CommandLine.Command(name = "loadSeed", description = "Load seed services")
         public void loadSeed() {
             // Implement loadSeed functionality here
-            System.out.println("Loading seed entities...");
+            System.out.println("Loading seed services...");
         }
 }

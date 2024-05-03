@@ -200,7 +200,43 @@ Again, like services XML configuration files it is simple and easy to understand
 ==== web.xml
 
 Originally the web.xml was used to configure the web application for the servlet container. Since Quarkus does not use
-servelt containers the way web.xml is used is different. Some of the
+servlet containers the way web.xml is used is different. Some of the
 
 == QA Tests
 
+== Observability
+
+For observability, the SunsetERP project uses OpenTelemetry for monitoring and tracing. This allows you to monitor the
+performance of your application and track down any issues that may arise.
+
+=== Centralized Logging
+
+- Fluentd (https://www.fluentd.org/)
+- Logstash (https://www.elastic.co/logstash)
+- Apache Flume (https://flume.apache.org/)
+
+=== Metrics and dashboards
+
+- Prometheus (https://prometheus.io/)
+- InfluxDB (https://www.influxdata.com/) - review
+- OpenTSDB (http://opentsdb.net/) - review
+- Graphite (https://graphiteapp.org/)
+- StatsD (https://github.com/statsd/statsd)
+- Grafana (https://grafana.com/)
+
+=== Tracing and analysis
+
+- Jaeger (https://www.jaegertracing.io/)
+- Zipkin (https://zipkin.io/)
+- OpenTracing (https://opentracing.io/)
+- OpenCensus (https://opencensus.io/)
+
+=== Process mining
+
+- ProM (https://www.promtools.org/)
+- Disco (https://fluxicon.com/disco/)
+- Celonis (https://www.celonis.com/)
+- Minit (https://www.minit.io/)
+- QPR ProcessAnalyzer (https://www.qpr.com/products/qpr-processanalyzer)
+
+=== Business process management
