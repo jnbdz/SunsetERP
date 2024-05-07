@@ -11,6 +11,8 @@ dependencies {
     implementation 'io.quarkus:quarkus-elytron-security-properties-file:3.10.0'
     implementation 'io.quarkiverse.groovy:quarkus-groovy:3.10.0'
     implementation 'io.quarkus:quarkus-smallrye-health:3.10.0'
+
+    // TODO: Should it not be in test? There might be other dep for none test code.
     implementation 'io.quarkiverse.groovy:quarkus-groovy-junit5:3.10.0'
 
     implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
@@ -138,6 +140,7 @@ dependencies {
 
     implementation "io.quarkus:quarkus-resteasy-reactive-qute"
 
+    // https://mvnrepository.com/artifact/com.googlecode.ez-vcard/ez-vcard
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk18on
@@ -147,6 +150,10 @@ dependencies {
 
     // https://mvnrepository.com/artifact/io.quarkus/quarkus-opentelemetry
     implementation 'io.quarkus:quarkus-opentelemetry:3.10.0'
+
+    // TODO: Remove
+    //implementation 'commons-cli:commons-cli:1.4'
+    //implementation 'com.thoughtworks.xstream:xstream:1.4.20'
 
     // Include AsciidoctorJ API for AsciiDoc processing
     //asciidoctor 'org.asciidoctor:asciidoctorj:2.5.12'

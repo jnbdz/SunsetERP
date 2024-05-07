@@ -343,8 +343,8 @@ Might need to investigate:
   - [ ] Analyse (does it even exist? Validation?)
 - [ ] Update code with the changes that are from the OFBiz repository
 - [ ] Add OpenTelemetry for tracing
-- [ ] Integration with Keycloak
-  - [ ] Analyse
+- [x] Integration with Keycloak
+  - [x] Analyse
 - [ ] Add integration tests
 - [ ] Add support for OpenSearch and ElasticSearch
 - [ ] `.github/workflows` for CI/CD

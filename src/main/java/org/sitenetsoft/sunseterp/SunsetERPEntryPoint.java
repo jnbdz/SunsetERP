@@ -1,18 +1,27 @@
 package org.sitenetsoft.sunseterp;
 
 import io.quarkus.runtime.Quarkus;
-import org.sitenetsoft.sunseterp.framework.start.Start;
+import io.quarkus.runtime.QuarkusApplication;
+import io.quarkus.runtime.annotations.QuarkusMain;
+import org.sitenetsoft.sunseterp.cli.CliRunner;
 
-public class SunsetERPEntryPoint {
+@QuarkusMain
+public class SunsetERPEntryPoint implements QuarkusApplication {
 
-    public static void main(String[] args) {
-        // You can perform any setup or initialization here if needed
-        // ...
+    public static void main(String... args) {
+        Quarkus.run(SunsetERPEntryPoint.class, args);
+    }
 
-        Start.main(args);
-
-        // Start the Quarkus application
-        Quarkus.run(args);
+    @Override
+    public int run(String... args) {
+        if (args != null && args.length > 0) {
+            // Execute the CLI through CliRunner
+            return new CliRunner().run(args);
+        } else {
+            // Proceed with normal application startup
+            Quarkus.waitForExit();
+        }
+        return 0;
     }
 
 }

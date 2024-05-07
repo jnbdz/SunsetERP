@@ -21,10 +21,18 @@ public class SunsetErpResource {
     @ConfigProperty(name = "sunseterp.api.info.access.ips", defaultValue = "127.0.0.1")
     List<String> ipAddresses;
 
+    /**
+     * Get the profile of the application.
+     * @return The profile of the application.
+     */
     private String profile() {
         return System.getProperty("quarkus.profile", "prod");
     }
 
+    /**
+     * Get system information.
+     * @return The system information.
+     */
     @GET
     @Path("/info")
     @Operation(
@@ -58,6 +66,10 @@ public class SunsetErpResource {
         return Response.ok(System.getProperties()).build();
     }
 
+    /**
+     * Check system health.
+     * @return The health status of the system.
+     */
     @HEAD
     @Path("/health")
     @Operation(
@@ -65,7 +77,7 @@ public class SunsetErpResource {
             description = "Returns the health status of the system if the user is authorized and the profile is 'dev'"
     )
     @APIResponse(
-            responseCode = "200",
+            responseCode = "204",
             description = "OK"
     )
     // When not logged in, the user is unauthorized
@@ -89,6 +101,10 @@ public class SunsetErpResource {
         return Response.noContent().header("Health-Status", "OK").build();
     }
 
+    /**
+     * Check system version.
+     * @return The version of the system.
+     */
     @GET
     @Path("/version")
     @Operation(
@@ -116,7 +132,7 @@ public class SunsetErpResource {
         /*if (!Boolean.parseBoolean(allowDisplayInfo) && !"dev".equals(profile)) {
             return Response.status(Response.Status.FORBIDDEN).entity(new Error("Access to the resource is forbidden")).build();
         }*/
-        return Response.ok("SunsetERP 1.0").build();
+        return Response.ok("SunsetERP 1.0.0").build();
     }
 
     // TODO: Status endpoint for SunsetERP, and the resources it is connected to like the database, OpenSearch, ElasticSearch, etc.
