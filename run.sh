@@ -27,133 +27,62 @@
 #/ OPTIONS:
 #/   -h, --help                       Show this help message and exit
 #/   -e, --container-engine <engine>  Specify which container engine to use (docker or podman)
-#/   -f, --force                      Force a restart of the Keycloak container and restart the Quarkus application
-#/   -p, --profile <profile>          Use a specific profile for running services
-#/   --cache <cache>                  Enable or disable caching features
-#/   --db <database>                  Specify which database to use
-#/   --logging <logging>              Enable or disable logging
-#/   --metrics <metrics>              Enable or disable metrics
-#/   --search <search>                Enable or disable search features
-#/   --sso <sso_provider>             Specify single sign-on provider
-#/   --tracing <tracing>              Enable or disable tracing
 #/
 #
-run() {
-  local profile="dev"
-
-  local cache=false
-  local db="derby"
-  local logging=false
-  local metrics=false
-  local search=false
-  local sso="keycloak"
-  local tracing=false
-
-  while [[ $# -gt 0 ]]; do
-    case "$1" in
-      -h|--help)
-        echoHelp
-        exit 0
-        ;;
-      -e|--container-engine)
-        containerEngine="${2}"
-        shift
-        ;;
-      -f|--force)
-        restart_quarkus
-        restart_keycloak
-        shift
-        ;;
-      -p|--profile)
-        profile="${2}"
-        shift
-        ;;
-      --cache)
-        cache="${2}"
-        shift
-        ;;
-      --db)
-        db="${2}"
-        shift
-        ;;
-      --logging)
-        logging="${2}"
-        shift
-        ;;
-      --metrics)
-        metrics="${2}"
-        shift
-        ;;
-      --search)
-        search="${2}"
-        shift
-        ;;
-      --sso)
-        sso="${2}"
-        shift
-        ;;
-      --tracing)
-        tracing="${2}"
-        shift
-        ;;
-      *)
-        echo "Unknown option: $1"
-        exit 1
-        ;;
-    esac
-  done
-
-  # Check if the container engine provided is installed
-  if [ "${containerEngine}" == "docker" ] && [ -z "$(command -v "${containerEngine}")" ]; then
-    echo "Trying Podman since Docker does not seemed to be installed."
-    containerEngine="podman"
-  fi
-
-  if [ "${containerEngine}" == "podman" ] && [ -z "$(command -v "${containerEngine}")" ]; then
-    echo "Trying Docker since Podman does not seemed to be installed."
-    containerEngine="docker"
-  fi
-
-  if [ "${containerEngine}" == "docker" ] && [ -z "$(command -v "${containerEngine}")" ]; then
-    echo "Docker and Podman are not installed."
-    exit 1
-  fi
-
-  if [ "${containerEngine}" != "podman" ] && [ "${containerEngine}" != "docker" ] && [ -n "$(command -v "${containerEngine}")" ]; then
-    echo "Container engine ${containerEngine} is not installed."
-  fi
-
-  # Check if Podman or Docker is installed
-  if [ -z "$(command -v podman)" ]; then
-    if [ -z "$(command -v docker)" ]; then
-      echo "Podman and Docker are not installed. Please install one of them."
-      exit 1
-    fi
-  fi
-
-  set -a  # Automatically export all variables
-  source .env.dev
-  set +a
-  podman-compose -f ./config/compose/sso/keycloak."${profile}".compose.yml up -d
-  . ./keycloak.sh
-  ./gradlew quarkusDev
-}
-run "$@"
 
 # Function to display usage information
 echoHelp() {
   grep '^#/' "$0" | cut -c 4-
 }
 
+verifyContainerEngine() {
+  if ! command -v "${containerEngine}" &>/dev/null; then
+    echo "Container engine ${containerEngine} not found. Trying alternate."
+    containerEngine=$(if command -v podman &>/dev/null; then echo "podman"; elif command -v docker &>/dev/null; then echo "docker"; else echo ""; fi)
+
+    if [ -z "${containerEngine}" ]; then
+      echo "Neither Docker nor Podman is installed. Please install one of them."
+      exit 1
+    else
+      echo "Using ${containerEngine} as the container engine."
+    fi
+  fi
+}
+
+loadEnv() {
+  set -a  # Automatically export all variables
+  source .env.dev
+  set +a
+}
+
 loadServices() {
+  local composeConfigPath="./config/compose"
   local composeFiles=()
-  [[ "$db" != "" ]] && composeFiles+=("./compose/db/${db}.compose.yml")
-  [[ "$cache" != "" ]] && composeFiles+=("./compose/cache/${cache}.compose.yml")
-  [[ "$logging" != "" ]] && composeFiles+=("./compose/logging/${logging}.compose.yml")
-  [[ "$metrics" == true ]] && composeFiles+=("./compose/metrics/prometheus.compose.yml")
-  [[ "$search" != "" ]] && composeFiles+=("./compose/search/${search}.compose.yml")
-  [[ "$sso" != "" ]] && composeFiles+=("./compose/sso/keycloak.${profile}.compose.yml")
-  [[ "$tracing" == true ]] && composeFiles+=("./compose/tracing/jaeger.compose.yml")
+  ## DB
+  [[ "${SUNSETERP_MYSQL_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/db/mysql.compose.yml")
+  [[ "${SUNSETERP_POSTGRESQL_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/db/postgresql.compose.yml")
+  [[ "${SUNSETERP_MARIADB_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/db/mariadb.compose.yml")
+  [[ "${SUNSETERP_PERCONA_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/db/percona.compose.yml")
+
+  ## Cache
+  [[ "${SUNSETERP_REDIS_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/cache/redis.compose.yml")
+  [[ "${SUNSETERP_IGNITE_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/cache/ignite.compose.yml")
+  [[ "${SUNSETERP_HAZELCAST_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/cache/hazelcast.compose.yml")
+
+  ## Logging
+  [[ "${SUNSETERP_LOGSTASH_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/logging/logstash-oss.compose.yml")
+  [[ "${SUNSETERP_FLUENTD_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/logging/fluentd.compose.yml")
+  [[ "${SUNSETERP_FILEBEAT_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/logging/beats.compose.yml")
+  [[ "${SUNSETERP_FLUME_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/logging/flume.compose.yml")
+
+  ## Metrics
+  [[ "${SUNSETERP_PROMETHEUS_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/metrics/prometheus.compose.yml")
+
+  ## Tracing
+  [[ "${SUNSETERP_JAEGER_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/tracing/jaeger.compose.yml")
+
+  ## SSO
+  [[ "${SUNSETERP_KEYCLOAK_ACTIVATE}" == "true" ]] && composeFiles+=("${composeConfigPath}/sso/keycloak.dev.compose.yml")
 
   for file in "${composeFiles[@]}"; do
     if [ -f "$file" ]; then
@@ -165,15 +94,33 @@ loadServices() {
   done
 }
 
-# Function to restart Quarkus application
-restart_quarkus() {
-  echo "Restarting Quarkus application..."
-  ./gradlew --stop  # Stop any running Quarkus gradle task
-  ./gradlew quarkusDev --daemon  # Start the Quarkus development server in the background
+run() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -h|--help)
+        echoHelp
+        exit 0
+        ;;
+      -e|--container-engine)
+        containerEngine="${2}"
+        shift 2
+        ;;
+      *)
+        echo "Unknown option: $1"
+        exit 1
+        ;;
+    esac
+  done
+
+  verifyContainerEngine
+  loadEnv
+  loadServices
+
+  echo "Start SunsetERP"
+  ./gradlew quarkusDev  # Start the Quarkus development server in the background
 }
 
-# Function to restart Keycloak container
-restart_keycloak() {
-  echo "Restarting Keycloak container..."
-  podman-compose -f ./config/compose/sso/keycloak."$profile".compose.yml restart keycloak
-}
+# Call run function if the script is executed directly
+if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  run "$@"
+fi

@@ -204,10 +204,57 @@ servlet containers the way web.xml is used is different. Some of the
 
 == QA Tests
 
+Quality Assurance (QA) is an important part of software development. The more tests are present for a software the more
+chances that issues will be caught earlier. OFBiz came with very good coverage for unit testing but did not have very
+good test coverage for the integration, End-to-End, functional, security, licensing, and regulatory standard testing.
+
+=== Integration Testing
+
+In the `config/` directory there is the `compose.yml` files for:
+
+- cache - since SunsetERP is stateless it needs sometimes a place to store temporary information
+- db - SunsetERP supports multiple databases (in theory IBM DB2, Oracle DB, and MSSQL are supposed to be supported but no compose configuration are provided for them)
+- logging - for grabbing the logs and send them to whatever applications need them
+- metrics - some of the logs are for metrics
+- search - using the Entity Engine from OFBiz, the schemas will be generated
+- sso - Keycloak is the default SSO and connects with SunsetERP with OpenID making this software capable to be integrated with other OpenID SSO services (AWS Cognito, Azure..., Google..., etc) or applications
+- tracing - for OpenTelemetry tracing
+
+These compose files help with integration testing. The CI/CD has scripts that automatically test the different integrations.
+
+=== End-to-End Testing
+
+Similar to integration testing but in this context the E2E only test the API endpoints of SunsetERP. Using...
+
+=== Functional Testing
+
+SunsetERP compared to OFBiz is RESTful API first and does not generate HTML anymore. Using a mixture of HTMX+RVST+HTMT
+the pages are generated on the frontend. So the functional tests are done with Playwright with the help of Typescripts.
+
+Playwright uses multiple type of browsers to verify that everything works properly.
+
+=== Security Testing
+
+
+
+=== Licensing Testing
+
+Verifies all the licenses of all the libraries used in the project to make sure that there are no legal surprises. It
+lists all the licenses that are not Open Source.
+
+=== Regulatory Standard
+
+In many nations there are regulations around software and online services. One of them is related to unsubscribe to email
+news letters. This test verifies that the software is compliant with the regulations.
+
 == Observability
 
 For observability, the SunsetERP project uses OpenTelemetry for monitoring and tracing. This allows you to monitor the
-performance of your application and track down any issues that may arise.
+performance of your application and track down any issues that may arise. It is also useful for Process Mining and BI.
+
+In the context of microservices and multi-cloud environments it has become crucial to have clear and verbose logging.
+Without good logging it becomes extremely difficult if not impossible to track down strange behaviour, bugs, or any
+other type of issues.
 
 === Centralized Logging
 

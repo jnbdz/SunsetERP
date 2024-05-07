@@ -74,33 +74,7 @@ export_realm() {
     return 1
   fi
 
-  # Check if the container engine provided is installed
-  if [ "${containerEngine}" == "docker" ] && [ -z "$(command -v "${containerEngine}")" ]; then
-    echo "Trying Podman since Docker does not seemed to be installed."
-    containerEngine="podman"
-  fi
-
-  if [ "${containerEngine}" == "podman" ] && [ -z "$(command -v "${containerEngine}")" ]; then
-    echo "Trying Docker since Podman does not seemed to be installed."
-    containerEngine="docker"
-  fi
-
-  if [ "${containerEngine}" == "docker" ] && [ -z "$(command -v "${containerEngine}")" ]; then
-    echo "Docker and Podman are not installed."
-    exit 1
-  fi
-
-  if [ "${containerEngine}" != "podman" ] && [ "${containerEngine}" != "docker" ] && [ -n "$(command -v "${containerEngine}")" ]; then
-    echo "Container engine ${containerEngine} is not installed."
-  fi
-
-  # Check if Podman or Docker is installed
-  if [ -z "$(command -v podman)" ]; then
-    if [ -z "$(command -v docker)" ]; then
-      echo "Podman and Docker are not installed. Please install one of them."
-      exit 1
-    fi
-  fi
+  verifyContainerEngine
 
   # Check if the Keycloak container is running
   if [ -z "$("${containerEngine}" ps | grep -i keycloak)" ]; then
@@ -128,4 +102,19 @@ export_realm "$@"
 # Function to display usage information
 echoHelp() {
   grep '^#/' "$0" | cut -c 4-
+}
+
+# Function to verify the container engine
+verifyContainerEngine() {
+  if ! command -v "${containerEngine}" &>/dev/null; then
+    echo "Container engine ${containerEngine} not found. Trying alternate."
+    containerEngine=$(if command -v podman &>/dev/null; then echo "podman"; elif command -v docker &>/dev/null; then echo "docker"; else echo ""; fi)
+
+    if [ -z "${containerEngine}" ]; then
+      echo "Neither Docker nor Podman is installed. Please install one of them."
+      exit 1
+    else
+      echo "Using ${containerEngine} as the container engine."
+    fi
+  fi
 }

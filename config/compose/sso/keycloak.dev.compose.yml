@@ -1,9 +1,24 @@
-version: '2'
+---
+version: '3'
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:${keycloakVersion}
+    image: quay.io/keycloak/keycloak:${SUNSETERP_KEYCLOAK_VERSION}
+    container_name: keycloak
     ports:
-      - "8080:8080"
       - "8543:8443"
     environment:
-      - KEYCLOAK_CREATE_ADMIN_USER=true
+      KEYCLOAK_ADMIN: ${SUNSETERP_KEYCLOAK_ADMIN}
+      KEYCLOAK_ADMIN_PASSWORD: ${SUNSETERP_KEYCLOAK_ADMIN_PASSWORD}
+    volumes:
+      - "${PWD}/${SUNSETERP_KEYCLOAK_REALM_CONFIG}:/opt/keycloak/conf/realm.json"
+      - "${PWD}/${SUNSETERP_KEYCLOAK_KEYSTORE_JKS}:/etc/keycloak-keystore.jks"
+    command:
+      - "-Dkeycloak.migration.action=import"
+      - "-Dkeycloak.migration.provider=singleFile"
+      - "-Dkeycloak.migration.file=/opt/keycloak/conf/realm.json"
+      - "-Dkeycloak.migration.strategy=OVERWRITE_EXISTING"
+      - "-Djboss.socket.binding.port-offset=100"
+      - "start"
+      - "--hostname-strict=false"
+      - "--https-key-store-file=/etc/keycloak-keystore.jks"
+      - "--optimized"
