@@ -70,6 +70,10 @@ public final class Start {
             System.exit(1);
         }
 
+        System.out.println("Starting SunsetERP...");
+        System.out.println("ofbizCommands : " + ofbizCommands);
+
+
         CommandType commandType = CommandType.valueOf(ofbizCommands);
         if (!commandType.equals(CommandType.HELP)) {
             INSTANCE.config = StartupControlPanel.init(ofbizCommands);

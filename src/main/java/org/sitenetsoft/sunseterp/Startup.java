@@ -9,6 +9,9 @@ import io.quarkus.runtime.annotations.CommandLineArguments;
 import org.sitenetsoft.sunseterp.cli.MainCommand;
 import org.sitenetsoft.sunseterp.framework.start.Start;
 import picocli.CommandLine;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Set;
 import java.util.HashSet;
@@ -40,11 +43,22 @@ public class Startup {
      * @param ev The event that is fired when Quarkus is starting up.
      */
     void onStart(@Observes StartupEvent ev) {
+        Path pathOne = Paths.get(".", "..", "..", "..").toAbsolutePath().normalize();
+        System.setProperty("user.dir", String.valueOf(pathOne));
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        System.out.println(System.getProperty("user.dir"));
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         if (isCliMode(args)) {
             // Run as CLI
             new CommandLine(mainCommand, factory).execute(args);
         } else {
             // Normal application startup
+            Path path = Paths.get(".", "..", "..", "..").toAbsolutePath().normalize();
+            System.setProperty("user.dir", String.valueOf(path));
             Start.main(args);
         }
     }

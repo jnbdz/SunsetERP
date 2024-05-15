@@ -42,9 +42,9 @@ import java.util.Map;
  *
  * <br> SUMMARY
  * <br>
- * <br> This is a set of meethods for validating input. Functions are provided to validate:
+ * <br> This is a set of methods for validating input. Functions are provided to validate:
  * <br>    - U.S. and international phone/fax numbers
- * <br>    - U.S. ZIP codes(5 or 9 digit postal codes)
+ * <br>    - U.S. ZIP codes(5 or 9-digit postal codes)
  * <br>    - U.S. Postal Codes(2 letter abbreviations for names of states)
  * <br>    - U.S. Social Security Numbers(abbreviated as SSNs)
  * <br>    - email addresses

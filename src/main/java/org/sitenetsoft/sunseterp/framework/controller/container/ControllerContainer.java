@@ -75,6 +75,8 @@ public class ControllerContainer implements Container {
         this.name = name;
         ContainerConfig.Configuration configuration = ContainerConfig.getConfiguration(name);
 
+        System.out.println("ControllerContainer init: " + configuration);
+
         //loadWebapps(configuration);
     }
 

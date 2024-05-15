@@ -65,10 +65,7 @@ public class ContainerLoader {
         try {
             ComponentContainer cc = new ComponentContainer();
             cc.init(ofbizCommands, "component-container", null);
-            // TODO: ???
-            System.out.println("Loaded component-container");
             loadedContainers.add(cc);
-            System.out.println("Added component-container to loadedContainers");
         } catch (ContainerException e) {
             throw new StartupException("Cannot init() component-container", e);
         }
@@ -109,7 +106,6 @@ public class ContainerLoader {
                                                                     List<StartupCommand> ofbizCommands) throws StartupException {
         System.out.println("loadContainersFromConfigurations");
         System.out.println("loaders: " + loaders);
-        System.out.println("ofbizCommands: " + ofbizCommands);
         List<Container> loadContainers = new ArrayList<>();
         for (ContainerConfig.Configuration containerCfg : ComponentConfig.getAllConfigurations()) {
             System.out.println("containerCfg: " + containerCfg);
@@ -125,7 +121,6 @@ public class ContainerLoader {
         }
         return loadContainers;
     }
-
 
     // TODO: Removed the System.out.println();
     private static Container loadContainer(ContainerConfig.Configuration containerCfg, List<StartupCommand> ofbizCommands)

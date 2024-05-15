@@ -57,6 +57,7 @@ final class StartupControlPanel {
     /**
      * Execute the startup sequence for OFBiz
      */
+    // TODO: Transfer code in Start.java
     static void start(Config config, AtomicReference<ServerState> serverState, List<StartupCommand> ofbizCommands,
                       ContainerLoader loader) throws StartupException {
         createLogDirectoryIfMissing(config.getLogDir().toString());

@@ -267,6 +267,15 @@ public final class UtilURL {
 
     public static URL fromResourcesPath(String filename) {
         String ofbizHome = System.getProperty("ofbiz.home");
+        System.out.println("-----------------------");
+        System.out.println("-----------------------");
+        System.out.println("-----------------------");
+        System.out.println("ofbizHome: " + ofbizHome);
+        System.out.println("user.dir: " + System.getProperty("user.dir"));
+        System.out.println("-----------------------");
+        System.out.println("-----------------------");
+        System.out.println("-----------------------");
+
 
         if (ofbizHome == null) {
             Debug.logWarning("No ofbiz.home property set in environment", MODULE);

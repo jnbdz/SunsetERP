@@ -33,6 +33,11 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
     private static final ScheduledExecutorService EXECUTOR = ExecutionPool.getScheduledExecutor(DELEGATOR_THREAD_GROUP, "delegator-startup",
             Runtime.getRuntime().availableProcessors(), 10, true);
 
+    /**
+     *
+     * @param delegatorName
+     * @return
+     */
     public static Delegator getDelegator(String delegatorName) {
         Future<Delegator> future = getDelegatorFuture(delegatorName);
         try {

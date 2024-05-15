@@ -117,7 +117,9 @@ run() {
   loadServices
 
   echo "Start SunsetERP"
-  ./gradlew quarkusDev  # Start the Quarkus development server in the background
+  #export JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+  #./gradlew quarkusDev  # Start the Quarkus development server in the background
+  ./gradlew quarkusDev
 }
 
 # Call run function if the script is executed directly

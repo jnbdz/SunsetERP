@@ -18,6 +18,12 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
+//import io.opentelemetry.api.GlobalOpenTelemetry;
+//import io.opentelemetry.api.trace.Span;
+//import io.opentelemetry.api.trace.Tracer;
+import io.opentelemetry.api.GlobalOpenTelemetry;
+import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.Tracer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -101,6 +107,10 @@ public final class Debug {
     }
 
     public static void log(int level, Throwable t, String msg, String module, String callingClass, Object... params) {
+        if (msg == null || msg.isEmpty()) {
+            return; // Skip logging if message is null or empty
+        }
+
         if (isOn(level)) {
             if (msg != null && params.length > 0) {
                 StringBuilder sb = new StringBuilder();
@@ -110,9 +120,18 @@ public final class Debug {
                 formatter.close();
             }
 
-            // log
-            Logger logger = getLogger(module);
-            logger.log(LEVEL_OBJS[level], msg, t);
+            // Create a span for the log message
+            // TODO: OpenTelemetry
+            Tracer tracer = GlobalOpenTelemetry.getTracer("org.sitenetsoft.sunseterp");
+            Span span = tracer.spanBuilder(msg).startSpan();
+
+            try {
+                // log
+                Logger logger = getLogger(module);
+                logger.log(LEVEL_OBJS[level], msg, t);
+            } finally {
+                span.end();
+            }
         }
     }
 

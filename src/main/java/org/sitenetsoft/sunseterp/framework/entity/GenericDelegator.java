@@ -292,7 +292,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public synchronized void initEntityEcaHandler() {
-        // Nothing to do if already assigned: the class loader has already been called, the class instantiated and casted to EntityEcaHandler
+        // Nothing to do if already assigned: the class loader has already been called, the class instantiated and cast to EntityEcaHandler
         if (this.entityEcaHandler.get() != null || this.warnNoEcaHandler) {
             return;
         }
@@ -300,7 +300,7 @@ public class GenericDelegator implements Delegator {
         Callable<EntityEcaHandler<?>> creator = this::createEntityEcaHandler;
         FutureTask<EntityEcaHandler<?>> futureTask = new FutureTask<>(creator);
         if (this.entityEcaHandler.compareAndSet(null, futureTask)) {
-            // This needs to use BATCH, as the service engine might add it's own items into a thread pool.
+            // This needs to use BATCH, as the service engine might add its own items into a thread pool.
             ExecutionPool.GLOBAL_BATCH.submit(futureTask);
         }
     }
