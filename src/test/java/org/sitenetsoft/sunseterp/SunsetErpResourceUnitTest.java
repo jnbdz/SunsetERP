@@ -2,6 +2,8 @@ package org.sitenetsoft.sunseterp;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import jakarta.ws.rs.core.Response;
@@ -16,7 +18,7 @@ public class SunsetErpResourceUnitTest {
         String profile = (String) profileMethod.invoke(resource);
 
         // Assert that the default profile is "prod"
-        assertEquals("prod", profile);
+        Assertions.assertEquals("prod", profile);
     }
 
     @Test
@@ -27,7 +29,7 @@ public class SunsetErpResourceUnitTest {
         // Call the info() method
         try (Response response = resource.info()) {
             // Assert that the response code is 200 OK
-            assertEquals(200, response.getStatus());
+            Assertions.assertEquals(200, response.getStatus());
 
             // Add more assertions if needed, such as checking the response body
         }
@@ -41,7 +43,7 @@ public class SunsetErpResourceUnitTest {
         // Call the health() method
         try (Response response = resource.health()) {
             // Assert that the response code is 200 OK
-            assertEquals(204, response.getStatus());
+            Assertions.assertEquals(204, response.getStatus());
 
             // Add more assertions if needed, such as checking the response headers
         }
@@ -55,11 +57,11 @@ public class SunsetErpResourceUnitTest {
         // Call the version() method
         try (Response response = resource.version()) {
             // Assert that the response code is 200 OK
-            assertEquals(200, response.getStatus());
+            Assertions.assertEquals(200, response.getStatus());
 
             // Assert that the response body contains the expected version string
             String expectedVersion = "SunsetERP 1.0.0";
-            assertEquals(expectedVersion, response.getEntity());
+            Assertions.assertEquals(expectedVersion, response.getEntity());
 
             // Add more assertions if needed
         }

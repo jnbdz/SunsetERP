@@ -1,6 +1,8 @@
 package org.sitenetsoft.sunseterp;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.restassured.RestAssured;
+import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -12,17 +14,17 @@ public class SunsetErpResourceTest {
 
     @Test
     public void testInfoEndpoint() {
-        given()
+        RestAssured.given()
                 .when()
                 .get("/sunseterp/info") // Path should include the base path '/sunseterp'
                 .then()
                 .statusCode(200)
-                .body(notNullValue()); // Assert that response body is not null
+                .body(CoreMatchers.notNullValue()); // Assert that response body is not null
     }
 
     @Test
     public void testHealthEndpoint() {
-        given()
+        RestAssured.given()
                 .when()
                 .head("/sunseterp/health") // Using head method for the health endpoint
                 .then()
@@ -32,12 +34,12 @@ public class SunsetErpResourceTest {
 
     @Test
     public void testVersionEndpoint() {
-        given()
+        RestAssured.given()
                 .when()
                 .get("/sunseterp/version")
                 .then()
                 .statusCode(200)
-                .body(is("SunsetERP 1.0.0")); // Assert the response body is "SunsetERP 1.0"
+                .body(CoreMatchers.is("SunsetERP 1.0.0")); // Assert the response body is "SunsetERP 1.0"
     }
 
 }

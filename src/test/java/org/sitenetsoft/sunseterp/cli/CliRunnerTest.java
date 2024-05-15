@@ -7,12 +7,10 @@ import picocli.CommandLine;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-class MainTest {
+class CliRunnerTest {
 
     @Test
-    void testMain() {
+    void testRun() {
         // Mock CommandLine
         CommandLine commandLineMock = Mockito.mock(CommandLine.class);
 
@@ -26,10 +24,10 @@ class MainTest {
         subcommands.put("service", ServiceCommand.class);
 
         // Create Main instance
-        Main main = new Main();
+        CliRunner runner = new CliRunner();
 
         // Test main method
-        main.main(new String[0]);
+        runner.run(new String[0]);
 
         // Verify addSubcommand method is called for each subcommand
         for (Map.Entry<String, Class<?>> entry : subcommands.entrySet()) {

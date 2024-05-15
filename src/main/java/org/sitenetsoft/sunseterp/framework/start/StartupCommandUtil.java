@@ -27,6 +27,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
+// TODO: Remove (replaced by org.sitenetsoft.sunseterp.cli.Main)
+
 /**
  * A utility class for processing OFBiz command line arguments
  *
@@ -71,6 +73,8 @@ public final class StartupCommandUtil {
             .desc("Prints this help screen to the user")
             .hasArg(false)
             .build();
+
+    // TODO: Load all data for entities
     private static final Option LOAD_DATA = Option.builder("l")
             .longOpt(StartupOption.LOAD_DATA.getName())
             .desc("Creates tables/load data e.g:"

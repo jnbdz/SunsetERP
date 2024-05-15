@@ -123,6 +123,7 @@ public class EntityDataLoadContainer implements Container {
     private static List<GenericValue> getTenantList(Configuration.Property delegatorNameProp)
             throws ContainerException {
         if (!EntityUtil.isMultiTenantEnabled()) {
+            // TODO: What would be the property here (maybe I should put this in application.properties)?
             throw new ContainerException("Multitenant is disabled, must be enabled in general.properties -> multitenant=Y");
         }
 
@@ -138,6 +139,14 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
+    /**
+     * Loads data for a delegator.
+     * @param loadDataProps the properties passed by the user in the command line
+     * @param configuration the container configuration
+     * @param delegatorNameProp the delegator name property
+     * @param overrideDelegator the delegator name to override the default delegator
+     * @throws ContainerException if an error occurs during the data loading process
+     */
     private static void loadDataForDelegator(Map<String, String> loadDataProps, Configuration configuration,
             Configuration.Property delegatorNameProp, String overrideDelegator)
                     throws ContainerException {
@@ -211,9 +220,18 @@ public class EntityDataLoadContainer implements Container {
     }
 
     /*
+     *
+     */
+
+    /**
      * Gets the default delegator defined in the container definition unless
      * overridden by the user. This method will create all the tables, keys and
      * indices if missing and hence might take a long time.
+     *
+     * @param delegatorNameProp the properties passed by the user in the command line
+     * @param overrideDelegator the delegator name
+     * @return the delegator
+     * @throws ContainerException if an error occurs during the data loading process
      */
     private static Delegator getDelegator(Configuration.Property delegatorNameProp, String overrideDelegator)
             throws ContainerException {
@@ -224,6 +242,12 @@ public class EntityDataLoadContainer implements Container {
         }
     }
 
+    /**
+     * Gets the delegator from the properties passed by the user in the command line.
+     * @param delegatorNameProp the properties passed by the user in the command line
+     * @return the delegator
+     * @throws ContainerException if an error occurs during the data loading process
+     */
     private static Delegator getDelegatorFromProp(Configuration.Property delegatorNameProp) throws ContainerException {
         if (delegatorNameProp != null && UtilValidate.isNotEmpty(delegatorNameProp.value())) {
             String delegValue = delegatorNameProp.value();

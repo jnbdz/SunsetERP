@@ -92,7 +92,9 @@ public class ComponentContainer implements Container {
                     System.out.println("Trying to load plugins");
                     System.out.println("Loading component: " + def.getLocation());
                 } else {
-                    loadComponent(Paths.get(String.valueOf(ofbizHome), "..", "..", "..", "resources", "main", "org", "sitenetsoft", "sunseterp"), def);
+                    loadComponent(Paths.get(
+                            String.valueOf(ofbizHome),
+                            "..", "..", "..", "resources", "main", "org", "sitenetsoft", "sunseterp"), def);
                 }
             }
             System.out.println("--- Sorting dependencies ---");

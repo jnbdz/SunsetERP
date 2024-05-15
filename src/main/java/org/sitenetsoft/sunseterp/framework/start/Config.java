@@ -18,6 +18,7 @@
  */
 package org.sitenetsoft.sunseterp.framework.start;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
@@ -32,6 +33,7 @@ import java.util.*;
  */
 public final class Config {
     /** The default directory where log files are stored. */
+    // "..", "..", "..", "..", "runtime", "logs"
     private static final Path DEFAULT_LOG_DIRECTORY = Paths.get("runtime", "logs");
 
     private final Path ofbizHome;
@@ -90,7 +92,12 @@ public final class Config {
         return ofbizResourcesPath;
     }
 
-    Config(List<StartupCommand> ofbizCommands) throws StartupException {
+    /**
+     * Constructor
+     * @param ofbizCommands The OFBiz commands
+     * @throws StartupException If an error was encountered.
+     */
+    public Config(List<StartupCommand> ofbizCommands) throws StartupException {
 
         // fetch OFBiz Properties object
         Properties props = getPropertiesFile(ofbizCommands);
@@ -122,15 +129,50 @@ public final class Config {
         TimeZone.setDefault(getDefaultTimeZone(props));
     }
 
+    /**
+     *
+     * Originally came from org.sitenetsoft.sunseterp.framework.start.StartupControlPanel (loadGlobalOfbizSystemProperties)
+     *
+     * @param globalOfbizPropertiesFileName The name of the global OFBiz properties file
+     * @throws StartupException If an error was encountered.
+     */
+    public static void loadGlobalOfbizSystemProperties(String globalOfbizPropertiesFileName) throws StartupException {
+        String systemProperties = System.getProperty(globalOfbizPropertiesFileName);
+        if (systemProperties != null) {
+            try (FileInputStream stream = new FileInputStream(systemProperties)) {
+                System.getProperties().load(stream);
+            } catch (IOException e) {
+                throw new StartupException("Couldn't load global system props", e);
+            }
+        }
+    }
+
+    /**
+     * Creates a log directory if it does not exist.
+     * @param props The properties object
+     * @param key The key to the log directory
+     * @param defaultValue The default value of the log directory
+     * @return The log directory
+     */
     private static String getProperty(Properties props, String key, String defaultValue) {
         return Optional.ofNullable(System.getProperty(key))
                 .orElse(props.getProperty(key, defaultValue));
     }
 
+    /**
+     * Returns the absolute path of the given property.
+     * @param homeProp The home property
+     * @return The absolute path of the given property
+     */
     private static Path getOfbizHome(String homeProp) {
         return Paths.get(homeProp).toAbsolutePath().normalize();
     }
 
+    /**
+     * Returns the absolute path of the given property.
+     * @param resourcesPath The resources path
+     * @return The absolute path of the given property
+     */
     private static Path getResourcesPath(String resourcesPath) {
         if (resourcesPath.equals(".")) {
             // If the user did not provide a path, use the default path
@@ -148,6 +190,11 @@ public final class Config {
         }
     }
 
+    /**
+     * Returns the absolute path of the given property.
+     * @param resourcesPath The resources path
+     * @return The absolute path of the given property
+     */
     private static Path getOFBizResourcesPath(String resourcesPath) {
         if (resourcesPath.equals(".")) {
             // If the user did not provide a path, use the default path
@@ -161,11 +208,25 @@ public final class Config {
         }
     }
 
+    /**
+     * Returns the absolute path of the given property.
+     * @param props The properties object
+     * @param key The key to the property
+     * @param defaultValue The default value of the property
+     * @param ofbizHome The OFBiz home path
+     * @return The absolute path of the given property
+     */
     private static Path getAbsolutePath(Properties props, String key, Path defaultValue, Path ofbizHome) {
         return Paths.get(getProperty(props, key,
                 ofbizHome.resolve(props.getProperty(key, defaultValue.toString())).toString()));
     }
 
+    /**
+     * Returns the properties file.
+     * @param ofbizCommands The OFBiz commands
+     * @return The properties file
+     * @throws StartupException If an error was encountered.
+     */
     private Properties getPropertiesFile(List<StartupCommand> ofbizCommands) throws StartupException {
         String fileName = determineOfbizPropertiesFileName(ofbizCommands);
         String fullyQualifiedFileName = "org/sitenetsoft/sunseterp/framework/start/config/" + fileName;

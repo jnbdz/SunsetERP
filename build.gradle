@@ -137,15 +137,35 @@ def sysadminGroup = 'System Administration'
 
 // ========== ERP Elements Command tasks ==========
 
+/*tasks.register('SunsetERP', JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'org.sitenetsoft.sunseterp.cli.CliRunner'
+    if (project.hasProperty('args')) {
+        args = project.findProperty('args').split() // Ensure args are split properly
+    } else {
+        args = ['help'] // Default to help if no args are provided
+    }
+}*/
+
 tasks.register('SunsetERP', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'org.sitenetsoft.sunseterp.cli.Main'
+    mainClass = 'org.sitenetsoft.sunseterp.cli.CliRunner'
     if (project.hasProperty('args')) {
-        args = project.args.tokenize()
+        // Use the project's property to fetch arguments
+         // Ensure args are split properly
+        def cliArgs = project.findProperty('args').split()
+        args(cliArgs) // Pass arguments to Java application
+        println "Passing arguments to CLI: ${cliArgs.join(' ')}"
     } else {
-        args = ['help']
+        // Default to help command if no arguments are provided
+        args('help')
+        println "No arguments provided. Defaulting to help command."
     }
 }
+
+/*quarkusDev {
+    jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005']
+}*/
 
 // ========== Documentation tasks ==========
 tasks.withType(AsciidoctorTask) { task ->
