@@ -1,0 +1,33 @@
+---
+entity: "github.com/AmadlaOrg/Entity$v1"
+name: "SunsetERP"
+description: "SunsetERP is a simple ERP system for small businesses. It is designed to be easy to use and easy to configure. It is built on top of the Amadla Entity framework."
+category: "Application"
+tags:
+  - "ERP"
+  - "CMS"
+  - "framework"
+  - "business"
+
+require:
+  - condition: !Condition IsProduction
+    entity: "github.com/AmadlaOrg/Entity#Database/RDBMS$v1"
+    supported:
+      - MySQL
+      - MariaDB
+      - PostgreSQL
+
+optional:
+  - entity: "github.com/AmadlaOrg/Entity#Cache$v1"
+    supported:
+      - Redis
+
+contain:
+  - entity: "github.com/AmadlaOrg/Entity#WebServer$v1"
+    network:
+      - port: 8543
+        protocol: "https"
+      - conditions: !Condition IsProduction
+        port: 80
+      - conditions: !Condition IsProduction
+        port: 443
