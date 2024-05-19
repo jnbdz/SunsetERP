@@ -14,6 +14,7 @@ plugins {
     id 'checkstyle'
     id 'codenarc'
     id 'io.quarkus'
+    id 'groovy'
     id 'org.asciidoctor.jvm.convert' version '3.3.2' // 4.0.2 does not compile
     id 'org.asciidoctor.jvm.pdf' version '3.3.2'     // 4.0.2 does not compile
     id 'org.owasp.dependencycheck' version '9.0.9' apply false //Not tested after 7.4.4
@@ -95,6 +96,7 @@ sourceSets {
     }
 }
 
+// TODO: Check
 jar.manifest.attributes(
         'Implementation-Title': project.name,
         'Main-Class': application.mainClass,
@@ -495,7 +497,7 @@ publishing {
     publications {
         ofbizPluginPublication(MavenPublication) {
             artifactId = project.findProperty('pluginId') ?: 'defaultPluginId'
-            groupId = project.findProperty('pluginGroup') ?: 'org.apache.ofbiz.plugin'
+            groupId = project.findProperty('pluginGroup') ?: 'org.sitenetsoft.sunseterp.framework.plugin'
             version = project.findProperty('pluginVersion') ?: '0.1.0-SNAPSHOT'
 
             artifact tasks.named('createPluginArchive').get()
