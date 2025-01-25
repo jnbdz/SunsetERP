@@ -71,18 +71,32 @@ public class ModelFieldTypeReader implements Serializable {
         }
         String tempModelName = datasourceInfo.getFieldTypeName();
         ModelFieldTypeReader reader = READERS.get(tempModelName);
+
+        /*System.out.println("===========================getModelFieldTypeReader===================================");
+        System.out.println("tempModelName: " + tempModelName);
+        System.out.println("reader: " + reader);
+        System.out.println("READERS: " + READERS);
+        System.out.println("=====================================================================================");*/
+
         while (reader == null) {
             FieldType fieldTypeInfo = null;
             try {
                 fieldTypeInfo = EntityConfig.getInstance().getFieldType(tempModelName);
+                System.out.println("fieldTypeInfo: " + fieldTypeInfo);
             } catch (GenericEntityConfException e) {
                 Debug.logWarning(e, "Exception thrown while getting field type config: ", MODULE);
             }
             if (fieldTypeInfo == null) {
                 throw new IllegalArgumentException("Could not find a field-type definition with name \"" + tempModelName + "\"");
             }
+
+            System.out.println("EntityConfig.ENTITY_ENGINE_XML_FILENAME: "+EntityConfig.ENTITY_ENGINE_XML_FILENAME);
+            System.out.println("fieldTypeInfo.getLoader(): "+fieldTypeInfo.getLoader());
+            System.out.println("fieldTypeInfo.getLocation(): "+fieldTypeInfo.getLocation());
+
             ResourceHandler fieldTypeResourceHandler = new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, fieldTypeInfo.getLoader(),
                     fieldTypeInfo.getLocation());
+            System.out.println("fieldTypeResourceHandler: "+fieldTypeResourceHandler);
             UtilTimer utilTimer = new UtilTimer();
             utilTimer.timerString("[ModelFieldTypeReader.getModelFieldTypeReader] Reading field types from "
                     + fieldTypeResourceHandler.getLocation());

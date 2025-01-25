@@ -40,6 +40,6 @@ under the License.
     <!-- load the data load container, runs the entity data load stuff -->
     <container name="dataload-container" loaders="load-data" class="org.sitenetsoft.sunseterp.framework.entityext.data.EntityDataLoadContainer">
         <property name="delegator-name" value="default"/>
-        <property name="entity-group-name" value="org.sitenetsoft.sunseterp"/>
+        <property name="entity-group-name" value="org.sitenetsoft.sunseterp.framework"/>
     </container>
 </ofbiz-component>

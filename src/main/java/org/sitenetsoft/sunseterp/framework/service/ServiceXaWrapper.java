@@ -24,8 +24,8 @@ import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransaction
 import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericXaResource;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
 
-import javax.transaction.Status;
-import javax.transaction.Transaction;
+import jakarta.transaction.Status;
+import jakarta.transaction.Transaction;
 import javax.transaction.xa.XAException;
 import javax.transaction.xa.Xid;
 import java.util.HashMap;

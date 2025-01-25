@@ -44,6 +44,9 @@ public abstract class ResourceLoader {
         if (loader == null) {
             throw new IllegalArgumentException("ResourceLoader not found with name [" + loaderName + "] in " + xmlFilename);
         }
+        System.out.println("#################################loadResource#################################");
+        System.out.println("loader: " + loader);
+        System.out.println("location: " + location);
         return loader.loadResource(location);
     }
 
@@ -58,6 +61,10 @@ public abstract class ResourceLoader {
     public static ResourceLoader getLoader(String xmlFilename, String loaderName) throws GenericConfigException {
         String cacheKey = xmlFilename.concat("#").concat(loaderName);
         ResourceLoader loader = LOADER_CACHE.get(cacheKey);
+        System.out.println("LOADER_CACHE.values()");
+        System.out.println(LOADER_CACHE.values());
+        //System.out.println(LOADER_CACHE.getCacheLineValues());
+        //System.out.println(LOADER_CACHE.getCacheLineValues().size());
         if (loader == null) {
             loader = getLoader(xmlFilename, loaderName, cacheKey);
         }
@@ -69,6 +76,7 @@ public abstract class ResourceLoader {
         ResourceLoader loader;
         Element rootElement;
         URL xmlUrl = UtilURL.fromResource(xmlFilename);
+        System.out.println("xmlUrl: " + xmlUrl);
         //URL xmlUrl = UtilResourceLocator.locateResource(xmlFilename);
         if (xmlUrl == null) {
             throw new GenericConfigException("Could not find the " + xmlFilename + " file");
@@ -87,6 +95,9 @@ public abstract class ResourceLoader {
                     + " is missing the class attribute");
         }
         loader = LOADER_CACHE.putIfAbsentAndGet(cacheKey, makeLoader(loaderElement));
+        System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("loaderElement: "+loaderElement);
+        System.out.println("loader: " + loader);
         return loader;
     }
 
@@ -184,8 +195,17 @@ public abstract class ResourceLoader {
      */
     String fullLocation(String location) {
         StringBuilder buf = new StringBuilder();
+        // TODO: envName == ofbiz.home (ofbiz.home == /home/jn/Projects/Personal/SunsetERP/build) && prefix: /framework/entity/fieldtype/
+        // TODO: Change prefix or envName to be the full path to the file
+        // TODO: Is it used only for configuration?
         if (!envName.isEmpty()) {
             String propValue = System.getProperty(envName);
+            System.out.println(System.getProperty("sunseterp.resources.path"));
+            System.out.println("sunseterp.ofbiz.resources.path");
+            System.out.println(System.getProperty("sunseterp.ofbiz.resources.path"));
+            System.out.println("+++===+++---------------------------------propValue---------------------------------+++===+++");
+            System.out.println("envName: " + envName);
+            System.out.println("propValue: " + propValue);
             if (propValue == null) {
                 String errMsg = "The Java environment (-Dxxx=yyy) variable with name " + envName + " is not set, cannot load resource.";
                 Debug.logError(errMsg, MODULE);
@@ -193,7 +213,9 @@ public abstract class ResourceLoader {
             }
             buf.append(propValue);
         }
+        System.out.println("prefix: " + prefix);
         buf.append(prefix);
+        System.out.println("location: " + location);
         buf.append(location);
         return buf.toString();
     }

@@ -20,6 +20,21 @@ dependencies {
 
     implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
 
+    implementation 'io.quarkus:quarkus-narayana-jta:3.11.1'
+    implementation 'io.quarkus:quarkus-jdbc-derby:3.11.1'
+    runtimeOnly 'org.apache.derby:derby:10.14.2.0'
+
+    // https://mvnrepository.com/artifact/org.apache.derby/derby
+    //implementation 'org.apache.derby:derby:10.17.1.0'
+    // https://mvnrepository.com/artifact/org.apache.derby/derbyclient
+    //implementation 'org.apache.derby:derbyclient:10.17.1.0'
+    // https://mvnrepository.com/artifact/org.apache.derby/derbytools
+    //implementation 'org.apache.derby:derbytools:10.17.1.0'
+    // https://mvnrepository.com/artifact/org.apache.derby/derbynet
+    //implementation 'org.apache.derby:derbynet:10.17.1.0'
+    // https://mvnrepository.com/artifact/org.apache.derby/derbyshared
+    //implementation 'org.apache.derby:derbyshared:10.17.1.0'
+
     // TODO:
     // NEW:
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api

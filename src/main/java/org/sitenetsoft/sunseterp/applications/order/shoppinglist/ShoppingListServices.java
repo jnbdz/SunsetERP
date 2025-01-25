@@ -44,7 +44,7 @@ import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.sitenetsoft.sunseterp.framework.service.calendar.RecurrenceInfo;
 import org.sitenetsoft.sunseterp.framework.service.calendar.RecurrenceInfoException;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.HashMap;

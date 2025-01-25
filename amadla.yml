@@ -10,24 +10,18 @@ tags:
   - "business"
 
 require:
-  - condition: !Condition IsProduction
-    entity: "github.com/AmadlaOrg/Entity#Database/RDBMS$v1"
+  - entity: "github.com/AmadlaOrg/Entity#Database/RDBMS$v1"
     supported:
       - MySQL
       - MariaDB
       - PostgreSQL
+      - Derby
+  - entity: "github.com/AmadlaOrg/EntitySystem/Net$v1"
+    network:
+      - port: 80
+      - port: 443
 
 optional:
   - entity: "github.com/AmadlaOrg/Entity#Cache$v1"
     supported:
       - Redis
-
-contain:
-  - entity: "github.com/AmadlaOrg/Entity#WebServer$v1"
-    network:
-      - port: 8543
-        protocol: "https"
-      - conditions: !Condition IsProduction
-        port: 80
-      - conditions: !Condition IsProduction
-        port: 443

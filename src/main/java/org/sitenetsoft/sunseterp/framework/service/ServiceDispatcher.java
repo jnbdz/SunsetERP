@@ -41,7 +41,7 @@ import org.sitenetsoft.sunseterp.framework.service.job.JobManager;
 import org.sitenetsoft.sunseterp.framework.service.job.JobManagerException;
 import org.sitenetsoft.sunseterp.framework.service.semaphore.ServiceSemaphore;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 

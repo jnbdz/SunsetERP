@@ -68,7 +68,7 @@ under the License.
 
     <form name="EntitySQLCommand" target="EntitySQLProcessor">
         <field name="group" title="${uiLabelMap.CommonGroup}">
-            <drop-down no-current-selected-key="org.sitenetsoft.sunseterp">
+            <drop-down no-current-selected-key="org.sitenetsoft.sunseterp.framework">
                 <list-options list-name="groups" key-name="group" description="${group}"/>
             </drop-down>
         </field>

@@ -4,7 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 
-import org.jboss.resteasy.reactive.NoCache;
+//import org.jboss.resteasy.reactive.NoCache;
 
 import io.quarkus.security.identity.SecurityIdentity;
 
@@ -16,7 +16,7 @@ public class UsersResource {
 
     @GET
     @Path("/me")
-    @NoCache
+    //@NoCache
     public User me() {
         return new User(identity);
     }

@@ -29,7 +29,7 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.service.ModelService;
 import org.sitenetsoft.sunseterp.framework.service.job.JobManager;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.sql.Timestamp;
 
 /**

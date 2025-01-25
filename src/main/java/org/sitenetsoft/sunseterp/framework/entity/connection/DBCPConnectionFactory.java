@@ -33,10 +33,11 @@ import org.sitenetsoft.sunseterp.framework.entity.config.model.EntityConfig;
 import org.sitenetsoft.sunseterp.framework.entity.config.model.InlineJdbc;
 import org.sitenetsoft.sunseterp.framework.entity.config.model.JdbcElement;
 import org.sitenetsoft.sunseterp.framework.entity.datasource.GenericHelperInfo;
+import org.sitenetsoft.sunseterp.framework.entity.transaction.JakartaToJavaxTransactionManagerAdapter;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionFactoryLoader;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
 
-import javax.transaction.TransactionManager;
+import jakarta.transaction.TransactionManager;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
@@ -72,6 +73,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         InlineJdbc jdbcElement = (InlineJdbc) abstractJdbc;
         // connection properties
         TransactionManager txMgr = TransactionFactoryLoader.getInstance().getTransactionManager();
+        JakartaToJavaxTransactionManagerAdapter txMgrAdapter = new JakartaToJavaxTransactionManagerAdapter(txMgr);
         String driverName = jdbcElement.getJdbcDriver();
 
         String jdbcUri = helperInfo.getOverrideJdbcUri(jdbcElement.getJdbcUri());
@@ -106,7 +108,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
         org.apache.commons.dbcp2.ConnectionFactory cf = new DriverConnectionFactory(jdbcDriver, jdbcUri, cfProps);
 
         // wrap it with a LocalXAConnectionFactory
-        XAConnectionFactory xacf = new LocalXAConnectionFactory(txMgr, cf);
+        XAConnectionFactory xacf = new LocalXAConnectionFactory(txMgrAdapter, cf);
 
         // create the pool object factory
         PoolableConnectionFactory factory = new PoolableManagedConnectionFactory(xacf, null);
@@ -164,7 +166,7 @@ public class DBCPConnectionFactory implements ConnectionFactory {
 
     @Override
     public void closeAll() {
-        // no methods on the pool to shutdown; so just clearing for GC
+        // no methods on the pool to shut down; so just clearing for GC
         DS_CACHE.clear();
     }
 

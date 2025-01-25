@@ -94,18 +94,18 @@ public class ComponentContainer implements Container {
                 } else {
                     loadComponent(Paths.get(
                             String.valueOf(ofbizHome),
-                            "..", "..", "..", "resources", "main", "org", "sitenetsoft", "sunseterp"), def);
+                            "resources", "main", "org", "sitenetsoft", "sunseterp"), def);
                 }
             }
-            System.out.println("--- Sorting dependencies ---");
+            //System.out.println("--- Sorting dependencies ---");
             ComponentConfig.sortDependencies();
-            System.out.println("--- DONE! --- Sorting dependencies ---");
+            //System.out.println("--- DONE! --- Sorting dependencies ---");
         } catch (IOException | ComponentException e) {
             throw new ContainerException(e);
         }
-        System.out.println("All components loaded");
+        //System.out.println("All components loaded");
         Debug.logInfo("All components loaded", MODULE);
-        System.out.println("All --- Done --- components loaded");
+        //System.out.println("All --- Done --- components loaded");
     }
 
     @Override
@@ -121,8 +121,8 @@ public class ComponentContainer implements Container {
      */
     private void loadComponent(Path dir, ComponentDef component) throws IOException {
         Path location = component.getLocation().isAbsolute() ? component.getLocation() : dir.resolve(component.getLocation());
-        System.out.println("Loading component location: " + location);
-        System.out.println("Loading component type: " + component.getType());
+        //System.out.println("Loading component location: " + location);
+        //System.out.println("Loading component type: " + component.getType());
 
         switch (component.getType()) {
         case COMPONENT_DIRECTORY:
@@ -146,13 +146,13 @@ public class ComponentContainer implements Container {
             Path componentLoad = directoryName.resolve(ComponentLoaderConfig.COMPONENT_LOAD_XML_FILENAME);
 
             // TODO
-            System.out.println("loadComponentDirectory - componentLoad: " + componentLoad);
+            //System.out.println("loadComponentDirectory - componentLoad: " + componentLoad);
 
             if (Files.exists(componentLoad)) {
-                System.out.println("loadComponentDirectory - componentLoad exists");
+                //System.out.println("loadComponentDirectory - componentLoad exists");
                 loadComponentsInDirectoryUsingLoadFile(directoryName, componentLoad);
             } else {
-                System.out.println("loadComponentDirectory - componentLoad does **not** exist");
+                //System.out.println("loadComponentDirectory - componentLoad does **not** exist");
                 loadComponentsInDirectory(directoryName);
             }
         } else {

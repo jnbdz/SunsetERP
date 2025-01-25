@@ -40,6 +40,7 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
      */
     public static Delegator getDelegator(String delegatorName) {
         Future<Delegator> future = getDelegatorFuture(delegatorName);
+        System.out.println("future = " + future.toString());
         try {
             return future.get();
         } catch (ExecutionException | InterruptedException e) {
@@ -54,6 +55,18 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
         }
         do {
             Future<Delegator> future = DELEGATORS.get(delegatorName);
+
+            /*System.out.println("*****************************************************************************************");
+            System.out.println("*****************************************************************************************");
+            System.out.println("*****************************************************************************************");
+            System.out.println("*****************************************************************************************");
+            System.out.println("delegatorName = " + delegatorName);
+            //System.out.println("future = " + future.toString()); // Is `null`
+            System.out.println("*****************************************************************************************");
+            System.out.println("*****************************************************************************************");
+            System.out.println("*****************************************************************************************");
+            System.out.println("*****************************************************************************************");*/
+
             if (future != null) {
                 return future;
             }
@@ -76,6 +89,19 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
         public Delegator call() throws ClassNotFoundException {
             try {
                 Delegator delegator = UtilObject.getObjectFromFactory(DelegatorFactory.class, delegatorName);
+
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
+                System.out.println("delegatorName = " + delegatorName);
+                System.out.println("delegator = " + delegator.toString());
+                System.out.println(delegator.getDelegatorName());
+                System.out.println(delegator.getClass().toString());
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
+                System.out.println("*****************************************************************************************");
 
                 // setup the Entity ECA Handler
                 delegator.initEntityEcaHandler();

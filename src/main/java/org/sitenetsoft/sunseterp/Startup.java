@@ -43,22 +43,14 @@ public class Startup {
      * @param ev The event that is fired when Quarkus is starting up.
      */
     void onStart(@Observes StartupEvent ev) {
-        Path pathOne = Paths.get(".", "..", "..", "..").toAbsolutePath().normalize();
-        System.setProperty("user.dir", String.valueOf(pathOne));
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        System.out.println(System.getProperty("user.dir"));
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-        System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
         if (isCliMode(args)) {
             // Run as CLI
             new CommandLine(mainCommand, factory).execute(args);
         } else {
+            // TODO: Check if this is the best way (PATH)
+            Path path = Paths.get(".", "..", "..", "..", "..", "build").toAbsolutePath().normalize();
+            System.setProperty("ofbiz.home", String.valueOf(path));
             // Normal application startup
-            Path path = Paths.get(".", "..", "..", "..").toAbsolutePath().normalize();
-            System.setProperty("user.dir", String.valueOf(path));
             Start.main(args);
         }
     }

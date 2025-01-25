@@ -113,14 +113,20 @@ public final class UtilObject {
     }
 
     public static <A, R> R getObjectFromFactory(Class<? extends Factory<R, A>> factoryInterface, A obj) throws ClassNotFoundException {
+        //System.out.println("Loading factory interface: " + factoryInterface.getName());
+        //System.out.println("Classpath: " + System.getProperty("java.class.path"));
+        // TODO: Check the PATH it is using.
         Iterator<? extends Factory<R, A>> it = ServiceLoader.load(factoryInterface).iterator();
         while (it.hasNext()) {
             Factory<R, A> factory = it.next();
+            //System.out.println("Found factory implementation: " + factory.getClass().getName());
             R instance = factory.getInstance(obj);
             if (instance != null) {
                 return instance;
             }
         }
+        System.out.println("No factory implementation found for: " + factoryInterface.getName());
+        System.out.println("ClassNotFoundException: " + factoryInterface.getClass().getName());
         throw new ClassNotFoundException(factoryInterface.getClass().getName());
     }
 }

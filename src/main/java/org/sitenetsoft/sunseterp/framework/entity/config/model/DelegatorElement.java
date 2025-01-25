@@ -174,6 +174,9 @@ public final class DelegatorElement {
     /** Returns the specified <code>&lt;group-map&gt; datasource-name</code> attribute value,
      * or <code>null</code> if the <code>&lt;group-map&gt;</code> element does not exist . */
     public String getGroupDataSource(String groupName) {
+        //System.out.println("==============================getGroupDataSource=================================");
+        //System.out.println("groupMapMap: " + this.groupMapMap); // groupMapMap: {org.sitenetsoft.sunseterp.framework=localderby, org.sitenetsoft.sunseterp.framework.tenant=localderbytenant, org.sitenetsoft.sunseterp.framework.olap=localderbyolap}
+        //System.out.println("=================================================================================");
         return this.groupMapMap.get(groupName);
     }
 }
