@@ -225,7 +225,7 @@ public class PayPalEvents {
         // send off the confirm request
         String confirmResp = null;
         String str = UtilHttp.urlEncodeArgs(parametersMap);
-        URL u = new URL(redirectUrl);
+        URL u = UtilURL.fromUrlString(redirectUrl);
         URLConnection uc = u.openConnection();
         uc.setDoOutput(true);
         uc.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

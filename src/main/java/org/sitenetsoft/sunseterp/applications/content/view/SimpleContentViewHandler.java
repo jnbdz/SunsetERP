@@ -31,6 +31,8 @@ import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.view.AbstractViewHandler;
 import org.sitenetsoft.sunseterp.framework.webapp.view.ViewHandlerException;
 import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
+import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader;
+import org.sitenetsoft.sunseterp.framework.security.SecuredFreemarker;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +43,7 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -56,24 +59,37 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         rootDir = context.getRealPath("/");
         https = (String) context.getAttribute("https");
     }
+
+    @Override
+    public Map<String, Object> prepareViewContext(HttpServletRequest request, HttpServletResponse response, ConfigXMLReader.ViewMap viewMap) {
+        List<String> fields = List.of("contentId", "rootContentId", "mapKey",
+                "contentAssocTypeId", "fromDate", "dataResourceId",
+                "contentRevisionSeqId", "mimeTypeId");
+        Map<String, Object> context = new HashMap<>();
+        fields.forEach(field -> context.put(field, request.getParameter(field)));
+        return viewMap.isSecureContext()
+                ? SecuredFreemarker.sanitizeParameterMap(context)
+                : context;
+    }
+
     /**
-     * @see org.sitenetsoft.sunseterp.framework.webapp.view.ViewHandler#render(String, String, String, String,
+     * @see org.sitenetsoft.sunseterp.framework.webapp.view.ViewHandler#render(String, String, String, String, String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, Map)
      * String, HttpServletRequest, HttpServletResponse)
      */
     @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request,
-                       HttpServletResponse response) throws ViewHandlerException {
+                       HttpServletResponse response, Map<String, Object> context) throws ViewHandlerException {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        String contentId = request.getParameter("contentId");
-        String rootContentId = request.getParameter("rootContentId");
-        String mapKey = request.getParameter("mapKey");
-        String contentAssocTypeId = request.getParameter("contentAssocTypeId");
-        String fromDateStr = request.getParameter("fromDate");
-        String dataResourceId = request.getParameter("dataResourceId");
-        String contentRevisionSeqId = request.getParameter("contentRevisionSeqId");
-        String mimeTypeId = request.getParameter("mimeTypeId");
+        String contentId = (String) context.get("contentId");
+        String rootContentId = (String) context.get("rootContentId");
+        String mapKey = (String) context.get("mapKey");
+        String contentAssocTypeId = (String) context.get("contentAssocTypeId");
+        String fromDateStr = (String) context.get("fromDate");
+        String dataResourceId = (String) context.get("dataResourceId");
+        String contentRevisionSeqId = (String) context.get("contentRevisionSeqId");
+        String mimeTypeId = (String) context.get("mimeTypeId");
         Locale locale = UtilHttp.getLocale(request);
         String webSiteId = WebSiteWorker.getWebSiteId(request);
 

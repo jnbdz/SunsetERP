@@ -19,6 +19,7 @@
 package org.sitenetsoft.sunseterp.applications.accounting.thirdparty.eway;
 
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -83,7 +84,7 @@ public class GatewayConnector {
         HttpURLConnection connection = null;
         try {
             // connect to the gateway
-            URL u = new URL(serverurl);
+            URL u = UtilURL.fromUrlString(serverurl);
             connection = (HttpURLConnection) (u.openConnection());
             connection.setDoOutput(true);
             connection.setDoInput(true);

@@ -408,7 +408,7 @@ public class DataResourceWorker implements org.sitenetsoft.sunseterp.framework.w
         return mimeTypeId;
     }
 
-    public static String getMimeTypeWithByteBuffer(ByteBuffer buffer) throws IOException {
+    public static String getMimeTypeWithByteBuffer(java.nio.ByteBuffer buffer) throws IOException {
         byte[] b = buffer.array();
         Tika tika = new Tika();
         return tika.detect(b);
@@ -695,7 +695,7 @@ public class DataResourceWorker implements org.sitenetsoft.sunseterp.framework.w
                     // if use web analytics.
                     if (UtilValidate.isNotEmpty(webAnalytics)) {
                         StringBuffer newTemplateText = new StringBuffer(templateText);
-                        String webAnalyticsCode = "<script type=\"application/javascript\">";
+                        String webAnalyticsCode = "<script type=\"text/javascript\">";
                         for (GenericValue webAnalytic : webAnalytics) {
                             StringWrapper wrapString = StringUtil.wrapString((String) webAnalytic.get("webAnalyticsCode"));
                             webAnalyticsCode += wrapString.toString();
@@ -915,7 +915,7 @@ public class DataResourceWorker implements org.sitenetsoft.sunseterp.framework.w
                     sep = "/";
                 }
                 String fixedUrlStr = prefix + sep + url.toString();
-                URL fixedUrl = new URL(fixedUrlStr);
+                URL fixedUrl = UtilURL.fromUrlString(fixedUrlStr);
                 text = (String) fixedUrl.getContent();
             }
             out.append(text);
@@ -1139,14 +1139,14 @@ public class DataResourceWorker implements org.sitenetsoft.sunseterp.framework.w
         } else if ("URL_RESOURCE".equals(dataResourceTypeId)) {
             String objectInfo = dataResource.getString("objectInfo");
             if (UtilValidate.isNotEmpty(objectInfo)) {
-                URL url = new URL(objectInfo);
+                URL url = UtilURL.fromUrlString(objectInfo);
                 if (url.getHost() == null) { // is relative
                     String newUrl = DataResourceWorker.buildRequestPrefix(delegator, locale, webSiteId, https);
                     if (!newUrl.endsWith("/")) {
                         newUrl = newUrl + "/";
                     }
                     newUrl = newUrl + url.toString();
-                    url = new URL(newUrl);
+                    url = UtilURL.fromUrlString(newUrl);
                 }
 
                 URLConnection con = url.openConnection();

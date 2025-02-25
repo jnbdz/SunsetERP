@@ -19,19 +19,19 @@ under the License.
 -->
 
 <services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
-    <description>Party Component Services</description>
+        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/services.xsd">
+    <description>Accounting Sample Services</description>
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-
-    <service name="migrateMaritalStatusFromIndicatorToEnum" engine="java"
-         location="org.sitenetsoft.sunseterp.applications.party.party.UpgradeServices" invoke="migrateMaritalStatusFromIndicatorToEnum">
+    <service name="sampleInvoiceAffiliateCommission" engine="groovy" auth="true"
+        location="component://accounting/src/main/groovy/org/apache/ofbiz/accounting/invoice/SampleServices.groovy" invoke="sampleCalculateAffiliateCommission">
         <description>
-            Migrate Person's marital status from indicator to enumeration
-            Since revision 1858261(27 April 2019) field oldMaritalStatus of Person has been deprecated.
-            This service can be used to upgrade existing data of oldMaritalStatus field to the new maritalStatusEnumId
-            field of Person Entity.
+            A sample/example service to calculate an affiliate commission (direct relationship to customer) and create
+            and invoice for it on behalf of the affiliate, ie an invoice from the affiliate to the company that can
+            then be paid by the company to balance it.
         </description>
+        <attribute name="paymentId" type="String" mode="IN"/>
+        <attribute name="invoiceIds" type="List" mode="OUT"/>
     </service>
 </services>
