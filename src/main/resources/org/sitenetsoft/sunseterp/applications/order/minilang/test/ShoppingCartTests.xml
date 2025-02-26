@@ -51,8 +51,7 @@ under the License.
         <set field="currencyUom" value="USD" type="String"/>
 
         <script>groovy:
-            shoppingCart = new org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart(delegator, productStoreId, locale, currencyUom);
-            parameters.put("shoppingCart", shoppingCart);
+            parameters.shoppingCart = new org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart(delegator, productStoreId, locale, currencyUom)
         </script>
 
         <set field="orderTypeId" value="SALES_ORDER" type="String"/>
@@ -263,9 +262,8 @@ under the License.
 
         <!-- Shopping Cart checkout and create order -->
         <script>groovy:
-            checkOutHelper = new org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
-            java.util.Map orderMap = checkOutHelper.createOrder(userLogin);
-            parameters.put("orderMap", orderMap);
+            checkOutHelper = new org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart)
+            parameters.orderMap = checkOutHelper.createOrder(userLogin)
         </script>
         
         <!-- Clear Shopping Cart -->

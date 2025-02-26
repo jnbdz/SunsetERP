@@ -17,7 +17,7 @@
  * under the License.
  *******************************************************************************/
 
-package org.sitenetsoft.sunseterp.applications.marketing.vcard;
+package org.sitenetsoft.sunseterp.applications.sfa.vcard;
 
 import ezvcard.Ezvcard;
 import ezvcard.io.text.VCardReader;
@@ -25,6 +25,7 @@ import ezvcard.parameter.AddressType;
 import ezvcard.parameter.EmailType;
 import ezvcard.parameter.TelephoneType;
 import ezvcard.property.*;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
