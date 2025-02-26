@@ -18,7 +18,9 @@
 */
 package org.sitenetsoft.sunseterp.applications.accounting.admin
 
+import java.math.RoundingMode
 import java.sql.Timestamp
+
 import org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime
 import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityConditionBuilder
@@ -156,11 +158,10 @@ Map getFXConversion() {
 
     BigDecimal conversionRate
     int decimalScale = 2
-    int roundingMode = BigDecimal.ROUND_HALF_UP
     if (rates) {
         conversionFactor = EntityUtil.getFirst(rates).getBigDecimal('conversionFactor')
         BigDecimal originalValue = BigDecimal.ONE
-        conversionRate = originalValue.divide(conversionFactor, decimalScale, roundingMode)
+        conversionRate = originalValue.divide(conversionFactor, decimalScale, RoundingMode.HALF_UP)
     } else {
         String errorMessage = 'Could not find conversion rate'
         logError(errorMessage)

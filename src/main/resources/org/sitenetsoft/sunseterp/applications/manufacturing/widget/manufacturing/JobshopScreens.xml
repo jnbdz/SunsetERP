@@ -32,7 +32,7 @@ under the License.
                                         <not><if-empty field="productionRun"/></not>
                                     </condition>
                                     <widgets>
-                                        <include-menu name="ProductionRunTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                                        <include-menu name="ProductionRunTabBar" location="${parameters.mainMenuLocation}"/>
                                     </widgets>
                                 </section>
                                 <container>
@@ -114,7 +114,7 @@ under the License.
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}"  navigation-menu-name="ProductionRunStatusAction">
-                            <include-menu name="ProductionRunStatusTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                            <include-menu name="ProductionRunStatusTabBar" location="${parameters.mainMenuLocation}"/>
                             <include-form name="UpdateProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <section>
@@ -194,7 +194,7 @@ under the License.
                 <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.ManufacturingProductionRunId} ${productionRunId}" navigation-menu-name="ProductionRunStatusAction">
-                            <include-menu name="ProductionRunStatusTabBar" location="component://manufacturing/widget/manufacturing/ManufacturingMenus.xml"/>
+                            <include-menu name="ProductionRunStatusTabBar" location="${parameters.mainMenuLocation}"/>
                             <include-form name="ShowProductionRun" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
                         </screenlet>
                         <section>
@@ -702,11 +702,6 @@ under the License.
                         <section>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
-                                        <container style="button-bar">
-                                            <link target="CreateProductionRun" text="${uiLabelMap.CommonCreate}" style="buttontext create"/>
-                                        </container>
-                                    </decorator-section>
                                     <decorator-section name="search-options">
                                         <platform-specific>
                                             <html><html-template multi-block="true" location="component://common-theme/template/includes/SetMultipleSelectJsList.ftl"/></html>

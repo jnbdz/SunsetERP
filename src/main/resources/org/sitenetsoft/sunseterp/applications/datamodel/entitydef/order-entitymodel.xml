@@ -549,6 +549,7 @@ under the License.
       <field name="unitListPrice" type="currency-precise"></field>
       <field name="unitAverageCost" type="currency-amount"></field>
       <field name="unitRecurringPrice" type="currency-amount"></field>
+      <field name="discountRate" type="fixed-point"></field>
       <field name="isModifiedPrice" type="indicator"></field>
       <field name="recurringFreqUomId" type="id"></field>
       <field name="itemDescription" type="description"></field>
@@ -1009,7 +1010,6 @@ under the License.
       <field name="currentPromisedDate" type="date-time"></field>
       <field name="priority" type="indicator"><description>Sets priority for Inventory Reservation</description></field>
       <field name="sequenceId" type="numeric"></field>
-      <field name="oldPickStartDate" col-name="PICK_START_DATE" type="date-time"></field> <!-- this is no longer used and is here for migration or whatever if needed -->
       <prim-key field="orderId"/>
       <prim-key field="shipGroupSeqId"/>
       <prim-key field="orderItemSeqId"/>
@@ -2952,7 +2952,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="ShoppingListItemAttribute"
-            package-name="org.ofbiz.order.shoppinglist"
+            package-name="org.sitenetsoft.sunseterp.applications.order.shoppinglist"
             title="Shopping List Item Attribute Entity">
       <field name="shoppingListId" type="id"></field>
       <field name="shoppingListItemSeqId" type="id"></field>
