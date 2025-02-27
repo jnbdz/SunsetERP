@@ -18,6 +18,13 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -38,13 +45,6 @@ import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
 import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
-
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Shopping Cart Services
@@ -318,7 +318,7 @@ public class ShoppingCartServices {
         }
         if (UtilValidate.isNotEmpty(orderContactMechs)) {
             for (GenericValue orderContactMech : orderContactMechs) {
-                cart.addContactMech(orderContactMech.getString("contactMechPurposeTypeId"), orderContactMech.getString("contactMechId"));
+                cart.addContactMechId(orderContactMech.getString("contactMechPurposeTypeId"), orderContactMech.getString("contactMechId"));
             }
         }
         List<GenericValue> orderItemShipGroupList = orh.getOrderItemShipGroups();

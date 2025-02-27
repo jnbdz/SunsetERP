@@ -18,6 +18,15 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppinglist;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.util.*;
+
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -33,14 +42,6 @@ import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
-
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.*;
 
 /**
  * Shopping cart events.
@@ -208,7 +209,7 @@ public class ShoppingListEvents {
 
     public static String addListToCart(Delegator delegator, LocalDispatcher dispatcher, ShoppingCart cart, String prodCatalogId,
                                        String shoppingListId, boolean includeChild, boolean setAsListItem, boolean append)
-            throws IllegalArgumentException {
+            throws java.lang.IllegalArgumentException {
         String errMsg = null;
 
         // no list; no add
@@ -518,8 +519,8 @@ public class ShoppingListEvents {
         }
 
         // check to see if we are okay to load this list
-        Timestamp lastLoad = cart.getLastListRestore();
-        boolean okayToLoad = autoSaveListId == null ? false : (lastLoad == null ? true : false);
+        java.sql.Timestamp lastLoad = cart.getLastListRestore();
+        boolean okayToLoad = autoSaveListId != null && lastLoad == null;
         if (!okayToLoad && lastLoad != null) {
             GenericValue shoppingList = null;
             try {
@@ -528,7 +529,7 @@ public class ShoppingListEvents {
                 Debug.logError(e, MODULE);
             }
             if (shoppingList != null) {
-                Timestamp lastModified = shoppingList.getTimestamp("lastAdminModified");
+                java.sql.Timestamp lastModified = shoppingList.getTimestamp("lastAdminModified");
                 if (lastModified != null) {
                     if (lastModified.after(lastLoad)) {
                         okayToLoad = true;

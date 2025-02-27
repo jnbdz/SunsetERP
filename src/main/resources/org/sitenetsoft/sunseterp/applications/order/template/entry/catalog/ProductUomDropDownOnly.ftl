@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<#--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
 distributed with this work for additional information
@@ -17,17 +16,11 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-
-<test-suite suite-name="quotetests"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
-        
-    <test-case case-name="loadQuoteTestData">
-        <entity-xml action="load" entity-xml-url="component://order/testdef/data/QuoteTestData.xml"/>
-    </test-case>
-    <!-- <test-case case-name="quote-tests"> <simple-method-test location="component://order/minilang/test/QuoteTests.xml"/> 
-        </test-case> -->
-     <test-case case-name="quoteTests">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.order.test.QuoteTests"/>
-    </test-case>
-</test-suite>
+<#if product?? && mainProducts??>
+    <select name="parentProductId" onchange="javascript:variantUomSelection(this);">
+        <option value="">${uiLabelMap.CommonSelect} ${uiLabelMap.ProductUnitOfMeasure}</option>
+        <#list mainProducts as mainProduct>
+            <option value="${mainProduct.productId}">${mainProduct.uomDesc} : ${mainProduct.piecesIncluded}</option>
+        </#list>
+    </select>
+</#if>
