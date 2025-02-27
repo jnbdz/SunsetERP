@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.order;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.common.DataModelConstants;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
@@ -32,11 +37,6 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
 import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker;
 import org.sitenetsoft.sunseterp.framework.security.Security;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.sql.Timestamp;
-import java.util.*;
 
 /**
  * Utility class for easily extracting important information from orders
@@ -213,6 +213,22 @@ public class OrderReadHelper {
     }
 
     /**
+     * Gets externalId.
+     * @return the external id
+     */
+    public String getExternalId() {
+        return orderHeader.getString("externalId");
+    }
+
+    /**
+     * Gets order priority
+     * @return the priority
+     */
+    public String getPriority() {
+        return orderHeader.getString("priority");
+    }
+
+    /**
      * Gets adjustments.
      * @return the adjustments
      */
@@ -381,6 +397,51 @@ public class OrderReadHelper {
             Debug.logError(e, MODULE);
             return null;
         }
+    }
+
+    /**
+     * Return notes links to this order
+     * @param internalNote
+     * @return order notes
+     */
+    public List<GenericValue> getOrderHeaderNotes(boolean internalNote) {
+        try {
+            return EntityQuery.use(orderHeader.getDelegator()).from("OrderHeaderNote")
+                    .where("orderId", getOrderId(),
+                            "internalNote", internalNote ? "Y" : "N")
+                    .queryList();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, MODULE);
+        }
+        return null;
+    }
+
+    /**
+     * Return public notes links to this order
+     * @return order public notes
+     */
+    public List<GenericValue> getOrderHeaderNotes() {
+        return getOrderHeaderNotes(false);
+    }
+
+    /**
+     * Retrieve order item attributes link to this order, first on this cache object else
+     * call delegator to load the cache from OrderItemAttribute entity
+     *
+     * @return Order item attributes link to this order
+     */
+    public List<GenericValue> getOrderItemAttributes() {
+        if (orderHeader != null && orderItemAttributes == null) {
+            try {
+                orderItemAttributes = EntityQuery.use(orderHeader.getDelegator())
+                        .from("OrderItemAttribute")
+                        .where("orderId", getOrderId())
+                        .queryList();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, MODULE);
+            }
+        }
+        return orderItemAttributes;
     }
 
     /**

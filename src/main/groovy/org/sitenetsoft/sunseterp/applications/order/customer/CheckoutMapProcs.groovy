@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
 */
-package org.sitenetsoft.sunseterp.applications.order.order.customer
+package org.sitenetsoft.sunseterp.applications.order.customer
 
 static Map shipToAddress(Map parameters) {
     Map processedMap = [:]

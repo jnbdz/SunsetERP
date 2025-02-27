@@ -18,6 +18,15 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.stream.Stream;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.common.DataModelConstants;
 import org.sitenetsoft.sunseterp.framework.entity.*;
@@ -41,15 +50,6 @@ import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
 import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
-
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.stream.Stream;
 
 /**
  * Shopping Cart Object
@@ -112,7 +112,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     private long nextGroupNumber = 1;
     private List<CartPaymentInfo> paymentInfo = new LinkedList<>();
     private List<CartShipInfo> shipInfo = new LinkedList<>();
-    private Map<String, String> contactMechIdsMap = new HashMap<>();
+    private Map<String, Set<String>> contactMechIdsMap = new HashMap<>();
     private Map<String, String> orderAttributes = new HashMap<>();
     private Map<String, Object> attributes = new HashMap<>(); // user defined attributes
     // Lists of internal/public notes: when the order is stored they are transformed into OrderHeaderNotes
@@ -212,7 +212,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         // clone the additionalPartyRoleMap
         this.additionalPartyRole = new HashMap<>();
-        for (Entry<String, List<String>> me : cart.additionalPartyRole.entrySet()) {
+        for (Map.Entry<String, List<String>> me : cart.additionalPartyRole.entrySet()) {
             this.additionalPartyRole.put(me.getKey(), new LinkedList<>(me.getValue()));
         }
 
@@ -553,7 +553,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         reservLength = reservLength == null ? BigDecimal.ZERO : reservLength;
         reservPersons = reservPersons == null ? BigDecimal.ZERO : reservPersons;
 
-        ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(itemGroupNumber);
+        ShoppingCart.ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(itemGroupNumber);
         GenericValue supplierProduct = null;
         // Check for existing cart item.
         for (int i = 0; i < this.cartLines.size(); i++) {
@@ -636,7 +636,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      */
     public int addNonProductItem(String itemType, String description, String categoryId, BigDecimal price, BigDecimal quantity,
             Map<String, Object> attributes, String prodCatalogId, String itemGroupNumber, LocalDispatcher dispatcher) throws CartItemModifyException {
-        ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(itemGroupNumber);
+        ShoppingCart.ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(itemGroupNumber);
         return this.addItem(0, ShoppingCartItem.makeItem(0, itemType, description, categoryId, price, null, quantity, attributes,
                 prodCatalogId, itemGroup, dispatcher, this, Boolean.TRUE));
     }
@@ -1083,7 +1083,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      * @param groupNumber the group number
      * @return the item group by number
      */
-    public ShoppingCartItemGroup getItemGroupByNumber(String groupNumber) {
+    public ShoppingCart.ShoppingCartItemGroup getItemGroupByNumber(String groupNumber) {
         if (UtilValidate.isEmpty(groupNumber)) {
             return null;
         }
@@ -1092,8 +1092,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
     /** Creates a new Item Group and returns the groupNumber that represents it */
     public String addItemGroup(String groupName, String parentGroupNumber) {
-        ShoppingCartItemGroup parentGroup = this.getItemGroupByNumber(parentGroupNumber);
-        ShoppingCartItemGroup newGroup = new ShoppingCartItemGroup(this.nextGroupNumber, groupName, parentGroup);
+        ShoppingCart.ShoppingCartItemGroup parentGroup = this.getItemGroupByNumber(parentGroupNumber);
+        ShoppingCart.ShoppingCartItemGroup newGroup = new ShoppingCart.ShoppingCartItemGroup(this.nextGroupNumber, groupName, parentGroup);
         this.nextGroupNumber++;
         this.itemGroupByNumberMap.put(newGroup.getGroupNumber(), newGroup);
         return newGroup.getGroupNumber();
@@ -1144,7 +1144,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
      */
     public List<ShoppingCartItem> getCartItemsInGroup(String groupNumber) {
         List<ShoppingCartItem> cartItemList = new LinkedList<>();
-        ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(groupNumber);
+        ShoppingCart.ShoppingCartItemGroup itemGroup = this.getItemGroupByNumber(groupNumber);
         if (itemGroup != null) {
             for (ShoppingCartItem cartItem : cartLines) {
                 if (itemGroup.equals(cartItem.getItemGroup())) {
@@ -3438,28 +3438,41 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Add a contact mech to this purpose; the contactMechPurposeTypeId is required */
-    public void addContactMech(String contactMechPurposeTypeId, String contactMechId) {
+    public void addContactMechId(String contactMechPurposeTypeId, String contactMechId) {
         if (contactMechPurposeTypeId == null) {
             throw new IllegalArgumentException("You must specify a contactMechPurposeTypeId to add a ContactMech");
         }
-        contactMechIdsMap.put(contactMechPurposeTypeId, contactMechId);
+        UtilMisc.addToSetInMap(contactMechId, contactMechIdsMap, contactMechPurposeTypeId);
     }
 
     /** Get the contactMechId for this cart given the contactMechPurposeTypeId */
-    public String getContactMech(String contactMechPurposeTypeId) {
-        return contactMechIdsMap.get(contactMechPurposeTypeId);
+    public String getContactMechId(String contactMechPurposeTypeId) {
+        return UtilValidate.isNotEmpty(getContactMechIds(contactMechPurposeTypeId))
+                ? getContactMechIds(contactMechPurposeTypeId).get(0)
+                : null;
     }
 
-    /** Remove the contactMechId from this cart given the contactMechPurposeTypeId */
-    public String removeContactMech(String contactMechPurposeTypeId) {
-        return contactMechIdsMap.remove(contactMechPurposeTypeId);
+    /** Get the contactMechIds list for this cart given the contactMechPurposeTypeId */
+    public List<String> getContactMechIds(String contactMechPurposeTypeId) {
+        Set<String> contactMechIds = contactMechIdsMap.get(contactMechPurposeTypeId);
+        return contactMechIds != null
+                ? new ArrayList<>(contactMechIds)
+                : List.of();
+    }
+
+    /** Remove the contactMechIds list from this cart given the contactMechPurposeTypeId */
+    public List<String> removeContactMechId(String contactMechPurposeTypeId) {
+        Set<String> contactMechIds = contactMechIdsMap.remove(contactMechPurposeTypeId);
+        return contactMechIds != null
+                ? new ArrayList<>(contactMechIds)
+                : List.of();
     }
 
     /**
      * Gets order contact mech ids.
      * @return the order contact mech ids
      */
-    public Map<String, String> getOrderContactMechIds() {
+    public Map<String, Set<String>> getOrderContactMechIds() {
         return this.contactMechIdsMap;
     }
 
@@ -4229,7 +4242,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** make order item groups */
     public List<GenericValue> makeOrderItemGroups() {
         List<GenericValue> result = new LinkedList<>();
-        for (ShoppingCartItemGroup itemGroup : this.itemGroupByNumberMap.values()) {
+        for (ShoppingCart.ShoppingCartItemGroup itemGroup : this.itemGroupByNumberMap.values()) {
             result.add(itemGroup.makeOrderItemGroup(this.getDelegator()));
         }
         return result;
@@ -4349,6 +4362,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 orderItem.set("selectedAmount", item.getSelectedAmount());
                 orderItem.set("unitPrice", item.getBasePrice());
                 orderItem.set("unitListPrice", item.getListPrice());
+                orderItem.set("discountRate", item.getDiscountRate());
                 orderItem.set("isModifiedPrice", item.getIsModifiedPrice() ? "Y" : "N");
                 orderItem.set("isPromo", item.getIsPromo() ? "Y" : "N");
 
@@ -4588,17 +4602,15 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public List<GenericValue> makeAllOrderContactMechs() {
         List<GenericValue> allOrderContactMechs = new LinkedList<>();
 
-        Map<String, String> contactMechIds = this.getOrderContactMechIds();
-
+        Map<String, Set<String>> contactMechIds = this.getOrderContactMechIds();
         if (contactMechIds != null) {
-            for (Entry<String, String> entry : contactMechIds.entrySet()) {
-                GenericValue orderContactMech = getDelegator().makeValue("OrderContactMech");
-                orderContactMech.set("contactMechPurposeTypeId", entry.getKey());
-                orderContactMech.set("contactMechId", entry.getValue());
-                allOrderContactMechs.add(orderContactMech);
+            for (Map.Entry<String, Set<String>> entry : contactMechIds.entrySet()) {
+                entry.getValue().forEach(contactMechId ->
+                        allOrderContactMechs.add(getDelegator().makeValue("OrderContactMech",
+                                Map.of("contactMechPurposeTypeId", entry.getKey(),
+                                        "contactMechId", contactMechId))));
             }
         }
-
         return allOrderContactMechs;
     }
 
@@ -4610,7 +4622,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             Map<String, String> itemContactMechIds = item.getOrderItemContactMechIds();
 
             if (itemContactMechIds != null) {
-                for (Entry<String, String> entry: itemContactMechIds.entrySet()) {
+                for (Map.Entry<String, String> entry: itemContactMechIds.entrySet()) {
                     GenericValue orderContactMech = getDelegator().makeValue("OrderItemContactMech");
 
                     orderContactMech.set("contactMechPurposeTypeId", entry.getKey());
@@ -4693,7 +4705,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
         List<GenericValue> allOrderAttributes = new LinkedList<>();
 
-        for (Entry<String, String> entry: orderAttributes.entrySet()) {
+        for (Map.Entry<String, String> entry: orderAttributes.entrySet()) {
             GenericValue orderAtt = this.getDelegator().makeValue("OrderAttribute");
             if (UtilValidate.isNotEmpty(orderId)) {
                 orderAtt.set("orderId", orderId);
@@ -5056,7 +5068,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         @Override
-        public int compare(Object obj, Object obj1) {
+        public int compare(java.lang.Object obj, java.lang.Object obj1) {
             ShoppingCartItem cartItem = (ShoppingCartItem) obj;
             ShoppingCartItem cartItem1 = (ShoppingCartItem) obj1;
 
@@ -5074,7 +5086,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
 
         @Override
-        public boolean equals(Object obj) {
+        public boolean equals(java.lang.Object obj) {
             if (obj instanceof BasePriceOrderComparator) {
                 return this.ascending == ((BasePriceOrderComparator) obj).ascending;
             }

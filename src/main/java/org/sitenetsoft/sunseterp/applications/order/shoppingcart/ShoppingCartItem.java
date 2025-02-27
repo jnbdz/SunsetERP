@@ -18,6 +18,14 @@
  */
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.*;
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
@@ -39,13 +47,6 @@ import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
 import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
-
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.math.RoundingMode;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * <p><b>Title:</b> ShoppingCartItem.java
@@ -115,6 +116,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     private BigDecimal reservNthPPPerc = BigDecimal.ZERO;
     private BigDecimal listPrice = BigDecimal.ZERO;
+    private BigDecimal discountRate = null;
     /**
      * flag to know if the price have been modified
      */
@@ -194,6 +196,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         this.reserv2ndPPPerc = item.getReserv2ndPPPerc();
         this.reservNthPPPerc = item.getReservNthPPPerc();
         this.listPrice = item.getListPrice();
+        this.discountRate = item.getDiscountRate();
         this.setIsModifiedPrice(item.getIsModifiedPrice());
         this.selectedAmount = item.getSelectedAmount();
         this.requirementId = item.getRequirementId();
@@ -678,7 +681,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             throw new CartItemModifyException(excMsg);
         }
 
-        Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+        java.sql.Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         if (!skipProductChecks) {
             isValidCartProduct(configWrapper, product, nowTimestamp, cart.getLocale());
@@ -1392,6 +1395,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                         }
 
                         this.setSpecialPromoPrice((BigDecimal) priceResult.get("specialPromoPrice"));
+                        this.discountRate = (BigDecimal) priceResult.get("discountRate");
                     }
 
                     this.orderItemPriceInfos = UtilGenerics.cast(priceResult.get("orderItemPriceInfos"));
@@ -1549,7 +1553,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * Gets quantity used per promo actual iter.
      * @return the quantity used per promo actual iter
      */
-    public Iterator<Entry<GenericPK, BigDecimal>> getQuantityUsedPerPromoActualIter() {
+    public Iterator<Map.Entry<GenericPK, BigDecimal>> getQuantityUsedPerPromoActualIter() {
         return this.quantityUsedPerPromoActual.entrySet().iterator();
     }
 
@@ -1557,7 +1561,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * Gets quantity used per promo candidate iter.
      * @return the quantity used per promo candidate iter
      */
-    public Iterator<Entry<GenericPK, BigDecimal>> getQuantityUsedPerPromoCandidateIter() {
+    public Iterator<Map.Entry<GenericPK, BigDecimal>> getQuantityUsedPerPromoCandidateIter() {
         return this.quantityUsedPerPromoCandidate.entrySet().iterator();
     }
 
@@ -1565,7 +1569,7 @@ public class ShoppingCartItem implements java.io.Serializable {
      * Gets quantity used per promo failed iter.
      * @return the quantity used per promo failed iter
      */
-    public Iterator<Entry<GenericPK, BigDecimal>> getQuantityUsedPerPromoFailedIter() {
+    public Iterator<Map.Entry<GenericPK, BigDecimal>> getQuantityUsedPerPromoFailedIter() {
         return this.quantityUsedPerPromoFailed.entrySet().iterator();
     }
 
@@ -1636,7 +1640,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             totalUse = existingValue;
         }
 
-        for (Entry<GenericPK, BigDecimal> entry : this.quantityUsedPerPromoCandidate.entrySet()) {
+        for (Map.Entry<GenericPK, BigDecimal> entry : this.quantityUsedPerPromoCandidate.entrySet()) {
             GenericPK productPromoCondActionPK = entry.getKey();
             BigDecimal quantityUsed = entry.getValue();
             if (quantityUsed != null) {
@@ -1658,9 +1662,9 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param productPromoRuleId the product promo rule id
      */
     public synchronized void resetPromoRuleUse(String productPromoId, String productPromoRuleId) {
-        Iterator<Entry<GenericPK, BigDecimal>> entryIter = this.quantityUsedPerPromoCandidate.entrySet().iterator();
+        Iterator<Map.Entry<GenericPK, BigDecimal>> entryIter = this.quantityUsedPerPromoCandidate.entrySet().iterator();
         while (entryIter.hasNext()) {
-            Entry<GenericPK, BigDecimal> entry = entryIter.next();
+            Map.Entry<GenericPK, BigDecimal> entry = entryIter.next();
             GenericPK productPromoCondActionPK = entry.getKey();
             BigDecimal quantityUsed = entry.getValue();
             if (productPromoId.equals(productPromoCondActionPK.getString("productPromoId"))
@@ -1683,9 +1687,9 @@ public class ShoppingCartItem implements java.io.Serializable {
      * @param productPromoRuleId the product promo rule id
      */
     public synchronized void confirmPromoRuleUse(String productPromoId, String productPromoRuleId) {
-        Iterator<Entry<GenericPK, BigDecimal>> entryIter = this.quantityUsedPerPromoCandidate.entrySet().iterator();
+        Iterator<Map.Entry<GenericPK, BigDecimal>> entryIter = this.quantityUsedPerPromoCandidate.entrySet().iterator();
         while (entryIter.hasNext()) {
-            Entry<GenericPK, BigDecimal> entry = entryIter.next();
+            Map.Entry<GenericPK, BigDecimal> entry = entryIter.next();
             GenericPK productPromoCondActionPK = entry.getKey();
             BigDecimal quantityUsed = entry.getValue();
             if (productPromoId.equals(productPromoCondActionPK.getString("productPromoId"))
@@ -2480,6 +2484,14 @@ public class ShoppingCartItem implements java.io.Serializable {
      */
     public void setListPrice(BigDecimal listPrice) {
         this.listPrice = listPrice;
+    }
+
+    /**
+     * Returns the DiscountRate
+     * @return discountRate
+     */
+    public BigDecimal getDiscountRate() {
+        return discountRate;
     }
 
     /**

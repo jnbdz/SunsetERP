@@ -18,6 +18,13 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
+import java.math.BigDecimal;
+import java.util.*;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -33,12 +40,6 @@ import org.sitenetsoft.sunseterp.framework.service.ModelService;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.stats.VisitHandler;
 import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.math.BigDecimal;
-import java.util.*;
 
 /**
  * Events used for processing checkout and orders.
@@ -1037,7 +1038,7 @@ public class CheckOutEvents {
                 requireTerm = requireTermStr == null || "true".equalsIgnoreCase(requireTermStr);
             }
             requireAdditionalParty = requireAdditionalPartyStr == null || "true".equalsIgnoreCase(requireAdditionalPartyStr);
-            isSingleUsePayment = singleUsePaymentStr != null && "Y".equalsIgnoreCase(singleUsePaymentStr) ? true : false;
+            isSingleUsePayment = "Y".equalsIgnoreCase(singleUsePaymentStr);
         }
 
         boolean shippingAddressSet = true;

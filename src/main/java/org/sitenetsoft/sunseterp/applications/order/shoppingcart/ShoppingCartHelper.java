@@ -18,6 +18,12 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.order.shoppingcart;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.util.*;
+import java.util.Map.Entry;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -35,12 +41,6 @@ import org.sitenetsoft.sunseterp.framework.security.Security;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ModelService;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
-
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.text.NumberFormat;
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * A facade over the
@@ -88,8 +88,8 @@ public class ShoppingCartHelper {
     public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
             BigDecimal price, BigDecimal amount, BigDecimal quantity,
-            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
-            Timestamp shipBeforeDate, Timestamp shipAfterDate,
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons,
+            java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
 
         return addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
@@ -102,8 +102,8 @@ public class ShoppingCartHelper {
     public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
             BigDecimal price, BigDecimal amount, BigDecimal quantity,
-            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
-            Timestamp shipBeforeDate, Timestamp shipAfterDate,
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
+            java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
 
         return addToCart(catalogId, shoppingListId, shoppingListItemSeqId, productId,
@@ -116,8 +116,8 @@ public class ShoppingCartHelper {
     public Map<String, Object> addToCart(String catalogId, String shoppingListId, String shoppingListItemSeqId, String productId,
             String productCategoryId, String itemType, String itemDescription,
             BigDecimal price, BigDecimal amount, BigDecimal quantity,
-            Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
-            Timestamp shipBeforeDate, Timestamp shipAfterDate, Timestamp reserveAfterDate,
+            java.sql.Timestamp reservStart, BigDecimal reservLength, BigDecimal reservPersons, String accommodationMapId, String accommodationSpotId,
+            java.sql.Timestamp shipBeforeDate, java.sql.Timestamp shipAfterDate, java.sql.Timestamp reserveAfterDate,
             ProductConfigWrapper configWrapper, String itemGroupNumber, Map<String, ? extends Object> context, String parentProductId) {
         Map<String, Object> result = null;
         Map<String, Object> attributes = null;
@@ -148,7 +148,7 @@ public class ShoppingCartHelper {
         String ddDate = (String) context.get("itemDesiredDeliveryDate");
         if (UtilValidate.isNotEmpty(ddDate)) {
             try {
-                Timestamp.valueOf((String) context.get("itemDesiredDeliveryDate"));
+                java.sql.Timestamp.valueOf((String) context.get("itemDesiredDeliveryDate"));
             } catch (IllegalArgumentException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(RES_ERROR, "OrderInvalidDesiredDeliveryDateSyntaxError",
                         this.cart.getLocale()));
@@ -350,10 +350,27 @@ public class ShoppingCartHelper {
                         }
 
                     }
+                    // get order item attributes to transfer it to the new cart item
+                    Map<String, String> orderItemAttributes = null;
                     try {
-                        this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId : productId, amount,
-                                orderItem.getBigDecimal("quantity"), null, null, null, null, null, null, null, catalogId, configWrapper,
-                                orderItemTypeId, itemGroupNumber, null, dispatcher);
+                        List<GenericValue> oiAttributes = orderItem.getRelated("OrderItemAttribute", null, null, false);
+                        if (UtilValidate.isNotEmpty(oiAttributes)) {
+                            orderItemAttributes = new HashMap<String, String>();
+                            for (GenericValue attrib : oiAttributes) {
+                                if (UtilValidate.isNotEmpty(attrib.getString("attrValue"))) {
+                                    orderItemAttributes.put(attrib.getString("attrName"), attrib.getString(
+                                            "attrValue"));
+                                }
+                            }
+                        }
+                    } catch (GenericEntityException e) {
+                        errorMsgs.add(e.getMessage());
+                    }
+                    try {
+                        this.cart.addOrIncreaseItem(UtilValidate.isNotEmpty(aggregatedProdId) ? aggregatedProdId
+                                : productId, amount, orderItem.getBigDecimal("quantity"),
+                                null, null, null, null, null, null, null, null, null, orderItemAttributes, catalogId,
+                                configWrapper, orderItemTypeId, itemGroupNumber, null, dispatcher);
                         noItems = false;
                     } catch (CartItemModifyException | ItemNotFoundException e) {
                         errorMsgs.add(e.getMessage());
@@ -402,7 +419,7 @@ public class ShoppingCartHelper {
         String ignSeparator = "_ign_";
 
         // iterate through the context and find all keys that start with "quantity_"
-        for (Entry<String, ? extends Object> entry : context.entrySet()) {
+        for (Map.Entry<String, ? extends Object> entry : context.entrySet()) {
             String productId = null;
             String quantStr = null;
             String itemGroupNumberToUse = itemGroupNumber;

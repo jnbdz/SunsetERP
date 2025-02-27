@@ -122,7 +122,11 @@ if (productId) {
                     }
                 }
             }
-            context.metaKeywords = StringUtil.join(keywords, ', ')
+            if (!context.metaKeywords && keywords) {
+                context.put('metaKeywords', StringUtil.join(keywords, ', '))
+            } else if (keywords) {
+                context.metaKeywords = StringUtil.join(keywords, ', ')
+            }
         }
 
         // Set the default template for aggregated product (product component configurator ui)

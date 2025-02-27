@@ -192,4 +192,9 @@ under the License.
     <Method name="equals" />
     <Bug pattern="EQ_CHECK_FOR_OPERAND_NOT_COMPATIBLE_WITH_THIS" />
   </Match><!-- ^ ^ not a problem, false positives -->
+  <Match>
+    <!-- As it's also used by WebAppCacheTest class I made it package. That's safer but not enough as private so it's here with the whole class-->
+    <Class name="org.apache.ofbiz.webapp.WebAppCache" />
+    <Bug pattern="SING_SINGLETON_HAS_NONPRIVATE_CONSTRUCTOR" />
+  </Match>
 </FindBugsFilter>
