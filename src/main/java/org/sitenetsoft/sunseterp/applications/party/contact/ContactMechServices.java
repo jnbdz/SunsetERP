@@ -19,7 +19,11 @@
 
 package org.sitenetsoft.sunseterp.applications.party.contact;
 
-import com.ibm.icu.util.Calendar;
+import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
+import java.sql.Timestamp;
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.crypto.HashCrypt;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
@@ -30,10 +34,7 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.sunseterp.framework.security.Security;
 import org.sitenetsoft.sunseterp.framework.service.*;
 
-import java.nio.charset.StandardCharsets;
-import java.security.SecureRandom;
-import java.sql.Timestamp;
-import java.util.*;
+import com.ibm.icu.util.Calendar;
 
 
 /**
@@ -887,7 +888,7 @@ public class ContactMechServices {
             }
         }
         Boolean bShowOld = (Boolean) context.get("showOld");
-        boolean showOld = (bShowOld != null && bShowOld) ? true : false;
+        boolean showOld = Boolean.TRUE.equals(bShowOld);
         String contactMechTypeId = (String) context.get("contactMechTypeId");
         List<Map<String, Object>> valueMaps = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, showOld, contactMechTypeId);
         result.put("valueMaps", valueMaps);

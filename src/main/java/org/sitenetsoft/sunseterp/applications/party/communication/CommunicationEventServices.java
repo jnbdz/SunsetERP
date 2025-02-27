@@ -19,6 +19,22 @@
 
 package org.sitenetsoft.sunseterp.applications.party.communication;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.ByteBuffer;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import jakarta.mail.Address;
+import jakarta.mail.BodyPart;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.InternetAddress;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.sitenetsoft.sunseterp.applications.content.data.DataResourceWorker;
 import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
@@ -37,21 +53,6 @@ import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.sitenetsoft.sunseterp.framework.service.mail.MimeMessageWrapper;
-
-import jakarta.mail.Address;
-import jakarta.mail.BodyPart;
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.nio.ByteBuffer;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class CommunicationEventServices {
 
@@ -150,45 +151,35 @@ public class CommunicationEventServices {
                     return ServiceUtil.returnError(errMsg + " " + communicationEventId);
                 }
 
-                // add other parties from roles
-                String sendCc = null;
-                String sendBcc = null;
+                // add other parties from roles, collect all email on map to parse it after
+                List<String> alreadyLoaded = UtilMisc.toList(sendTo);
+                List<String> availableRoleTypeIds = UtilMisc.toList("ADDRESSEE", "CC", "BCC");
+                Map<String, Object> emailsCollector = UtilMisc.toMap("ADDRESSEE", UtilMisc.toList(sendTo));
                 List<GenericValue> commRoles = communicationEvent.getRelated("CommunicationEventRole", null, null, false);
                 if (UtilValidate.isNotEmpty(commRoles)) {
                     for (GenericValue commRole : commRoles) { // 'from' and 'to' already defined on communication event
-                        if (commRole.getString("partyId").equals(communicationEvent.getString("partyIdFrom"))
-                                || commRole.getString("partyId").equals(communicationEvent.getString("partyIdTo"))) {
-                            continue;
-                        }
                         GenericValue contactMech = commRole.getRelatedOne("ContactMech", false);
                         if (contactMech != null && UtilValidate.isNotEmpty(contactMech.getString("infoString"))) {
-                            if ("ADDRESSEE".equals(commRole.getString("roleTypeId"))) {
-                                sendTo += "," + contactMech.getString("infoString");
-                            } else if ("CC".equals(commRole.getString("roleTypeId"))) {
-                                if (sendCc != null) {
-                                    sendCc += "," + contactMech.getString("infoString");
-                                } else {
-                                    sendCc = contactMech.getString("infoString");
-                                }
-                            } else if ("BCC".equals(commRole.getString("roleTypeId"))) {
-                                if (sendBcc != null) {
-                                    sendBcc += "," + contactMech.getString("infoString");
-                                } else {
-                                    sendBcc = contactMech.getString("infoString");
-                                }
+                            String infoString = contactMech.getString("infoString");
+                            String roleTypeId = commRole.getString("roleTypeId");
+                            if (alreadyLoaded.contains(infoString)
+                                    && !availableRoleTypeIds.contains(roleTypeId)) {
+                                continue;
                             }
+                            alreadyLoaded.add(infoString);
+                            UtilMisc.addToListInMap(infoString, emailsCollector, roleTypeId);
                         }
                     }
                 }
+                sendMailParams.put("sendTo", String.join(",", UtilMisc.getListFromMap(emailsCollector, "ADDRESSEE")));
+                sendMailParams.put("sendCc", emailsCollector.containsKey("CC")
+                        ? String.join(",", UtilMisc.getListFromMap(emailsCollector, "CC"))
+                        : null);
+                sendMailParams.put("sendBcc", emailsCollector.containsKey("BCC")
+                        ? String.join(",", UtilMisc.getListFromMap(emailsCollector, "BCC"))
+                        : null);
 
                 sendMailParams.put("communicationEventId", communicationEventId);
-                sendMailParams.put("sendTo", sendTo);
-                if (sendCc != null) {
-                    sendMailParams.put("sendCc", sendCc);
-                }
-                if (sendBcc != null) {
-                    sendMailParams.put("sendBcc", sendBcc);
-                }
                 sendMailParams.put("partyId", communicationEvent.getString("partyIdTo"));  // who it's going to
 
                 // send it - using a new transaction

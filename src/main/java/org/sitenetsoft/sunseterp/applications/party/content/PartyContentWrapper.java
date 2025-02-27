@@ -19,24 +19,23 @@
 
 package org.sitenetsoft.sunseterp.applications.party.content;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.sql.Timestamp;
+import java.util.*;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.sitenetsoft.sunseterp.applications.content.content.ContentWorker;
 import org.sitenetsoft.sunseterp.applications.content.content.ContentWrapper;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
-import org.sitenetsoft.sunseterp.framework.entity.model.ModelEntity;
-import org.sitenetsoft.sunseterp.framework.entity.model.ModelUtil;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
-
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.*;
 
 /**
  * WorkEffortContentWrapper; gets work effort content for display
@@ -44,7 +43,6 @@ import java.util.*;
 public class PartyContentWrapper implements ContentWrapper {
 
     private static final String MODULE = PartyContentWrapper.class.getName();
-    public static final String CACHE_KEY_SEPARATOR = "::";
 
     private static final UtilCache<String, String> PARTY_CONTENT_CACHE = UtilCache.createUtilCache("party.content.rendered", true);
 
@@ -64,8 +62,7 @@ public class PartyContentWrapper implements ContentWrapper {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.party = party;
         this.locale = UtilHttp.getLocale(request);
-        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8",
-                (Delegator) request.getAttribute("delegator"));
+        this.mimeTypeId = ContentWrapper.getDefaultMimeTypeId(party.getDelegator());
     }
 
     /**
@@ -136,7 +133,7 @@ public class PartyContentWrapper implements ContentWrapper {
     // static methods
     public static String getPartyContentAsText(GenericValue party, String partyContentId, HttpServletRequest request, String encoderType) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        String mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", party.getDelegator());
+        String mimeTypeId = ContentWrapper.getDefaultMimeTypeId(party.getDelegator());
         return getPartyContentAsText(party, partyContentId, null, UtilHttp.getLocale(request), mimeTypeId, party.getDelegator(), dispatcher,
                 true, encoderType);
     }
@@ -157,44 +154,47 @@ public class PartyContentWrapper implements ContentWrapper {
             return null;
         }
 
-        UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
-        String candidateFieldName = ModelUtil.dbNameToVarName(partyContentTypeId);
-        String cacheKey;
-        if (contentId != null) {
-            cacheKey = contentId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
-                    + CACHE_KEY_SEPARATOR + party.get("partyId");
-        } else {
-            cacheKey = partyContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
-                    + CACHE_KEY_SEPARATOR + party.get("partyId");
+        String cacheKey = null;
+        if (useCache) {
+            if (contentId != null) {
+                cacheKey = contentId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
+                        + CACHE_KEY_SEPARATOR + party.get("partyId");
+            } else {
+                cacheKey = partyContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
+                        + CACHE_KEY_SEPARATOR + party.get("partyId");
+            }
+
+            String cachedValue = PARTY_CONTENT_CACHE.get(cacheKey);
+            if (cachedValue != null || PARTY_CONTENT_CACHE.containsKey(cacheKey)) {
+                return cachedValue;
+            }
         }
 
+        // Get content of given contentTypeId
+        String outString = null;
         try {
-            if (useCache) {
-                String cachedValue = PARTY_CONTENT_CACHE.get(cacheKey);
-                if (cachedValue != null) {
-                    return cachedValue;
-                }
-            }
-
             Writer outWriter = new StringWriter();
-            getPartyContentAsText(contentId, party.getString("partyId"), party, partyContentTypeId, locale, mimeTypeId, delegator, dispatcher,
-                    outWriter, false);
-
-            String outString = outWriter.toString();
-            if (UtilValidate.isEmpty(outString)) {
-                outString = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName) : "";
-                outString = outString == null ? "" : outString;
-            }
-            outString = encoder.sanitize(outString, null);
-            if (PARTY_CONTENT_CACHE != null) {
-                PARTY_CONTENT_CACHE.put(cacheKey, outString);
-            }
-            return outString;
+            getPartyContentAsText(contentId, party.getString("partyId"), party, partyContentTypeId, locale, mimeTypeId,
+                    delegator, dispatcher, outWriter, false);
+            outString = outWriter.toString();
         } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering PartyContent, inserting empty String", MODULE);
-            String candidateOut = party.getModelEntity().isField(candidateFieldName) ? party.getString(candidateFieldName) : "";
-            return candidateOut == null ? "" : encoder.sanitize(candidateOut, null);
+            Debug.logError(e, "Error rendering PartyContent", MODULE);
+            useCache = false;
         }
+
+        /* If we did not found any content (or got an error), get the content of a
+         * candidateFieldName matching the given contentTypeId
+         */
+        if (UtilValidate.isEmpty(outString)) {
+            outString = ContentWrapper.getCandidateFieldValue(party, partyContentTypeId);
+        }
+        // Encode found content via given encoderType
+        outString = ContentWrapper.encodeContentValue(outString, encoderType);
+
+        if (useCache) {
+            PARTY_CONTENT_CACHE.put(cacheKey, outString);
+        }
+        return outString;
     }
 
     public static void getPartyContentAsText(String contentId, String partyId, GenericValue party, String partyContentTypeId, Locale locale,
@@ -212,13 +212,12 @@ public class PartyContentWrapper implements ContentWrapper {
         if (delegator == null && party != null) {
             delegator = party.getDelegator();
         }
-
-        if (UtilValidate.isEmpty(mimeTypeId)) {
-            mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator);
-        }
-
         if (delegator == null) {
             throw new GeneralRuntimeException("Unable to find a delegator to use!");
+        }
+
+        if (UtilValidate.isEmpty(mimeTypeId)) {
+            mimeTypeId = ContentWrapper.getDefaultMimeTypeId(delegator);
         }
 
         // Honor party content over Party entity fields.
@@ -229,46 +228,26 @@ public class PartyContentWrapper implements ContentWrapper {
             partyContent = getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator);
         }
         if (partyContent != null) {
-            // when rendering the product content, always include the Product and ProductContent records that this comes from
+            /* when rendering the party content, always include the Party and PartyContent
+             * records that this comes from
+             */
             Map<String, Object> inContext = new HashMap<>();
             inContext.put("party", party);
             inContext.put("partyContent", partyContent);
             ContentWorker.renderContentAsText(dispatcher, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId,
                     null, null, cache);
-            return;
-        }
-
-        if (partyContentTypeId != null) {
-            String candidateFieldName = ModelUtil.dbNameToVarName(partyContentTypeId);
-
+            // check person and group entity fields, if no content was found
+        } else if (partyContentTypeId != null) {
             // first check for a person field
-            ModelEntity partyPersonModel = delegator.getModelEntity("PartyAndPerson");
-            if (partyPersonModel != null && partyPersonModel.isField(candidateFieldName)) {
-                if (party == null) {
-                    party = EntityQuery.use(delegator).from("PartyAndPerson").where("partyId", partyId).cache().queryOne();
-                }
-                if (party != null) {
-                    String candidateValue = party.getString(candidateFieldName);
-                    if (UtilValidate.isNotEmpty(candidateValue)) {
-                        outWriter.write(candidateValue);
-                        return;
-                    }
-                }
+            String candidateValue = ContentWrapper.getCandidateFieldValue(delegator, "PartyAndPerson", EntityCondition
+                    .makeCondition("partyId", partyId), partyContentTypeId, cache);
+            if (UtilValidate.isEmpty(candidateValue)) {
+                // next check for group field
+                candidateValue = ContentWrapper.getCandidateFieldValue(delegator, "PartyAndGroup", EntityCondition
+                        .makeCondition("partyId", partyId), partyContentTypeId, cache);
             }
-
-            // next check for group field
-            ModelEntity partyGroupModel = delegator.getModelEntity("PartyAndGroup");
-            if (partyGroupModel != null && partyGroupModel.isField(candidateFieldName)) {
-                if (party == null) {
-                    party = EntityQuery.use(delegator).from("PartyAndGroup").where("partyId", partyId).cache().queryOne();
-                }
-                if (party != null) {
-                    String candidateValue = party.getString(candidateFieldName);
-                    if (UtilValidate.isNotEmpty(candidateValue)) {
-                        outWriter.write(candidateValue);
-                        return;
-                    }
-                }
+            if (UtilValidate.isNotEmpty(candidateValue)) {
+                outWriter.write(candidateValue);
             }
         }
     }
@@ -299,6 +278,11 @@ public class PartyContentWrapper implements ContentWrapper {
     }
 
     public static GenericValue getFirstPartyContentByType(String partyId, GenericValue party, String partyContentTypeId, Delegator delegator) {
+        return getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator, UtilDateTime.nowTimestamp());
+    }
+
+    public static GenericValue getFirstPartyContentByType(String partyId, GenericValue party, String partyContentTypeId,
+                                                          Delegator delegator, Timestamp date) {
         if (partyId == null && party != null) {
             partyId = party.getString("partyId");
         }
@@ -310,24 +294,19 @@ public class PartyContentWrapper implements ContentWrapper {
         if (delegator == null) {
             throw new IllegalArgumentException("Delegator missing");
         }
-
-        List<GenericValue> partyContentList = null;
         try {
-            partyContentList = EntityQuery.use(delegator).from("PartyContent")
+            return EntityQuery.use(delegator).from("PartyContent")
                     .where("partyId", partyId, "partyContentTypeId", partyContentTypeId)
                     .orderBy("-fromDate")
-                    .cache(true)
-                    .queryList();
+                    .filterByDate(date == null
+                            ? UtilDateTime.nowTimestamp()
+                            : date)
+                    .cache()
+                    .queryFirst();
         } catch (GeneralException e) {
             Debug.logError(e, MODULE);
         }
-
-        if (partyContentList != null) {
-            partyContentList = EntityUtil.filterByDate(partyContentList);
-            return EntityUtil.getFirst(partyContentList);
-        } else {
-            return null;
-        }
+        return null;
     }
 
     public static PartyContentWrapper makePartyContentWrapper(GenericValue party, HttpServletRequest request) {
