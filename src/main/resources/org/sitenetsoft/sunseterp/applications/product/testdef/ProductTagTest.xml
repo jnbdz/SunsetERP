@@ -23,7 +23,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/test-suite.xsd">
 
     <test-case case-name="producttag-test">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.ProductTagTest"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.test.ProductTagTest"/>
     </test-case>
 
 </test-suite>

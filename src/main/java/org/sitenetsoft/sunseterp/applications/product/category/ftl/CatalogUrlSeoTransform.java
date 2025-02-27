@@ -18,12 +18,16 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.category.ftl;
 
-import freemarker.core.Environment;
-import freemarker.ext.beans.BeanModel;
-import freemarker.ext.beans.StringModel;
-import freemarker.template.SimpleScalar;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateTransformModel;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.*;
+import java.util.Map.Entry;
+
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.StringUtil;
 import org.sitenetsoft.sunseterp.framework.base.util.StringUtil.StringWrapper;
@@ -48,14 +52,12 @@ import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Compiler;
 import org.apache.oro.text.regex.Perl5Matcher;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.*;
-import java.util.Map.Entry;
+import freemarker.core.Environment;
+import freemarker.ext.beans.BeanModel;
+import freemarker.ext.beans.GenericObjectModel;
+import freemarker.template.SimpleScalar;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateTransformModel;
 
 public class CatalogUrlSeoTransform implements TemplateTransformModel {
     private static final String MODULE = CatalogUrlSeoTransform.class.getName();
@@ -89,8 +91,8 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
             return ((SimpleScalar) o).getAsString();
-        } else if (o instanceof StringModel) {
-            return ((StringModel) o).getAsString();
+        } else if (o instanceof GenericObjectModel) {
+            return ((GenericObjectModel) o).getAsString();
         }
         return null;
     }

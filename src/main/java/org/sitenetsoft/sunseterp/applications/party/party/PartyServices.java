@@ -19,6 +19,14 @@
 
 package org.sitenetsoft.sunseterp.applications.party.party;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.sql.Timestamp;
+import java.util.*;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVFormat.Builder;
 import org.apache.commons.csv.CSVRecord;
@@ -32,14 +40,6 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityTypeUtil;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
 import org.sitenetsoft.sunseterp.framework.service.*;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.sql.Timestamp;
-import java.util.*;
 
 /**
  * Services for Party/Person/Group maintenance
@@ -2239,8 +2239,8 @@ public class PartyServices {
         String searchPartyFirstContext = (String) context.get("searchPartyFirst");
         String searchAllIdContext = (String) context.get("searchAllId");
 
-        boolean searchPartyFirst = UtilValidate.isNotEmpty(searchPartyFirstContext) && "N".equals(searchPartyFirstContext) ? false : true;
-        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext) ? true : false;
+        boolean searchPartyFirst = !UtilValidate.isNotEmpty(searchPartyFirstContext) || !"N".equals(searchPartyFirstContext);
+        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext);
 
         GenericValue party = null;
         List<GenericValue> partiesFound = null;

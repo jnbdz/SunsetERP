@@ -18,6 +18,11 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.price;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.sql.Timestamp;
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -32,11 +37,6 @@ import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
 import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.sql.Timestamp;
-import java.util.*;
 
 /**
  * PriceServices - Workers and Services class for product price related functionality
@@ -331,6 +331,8 @@ public class PriceServices {
 
         boolean validPriceFound = false;
         BigDecimal defaultPrice = BigDecimal.ZERO;
+        BigDecimal listPrice = null;
+        BigDecimal discountRate = null;
         List<GenericValue> orderItemPriceInfos = new LinkedList<>();
         if (defaultPriceValue != null) {
             // If a price calc formula (service) is specified, then use it to get the unit price
@@ -354,13 +356,19 @@ public class PriceServices {
                     if (UtilValidate.isNotEmpty(customAttributes)) {
                         inMap.put("customAttributes", customAttributes);
                     }
+                    inMap.put("productStoreGroupId", productStoreGroupId);
+                    inMap.put("partyId", partyId);
                     try {
                         Map<String, Object> outMap = dispatcher.runSync(customMethod.getString("customMethodName"), inMap);
                         if (ServiceUtil.isSuccess(outMap)) {
                             BigDecimal calculatedDefaultPrice = (BigDecimal) outMap.get("price");
+                            BigDecimal calculatedListPrice = (BigDecimal) outMap.get("listPrice");
+                            BigDecimal calculatedDiscountRate = (BigDecimal) outMap.get("discountRate");
                             orderItemPriceInfos = UtilGenerics.cast(outMap.get("orderItemPriceInfos"));
                             if (UtilValidate.isNotEmpty(calculatedDefaultPrice)) {
                                 defaultPrice = calculatedDefaultPrice;
+                                listPrice = calculatedListPrice;
+                                discountRate = calculatedDiscountRate;
                                 validPriceFound = true;
                             }
                         }
@@ -376,9 +384,13 @@ public class PriceServices {
             }
         }
 
-        BigDecimal listPrice = listPriceValue != null ? listPriceValue.getBigDecimal("price") : null;
+        boolean skipPriceRules = true;
+        if (listPrice == null && listPriceValue != null) {
+            listPrice = listPriceValue.getBigDecimal("price");
+            skipPriceRules = listPrice == null;
+        }
 
-        if (listPrice == null) {
+        if (skipPriceRules) {
             // no list price, use defaultPrice for the final price
 
             // ========= ensure calculated price is not below minSalePrice or above maxSalePrice =========
@@ -395,6 +407,8 @@ public class PriceServices {
                 validPriceFound = true;
             }
 
+            result.put("listPrice", listPrice);
+            result.put("discountRate", discountRate);
             result.put("basePrice", defaultPrice);
             result.put("price", defaultPrice);
             result.put("defaultPrice", defaultPrice);
@@ -841,8 +855,8 @@ public class PriceServices {
             String productPriceRuleId = productPriceRule.getString("productPriceRuleId");
 
             // check from/thru dates
-            Timestamp fromDate = productPriceRule.getTimestamp("fromDate");
-            Timestamp thruDate = productPriceRule.getTimestamp("thruDate");
+            java.sql.Timestamp fromDate = productPriceRule.getTimestamp("fromDate");
+            java.sql.Timestamp thruDate = productPriceRule.getTimestamp("thruDate");
 
             if (fromDate != null && fromDate.after(nowTimestamp)) {
                 // hasn't started yet

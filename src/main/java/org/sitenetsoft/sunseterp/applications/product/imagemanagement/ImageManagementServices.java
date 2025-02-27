@@ -18,21 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.imagemanagement;
 
-import org.apache.commons.imaging.ImageReadException;
-import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
-import org.sitenetsoft.sunseterp.framework.base.util.*;
-import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
-import org.sitenetsoft.sunseterp.framework.common.image.ImageTransform;
-import org.sitenetsoft.sunseterp.framework.entity.Delegator;
-import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
-import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
-import org.sitenetsoft.sunseterp.framework.service.*;
-import org.jdom2.JDOMException;
-
-import javax.imageio.ImageIO;
+// TODO: Does this work with Quarkus?
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImagingOpException;
@@ -49,6 +35,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+
+// TODO: Is there a Jarkata version?
+import javax.imageio.ImageIO;
+
+import org.apache.commons.imaging.ImageReadException;
+import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.sunseterp.framework.common.image.ImageTransform;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.service.*;
+import org.jdom2.JDOMException;
 
 /**
  * Product Services
@@ -155,7 +158,8 @@ public class ImageManagementServices {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    Files.delete(tempFile);
+                    File tempFileToDelete = new File(tempFile.toString());
+                    tempFileToDelete.deleteOnExit();
                     // Create image file original to folder product id.
                     RandomAccessFile out = new RandomAccessFile(file, "rw");
                     out.write(imageData.array());
@@ -184,7 +188,8 @@ public class ImageManagementServices {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    Files.delete(tempFile);
+                    File tempFileToDelete = new File(tempFile.toString());
+                    tempFileToDelete.deleteOnExit();
                     RandomAccessFile outFile = new RandomAccessFile(fileOriginal, "rw");
                     outFile.write(imageData.array());
                     outFile.close();
@@ -575,7 +580,8 @@ public class ImageManagementServices {
                 String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                 return ServiceUtil.returnError(errorMessage);
             }
-            Files.delete(tempFile);
+            File tempFileToDelete = new File(tempFile.toString());
+            tempFileToDelete.deleteOnExit();
             RandomAccessFile outFileThumb = new RandomAccessFile(fileOriginalThumb, "rw");
             outFileThumb.write(imageData.array());
             outFileThumb.close();

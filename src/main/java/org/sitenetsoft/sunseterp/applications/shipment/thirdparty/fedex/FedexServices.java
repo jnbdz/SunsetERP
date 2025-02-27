@@ -19,6 +19,16 @@
 
 package org.sitenetsoft.sunseterp.applications.shipment.thirdparty.fedex;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.nio.charset.StandardCharsets;
+import java.sql.Timestamp;
+import java.util.*;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.template.FreeMarkerWorker;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
@@ -38,15 +48,6 @@ import org.sitenetsoft.sunseterp.applications.shipment.shipment.ShipmentServices
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.nio.charset.StandardCharsets;
-import java.sql.Timestamp;
-import java.util.*;
 
 /**
  * Fedex Shipment Services
@@ -524,7 +525,7 @@ public class FedexServices {
             String currencyCode = null;
             if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("currencyUomId"))) {
                 currencyCode = shipmentRouteSegment.getString("currencyUomId");
-            } else if (UtilValidate.isNotEmpty(shipmentRouteSegment.getString("currencyUomId"))) {
+            } else if (UtilValidate.isNotEmpty(shipment.getString("currencyUomId"))) {
                 currencyCode = shipment.getString("currencyUomId");
             } else {
                 currencyCode = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);

@@ -18,6 +18,19 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.image;
 
+// TODO: AWT might not work with Quarkus
+import java.awt.image.BufferedImage;
+import java.awt.image.ImagingOpException;
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+// TODO: Is there a Jarkata version?
+import javax.imageio.ImageIO;
+
 import org.apache.commons.imaging.ImageReadException;
 import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
@@ -28,16 +41,6 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.sunseterp.framework.service.ModelService;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.jdom2.JDOMException;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImagingOpException;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 
 /**
  * ScaleImage Class

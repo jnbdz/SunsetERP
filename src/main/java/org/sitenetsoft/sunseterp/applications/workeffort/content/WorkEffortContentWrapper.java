@@ -18,6 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.workeffort.content;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.sql.Timestamp;
+import java.util.*;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
 import org.sitenetsoft.sunseterp.applications.content.content.ContentWorker;
@@ -30,20 +38,12 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.sql.Timestamp;
-import java.util.*;
-
 /**
  * WorkEffortContentWrapper; gets work effort content for display
  */
 public class WorkEffortContentWrapper implements ContentWrapper {
 
     private static final String MODULE = WorkEffortContentWrapper.class.getName();
-    public static final String CACHE_KEY_SEPARATOR = "::";
 
     private static final UtilCache<String, String> WORK_EFFORT_CONTENT_CACHE = UtilCache.createUtilCache("workeffort.content.rendered", true);
 
@@ -277,8 +277,10 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             }
 
             Writer outWriter = new StringWriter();
-            getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId, delegator, dispatcher,
-                    outWriter, false);
+            // Use cache == true to have entity-cache managed content from cache while (not managed) rendered cache above
+            // may be configured with short expire time
+            getWorkEffortContentAsText(contentId, null, workEffort, workEffortContentTypeId, locale, mimeTypeId,
+                    delegator, dispatcher, outWriter, true);
             String outString = outWriter.toString();
             if (UtilValidate.isEmpty(outString)) {
                 outString = workEffort.getModelEntity().isField(candidateFieldName) ? workEffort.getString(candidateFieldName) : "";

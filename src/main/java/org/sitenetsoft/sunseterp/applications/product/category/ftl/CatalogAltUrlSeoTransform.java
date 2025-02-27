@@ -18,14 +18,13 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.category.ftl;
 
-import freemarker.core.Environment;
-import freemarker.ext.beans.BeanModel;
-import freemarker.ext.beans.NumberModel;
-import freemarker.ext.beans.StringModel;
-import freemarker.template.SimpleNumber;
-import freemarker.template.SimpleScalar;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateTransformModel;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Locale;
+import java.util.Map;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.base.util.template.FreeMarkerWorker;
@@ -43,11 +42,14 @@ import org.sitenetsoft.sunseterp.framework.webapp.OfbizUrlBuilder;
 import org.sitenetsoft.sunseterp.framework.webapp.SeoConfigUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.control.WebAppConfigurationException;
 
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Locale;
-import java.util.Map;
+import freemarker.core.Environment;
+import freemarker.ext.beans.BeanModel;
+import freemarker.ext.beans.NumberModel;
+import freemarker.ext.beans.GenericObjectModel;
+import freemarker.template.SimpleNumber;
+import freemarker.template.SimpleScalar;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateTransformModel;
 
 public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
     private static final String MODULE = CatalogUrlSeoTransform.class.getName();
@@ -62,8 +64,8 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
             return ((SimpleScalar) o).getAsString();
-        } else if (o instanceof StringModel) {
-            return ((StringModel) o).getAsString();
+        } else if (o instanceof GenericObjectModel) {
+            return ((GenericObjectModel) o).getAsString();
         } else if (o instanceof SimpleNumber) {
             return ((SimpleNumber) o).getAsNumber().toString();
         } else if (o instanceof NumberModel) {
@@ -165,7 +167,7 @@ public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
                         Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
                         LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
                         Locale locale = (Locale) args.get("locale");
-                        String prefixString = ((StringModel) prefix).getAsString();
+                        String prefixString = ((GenericObjectModel) prefix).getAsString();
                         prefixString = prefixString.replace("&#47;", "/");
                         String contextPath = prefixString;
                         int lastSlashIndex = prefixString.lastIndexOf('/');

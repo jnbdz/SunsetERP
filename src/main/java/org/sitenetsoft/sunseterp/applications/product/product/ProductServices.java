@@ -18,6 +18,20 @@
  ******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.product;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.math.BigDecimal;
+import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.Set;
+
 import org.apache.commons.imaging.ImageReadException;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
@@ -35,19 +49,6 @@ import org.sitenetsoft.sunseterp.applications.product.category.CategoryWorker;
 import org.sitenetsoft.sunseterp.applications.product.image.ScaleImage;
 import org.sitenetsoft.sunseterp.framework.service.*;
 import org.jdom2.JDOMException;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.math.BigDecimal;
-import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * Product Services
@@ -203,7 +204,7 @@ public class ProductServices {
                 continue;
             }
 
-            Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
+            java.sql.Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
             // check to see if introductionDate hasn't passed yet
             if (productTo.get("introductionDate") != null && nowTimestamp.before(productTo.getTimestamp("introductionDate"))) {
@@ -1066,7 +1067,8 @@ public class ProductServices {
                         String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                         return ServiceUtil.returnError(errorMessage);
                     }
-                    Files.delete(tempFile);
+                    File tempFileToDelete = new File(tempFile.toString());
+                    tempFileToDelete.deleteOnExit();
                     RandomAccessFile out = new RandomAccessFile(fileToCheck, "rw");
                     out.write(imageData.array());
                     out.close();
@@ -1281,8 +1283,8 @@ public class ProductServices {
         String searchProductFirstContext = (String) context.get("searchProductFirst");
         String searchAllIdContext = (String) context.get("searchAllId");
 
-        boolean searchProductFirst = UtilValidate.isNotEmpty(searchProductFirstContext) && "N".equals(searchProductFirstContext) ? false : true;
-        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext) ? true : false;
+        boolean searchProductFirst = !UtilValidate.isNotEmpty(searchProductFirstContext) || !"N".equals(searchProductFirstContext);
+        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext) && "Y".equals(searchAllIdContext);
 
         GenericValue product = null;
         List<GenericValue> productsFound = null;
@@ -1374,7 +1376,8 @@ public class ProductServices {
                     String errorMessage = UtilProperties.getMessage("SecurityUiLabels", "SupportedImageFormats", locale);
                     return ServiceUtil.returnError(errorMessage);
                 }
-                Files.delete(tempFile);
+                File tempFileToDelete = new File(tempFile.toString());
+                tempFileToDelete.deleteOnExit();
                 RandomAccessFile out = new RandomAccessFile(file, "rw");
                 out.write(imageData.array());
                 out.close();

@@ -18,26 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.imagemanagement;
 
-import org.apache.commons.imaging.ImageReadException;
-import org.sitenetsoft.sunseterp.framework.base.util.*;
-import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
-import org.sitenetsoft.sunseterp.applications.content.layout.LayoutWorker;
-import org.sitenetsoft.sunseterp.framework.entity.Delegator;
-import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
-import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
-import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
-import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
-import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
-import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
-import org.jdom2.JDOMException;
-
-import javax.imageio.ImageIO;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import javax.swing.*;
+// TODO: Does AWT work in Quarkus?
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
@@ -53,6 +34,29 @@ import java.nio.file.StandardOpenOption;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+// TODO: What is the Jarkata version?
+import javax.imageio.ImageIO;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+// TODO: What is the Jarkata version?
+import javax.swing.ImageIcon;
+
+import org.apache.commons.imaging.ImageReadException;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.sunseterp.applications.content.layout.LayoutWorker;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
+import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
+import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
+import org.jdom2.JDOMException;
 
 public class FrameImage {
 

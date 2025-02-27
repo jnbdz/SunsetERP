@@ -18,6 +18,13 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.product;
 
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.*;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
 import org.sitenetsoft.sunseterp.applications.content.content.ContentWorker;
@@ -27,18 +34,9 @@ import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityExpr;
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityOperator;
-import org.sitenetsoft.sunseterp.framework.entity.model.ModelEntity;
-import org.sitenetsoft.sunseterp.framework.entity.model.ModelUtil;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
-
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.*;
 
 /**
  * Product Promo Content Worker: gets product promo content to display
@@ -46,7 +44,6 @@ import java.util.*;
 public class ProductPromoContentWrapper implements ContentWrapper {
 
     private static final String MODULE = ProductPromoContentWrapper.class.getName();
-    public static final String SEPARATOR = "::";    // cache key separator
 
     private static final UtilCache<String, String> PRODUCT_PROMO_CONTENT_CACHE =
             UtilCache.createUtilCache("product.promo.content.rendered", true);
@@ -71,8 +68,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         this.dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         this.productPromo = productPromo;
         this.locale = UtilHttp.getLocale(request);
-        this.mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8",
-                (Delegator) request.getAttribute("delegator"));
+        this.mimeTypeId = ContentWrapper.getDefaultMimeTypeId((Delegator) request.getAttribute("delegator"));
     }
 
     @Override
@@ -91,7 +87,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         return getProductPromoContentAsText(productPromo, productPromoContentTypeId, UtilHttp.getLocale(request),
-                EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator),
+                ContentWrapper.getDefaultMimeTypeId(delegator),
                 null, null, productPromo.getDelegator(), dispatcher, encoderType);
     }
 
@@ -106,35 +102,48 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             return null;
         }
 
-        UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder(encoderType);
-        String candidateFieldName = ModelUtil.dbNameToVarName(productPromoContentTypeId);
-        /* caching: there is one cache created, "product.promo.content"  Each productPromo's content is cached with a key of
-         * contentTypeId::locale::mimeType::productPromoId, or whatever the SEPARATOR is defined above to be.
+        /* Look for a previously cached entry (may also be an entry with null value if
+         * there was no content to retrieve)
          */
-        String cacheKey = productPromoContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + productPromo.get("productPromoId")
-                + SEPARATOR + encoderType + SEPARATOR + delegator;
-        try {
-            String cachedValue = PRODUCT_PROMO_CONTENT_CACHE.get(cacheKey);
-            if (cachedValue != null) {
-                return cachedValue;
-            }
-
-            Writer outWriter = new StringWriter();
-            getProductPromoContentAsText(null, productPromo, productPromoContentTypeId, locale, mimeTypeId, partyId, roleTypeId,
-                    delegator, dispatcher, outWriter, false);
-            String outString = outWriter.toString();
-            if (UtilValidate.isEmpty(outString)) {
-                outString = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName) : "";
-                outString = outString == null ? "" : outString;
-            }
-            outString = encoder.sanitize(outString, null);
-            PRODUCT_PROMO_CONTENT_CACHE.put(cacheKey, outString);
-            return outString;
-        } catch (GeneralException | IOException e) {
-            Debug.logError(e, "Error rendering ProductPromoContent, inserting empty String", MODULE);
-            String candidateOut = productPromo.getModelEntity().isField(candidateFieldName) ? productPromo.getString(candidateFieldName) : "";
-            return candidateOut == null ? "" : encoder.sanitize(candidateOut, null);
+        /* caching: there is one cache created, "product.promo.content.rendered"  Each productPromo's content is cached with a key of
+         * contentTypeId::locale::mimeType::productPromoId, or whatever the CACHE_KEY_SEPARATOR is defined above to be.
+         */
+        String cacheKey = productPromoContentTypeId + CACHE_KEY_SEPARATOR + locale + CACHE_KEY_SEPARATOR + mimeTypeId
+                + CACHE_KEY_SEPARATOR + productPromo.get("productPromoId")
+                + CACHE_KEY_SEPARATOR + encoderType + CACHE_KEY_SEPARATOR + delegator;
+        String cachedValue = PRODUCT_PROMO_CONTENT_CACHE.get(cacheKey);
+        if (cachedValue != null || PRODUCT_PROMO_CONTENT_CACHE.containsKey(cacheKey)) {
+            return cachedValue;
         }
+
+        // Get content of given contentTypeId
+        boolean doCache = true;
+        String outString = null;
+        try {
+            Writer outWriter = new StringWriter();
+            // Use cache == true to have entity-cache managed content from cache while (not managed) rendered cache above
+            // may be configured with short expire time
+            getProductPromoContentAsText(null, productPromo, productPromoContentTypeId, locale, mimeTypeId, partyId, roleTypeId,
+                    delegator, dispatcher, outWriter, true);
+            outString = outWriter.toString();
+        } catch (GeneralException | IOException e) {
+            Debug.logError(e, "Error rendering ProductPromoContent", MODULE);
+            doCache = false;
+        }
+
+        /* If we did not found any content (or got an error), get the content of a
+         * candidateFieldName matching the given contentTypeId
+         */
+        if (UtilValidate.isEmpty(outString)) {
+            outString = ContentWrapper.getCandidateFieldValue(productPromo, productPromoContentTypeId);
+        }
+        // Encode found content via given encoderType
+        outString = ContentWrapper.encodeContentValue(outString, encoderType);
+
+        if (doCache) {
+            PRODUCT_PROMO_CONTENT_CACHE.put(cacheKey, outString);
+        }
+        return outString;
     }
 
     public static void getProductPromoContentAsText(String productPromoId, GenericValue productPromo, String productPromoContentTypeId,
@@ -156,7 +165,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         }
 
         if (UtilValidate.isEmpty(mimeTypeId)) {
-            mimeTypeId = EntityUtilProperties.getPropertyValue("content", "defaultMimeType", "text/html; charset=utf-8", delegator);
+            mimeTypeId = ContentWrapper.getDefaultMimeTypeId(delegator);
         }
 
         if (UtilValidate.isEmpty(delegator)) {
@@ -181,21 +190,16 @@ public class ProductPromoContentWrapper implements ContentWrapper {
             inContext.put("productPromoContent", productPromoContent);
             ContentWorker.renderContentAsText(dispatcher, productPromoContent.getString("contentId"), outWriter,
                     inContext, locale, mimeTypeId, partyId, roleTypeId, cache);
-            return;
-        }
-
-        String candidateFieldName = ModelUtil.dbNameToVarName(productPromoContentTypeId);
-        ModelEntity productModel = delegator.getModelEntity("ProductPromo");
-        if (productModel.isField(candidateFieldName)) {
-            if (UtilValidate.isEmpty(productPromo)) {
-                productPromo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", productPromoId).cache().queryOne();
-            }
+        } else {
+            String candidateValue = null;
             if (productPromo != null) {
-                String candidateValue = productPromo.getString(candidateFieldName);
-                if (UtilValidate.isNotEmpty(candidateValue)) {
-                    outWriter.write(candidateValue);
-                    return;
-                }
+                candidateValue = ContentWrapper.getCandidateFieldValue(productPromo, productPromoContentTypeId);
+            } else {
+                candidateValue = ContentWrapper.getCandidateFieldValue(delegator, "ProductPromo", EntityCondition
+                        .makeCondition("productPromoId", productPromoId), productPromoContentTypeId, cache);
+            }
+            if (UtilValidate.isNotEmpty(candidateValue)) {
+                outWriter.write(candidateValue);
             }
         }
     }

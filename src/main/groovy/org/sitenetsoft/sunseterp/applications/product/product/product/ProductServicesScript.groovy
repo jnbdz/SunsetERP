@@ -18,6 +18,8 @@
 */
 package org.sitenetsoft.sunseterp.applications.product.product.product
 
+import java.sql.Timestamp
+
 import org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime
 import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate
@@ -27,8 +29,6 @@ import org.sitenetsoft.sunseterp.framework.entity.serialize.XmlSerializer
 import org.sitenetsoft.sunseterp.applications.product.product.KeywordIndex
 import org.sitenetsoft.sunseterp.applications.product.product.ProductWorker
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil
-
-import java.sql.Timestamp
 
 /**
  * Create a Product
@@ -369,7 +369,7 @@ Map countProductView() {
     long weight = parameters.weight ?: 1L
 
     GenericValue productCalculatedInfo = from('ProductCalculatedInfo').where(parameters).queryOne()
-    if (productCalculatedInfo) {
+    if (productCalculatedInfo?.totalTimesViewed) {
         productCalculatedInfo.totalTimesViewed += weight
         productCalculatedInfo.store()
     } else {

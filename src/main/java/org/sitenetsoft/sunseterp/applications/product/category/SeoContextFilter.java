@@ -18,13 +18,24 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.category;
 
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import jakarta.servlet.*;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.StringUtil;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
-import org.sitenetsoft.sunseterp.framework.security.SecurityUtil;
+import org.sitenetsoft.sunseterp.framework.security.SecuredFreemarker;
 import org.sitenetsoft.sunseterp.framework.webapp.SeoConfigUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader;
 import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader.ControllerConfig;
@@ -32,15 +43,6 @@ import org.sitenetsoft.sunseterp.framework.webapp.control.ControlFilter;
 import org.sitenetsoft.sunseterp.framework.webapp.control.WebAppConfigurationException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
-
-import jakarta.servlet.*;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * SeoContextFilter - Restricts access to raw files and configures servlet objects.
@@ -101,7 +103,7 @@ public final class SeoContextFilter implements Filter {
             uri = uri + "?" + queryString;
         }
 
-        if (SecurityUtil.containsFreemarkerInterpolation(httpRequest, httpResponse, uri)) {
+        if (SecuredFreemarker.containsFreemarkerInterpolation(httpRequest, httpResponse, uri)) {
             return;
         }
 

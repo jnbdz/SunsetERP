@@ -18,12 +18,16 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.product.category.ftl;
 
-import freemarker.core.Environment;
-import freemarker.ext.beans.BeanModel;
-import freemarker.template.SimpleScalar;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateScalarModel;
-import freemarker.template.TemplateTransformModel;
+import java.io.IOException;
+import java.io.Writer;
+import java.net.URLEncoder;
+import java.util.Iterator;
+import java.util.Map;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.template.FreeMarkerWorker;
@@ -40,14 +44,12 @@ import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
 import org.xml.sax.SAXException;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.Writer;
-import java.net.URLEncoder;
-import java.util.Iterator;
-import java.util.Map;
+import freemarker.core.Environment;
+import freemarker.ext.beans.BeanModel;
+import freemarker.template.SimpleScalar;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateScalarModel;
+import freemarker.template.TemplateTransformModel;
 
 /**
  * UrlRegexpTransform - Freemarker Transform for Products URLs (links)
@@ -101,6 +103,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
         final StringBuffer buf = new StringBuffer();
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);
+        final boolean shortener = checkArg(args, "pathShortener", false);
         final boolean encode = checkArg(args, "encode", true);
         final String controlPath = convertToString(args.get("controlPath"));
         final String webSiteId = convertToString(args.get("webSiteId"));
@@ -140,7 +143,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
 
                         RequestHandler rh = RequestHandler.from(request);
                         String seoUrl = seoUrl(rh.makeLink(request, response, buf.toString(), fullPath,
-                                secure || request.isSecure(), encode, controlPath), userLogin == null);
+                                secure || request.isSecure(), encode, controlPath, shortener), userLogin == null);
                         String requestURI = buf.toString();
 
                         // add / update csrf token to link when required
@@ -157,7 +160,7 @@ public class UrlRegexpTransform implements TemplateTransformModel {
                         ComponentConfig.WebappInfo webAppInfo = WebAppUtil.getWebappInfoFromWebsiteId(webSiteId);
                         StringBuilder newUrlBuff = new StringBuilder(250);
                         OfbizUrlBuilder builder = OfbizUrlBuilder.from(webAppInfo, delegator);
-                        builder.buildFullUrl(newUrlBuff, buf.toString(), secure);
+                        builder.buildFullUrl(newUrlBuff, buf.toString(), secure, shortener);
                         String newUrl = newUrlBuff.toString();
                         if (encode) {
                             newUrl = URLEncoder.encode(newUrl, "UTF-8");
