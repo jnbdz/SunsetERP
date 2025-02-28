@@ -76,7 +76,7 @@ import java.util.stream.Collectors;
  * CatalinaContainer -  Tomcat
  *
  * For more information about the AccessLogValve pattern visit the
- * <a href="https://tomcat.apache.org/tomcat-8.0-doc/config/valve.html#Access_Log_Valve">Documentation</a>
+ * <a href="https://tomcat.apache.org/tomcat-9.0-doc/config/valve.html#Access_Log_Valve">Documentation</a>
  */
 public class CatalinaContainer implements Container {
     @Override
@@ -417,6 +417,7 @@ public class CatalinaContainer implements Container {
                 accessLogValve.setPrefix(accessLogPrefix);
             }
             accessLogValve.setRotatable(ContainerConfig.getPropertyValue(engineConfig, "access-log-rotate", false));
+            accessLogValve.setMaxDays(Integer.valueOf(ContainerConfig.getPropertyValue(engineConfig, "access-log-maxDays", null)));
 
             engineValves.add(accessLogValve);
         }

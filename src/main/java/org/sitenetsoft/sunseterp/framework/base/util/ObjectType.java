@@ -18,6 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
+import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.conversion.ConversionException;
 import org.sitenetsoft.sunseterp.framework.base.conversion.Converter;
 import org.sitenetsoft.sunseterp.framework.base.conversion.Converters;
@@ -25,10 +29,6 @@ import org.sitenetsoft.sunseterp.framework.base.conversion.LocalizedConverter;
 import org.sitenetsoft.sunseterp.framework.base.lang.IsEmpty;
 import org.sitenetsoft.sunseterp.framework.base.lang.SourceMonitored;
 import org.w3c.dom.Node;
-
-import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
 
 /**
  * Utilities for analyzing and converting Object types in Java
@@ -325,6 +325,11 @@ public class ObjectType {
         }
 
         if (converter != null) {
+            // numeric types : replace everything that's not in [:IsAlnum:] or [:IsPunct:] classes by an empty string
+            if (obj instanceof String && Number.class.isAssignableFrom((targetClass))) {
+                obj = ((String) obj).replaceAll("[^\\p{IsAlnum}\\p{IsPunct}]", "");
+            }
+
             if (converter instanceof LocalizedConverter) {
                 LocalizedConverter<Object, Object> localizedConverter = UtilGenerics.cast(converter);
                 if (timeZone == null) {
@@ -340,6 +345,7 @@ public class ObjectType {
                     throw new GeneralException(e.getMessage(), e);
                 }
             }
+
             try {
                 return converter.convert(obj);
             } catch (ConversionException e) {

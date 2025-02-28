@@ -18,15 +18,6 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
-import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
-import org.sitenetsoft.sunseterp.framework.base.util.collections.ResourceBundleMapWrapper;
-import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
-import org.sitenetsoft.sunseterp.framework.entity.Delegator;
-import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +27,15 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.*;
+
+import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.sunseterp.framework.base.util.collections.ResourceBundleMapWrapper;
+import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /** Generic Property Accessor with Cache - Utilities for working with properties files.
  * <p>UtilProperties divides properties files into two classes: non-locale-specific -
@@ -711,7 +711,7 @@ public final class UtilProperties implements Serializable {
     // ========= Classes and Methods for expanded Properties file support ========== //
 
     // Private lazy-initializer class
-    private static class FallbackLocaleHolder {
+    private static final class FallbackLocaleHolder {
         private static final Locale FALLBACK_LOCALE = getFallbackLocale();
 
         private static Locale getFallbackLocale() {
@@ -757,7 +757,7 @@ public final class UtilProperties implements Serializable {
     }
 
     // Private lazy-initializer class
-    private static class CandidateLocalesHolder {
+    private static final class CandidateLocalesHolder {
         private static Set<Locale> defaultCandidateLocales = getDefaultCandidateLocales();
 
         private static Set<Locale> getDefaultCandidateLocales() {

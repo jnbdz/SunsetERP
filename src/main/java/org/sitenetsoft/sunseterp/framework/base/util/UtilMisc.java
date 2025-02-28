@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
+import java.io.*;
+import java.math.BigDecimal;
+import java.util.*;
+import java.util.function.Supplier;
+
 import org.sitenetsoft.sunseterp.framework.base.util.collections.MapComparator;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -29,10 +31,9 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.sunseterp.framework.service.ModelService;
 
-import java.io.*;
-import java.math.BigDecimal;
-import java.util.*;
-import java.util.function.Supplier;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
 
 /**
  * UtilMisc - Misc Utility Functions
@@ -655,7 +656,7 @@ public final class UtilMisc {
     }
 
     // Private lazy-initializer class
-    private static class LocaleHolder {
+    private static final class LocaleHolder {
         private static final List<Locale> AVAIL_LOCALE_LIST = getAvailableLocaleList();
 
         private static List<Locale> getAvailableLocaleList() {

@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import com.ibm.icu.util.Calendar;
-
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import com.ibm.icu.util.Calendar;
 
 /**
  * Utility class for handling java.util.Date, the java.sql data/time classes and related
@@ -145,7 +145,7 @@ public final class UtilDateTime {
      * Return a Timestamp for right now
      * @return Timestamp for right now
      */
-    public static Timestamp nowTimestamp() {
+    public static java.sql.Timestamp nowTimestamp() {
         return getTimestamp(System.currentTimeMillis());
     }
 
@@ -154,8 +154,8 @@ public final class UtilDateTime {
      * @param time millsecond value
      * @return Timestamp
      */
-    public static Timestamp getTimestamp(long time) {
-        return new Timestamp(time);
+    public static java.sql.Timestamp getTimestamp(long time) {
+        return new java.sql.Timestamp(time);
     }
 
     /**
@@ -196,27 +196,27 @@ public final class UtilDateTime {
      * Return a Date for right now
      * @return Date for right now
      */
-    public static Date nowDate() {
-        return new Date();
+    public static java.util.Date nowDate() {
+        return new java.util.Date();
     }
 
-    public static Timestamp getDayStart(Timestamp stamp) {
+    public static java.sql.Timestamp getDayStart(java.sql.Timestamp stamp) {
         return getDayStart(stamp, 0);
     }
 
-    public static Timestamp getDayStart(Timestamp stamp, int daysLater) {
+    public static java.sql.Timestamp getDayStart(java.sql.Timestamp stamp, int daysLater) {
         return getDayStart(stamp, daysLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
-    public static Timestamp getNextDayStart(Timestamp stamp) {
+    public static java.sql.Timestamp getNextDayStart(java.sql.Timestamp stamp) {
         return getDayStart(stamp, 1);
     }
 
-    public static Timestamp getDayEnd(Timestamp stamp) {
+    public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp) {
         return getDayEnd(stamp, 0L);
     }
 
-    public static Timestamp getDayEnd(Timestamp stamp, Long daysLater) {
+    public static java.sql.Timestamp getDayEnd(java.sql.Timestamp stamp, Long daysLater) {
         return getDayEnd(stamp, daysLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
@@ -225,21 +225,21 @@ public final class UtilDateTime {
      * @param stamp
      * @return java.sql.Timestamp
      */
-    public static Timestamp getYearStart(Timestamp stamp) {
+    public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp) {
         return getYearStart(stamp, 0, 0, 0);
     }
 
-    public static Timestamp getYearStart(Timestamp stamp, int daysLater) {
+    public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, int daysLater) {
         return getYearStart(stamp, daysLater, 0, 0);
     }
 
-    public static Timestamp getYearStart(Timestamp stamp, int daysLater, int yearsLater) {
+    public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, int daysLater, int yearsLater) {
         return getYearStart(stamp, daysLater, 0, yearsLater);
     }
-    public static Timestamp getYearStart(Timestamp stamp, int daysLater, int monthsLater, int yearsLater) {
+    public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, int daysLater, int monthsLater, int yearsLater) {
         return getYearStart(stamp, daysLater, monthsLater, yearsLater, TimeZone.getDefault(), Locale.getDefault());
     }
-    public static Timestamp getYearStart(Timestamp stamp, Number daysLater, Number monthsLater, Number yearsLater) {
+    public static java.sql.Timestamp getYearStart(java.sql.Timestamp stamp, Number daysLater, Number monthsLater, Number yearsLater) {
         return getYearStart(stamp, (daysLater == null ? 0 : daysLater.intValue()), (monthsLater == null ? 0
                 : monthsLater.intValue()), (yearsLater == null ? 0 : yearsLater.intValue()));
     }
@@ -249,15 +249,15 @@ public final class UtilDateTime {
      * @param stamp
      * @return java.sql.Timestamp
      */
-    public static Timestamp getMonthStart(Timestamp stamp) {
+    public static java.sql.Timestamp getMonthStart(java.sql.Timestamp stamp) {
         return getMonthStart(stamp, 0, 0);
     }
 
-    public static Timestamp getMonthStart(Timestamp stamp, int daysLater) {
+    public static java.sql.Timestamp getMonthStart(java.sql.Timestamp stamp, int daysLater) {
         return getMonthStart(stamp, daysLater, 0);
     }
 
-    public static Timestamp getMonthStart(Timestamp stamp, int daysLater, int monthsLater) {
+    public static java.sql.Timestamp getMonthStart(java.sql.Timestamp stamp, int daysLater, int monthsLater) {
         return getMonthStart(stamp, daysLater, monthsLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
@@ -266,23 +266,23 @@ public final class UtilDateTime {
      * @param stamp
      * @return java.sql.Timestamp
      */
-    public static Timestamp getWeekStart(Timestamp stamp) {
+    public static java.sql.Timestamp getWeekStart(java.sql.Timestamp stamp) {
         return getWeekStart(stamp, 0, 0);
     }
 
-    public static Timestamp getWeekStart(Timestamp stamp, int daysLater) {
+    public static java.sql.Timestamp getWeekStart(java.sql.Timestamp stamp, int daysLater) {
         return getWeekStart(stamp, daysLater, 0);
     }
 
-    public static Timestamp getWeekStart(Timestamp stamp, int daysLater, int weeksLater) {
+    public static java.sql.Timestamp getWeekStart(java.sql.Timestamp stamp, int daysLater, int weeksLater) {
         return getWeekStart(stamp, daysLater, weeksLater, TimeZone.getDefault(), Locale.getDefault());
     }
 
-    public static Timestamp getWeekEnd(Timestamp stamp) {
+    public static java.sql.Timestamp getWeekEnd(java.sql.Timestamp stamp) {
         return getWeekEnd(stamp, TimeZone.getDefault(), Locale.getDefault());
     }
 
-    public static Calendar toCalendar(Timestamp stamp) {
+    public static Calendar toCalendar(java.sql.Timestamp stamp) {
         Calendar cal = Calendar.getInstance();
         if (stamp != null) {
             cal.setTimeInMillis(stamp.getTime());
@@ -296,7 +296,7 @@ public final class UtilDateTime {
      * @return A java.sql.Date made from the date String
      */
     public static java.sql.Date toSqlDate(String date) {
-        Date newDate = toDate(date, "00:00:00");
+        java.util.Date newDate = toDate(date, "00:00:00");
 
         if (newDate != null) {
             return new java.sql.Date(newDate.getTime());
@@ -312,7 +312,7 @@ public final class UtilDateTime {
      * @return A java.sql.Date made from separate Strings for month, day, year
      */
     public static java.sql.Date toSqlDate(String monthStr, String dayStr, String yearStr) {
-        Date newDate = toDate(monthStr, dayStr, yearStr, "0", "0", "0");
+        java.util.Date newDate = toDate(monthStr, dayStr, yearStr, "0", "0", "0");
 
         if (newDate != null) {
             return new java.sql.Date(newDate.getTime());
@@ -328,7 +328,7 @@ public final class UtilDateTime {
      * @return A java.sql.Date made from separate ints for month, day, year
      */
     public static java.sql.Date toSqlDate(int month, int day, int year) {
-        Date newDate = toDate(month, day, year, 0, 0, 0);
+        java.util.Date newDate = toDate(month, day, year, 0, 0, 0);
 
         if (newDate != null) {
             return new java.sql.Date(newDate.getTime());
@@ -342,7 +342,7 @@ public final class UtilDateTime {
      * @return A java.sql.Time made from the time String
      */
     public static java.sql.Time toSqlTime(String time) {
-        Date newDate = toDate("1/1/1970", time);
+        java.util.Date newDate = toDate("1/1/1970", time);
 
         if (newDate != null) {
             return new java.sql.Time(newDate.getTime());
@@ -358,7 +358,7 @@ public final class UtilDateTime {
      * @return A java.sql.Time made from separate Strings for hour, minute, and second.
      */
     public static java.sql.Time toSqlTime(String hourStr, String minuteStr, String secondStr) {
-        Date newDate = toDate("0", "0", "0", hourStr, minuteStr, secondStr);
+        java.util.Date newDate = toDate("0", "0", "0", hourStr, minuteStr, secondStr);
 
         if (newDate != null) {
             return new java.sql.Time(newDate.getTime());
@@ -374,7 +374,7 @@ public final class UtilDateTime {
      * @return A java.sql.Time made from separate ints for hour, minute, and second.
      */
     public static java.sql.Time toSqlTime(int hour, int minute, int second) {
-        Date newDate = toDate(0, 0, 0, hour, minute, second);
+        java.util.Date newDate = toDate(0, 0, 0, hour, minute, second);
 
         if (newDate != null) {
             return new java.sql.Time(newDate.getTime());
@@ -387,11 +387,11 @@ public final class UtilDateTime {
      * @param dateTime A combined data and time string in the format "MM/DD/YYYY HH:MM:SS", the seconds are optional
      * @return The corresponding Timestamp
      */
-    public static Timestamp toTimestamp(String dateTime) {
-        Date newDate = toDate(dateTime);
+    public static java.sql.Timestamp toTimestamp(String dateTime) {
+        java.util.Date newDate = toDate(dateTime);
 
         if (newDate != null) {
-            return new Timestamp(newDate.getTime());
+            return new java.sql.Timestamp(newDate.getTime());
         }
         return null;
     }
@@ -402,11 +402,11 @@ public final class UtilDateTime {
      * @param time The time String: either HH:MM or HH:MM:SS
      * @return A Timestamp made from the date and time Strings
      */
-    public static Timestamp toTimestamp(String date, String time) {
-        Date newDate = toDate(date, time);
+    public static java.sql.Timestamp toTimestamp(String date, String time) {
+        java.util.Date newDate = toDate(date, time);
 
         if (newDate != null) {
-            return new Timestamp(newDate.getTime());
+            return new java.sql.Timestamp(newDate.getTime());
         }
         return null;
     }
@@ -421,12 +421,12 @@ public final class UtilDateTime {
      * @param secondStr The second String
      * @return A Timestamp made from separate Strings for month, day, year, hour, minute, and second.
      */
-    public static Timestamp toTimestamp(String monthStr, String dayStr, String yearStr, String hourStr,
+    public static java.sql.Timestamp toTimestamp(String monthStr, String dayStr, String yearStr, String hourStr,
             String minuteStr, String secondStr) {
-        Date newDate = toDate(monthStr, dayStr, yearStr, hourStr, minuteStr, secondStr);
+        java.util.Date newDate = toDate(monthStr, dayStr, yearStr, hourStr, minuteStr, secondStr);
 
         if (newDate != null) {
-            return new Timestamp(newDate.getTime());
+            return new java.sql.Timestamp(newDate.getTime());
         }
         return null;
     }
@@ -441,16 +441,16 @@ public final class UtilDateTime {
      * @param second The second int
      * @return A Timestamp made from separate ints for month, day, year, hour, minute, and second.
      */
-    public static Timestamp toTimestamp(int month, int day, int year, int hour, int minute, int second) {
-        Date newDate = toDate(month, day, year, hour, minute, second);
+    public static java.sql.Timestamp toTimestamp(int month, int day, int year, int hour, int minute, int second) {
+        java.util.Date newDate = toDate(month, day, year, hour, minute, second);
 
         if (newDate != null) {
-            return new Timestamp(newDate.getTime());
+            return new java.sql.Timestamp(newDate.getTime());
         }
         return null;
     }
 
-    public static Timestamp toTimestamp(Date date) {
+    public static java.sql.Timestamp toTimestamp(Date date) {
         if (date == null) {
             return null;
         }
@@ -462,7 +462,7 @@ public final class UtilDateTime {
      * @param dateTime A combined data and time string in the format "MM/DD/YYYY HH:MM:SS", the seconds are optional
      * @return The corresponding Date
      */
-    public static Date toDate(String dateTime) {
+    public static java.util.Date toDate(String dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -479,7 +479,7 @@ public final class UtilDateTime {
      * @param time The time String: either HH:MM or HH:MM:SS
      * @return A Date made from the date and time Strings
      */
-    private static Date toDate(String date, String time) {
+    private static java.util.Date toDate(String date, String time) {
         if (date == null || time == null) {
             return null;
         }
@@ -528,7 +528,7 @@ public final class UtilDateTime {
      * @param secondStr The second String
      * @return A Date made from separate Strings for month, day, year, hour, minute, and second.
      */
-    static Date toDate(String monthStr, String dayStr, String yearStr, String hourStr,
+    static java.util.Date toDate(String monthStr, String dayStr, String yearStr, String hourStr,
                                  String minuteStr, String secondStr) {
 
         int month;
@@ -562,7 +562,7 @@ public final class UtilDateTime {
      * @param second The second int
      * @return A Date made from separate ints for month, day, year, hour, minute, and second.
      */
-    private static Date toDate(int month, int day, int year, int hour, int minute, int second) {
+    private static java.util.Date toDate(int month, int day, int year, int hour, int minute, int second) {
         Calendar calendar = Calendar.getInstance();
 
         try {
@@ -571,7 +571,7 @@ public final class UtilDateTime {
         } catch (Exception e) {
             return null;
         }
-        return new Date(calendar.getTime().getTime());
+        return new java.util.Date(calendar.getTime().getTime());
     }
 
     /**
@@ -579,7 +579,7 @@ public final class UtilDateTime {
      * @param date The Date
      * @return A date String in the given format
      */
-    private static String toDateString(Date date, String format) {
+    private static String toDateString(java.util.Date date, String format) {
         if (date == null) {
             return "";
         }
@@ -601,7 +601,7 @@ public final class UtilDateTime {
      * @param date The Date
      * @return A date String in the format MM/DD/YYYY
      */
-    public static String toDateString(Date date) {
+    public static String toDateString(java.util.Date date) {
         return toDateString(date, "MM/dd/yyyy");
     }
 
@@ -610,7 +610,7 @@ public final class UtilDateTime {
      * @param date The Date
      * @return A time String in the format HH:MM:SS or HH:MM
      */
-    public static String toTimeString(Date date) {
+    public static String toTimeString(java.util.Date date) {
         if (date == null) {
             return "";
         }
@@ -659,7 +659,7 @@ public final class UtilDateTime {
      * @param date The Date
      * @return A combined data and time string in the format "MM/DD/YYYY HH:MM:SS" where the seconds are left off if they are 0.
      */
-    public static String toDateTimeString(Date date) {
+    public static String toDateTimeString(java.util.Date date) {
         if (date == null) {
             return "";
         }
@@ -683,7 +683,7 @@ public final class UtilDateTime {
      * Makes a Timestamp for the beginning of the month
      * @return A Timestamp of the beginning of the month
      */
-    public static Timestamp monthBegin() {
+    public static java.sql.Timestamp monthBegin() {
         Calendar mth = Calendar.getInstance();
 
         mth.set(Calendar.DAY_OF_MONTH, 1);
@@ -692,7 +692,7 @@ public final class UtilDateTime {
         mth.set(Calendar.SECOND, 0);
         mth.set(Calendar.MILLISECOND, 0);
         mth.set(Calendar.AM_PM, Calendar.AM);
-        return new Timestamp(mth.getTime().getTime());
+        return new java.sql.Timestamp(mth.getTime().getTime());
     }
 
     /**
@@ -724,7 +724,7 @@ public final class UtilDateTime {
             calendar.setMinimalDaysInFirstWeek(3);
         }
 
-        calendar.setTime(new Date(input.getTime()));
+        calendar.setTime(new java.util.Date(input.getTime()));
         return calendar.get(Calendar.WEEK_OF_YEAR);
     }
 
@@ -1012,7 +1012,7 @@ public final class UtilDateTime {
     }
 
     // Private lazy-initializer class
-    private static class TimeZoneHolder {
+    private static final class TimeZoneHolder {
         private static final List<TimeZone> AVAIL_TIME_ZONE_LIST = getTimeZones();
 
         private static List<TimeZone> getTimeZones() {
@@ -1035,7 +1035,7 @@ public final class UtilDateTime {
     }
 
     /** Returns a List of available TimeZone objects.
-     * @see TimeZone
+     * @see java.util.TimeZone
      */
     public static List<TimeZone> availableTimeZones() {
         return TimeZoneHolder.AVAIL_TIME_ZONE_LIST;
@@ -1043,7 +1043,7 @@ public final class UtilDateTime {
 
     /** Returns a TimeZone object based upon a time zone ID. Method defaults to
      * server's time zone if tzID is null or empty.
-     * @see TimeZone
+     * @see java.util.TimeZone
      */
     public static TimeZone toTimeZone(String tzId) {
         if (UtilValidate.isEmpty(tzId)) {
@@ -1053,7 +1053,7 @@ public final class UtilDateTime {
     }
 
     /** Returns a TimeZone object based upon an hour offset from GMT.
-     * @see TimeZone
+     * @see java.util.TimeZone
      */
     public static TimeZone toTimeZone(int gmtOffset) {
         if (gmtOffset > 12 || gmtOffset < -14) {

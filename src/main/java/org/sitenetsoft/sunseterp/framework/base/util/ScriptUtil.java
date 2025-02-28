@@ -18,12 +18,6 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
-import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
-import org.sitenetsoft.sunseterp.framework.common.scripting.ScriptHelperImpl;
-import org.codehaus.groovy.runtime.InvokerHelper;
-
-import javax.script.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -31,6 +25,16 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+
+import java.util.regex.Pattern;
+// TODO: Is there a Jarkata version?
+import javax.script.*;
+
+import org.sitenetsoft.sunseterp.framework.base.crypto.HashCrypt;
+import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.sunseterp.framework.common.scripting.ScriptHelperImpl;
+import org.codehaus.groovy.runtime.InvokerHelper;
 
 /**
  * Scripting utility methods. This is a facade class that is used to connect OFBiz to JSR-223 scripting engines.
@@ -52,9 +56,12 @@ public final class ScriptUtil {
     /** The <code>ScriptHelper</code> key. */
     public static final String SCRIPT_HELPER_KEY = "ofbiz";
     private static final UtilCache<String, CompiledScript> PARSED_SCRIPTS = UtilCache.createUtilCache("script.ParsedScripts", 0, 0, false);
+    private static final UtilCache<String, HashSet<String>> ALLOWED_SCRIPTS = UtilCache.createUtilCache("script.allowed.Scripts", 0, 0, false);
     private static final Object[] EMPTY_ARGS = {};
     /** A set of script names - derived from the JSR-223 scripting engines. */
     public static final Set<String> SCRIPT_NAMES;
+    private static final Pattern DENIEDSCRIPTLETSTOKENS = initScriptletsTokensPattern();
+    private static final Boolean USEDENIEDSCRIPTLETSTOKENS = UtilProperties.getPropertyAsBoolean("security", "useDeniedScriptletsTokens", false);
 
     static {
         Set<String> writableScriptNames = new HashSet<>();
@@ -108,6 +115,9 @@ public final class ScriptUtil {
             try {
                 Compilable compilableEngine = (Compilable) engine;
                 URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
+                if (scriptUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(scriptUrl.toString())) {
+                    throw new ScriptException("Script not found at location [" + filePath + "]");
+                }
                 BufferedReader reader = new BufferedReader(new InputStreamReader(scriptUrl.openStream(), StandardCharsets.UTF_8));
                 script = compilableEngine.compile(reader);
                 if (Debug.verboseOn()) {
@@ -216,6 +226,9 @@ public final class ScriptUtil {
         Assert.notNull("context", context);
         if (scriptClass != null) {
             return InvokerHelper.createScript(scriptClass, GroovyUtil.getBinding(context)).run();
+        }
+        if (!isSafeScript(language, script)) {
+            return "";
         }
         try {
             CompiledScript compiledScript = compileScriptString(language, script);
@@ -337,6 +350,9 @@ public final class ScriptUtil {
         }
         engine.setContext(scriptContext);
         URL scriptUrl = FlexibleLocation.resolveLocation(filePath);
+        if (scriptUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(scriptUrl.toString())) {
+            throw new ScriptException("Script not found at location [" + filePath + "]");
+        }
         try (
                 InputStreamReader reader = new InputStreamReader(new FileInputStream(scriptUrl.getFile()), StandardCharsets.UTF_8);) {
             Object result = engine.eval(reader);
@@ -365,13 +381,70 @@ public final class ScriptUtil {
         Class<?> scriptClass = null;
         if ("groovy".equals(language)) {
             try {
-                scriptClass = GroovyUtil.parseClass(script);
+                if (isSafeScript(language, script)) {
+                    scriptClass = GroovyUtil.parseClass(script);
+                }
             } catch (IOException e) {
                 Debug.logError(e, MODULE);
                 return null;
             }
         }
         return scriptClass;
+    }
+
+    /**
+     * Analyse if we can run the script or need to block it due to potential security issue
+     * @param language
+     * @param script
+     * @return true if we can run the script
+     * @throws IOException
+     */
+    private static boolean isSafeScript(String language, String script) throws IOException {
+        HashSet<String> allowedScript = ALLOWED_SCRIPTS.putIfAbsentAndGet(language, initAllowedScriptHashes());
+        String scriptHash = HashCrypt.digestHash("SHA", script.getBytes());
+        boolean currentScriptAlreadyAllowed = allowedScript.contains(scriptHash);
+        if (!currentScriptAlreadyAllowed) {
+            if (!checkIfScriptIsSafe(script)) {
+                Debug.logWarning(String.format("Tried to execute unauthorized script \n **** \n%s\n **** "
+                                + "\nif it's safe script you can add the following hash to security.allowedScriptletHashes: %s",
+                        script, scriptHash), MODULE);
+                return false;
+            }
+            allowedScript.add(scriptHash);
+        }
+        return true;
+    }
+
+    /**
+     * if USEDENIEDSCRIPTLETSTOKENS is true check if content match the regexp DENIEDSCRIPTLETSTOKENS
+     * @param content
+     * @return true if the content doesn't match
+     * @throws IOException
+     */
+    public static boolean checkIfScriptIsSafe(String content) throws IOException {
+        if (content == null || !USEDENIEDSCRIPTLETSTOKENS) {
+            return true;
+        }
+        return !DENIEDSCRIPTLETSTOKENS.matcher(content).find();
+    }
+
+    /**
+     * Load the regExp for security script analysis
+     * @return Pattern init by the regExp security.deniedScriptletsTokens
+     */
+    private static Pattern initScriptletsTokensPattern() {
+        String deniedScriptletsTokens = UtilProperties.getPropertyValue("security", "deniedScriptletsTokens", "");
+        return Pattern.compile(deniedScriptletsTokens);
+    }
+
+    /**
+     * Load the list of script exceptions that are authorized to run despite the security risk
+     * @return Allowed hashes List  init by  property security.allowedScriptletHashes
+     */
+    private static HashSet<String> initAllowedScriptHashes() {
+        List<String> allowedScripts = StringUtil.split(UtilProperties.getPropertyValue("security",
+                "allowedScriptletHashes", ""), ",");
+        return allowedScripts != null ? new HashSet<>(allowedScripts) : new HashSet<>();
     }
 
     private ScriptUtil() { }
@@ -400,7 +473,7 @@ public final class ScriptUtil {
             return bindings.containsValue(value);
         }
         @Override
-        public Set<Entry<String, Object>> entrySet() {
+        public Set<java.util.Map.Entry<String, Object>> entrySet() {
             return bindings.entrySet();
         }
         @Override
@@ -435,7 +508,7 @@ public final class ScriptUtil {
         }
         @Override
         public void putAll(Map<? extends String, ? extends Object> map) {
-            for (Entry<? extends String, ? extends Object> entry : map.entrySet()) {
+            for (Map.Entry<? extends String, ? extends Object> entry : map.entrySet()) {
                 Assert.notNull("key", entry.getKey());
                 if (!protectedKeys.contains(entry.getKey())) {
                     bindings.put(entry.getKey(), entry.getValue());

@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
-import com.ibm.icu.util.Calendar;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Map;
+
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.sitenetsoft.sunseterp.framework.base.lang.IsEmpty;
@@ -31,9 +31,10 @@ import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 
-import java.sql.Timestamp;
-import java.util.Collection;
-import java.util.Map;
+import com.google.i18n.phonenumbers.NumberParseException;
+import com.google.i18n.phonenumbers.PhoneNumberUtil;
+import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
+import com.ibm.icu.util.Calendar;
 
 /**
  * General input/data validation methods
@@ -42,9 +43,9 @@ import java.util.Map;
  *
  * <br> SUMMARY
  * <br>
- * <br> This is a set of methods for validating input. Functions are provided to validate:
+ * <br> This is a set of meethods for validating input. Functions are provided to validate:
  * <br>    - U.S. and international phone/fax numbers
- * <br>    - U.S. ZIP codes(5 or 9-digit postal codes)
+ * <br>    - U.S. ZIP codes(5 or 9 digit postal codes)
  * <br>    - U.S. Postal Codes(2 letter abbreviations for names of states)
  * <br>    - U.S. Social Security Numbers(abbreviated as SSNs)
  * <br>    - email addresses
@@ -198,7 +199,7 @@ public final class UtilValidate {
     }
 
     public static boolean isString(Object obj) {
-        return ((obj != null) && (obj instanceof String));
+        return ((obj != null) && (obj instanceof java.lang.String));
     }
 
     /** Returns true if string s is empty or whitespace characters only. */
@@ -620,11 +621,11 @@ public final class UtilValidate {
     }
 
     /**
-     * isUrl returns true if the string contains ://
+     * isUrlInString returns true if the string is empty or contains ://
      * @param s String to validate Note: this does not handle "component://" specific to OFBiz
-     * @return true if s contains ://
+     * @return true if s is empty or contains ://
      */
-    public static boolean isUrl(String s) {
+    public static boolean isUrlInString(String s) {
         if (isEmpty(s)) {
             return DEFAULT_EMPTY_OK;
         }
@@ -632,12 +633,12 @@ public final class UtilValidate {
     }
 
     /**
-     * urlInString returns true if the string contains :// and not "component://"
+     * isUrlInStringAndDoesNotStartByComponentProtocol returns true if the string is non-empty, contains :// but does not start with "component://"
      * @param s String to validate
-     * @return true if s contains :// and not "component://"
+     * @return true if s is non-empty, contains :// and does not start with "component://"
      */
-    public static boolean urlInString(String s) {
-        if (isEmpty(s) || s.contains("component://")) {
+    public static boolean isUrlInStringAndDoesNotStartByComponentProtocol(String s) {
+        if (isEmpty(s) || s.startsWith("component://")) {
             return false;
         }
         return s.indexOf("://") != -1;

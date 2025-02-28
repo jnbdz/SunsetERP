@@ -18,15 +18,17 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import org.sitenetsoft.sunseterp.framework.base.config.GenericConfigException;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.GeneralSecurityException;
+
+// TODO: Is there a Jarkata version?
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+
+import org.sitenetsoft.sunseterp.framework.base.config.GenericConfigException;
 
 /**
  * URLConnector.java
@@ -116,7 +118,7 @@ public class URLConnector {
     }
 
     // special thread to open the connection
-    private class URLConnectorThread implements Runnable {
+    private final class URLConnectorThread implements Runnable {
         @Override
         public void run() {
             URLConnection con = null;

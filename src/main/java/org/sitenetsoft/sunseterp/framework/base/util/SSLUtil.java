@@ -18,10 +18,6 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
-import org.sitenetsoft.sunseterp.framework.base.config.GenericConfigException;
-
-import javax.net.ssl.*;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.GeneralSecurityException;
@@ -35,6 +31,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import javax.net.ssl.*;
+
+import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
+import org.sitenetsoft.sunseterp.framework.base.config.GenericConfigException;
 
 /**
  * KeyStoreUtil - Utilities for setting up SSL connections with specific client certificates
@@ -58,7 +59,7 @@ public final class SSLUtil {
         SSLUtil.loadJsseProperties();
     }
 
-    private static class TrustAnyManager implements X509TrustManager {
+    private static final class TrustAnyManager implements X509TrustManager {
 
         @Override
         public void checkClientTrusted(X509Certificate[] certs, String string) throws CertificateException {

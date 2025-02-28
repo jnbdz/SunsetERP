@@ -18,7 +18,24 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import com.thoughtworks.xstream.XStream;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+// TODO: Is there a Jakarta version?
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
+
 import org.apache.xerces.parsers.DOMParser;
 import org.apache.xerces.xni.*;
 import org.w3c.dom.*;
@@ -29,21 +46,7 @@ import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
-import java.io.*;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.thoughtworks.xstream.XStream;
 
 /**
  * Utilities methods to simplify dealing with JAXP and DOM XML parsing
@@ -54,6 +57,7 @@ public final class UtilXml {
     private static final String MODULE = UtilXml.class.getName();
     private static final XStream X_STREAM = createXStream();
     private UtilXml() { }
+    private static final List<String> HOSTHEADERSALLOWED = UtilMisc.getHostHeadersAllowed();
 
     private static XStream createXStream() {
         XStream xstream = new XStream();
@@ -274,7 +278,7 @@ public final class UtilXml {
 
     // ------------------------------------------------- //
 
-    public static String writeXmlDocument(Node node) throws IOException {
+    public static String writeXmlDocument(Node node) throws java.io.IOException {
         if (node == null) {
             Debug.logWarning("[UtilXml.writeXmlDocument] Node was null, doing nothing", MODULE);
             return null;
@@ -299,7 +303,7 @@ public final class UtilXml {
         }
     }
 
-    public static void writeXmlDocument(OutputStream os, Node node) throws IOException {
+    public static void writeXmlDocument(OutputStream os, Node node) throws java.io.IOException {
         if (node == null) {
             Debug.logWarning("[UtilXml.writeXmlDocument] Node was null, doing nothing", MODULE);
             return;
@@ -315,12 +319,12 @@ public final class UtilXml {
     }
 
     public static Document readXmlDocument(String content)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(content, true);
     }
 
     public static Document readXmlDocument(String content, boolean validate)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, java.io.IOException {
         if (content == null) {
             Debug.logWarning("[UtilXml.readXmlDocument] content was null, doing nothing", MODULE);
             return null;
@@ -330,7 +334,7 @@ public final class UtilXml {
     }
 
     public static Document readXmlDocument(String content, boolean validate, boolean withPosition)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, java.io.IOException {
         if (content == null) {
             Debug.logWarning("[UtilXml.readXmlDocument] content was null, doing nothing", MODULE);
             return null;
@@ -340,12 +344,12 @@ public final class UtilXml {
     }
 
     public static Document readXmlDocument(URL url)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(url, true);
     }
 
     public static Document readXmlDocument(URL url, boolean validate)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, java.io.IOException {
         if (url == null) {
             Debug.logWarning("[UtilXml.readXmlDocument] URL was null, doing nothing", MODULE);
             return null;
@@ -361,10 +365,14 @@ public final class UtilXml {
     }
 
     public static Document readXmlDocument(URL url, boolean validate, boolean withPosition)
-            throws SAXException, ParserConfigurationException, IOException {
-        if (url == null) {
-            Debug.logWarning("[UtilXml.readXmlDocument] URL was null, doing nothing", MODULE);
-            return null;
+            throws SAXException, ParserConfigurationException, java.io.IOException {
+
+        // url.getHost().isEmpty() when reading an XML file
+        if (!HOSTHEADERSALLOWED.contains(url.getHost()) && !url.getHost().isEmpty()) {
+            Debug.logWarning("Domain " + url.getHost() + " not accepted to prevent host header injection."
+                    + " You need to set host-headers-allowed property in security.properties file.", MODULE);
+            throw new IOException("Domain " + url.getHost() + " not accepted to prevent host header injection."
+                    + " You need to set host-headers-allowed property in security.properties file.");
         }
         InputStream is = url.openStream();
         Document document = readXmlDocument(is, validate, url.toString(), withPosition);
@@ -373,17 +381,17 @@ public final class UtilXml {
     }
 
     public static Document readXmlDocument(InputStream is, String docDescription)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(is, true, docDescription);
     }
 
     public static Document readXmlDocument(InputStream is, String docDescription, boolean withPosition)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, java.io.IOException {
         return readXmlDocument(is, true, docDescription, withPosition);
     }
 
     public static Document readXmlDocument(InputStream is, boolean validate, String docDescription)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, java.io.IOException {
         if (is == null) {
             Debug.logWarning("[UtilXml.readXmlDocument] InputStream was null, doing nothing", MODULE);
             return null;
@@ -426,7 +434,7 @@ public final class UtilXml {
     }
 
     public static Document readXmlDocument(InputStream is, boolean validate, String docDescription, boolean withPosition)
-            throws SAXException, ParserConfigurationException, IOException {
+            throws SAXException, ParserConfigurationException, java.io.IOException {
         if (!withPosition) {
             return readXmlDocument(is, validate, docDescription);
         }
@@ -445,7 +453,7 @@ public final class UtilXml {
 
             private void setLineColumn(Node node) {
                 if (locator == null) {
-                    throw new IllegalStateException("XMLLocator is null");
+                    throw new java.lang.IllegalStateException("XMLLocator is null");
                 }
                 if (node.getUserData("startLine") != null) {
                     return;
@@ -1029,6 +1037,7 @@ public final class UtilXml {
         @Override
         public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
             hasDTD = false;
+            // TODO:
             //URL confUrl = UtilResourceLocator.locateResource("localdtds.properties");
             URL confUrl = UtilURL.fromResource("localdtds.properties");
             String dtd = UtilProperties.getSplitPropertyValue(confUrl, publicId);

@@ -19,13 +19,13 @@
 
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import com.ibm.icu.text.RuleBasedNumberFormat;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import com.ibm.icu.text.RuleBasedNumberFormat;
 
 public final class UtilNumber {
 
@@ -217,7 +217,7 @@ public final class UtilNumber {
      * Method to get BigDecimal rounding mode from a property
      * @param   file     - Name of the property file
      * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
-     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
+     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to RoundingMode.HALF_UP
      * @deprecated Use {@link #getRoundingMode(String, String)} instead
      */
     @Deprecated
@@ -228,7 +228,7 @@ public final class UtilNumber {
     /**
      * Method to get BigDecimal rounding mode from a property. Use the default ARITH_PROP_FILE properties file
      * @param   property - Name of the config property from ARITH_PROP_FILE (e.g., "invoice.rounding")
-     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to BigDecimal.ROUND_HALF_UP
+     * @return  int - Rounding mode to pass to BigDecimal's methods. Defaults to RoundingMode.HALF_UP
      * @deprecated Use {@link #getRoundingMode(String)} instead
      */
     @Deprecated

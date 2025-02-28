@@ -18,8 +18,26 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import com.google.re2j.Matcher;
-import com.google.re2j.Pattern;
+import static java.util.stream.Collectors.*;
+
+import java.io.*;
+import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.net.ssl.SSLContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+/*import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;*/
+
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -43,24 +61,8 @@ import org.sitenetsoft.sunseterp.framework.webapp.control.SameSiteFilter;
 import org.sitenetsoft.sunseterp.framework.webapp.event.FileUploadProgressListener;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.VisualTheme;
 
-import javax.net.ssl.SSLContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-/*import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;*/
-import java.io.*;
-import java.net.*;
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.*;
+import com.google.re2j.Matcher;
+import com.google.re2j.Pattern;
 
 /**
  * HttpUtil - Misc HTTP Utility Functions
@@ -196,6 +198,7 @@ public final class UtilHttp {
             }
 
             List<FileItem> uploadedItems = null;
+            // TODO: Verify:
             RequestContext requestContext = new JakartaRequestContext(request);
             try {
                 uploadedItems = UtilGenerics.cast(upload.parseRequest(requestContext));
@@ -228,7 +231,7 @@ public final class UtilHttp {
                             if (encoding != null) {
                                 try {
                                     multiPartMap.put(fieldName, item.getString(encoding));
-                                } catch (UnsupportedEncodingException uee) {
+                                } catch (java.io.UnsupportedEncodingException uee) {
                                     Debug.logError(uee, "Unsupported Encoding, using deafault", MODULE);
                                     multiPartMap.put(fieldName, item.getString());
                                 }
@@ -387,7 +390,7 @@ public final class UtilHttp {
                         // if the string contains only an URL beginning by http or ftp => no change to keep special chars
                         if (UtilValidate.isValidUrl(s) && (s.indexOf("://") == 4 || s.indexOf("://") == 3)) {
                             params = params + s + " ";
-                        } else if (UtilValidate.isUrl(s) && !s.isEmpty()) {
+                        } else if (UtilValidate.isUrlInString(s) && !s.isEmpty()) {
                             // if the string contains not only an URL => concatenate possible canonicalized before and after, w/o changing the URL
                             String url = extractUrls(s).get(0); // There should be only 1 URL in a block, makes no sense else
                             int start = s.indexOf(url);
@@ -462,7 +465,7 @@ public final class UtilHttp {
         if (val == null) {
             return null;
         }
-        if (val instanceof Timestamp) {
+        if (val instanceof java.sql.Timestamp) {
             val = val.toString();
         }
         if (val instanceof String
@@ -1240,7 +1243,14 @@ public final class UtilHttp {
          **/
         resp.addHeader("X-XSS-Protection", "1; mode=block");
         resp.setHeader("Referrer-Policy", "no-referrer-when-downgrade"); // This is the default (in Firefox at least)
-        resp.setHeader("Content-Security-Policy-Report-Only", "default-src 'self'");
+
+        if (EntityUtilProperties.getPropertyAsBoolean("security", "useContent-Security-Policy", true)) {
+            String contentSecurityPolicy = EntityUtilProperties.getPropertyValueFromDelegatorName(
+                    "security", "Content-Security-Policy", "Content-Security-Policy-Report-Only", "default");
+            String policyDirectives = EntityUtilProperties.getPropertyValueFromDelegatorName(
+                    "security", "PolicyDirectives", "default-src 'self'", "default");
+            resp.setHeader(contentSecurityPolicy, policyDirectives);
+        }
         SameSiteFilter.addSameSiteCookieAttribute(resp);
         // TODO in custom project. Public-Key-Pins-Report-Only is interesting but can't be used OOTB because of demos (the letsencrypt certificate
         // is renewed every 3 months)

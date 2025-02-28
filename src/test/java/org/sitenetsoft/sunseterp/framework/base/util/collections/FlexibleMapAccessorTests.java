@@ -16,26 +16,21 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.sitenetsoft.sunseterp.framework.base.util.collections.test;
+package org.sitenetsoft.sunseterp.framework.base.util.collections;
 
-import org.sitenetsoft.sunseterp.framework.base.lang.SourceMonitored;
-import org.sitenetsoft.sunseterp.framework.base.test.GenericTestCaseBase;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
-import org.sitenetsoft.sunseterp.framework.base.util.collections.FlexibleMapAccessor;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
+import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-@SourceMonitored
-public class FlexibleMapAccessorTests extends GenericTestCaseBase {
+import static org.junit.Assert.*;
+
+public class FlexibleMapAccessorTests {
     private static final Locale LOCALE_TO_TEST = new Locale("en", "US");
     private static FlexibleMapAccessor<?> fmaEmpty = FlexibleMapAccessor.getInstance("");
     private static FlexibleMapAccessor<?> fmaNull = FlexibleMapAccessor.getInstance(null);
-
-    public FlexibleMapAccessorTests(String name) {
-        super(name);
-    }
 
     private static <T> void fmaTest(String label, String getText, String fseText, T var, String value) {
         fmaTest(label, getText, getText, fseText, null, var, value);
@@ -125,6 +120,7 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
         assertNotNull(label + ":toString", fma.toString());
     }
 
+    @Test
     /** These tests rely upon FlexibleStringExpander, so they should follow the FlexibleStringExpander tests. */
     public void testFlexibleMapAccessor() {
         fmaEmptyTest("fmaEmpty", "");
@@ -177,6 +173,7 @@ public class FlexibleMapAccessorTests extends GenericTestCaseBase {
         }
     }
 
+    @Test
     /**
      * Test verbosity and errors.
      */

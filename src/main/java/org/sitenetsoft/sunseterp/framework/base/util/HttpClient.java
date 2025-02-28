@@ -293,7 +293,7 @@ public class HttpClient {
     }
 
     /** Returns the content of the response. */
-    public Object getResponseContent() throws IOException, HttpClientException {
+    public Object getResponseContent() throws java.io.IOException, HttpClientException {
         if (con == null) {
             throw new HttpClientException("Connection not yet established");
         }
@@ -458,7 +458,7 @@ public class HttpClient {
 
         // Create the URL and open the connection.
         try {
-            requestUrl = new URL(url);
+            requestUrl = UtilURL.fromUrlString(url);
             if (overrideTrust) {
                 con = URLConnector.openUntrustedConnection(requestUrl, timeout, clientCertAlias, hostVerification);
             } else {

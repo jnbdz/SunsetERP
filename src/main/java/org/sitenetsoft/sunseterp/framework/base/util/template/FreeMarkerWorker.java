@@ -18,6 +18,22 @@
  */
 package org.sitenetsoft.sunseterp.framework.base.util.template;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.net.URL;
+import java.util.*;
+import java.util.stream.Stream;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
+import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
+import org.sitenetsoft.sunseterp.framework.widget.model.ModelWidget;
+
 import freemarker.cache.MultiTemplateLoader;
 import freemarker.cache.StringTemplateLoader;
 import freemarker.cache.TemplateLoader;
@@ -28,20 +44,6 @@ import freemarker.ext.beans.BeanModel;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.BeansWrapperBuilder;
 import freemarker.template.*;
-import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
-import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
-import org.sitenetsoft.sunseterp.framework.base.util.*;
-import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
-import org.sitenetsoft.sunseterp.framework.widget.model.ModelWidget;
-
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
-import java.io.Writer;
-import java.net.URL;
-import java.util.*;
-import java.util.stream.Stream;
 
 /**
  * FreeMarkerWorker - Freemarker Template Engine Utilities.
@@ -52,7 +54,8 @@ public final class FreeMarkerWorker {
     private static final String MODULE = FreeMarkerWorker.class.getName();
     //public static final Version VERSION = Configuration.VERSION_2_3_32;
     //public static final Version VERSION = Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS;
-    public static final Version VERSION = Configuration.VERSION_2_3_31; // 2_3_33 is not available in the current version of Freemarker
+    //public static final Version VERSION = Configuration.VERSION_2_3_31; // 2_3_33 is not available in the current version of Freemarker
+    public static final Version VERSION = Configuration.VERSION_2_3_34;
 
     private FreeMarkerWorker() { }
 

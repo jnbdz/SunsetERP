@@ -18,15 +18,6 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.text.StringEscapeUtils;
-import org.sitenetsoft.sunseterp.framework.base.html.SanitizerCustomPolicy;
-import org.owasp.esapi.codecs.Codec;
-import org.owasp.esapi.codecs.HTMLEntityCodec;
-import org.owasp.esapi.codecs.PercentCodec;
-import org.owasp.esapi.codecs.XMLEntityCodec;
-import org.owasp.html.*;
-
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -35,6 +26,15 @@ import java.net.URLEncoder;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
+import org.sitenetsoft.sunseterp.framework.base.html.SanitizerCustomPolicy;
+import org.owasp.esapi.codecs.Codec;
+import org.owasp.esapi.codecs.HTMLEntityCodec;
+import org.owasp.esapi.codecs.PercentCodec;
+import org.owasp.esapi.codecs.XMLEntityCodec;
+import org.owasp.html.*;
 
 @SuppressWarnings("rawtypes")
 public class UtilCodec {
@@ -115,7 +115,7 @@ public class UtilCodec {
          * is possible to configure a custom policy using the properties
          * "sanitizer.permissive.policy" and "sanitizer.custom.permissive.policy.class".
          * The custom policy has to implement
-         * {@link SanitizerCustomPolicy}.
+         * {@link org.sitenetsoft.sunseterp.framework.base.html.SanitizerCustomPolicy}.
          * @param original
          * @param contentTypeId
          * @return sanitized HTML-Code if enabled, original HTML-Code when disabled
@@ -377,6 +377,28 @@ public class UtilCodec {
     }
 
     /**
+     * Generic function to easily call url encoding with OFBiz rules
+     * @param queryString
+     * @return encoding url with OFBiz rule
+     */
+    public static String encodeUrl(String queryString) {
+        return getEncoder("url").encode(queryString);
+    }
+
+    /**
+     * Check if an escapeUrlEncode is present in the context, to escape url encoding in a specific case
+     * This is necessary if the url is sent to another encoding tool.
+     * @param queryString
+     * @param context
+     * @return encoding url with OFBiz rule
+     */
+    public static String encodeUrl(String queryString, Map<String, Object> context) {
+        return "true".equalsIgnoreCase((String) context.get("escapeUrlEncode"))
+                ? queryString
+                : encodeUrl(queryString);
+    }
+
+    /**
      * Uses a black-list approach for necessary characters for HTML.
      * Does not allow various characters (after canonicalization), including
      * "&lt;", "&gt;", "&amp;" and "%" (if not followed by a space).
@@ -450,7 +472,7 @@ public class UtilCodec {
      * It is possible to configure a safe policy using the properties
      * "sanitizer.safe.policy" and "sanitizer.custom.safe.policy.class".
      * The safe policy has to implement
-     * {@link SanitizerCustomPolicy}.
+     * {@link org.sitenetsoft.sunseterp.framework.base.html.SanitizerCustomPolicy}.
      * @param valueName field name checked
      * @param value value checked
      * @param errorMessageList an empty list passed by and modified in case of issues
@@ -526,7 +548,8 @@ public class UtilCodec {
             String unescapeEcmaScriptAndHtml4 = StringEscapeUtils.unescapeEcmaScript(unescapeHtml4);
             // Replaces possible quotes entities in value (due to HtmlSanitizer above) to avoid issue with
             // testCreateCustRequestItemNote and allow saving when using quotes in fields
-            if (filtered != null && !value.replace("&#39;", "'").replace("&#34;", "\"").equals(unescapeEcmaScriptAndHtml4)) {
+            // Maybe later we will figure out that some more HTML entities will need to be added to here, see OFBIZ-12691
+            if (filtered != null && !value.replace("&#39;", "'").replace("&#34;", "\"").replace("&#64;", "@").equals(unescapeEcmaScriptAndHtml4)) {
                 String issueMsg = null;
                 if (locale.equals(new Locale("test"))) { // labels are not available in testClasses Gradle task
                     issueMsg = "In field [" + valueName + "] by our input policy, your input has not been accepted "
@@ -640,7 +663,7 @@ public class UtilCodec {
         }
 
         @Override
-        public Set<Entry<K, Object>> entrySet() {
+        public Set<Map.Entry<K, Object>> entrySet() {
             return this.internalMap.entrySet();
         }
 
