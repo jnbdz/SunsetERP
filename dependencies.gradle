@@ -1,3 +1,21 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
 dependencies {
     //
     // OFBiz dependencies
@@ -87,7 +105,7 @@ dependencies {
     // well as converters to convert from one format to another. The parsers can give you back Java objects that are
     // either specific for the format you want ...
     //
-    // Resource --> It was a commented attached to this package
+    // TODO: Resource --> It was a commented attached to this package
     //
     // https://mvnrepository.com/artifact/com.rometools/rome
     implementation 'com.rometools:rome:2.1.0'
@@ -129,96 +147,271 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-validator/commons-validator
     implementation 'commons-validator:commons-validator:1.9.0'
 
+    // Java Unified Expression Language Implementation
+    //
+    // https://mvnrepository.com/artifact/de.odysseus.juel/juel-impl
     implementation 'de.odysseus.juel:juel-impl:2.2.7'
 
-    implementation 'javax.transaction:javax.transaction-api:1.3'
+    // Jakarta Transactions (JTA API)
+    //
+    // TODO: Jakarta JTA is supposed to be identical to javax JTA.
+    //   Where it differs with OFBiz is the transactions manager.
+    //   - OFBiz: Apache Geronimo Transaction Manager
+    //   - Quarkus: Narayana manager
+    //
+    // https://mvnrepository.com/artifact/jakarta.transaction/jakarta.transaction-api
+    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
+    // TODO: javax impl. removed because we need to switch to Jakarta/Narayana
+    //   Keeping it just in case.
+    //implementation 'javax.transaction:javax.transaction-api:1.3'
 
-    implementation 'net.fortuna.ical4j:ical4j:1.0-rc4-atlassian-12'
+    // A Java library for reading and writing iCalendar (*.ics) files
+    //
+    // TODO: This is to be tried out
+    // https://mvnrepository.com/artifact/org.mnode.ical4j/ical4j
+    implementation 'org.mnode.ical4j:ical4j:4.1.0'
+    // TODO: It moved to --> org.mnode.ical4j/ical4j
+    //   This is why it was commented out.
+    // https://mvnrepository.com/artifact/net.fortuna.ical4j/ical4j
+    //implementation 'net.fortuna.ical4j:ical4j:1.0-rc4-atlassian-12'
+    // TODO: Another try:
+    //implementation 'net.fortuna:ical4j:4.0.0' // Cannot be found
 
+    // Zip4j - A Java library for zip files and streams
+    //
+    // https://mvnrepository.com/artifact/net.lingala.zip4j/zip4j
     implementation 'net.lingala.zip4j:zip4j:2.11.5'
 
+    // contains the junit and junirreport tasks
+    //
+    // TODO: Why is Ant used? What does have to do with unit test?
+    // https://mvnrepository.com/artifact/org.apache.ant/ant-junit
     implementation 'org.apache.ant:ant-junit:1.10.15'
 
+    // The Apache Commons Collections package contains types that extend and augment the Java Collections Framework.
+    //
+    // TODO: There is a new version --> 4.5.0-M3
+    //   What is this M3... M anything?
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-collections4
     implementation 'org.apache.commons:commons-collections4:4.4'
 
+    // The Apache Commons CSV library provides a simple interface for reading and writing CSV files of various types.
+    //
+    // TODO: New version --> 1.13.0
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
     implementation 'org.apache.commons:commons-csv:1.12.0'
 
+    // Apache Commons DBCP software implements Database Connection Pooling
+    //
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2
     implementation 'org.apache.commons:commons-dbcp2:2.13.0'
 
-    implementation 'org.apache.commons:commons-imaging:1.0-alpha3' // Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of semver) the API has changed. Better wait an "official release" to rewrite OFBiz code...
+    // Apache Commons Imaging (previously Sanselan) is a pure-Java image library.
+    //
+    // NOTE: Alpha but OK, "Imaging was working and was used by a number of projects in production even before reaching
+    // its initial release as an Apache Commons component." Since 1.0.0-alpha4 (note the use of semver) the API has
+    // changed. Better wait an "official release" to rewrite OFBiz code...
+    //
+    // TODO: New version --> 1.0.0-alpha5
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-imaging
+    implementation 'org.apache.commons:commons-imaging:1.0-alpha3'
 
+    // The Commons Text library provides additions to the standard JDK text handling. It includes algorithms for string
+    // similarity and for calculating the distance between strings.
+    //
+    // TODO: Ne version --> 1.13.0
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-text
     implementation 'org.apache.commons:commons-text:1.12.0'
 
-    implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.5' // 4.0.0 does not compile
+    // Apache Geronimo Transaction Manager
+    //
+    // NOTE: 4.0.0 does not compile --> Doesn't matter since we need to switch manager
+    //
+    // TODO: This will need to be changed for: Quarkus Narayana
+    // TODO: Replace Geronimo with quarkus-narayana-jta
+    // https://mvnrepository.com/artifact/org.apache.geronimo.components/geronimo-transaction
+    //implementation 'org.apache.geronimo.components:geronimo-transaction:3.1.5'
 
+    // JTA transaction support
+    //
+    // TODO: How do I switch from Apache Geronimo Transaction Manager to quarkus-narayana-jta?
+    //   I have some documentation in the java-quickstarts repository
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-narayana-jta
+    implementation 'io.quarkus:quarkus-narayana-jta:3.19.1'
+
+    //
+    //
+    //
     implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
 
+    //
+    //
+    //
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.14'
 
+    //
+    //
+    //
     implementation 'org.apache.logging.log4j:log4j-api:2.24.2' // the API of log4j 2
 
+    //
+    //
+    //
     implementation 'org.apache.logging.log4j:log4j-core:2.24.2' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
 
+    //
+    //
+    //
     implementation 'org.apache.poi:poi:5.3.0'
 
+    //
+    //
+    //
     implementation 'org.apache.pdfbox:pdfbox:2.0.33' // 3.0.1 does not compile
 
+    //
+    //
+    //
     implementation 'org.apache.shiro:shiro-core:1.13.0' // Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with the given algorithm: argon2" with 2.0.2 in integration tests
 
+    //
+    //
+    //
     implementation 'org.apache.shiro:shiro-crypto-cipher:2.0.2'
 
+    //
+    //
+    //
     implementation 'org.apache.sshd:sshd-core:2.14.0'
 
+    //
+    //
+    //
     implementation 'org.apache.sshd:sshd-sftp:2.14.0'
 
+    //
+    //
+    //
     implementation 'org.apache.tika:tika-core:2.9.2'     // To be compatible with tika-parser-pdf-module below
 
+    //
+    //
+    //
     implementation 'org.apache.tika:tika-parsers:2.9.2' // To be compatible with tika-parser-pdf-module below
 
+    //
+    //
+    //
     implementation 'org.apache.tika:tika-parser-pdf-module:2.9.2' // > 2.9.2 does not compile, see OFBIZ-13155
 
+    //
+    //
+    //
     implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.4' // 4.x+ requires javax.xml.bind -> jakarta.xml.bind namespace change
 
+    //
+    //
+    //
     implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.97' // Remember to change the version number (9 now) in javadoc block if needed.
 
+    //
+    //
+    //
     implementation 'org.apache.tomcat:tomcat-jasper:9.0.97'
 
+    //
+    //
+    //
     implementation 'org.apache.axis2:axis2-kernel:1.8.2'
 
+    //
+    //
+    //
     implementation 'org.apache.xmlgraphics:batik-anim:1.18'
 
+    //
+    //
+    //
     implementation 'org.apache.xmlgraphics:batik-util:1.18'
 
+    //
+    //
+    //
     implementation 'org.apache.xmlgraphics:batik-bridge:1.18'
 
+    //
+    //
+    //
     implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
 
+    //
+    //
+    //
     implementation 'org.clojure:clojure:1.12.0'
 
+    //
+    //
+    //
     implementation 'org.apache.groovy:groovy-all:5.0.0-alpha-11'
 
+    //
+    //
+    //
     implementation 'org.freemarker:freemarker:2.3.34' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
 
+    //
+    //
+    //
     implementation 'org.owasp.esapi:esapi:2.6.0.0'
 
+    //
+    //
+    //
     implementation 'org.cyberneko:html:1.9.8'
 
+    //
+    //
+    //
     implementation 'org.springframework:spring-test:5.3.29' //  6.1.4 does not compile
 
+    //
+    //
+    //
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
 
+    //
+    //
+    //
     implementation 'oro:oro:2.0.8'
 
+    //
+    //
+    //
     implementation 'wsdl4j:wsdl4j:1.6.3'
 
+    //
+    //
+    //
     implementation 'com.auth0:java-jwt:4.4.0'
 
+    //
+    //
+    //
     implementation 'org.jdom:jdom2:2.0.6.1'
 
+    //
+    //
+    //
     implementation 'com.google.re2j:re2j:1.7'
 
+    //
+    //
+    //
     implementation 'xerces:xercesImpl:2.12.2'
 
+    //
+    //
+    //
     implementation('org.mustangproject:library:2.8.0') { // 2.10.0 did not work, cf. OFBIZ-12920 (https://github.com/apache/ofbiz-framework/pull/712#issuecomment-1968960963)
       exclude group: 'pull-parser', module: 'pull-parser'
       exclude group: 'xpp3', module: 'xpp3'
@@ -278,9 +471,6 @@ dependencies {
     // TODO:
     // Old:
     implementation 'javax.transaction:jta:1.1'
-    // NEW:
-    // https://mvnrepository.com/artifact/jakarta.transaction/jakarta.transaction-api
-    implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
 
     implementation 'oro:oro:2.0.8'
 
@@ -292,18 +482,7 @@ dependencies {
     implementation 'jakarta.jms:jakarta.jms-api:3.1.0'
 
     implementation 'wsdl4j:wsdl4j:1.6.3'
-    implementation 'org.apache.commons:commons-dbcp2:2.12.0'
     implementation 'org.apache.commons:commons-pool2:2.12.0'
-    implementation 'org.apache.commons:commons-collections4:4.4'
-
-    // TODO: Narayana is the JTA engine used in Quarkus.
-    // TODO: Replace Geronimo with quarkus-narayana-jta
-    // Old:
-    implementation 'org.apache.geronimo.components:geronimo-transaction:4.0.0'
-    // New:
-    // https://mvnrepository.com/artifact/io.quarkus/quarkus-narayana-jta
-    implementation group: 'io.quarkus', name: 'quarkus-narayana-jta', version: '3.19.1'
-
 
     implementation 'javax.el:javax.el-api:3.0.0'
     // TODO:
@@ -321,7 +500,6 @@ dependencies {
     implementation 'org.apache.axis2:axis2-transport-http:1.8.2'
 
     //implementation 'commons-lang:commons-lang:2.6'
-    implementation 'commons-validator:commons-validator:1.8.0'
     implementation 'org.jsoup:jsoup:1.17.2'
     implementation 'org.apache.tika:tika-core:2.9.1'
     implementation 'org.apache.tika:tika-parsers:2.9.1'
@@ -329,27 +507,17 @@ dependencies {
     // TODO: Review code where it is being used. It gets into conflicts with other libraries (Quarkus).
     //implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:4.0.4'
     implementation 'org.apache.xmlgraphics:fop:2.9'
-    implementation 'org.apache.commons:commons-text:1.11.0'
 
-    implementation 'org.apache.commons:commons-csv:1.10.0'
-    implementation 'org.apache.commons:commons-imaging:1.0-alpha3'
-    implementation 'net.lingala.zip4j:zip4j:2.11.5'
     implementation 'com.google.re2j:re2j:1.7'
     // 2.1.3
+    // TODO: ???
     implementation 'de.odysseus.juel:juel:2.1.3'
-    // TODO:
-    // NEW:
-    // https://mvnrepository.com/artifact/de.odysseus.juel/juel-impl
-    implementation 'de.odysseus.juel:juel-impl:2.2.7'
     implementation 'xerces:xercesImpl:2.12.2'
     implementation 'net.sourceforge.nekohtml:nekohtml:1.9.22'
     implementation 'org.apache.pdfbox:pdfbox:3.0.2'
     implementation 'org.apache.ant:ant:1.10.14'
-    implementation 'org.apache.ant:ant-junit:1.10.14'
     implementation 'com.auth0:java-jwt:4.4.0'
     implementation 'io.quarkus:quarkus-mailer:3.9.1'
-    //implementation 'net.fortuna:ical4j:4.0.0' // Cannot be found
-    implementation 'org.mnode.ical4j:ical4j:4.0.0-rc5' // Works with import net.fortuna.ical4j.*;
 
     implementation 'org.apache.sshd:sshd-core:2.12.1'  // Use the latest available version
     //implementation 'org.apache.sshd:sshd-client:2.10.0'  // Use the latest available version
