@@ -5,27 +5,33 @@ dependencies {
 
     // A high performance caching library for Java
     // TODO: There is a medium new version: 3.2.0
+    //
     // https://mvnrepository.com/artifact/com.github.ben-manes.caffeine/caffeine
     implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
 
     // Google Guava is an open-source set of common libraries for Java, mainly developed by Google engineers.
     // Similar to Apache Commons
+    //
     implementation 'com.google.guava:guava:33.3.1-jre'
 
     // ZXing is an open-source, multi-format 1D/2D barcode image processing library implemented in Java,
     // with ports to other languages.
+    //
     implementation 'com.google.zxing:core:3.5.3'
 
     // A ConcurrentLinkedHashMap for Java
+    //
     // https://mvnrepository.com/artifact/com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru
     implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
 
     // A vCard parser library for Java
+    //
     // https://mvnrepository.com/artifact/com.googlecode.ez-vcard/ez-vcard
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
 
     // Takes third-party HTML and produces HTML that is safe to embed in your web application.
     // Fast and easy to configure.
+    //
     // TODO: CVE-2011-4457 -> https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-4457
     // TODO: ↪️ OWASP HTML Sanitizer (aka owasp-java-html-sanitizer) before 88, when JavaScript is disabled, allows user-assisted remote attackers to obtain potentially sensitive information via a crafted FORM element within a NOSCRIPT element.
     // https://mvnrepository.com/artifact/com.googlecode.owasp-java-html-sanitizer/owasp-java-html-sanitizer
@@ -33,16 +39,19 @@ dependencies {
 
     // Google's common Java, C++ and JavaScript library for parsing, formatting, and
     // validating international phone numbers.
+    //
     // TODO: There is new minor and major version (9.0.0). Maybe try them out.
     // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.52'
 
     // International Components for Unicode for Java (ICU4J) is a mature, widely used Java library providing Unicode
     // and Globalization support
+    //
     // https://mvnrepository.com/artifact/com.ibm.icu/icu4j
     implementation 'com.ibm.icu:icu4j:76.1'
 
     // iText, a free Java-PDF library
+    //
     // TODO: This is a newer version: 4.2.2
     // TODO: The package moved to -> com.itextpdf:itextpdf
     // TODO: And it has a more recent version: 5.5.13.4
@@ -56,6 +65,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.itextpdf/itextpdf
     // A Free Java-PDF library
+    //
     // TODO: This is the new package from: com.lowagie:itext
     // TODO: Does this fit with licensing??
     implementation 'com.itextpdf:itextpdf:5.5.13.4'
@@ -64,6 +74,7 @@ dependencies {
     //implementation 'com.sun.mail:javax.mail:1.6.2'
     // The Jakarta Mail API provides a set of abstract classes defining objects that comprise a mail system. The API
     // defines classes like Message, Store and Transport.
+    //
     // https://mvnrepository.com/artifact/com.sun.mail/jakarta.mail
     implementation 'com.sun.mail:jakarta.mail:2.0.1'
 
@@ -79,6 +90,7 @@ dependencies {
     implementation 'com.rometools:rome:2.1.0'
 
     // XStream is a simple and fast library to serialize objects to XML and back again with a low memory footprint.
+    //
     // TODO: Is it still good? Do I need to keep it?
     // https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream
     implementation 'com.thoughtworks.xstream:xstream:1.4.21'
@@ -92,6 +104,21 @@ dependencies {
     // https://mvnrepository.com/artifact/commons-cli/commons-cli
     //implementation 'commons-cli:commons-cli:1.5.0'
 
+    // The Apache Commons FileUpload component provides a simple yet flexible means of adding support for multipart
+    // file upload functionality to servlets and web applications.
+    //
+    // TODO: Artifacts moved to:
+    //  --> org.apache.commons/commons-fileupload2-javax
+    //  --> org.apache.commons/commons-fileupload2-jakarta-servlet5
+    //  --> org.apache.commons/commons-fileupload2-jakarta-servlet6
+    // https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload
+    implementation 'commons-fileupload:commons-fileupload:1.5'
+
+    // Apache Commons Net library contains a collection of network utilities and protocol implementations.
+    // Supported protocols include Echo, Finger, FTP, NNTP, NTP, POP3(S), SMTP(S), Telnet, and Whois.
+    //
+    // https://mvnrepository.com/artifact/commons-net/commons-net
+    implementation 'commons-net:commons-net:3.11.1'
 
 
 
@@ -209,7 +236,6 @@ dependencies {
     implementation 'de.odysseus.juel:juel-impl:2.2.7'
     implementation 'xerces:xercesImpl:2.12.2'
     implementation 'net.sourceforge.nekohtml:nekohtml:1.9.22'
-    implementation 'commons-net:commons-net:3.10.0'
     implementation 'org.apache.pdfbox:pdfbox:3.0.2'
     implementation 'org.apache.ant:ant:1.10.14'
     implementation 'org.apache.ant:ant-junit:1.10.14'
