@@ -9,15 +9,28 @@ import java.util.stream.Collectors
  * ======================================================== */
 
 plugins {
-    id 'application'
+    id 'application' // plugins that are versioned as part of Gradle are using simple quotes to differentiate them
+    id 'groovy'
+    //id 'eclipse'
     id 'java'
     id 'checkstyle'
     id 'codenarc'
+    //id 'maven-publish'
     id 'io.quarkus'
-    id 'groovy'
-    id 'org.asciidoctor.jvm.convert' version '3.3.2' // 4.0.2 does not compile
-    id 'org.asciidoctor.jvm.pdf' version '3.3.2'     // 4.0.2 does not compile
-    id 'org.owasp.dependencycheck' version '9.0.9' apply false //Not tested after 7.4.4
+    //id 'org.asciidoctor.jvm.convert' version '3.3.2' // 4.0.2 does not compile
+    //id 'org.asciidoctor.jvm.pdf' version '3.3.2'     // 4.0.2 does not compile
+    //id 'org.owasp.dependencycheck' version '9.0.9' apply false //Not tested after 7.4.4
+
+    // TODO: Need to be tested:
+    id "org.asciidoctor.jvm.convert" version "latest.release"
+    id "org.asciidoctor.jvm.pdf" version "latest.release"
+    id "org.owasp.dependencycheck" version "latest.release" apply false
+    //id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
+    id "se.patrikerdes.use-latest-versions"  version "latest.release" apply false
+    id "com.github.ben-manes.versions" version "latest.release" apply false
+    id "com.github.ManifestClasspath" version "latest.release"
+    id "com.github.jakemarsden.git-hooks" version "latest.release"
+    id "com.github.node-gradle.node" version "latest.release" apply false
 }
 
 /* OWASP plugin
@@ -32,19 +45,105 @@ if (project.hasProperty('enableOwasp')) {
     apply plugin: 'org.owasp.dependencycheck'
 }
 
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
+/* DependencyUpdates plugin
+ *
+ * If project property "enableDependencyUpdates" is flagged then
+ * gradle will download required dependencies and
+ * activate Gradle's DependencyUpdates plugin and its related tasks.
+ *
+ * Syntax: gradlew -PenableDependencyUpdates dependencyUpdates -Drevision=release
+ *
+ * You may want to use the use-latest-versions plugin to help you in your work
+ * Syntax:
+ *  Check only: gradlew -PenableDependencyUpdates useLatestVersions && gradlew -PenableDependencyUpdates useLatestVersionsCheck
+ *  Automated update: gradlew -PenableDependencyUpdates useLatestVersions
+ *  Beware that this is only a help.
+ *  If you use it without check you will need to check things by yourself (can be as tedious as not using this plugin)
+ */
+// TODO: Try it out
+/*if (project.hasProperty('enableDependencyUpdates')) {
+    apply plugin: 'com.github.ben-manes.versions'
+    apply plugin: 'se.patrikerdes.use-latest-versions'
+}*/
+
+/* Configuration and default values. By default not available as it breacks Gradle build even when useLatestVersionsCheck (see above) is used.
+useLatestVersions {
+   // A whitelist of dependencies to update, in the format of group:name
+   // Equal to command line: --update-dependency=[values]
+   updateWhitelist = []
+   // A blacklist of dependencies to update, in the format of group:name
+   // Equal to command line: --ignore-dependency=[values]
+   updateBlacklist = []
+   // When enabled, root project gradle.properties will also be populated with
+   // versions from subprojects in multi-project build
+   // Equal to command line: --update-root-properties
+   updateRootProperties = false
+   // By default plugin tries to find all relevant gradle files (e.g. *.gradle, gradle.properties etc).
+   // This can be slow in some cases when project has a lot of gradle files. For example when using conventions
+   // in buildSrc. With this option you can specify what files should plugin search and check. Plugin will ignore
+   // files that don't exist. Empty list means use default strategy. File paths are relative to project dir.
+   //
+   // Example:
+   // versionFiles = ["gradle.build", "gradle.properties"]
+   // Will check just $projectDir/gradle.build and $projectDir/gradle.properties
+   //
+   // Note:
+   // You always have to specify file that has dependencies in some common dependency format with artifact coordinates,
+   // e.g. compileOnly "group:module:version" or compileOnly("group:module:version") or val dependency = "group:module:version" etc.
+   // For example if you set just versionFiles = ["gradle.properties"] this won't work, since plugin
+   // won't be able to correlate variable with artifact coordinates.
+   //
+   // Equal to command line: --version-files=[values]
+   versionFiles = []
+   // List of root project files to update when updateRootProperties is enabled.
+   // `build.gradle` is not an acceptable entry here as it breaks other expected
+   // functionality. Version variables in `build.gradle` need to be moved into
+   // a separate file which can be listed here.
+   // Equal to command line: --root-version-files=[values]
+   //rootVersionFiles = ['gradle.properties']
+}*/
 
 apply from: 'common.gradle'
 apply from: 'dependencies.gradle'
 apply plugin: 'maven-publish'
 
+// TODO: This is not how OFBiz work (it is in the `allprojects` grouping)
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
 ext.gradlew = os.contains('windows') ? 'gradlew.bat' : './gradlew'
+// TODO: Try it without `as GStringImpl`. And what is it?
 ext.pluginsDir = "${rootDir}/plugins" as GStringImpl
+
+// TODO:
+// 📌
+/*application {
+    // TODO: Try with the actual path
+    // TODO: Does this work with Quarkus?
+    // 📌
+    mainClass = 'org.apache.ofbiz.base.start.Start'
+
+    // TODO: Does this work with Quarkus with and without GraalVM?
+    applicationDefaultJvmArgs = project.hasProperty('jvmArgs')
+            ? jvmArgs.tokenize()
+            : ['-Xms128M','-Xmx1024M',
+               '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
+//            '--add-exports=java.base/sun.util.calendar=ALL-UNNAMED', // OFBIZ-12721
+               '--add-opens=java.base/java.util=ALL-UNNAMED' // OFBIZ-12726
+    ]
+}*/
+
+// TODO: It might be how it gets the absolute paths
+// TODO: Try to use this
+// TODO: Does this work with Quarkus?
+// 📌
+/*distributions.main.contents.from(rootDir) {
+    include 'framework/**', 'applications/**', 'themes/**', 'plugins/**'
+}*/
 
 javadoc {
     title="SunsetERP " + getCurrentGitBranch() + " API"
@@ -52,18 +151,41 @@ javadoc {
     options {
         source '17'
         encoding 'UTF-8'
+
+        // TODO: Is it not being used?
         charSet 'UTF-8'
         // Those external Javadoc links should correspond to the actual
         // versions declared in the 'dependencies' block.
         links(
                 'https://docs.oracle.com/javase/17/docs/api',
                 'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
-                'http://docs.groovy-lang.org/docs/groovy-3.0.20/html/api',
+                'http://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
+                // TODO: This is the previous version (keeping it in case the new version breaks with Quarkus):
+                //'http://docs.groovy-lang.org/docs/groovy-3.0.20/html/api',
                 'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
 }
 
+// TODO: Try it out
+// TODO: Why have it in multiple places? Maybe use a var instead of copy/paste
+/*java {
+    sourceCompatibility(JavaVersion.VERSION_17)
+    targetCompatibility(JavaVersion.VERSION_17)
+}
+
+// TODO: Try it out
+// Java compile options, syntax gradlew -PXlint:none build
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    if (!project.hasProperty('Xlint:none')) {
+        options.compilerArgs << '-Xlint:all'
+        // Exclude varargs warnings which are not silenced by @SafeVarargs.
+        options.compilerArgs << '-Xlint:-varargs'
+    }
+}*/
+
+// TODO: Is this still needed?
 /*task downloadTikaParsers(type: Copy) {
     from configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.find {
         it.moduleVersion.id.group == 'org.apache.tika' && it.moduleVersion.id.name == 'tika-parsers'
@@ -76,6 +198,119 @@ static def getCurrentGitBranch() {
     return "git branch --show-current".execute().text.trim()
 }
 
+// TODO: Try out:
+
+// defines the footer files for git info
+
+// TODO: This might need to be modified for SunsetERP since it might contain framework information
+// TODO: Might just be a "toy"
+/*def File gitFooterFile = file("${rootDir}/runtime/GitInfo.ftl")
+
+// root and subproject settings
+defaultTasks 'jar', 'test'
+*/
+
+// TODO: I think I had issues in the past using this.
+// TODO: Does it work with Quarkus dependencies? Maybe I can add others.
+/*allprojects {
+    repositories {
+        mavenCentral()
+        // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
+        // this should be checked frequently to remove obsolete configurations if the artifacts are available
+        // on mavenCentral directly
+        maven {
+            // org.restlet and org.restlet.ext.servlet
+            url 'https://maven.restlet.talend.com'
+        }
+        maven {
+            // net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11
+            url 'https://packages.atlassian.com/maven-3rdparty/'
+        }
+        maven {
+            // org/milyn/flute/1.3/flute-1.3.jar
+            // need artifact only because of wrong pom metadata in maven central
+            // Required by: plugins:birt > org.eclipse.birt.runtime:viewservlets:4.5.0 > org.eclipse.birt.runtime:org.eclipse.birt.runtime:4.4.1
+            // TODO Maybe this will no longer needed wheh upgrading viewservlets to 4.9.0
+            url "https://repo1.maven.org/maven2"
+            metadataSources {
+                artifact()
+            }
+        }
+        maven {
+            url 'https://clojars.org/repo'
+        }
+        maven {
+            // org.cyberneko.html.parsers (used by UELFunctions, was in esapi before 2.3)
+            url "https://repository.ow2.org/nexus/content/repositories/public/"
+        }
+        maven {
+            // To test not released FreeMarker versions
+            url "https://repository.apache.org/content/repositories/snapshots/"
+        }
+
+    }
+}*/
+
+// TODO: Concerned about if some of libs that it loads are compatible with Quarkus
+/*subprojects {
+    configurations {
+        // compile-time plugin libraries
+        pluginLibsCompile
+        // runtime plugin libraries
+        pluginLibsRuntime
+        //compile-only libraries
+        pluginLibsCompileOnly
+    }
+}*/
+
+// TODO: JUnit, testing...
+/*configurations {
+    junitReport {
+        description = 'libraries needed to run junitreport for OFBiz unit tests'
+    }
+    ofbizPlugins {
+        description = 'ofbiz plugin dependencies configuration'
+        transitive = true
+    }
+}*/
+
+// TODO: What is this for?
+// TODO: Is this relevant with Quarkus?
+/*configurations.all {
+    exclude group: 'log4j', module: 'log4j'
+    exclude group: 'org.slf4j', module: 'slf4j-log4j12'
+    exclude group: 'xml-apis', module: 'xml-apis'
+    exclude group: 'jaxen', module: 'jaxen'
+    exclude group: 'javax.xml.stream', module: 'stax-api'
+    exclude group: 'org.apache.geronimo.specs', module: 'geronimo-stax-api_1.0_spec'
+    exclude group: 'org.apache.geronimo.specs', module: 'geronimo-jta_1.1_spec'
+    exclude group: 'javax.transaction', module: 'jta'
+}*/
+
+// TODO: !WARNING! This was kept uncommented because it is hard to comment out
+// TODO: It might not cause issue outside of testing.
+dependencies {
+    // Dependencies defined by the plugins
+    subprojects.each { subProject ->
+        implementation project(path: subProject.path, configuration: 'pluginLibsCompile')
+        runtimeOnly project(path: subProject.path, configuration: 'pluginLibsRuntime')
+        compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
+    }
+
+    junitReport 'junit:junit:4.13.2'
+    junitReport 'org.apache.ant:ant-junit:1.10.15'
+
+    // Libraries downloaded manually
+    implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
+    getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
+        implementation fileTree(dir: libDir, include: '**/*.jar')
+    }
+}
+
+// TODO: End of try out!
+
+// excludedJavaSources
+// These are libraries to handle different external services
 def excludedJavaSources = [
         'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/cybersource/IcsPaymentServices.java',
         'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/orbital/OrbitalPaymentServices.java',
@@ -89,18 +324,58 @@ def excludedJavaSources = [
 ]
 
 sourceSets {
+    // TODO: What is this comment about?
+    // This is for integration tests (DB access)
     main {
         java {
+            // TODO: This might have something to do with the path management
+            // 📌
+            //srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
             exclude excludedJavaSources
+        }
+        groovy {
+            // 📌
+            //srcDirs = getDirectoryInActiveComponentsIfExists('src/main/groovy')
+        }
+        resources {
+            // 📌
+            //srcDirs = getDirectoryInActiveComponentsIfExists('src/main/resources')
+            //srcDirs += getDirectoryInActiveComponentsIfExists('config')
+            //srcDirs += getDirectoryInActiveComponentsIfExists('dtd')
+        }
+    }
+    // This is for unit tests  (no DB access)
+    test {
+        java {
+            // 📌
+            //srcDirs = getDirectoryInActiveComponentsIfExists('src/test/java')
+        }
+        // Groovy tests often fail, because JUNIT does not have access to the ofbiz enviroment.
+        // If a groovy test is supposed to be tested this way, it can be added here.
+        groovy {
+            // 📌
+            /*srcDirs = getDirectoryInActiveComponentsIfExists('src/test/groovy')
+            include 'org/apache/ofbiz/service/ModelServiceTest.groovy'
+            include 'org/apache/ofbiz/test/TestServices.groovy'
+            include 'org/apache/ofbiz/base/util/string/FlexibleStringExpanderBaseCodeTests.groovy'
+            include 'org/apache/ofbiz/base/util/FileUtilTests.groovy'
+            include 'org/apache/ofbiz/service/test/ServicePurgeTest.groovy'
+            include 'org.apache.ofbiz.base.test.SimpleTests.groovy'*/
+        }
+        resources {
+            // 📌
+            //srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
         }
     }
 }
 
 // TODO: Check
 jar.manifest.attributes(
-        'Implementation-Title': project.name,
-        'Main-Class': application.mainClass,
-        'Class-Path': getJarClasspath()
+    'Implementation-Title': project.name,
+        // 📌
+    'Main-Class': application.mainClass,
+        // 📌
+    'Class-Path': getJarClasspath()
 )
 
 // Checks SunsetERP and OFBiz Java coding conventions.
@@ -111,9 +386,19 @@ checkstyle {
     // 'checkstyle' tool present in the framework and in the official
     // plugins.
     tasks.checkstyleMain.maxErrors = 0
+    // Increase memory for checkstyleMain required for Gradle 8+.
+    // TODO: !WARNING! Added from OFBiz but was not tested with Quarkus
+    tasks.checkstyleMain.maxHeapSize = '1g'
     // Currently there are no errors so we can show new one when they appear
     showViolations = true
+    // Specify tool version so we can keep it up-to-date
+    // TODO: !WARNING! Added from OFBiz but was not tested with Quarkus
+    // TODO: Where is this being used?
+    toolVersion = '10.20.2'
 }
+
+// TODO: I think it was causing issues in the pass. Maybe there was issues with Quarkus.
+// TODO: Maybe there was an issue because the code wasn't added.
 //gitHooks {
     //hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
 //}
@@ -123,8 +408,46 @@ codenarc {
     setConfigFile(new File('config/codenarc/codenarc.groovy'))
     setMaxPriority1Violations(0)
     setMaxPriority2Violations(410)
-    setMaxPriority3Violations(3975)
+
+    // TODO: Old. Was it changed for Quarkus?
+    //setMaxPriority3Violations(3975)
+
+    // TODO: !WARNING! This was copy/pasted from OFBiz not tested
+    setMaxPriority3Violations(3974)
 }
+
+// TODO: !WARNING! This might not cause any issues since it seems to be only used with Eclipse IDE.
+// Eclipse plugin settings
+eclipse.classpath.file.whenMerged { classpath ->
+    /* The code inside this block removes unnecessary entries
+     * in the .classpath file which are generated automatically
+     * due to the settings in the sourceSets block
+     */
+    def fileSep = System.getProperty('file.separator')
+
+    activeComponents().each { component ->
+        def componentName = component.toString() - rootDir.toString() - fileSep
+        def eclipseEntry = os.contains('windows') ? componentName.replaceAll("\\\\", '/') : componentName
+
+        classpath.entries.removeAll { entry ->
+            // remove any "src" entries in .classpath of the form /componentName
+            entry.kind == 'src' && (
+            entry.path ==~ '.*/+(' + componentName.tokenize(fileSep).last() + ')$' ||
+            entry.path ==~ /(\/+framework)$/ ||
+            entry.path ==~ /(\/+applications)$/ ||
+            entry.path ==~ /(\/+plugins)$/ ||
+            entry.path ==~ /(\/+themes)$/ )
+        }
+    }
+}
+tasks.eclipse.dependsOn(cleanEclipse)
+
+// TODO: I am worried since not all the tests were added that this might break things.
+//  So after tests are added maybe try it out
+// 📌
+/*test {
+    jvmArgs "-javaagent:${classpath.find { it.name.contains('jmockit') }.absolutePath}"
+}*/
 
 /* ========================================================
  * Tasks
@@ -139,6 +462,8 @@ def sysadminGroup = 'System Administration'
 
 // ========== ERP Elements Command tasks ==========
 
+// TODO: The next one (tasks.) is the one used
+// 📌
 /*tasks.register('SunsetERP', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'org.sitenetsoft.sunseterp.cli.CliRunner'
@@ -149,6 +474,7 @@ def sysadminGroup = 'System Administration'
     }
 }*/
 
+// 📌
 tasks.register('SunsetERP', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
     mainClass = 'org.sitenetsoft.sunseterp.cli.CliRunner'
@@ -185,14 +511,14 @@ tasks.withType(AsciidoctorTask) { task ->
     }
     attributes \
         'doctype': 'book',
-            'revnumber': getCurrentGitBranch(),
-            'experimental': '',
-            'allow-uri-read': true,
-            'icons': 'font',
-            'sectnums': '',
-            'chapter-label': '',
-            'toc': 'left@',
-            'toclevels': '3'
+        'revnumber': getCurrentGitBranch(),
+        'experimental': '',
+        'allow-uri-read': true,
+        'icons': 'font',
+        'sectnums': '',
+        'chapter-label': '',
+        'toc': 'left@',
+        'toclevels': '3'
 }
 
 /*tasks.withType(AsciidoctorTask) { task ->
@@ -807,6 +1133,8 @@ compileTestJava {
     }
 }*/
 
+// TODO:
+// 📌
 tasks.withType(CreateStartScripts).configureEach {
     doLast {
         // Generate the custom classpath

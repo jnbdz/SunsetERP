@@ -1,4 +1,26 @@
 dependencies {
+    //
+    // OFBiz dependencies
+    //
+    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+    // Google Guava is an open-source set of common libraries for Java, mainly developed by Google engineers. Similar to Apache Commons
+    implementation 'com.google.guava:guava:33.3.1-jre'
+    // ZXing is an open-source, multi-format 1D/2D barcode image processing library implemented in Java, with ports to other languages.
+    implementation 'com.google.zxing:core:3.5.3'
+    // A ConcurrentLinkedHashMap for Java
+    // https://mvnrepository.com/artifact/com.googlecode.concurrentlinkedhashmap/concurrentlinkedhashmap-lru
+    implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
+    // A vCard parser library for Java
+    // https://mvnrepository.com/artifact/com.googlecode.ez-vcard/ez-vcard
+    implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
+    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20240325.1'
+
+    // TODO: Check if still needed since it is not in the OFBiz dependencies.gradle
+    implementation 'com.google.zxing:javase:3.5.3'
+
+    //
+    // Quarkus dependencies
+    //
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-rest-jackson:3.10.0'
     implementation 'io.quarkus:quarkus-smallrye-openapi:3.10.0'
@@ -16,41 +38,58 @@ dependencies {
     implementation 'io.quarkiverse.groovy:quarkus-groovy-junit5:3.10.0'
 
     implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+
+
 
     implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
 
     // TODO:
+    // Old:
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
     // NEW:
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+
+    // Is a security framework that performs authentication, authorization, cryptography and session management
     implementation 'org.apache.shiro:shiro-core:2.0.0'
-    implementation 'javax.transaction:jta:1.1'
+
     // TODO:
+    // Old:
+    implementation 'javax.transaction:jta:1.1'
     // NEW:
     // https://mvnrepository.com/artifact/jakarta.transaction/jakarta.transaction-api
     implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
-    implementation 'com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.4.2'
+
     implementation 'oro:oro:2.0.8'
     implementation 'com.ibm.icu:icu4j:74.2'
 
-    implementation 'javax.jms:javax.jms-api:2.0.1'
     // TODO:
+    // Old:
+    implementation 'javax.jms:javax.jms-api:2.0.1'
     // NEW:
     // https://mvnrepository.com/artifact/jakarta.jms/jakarta.jms-api
     implementation 'jakarta.jms:jakarta.jms-api:3.1.0'
+
     implementation 'wsdl4j:wsdl4j:1.6.3'
     implementation 'org.apache.commons:commons-dbcp2:2.12.0'
     implementation 'org.apache.commons:commons-pool2:2.12.0'
     implementation 'org.apache.commons:commons-collections4:4.4'
+
+    // TODO: Narayana is the JTA engine used in Quarkus.
+    // TODO: Replace Geronimo with quarkus-narayana-jta
+    // Old:
     implementation 'org.apache.geronimo.components:geronimo-transaction:4.0.0'
+    // New:
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-narayana-jta
+    implementation group: 'io.quarkus', name: 'quarkus-narayana-jta', version: '3.19.1'
+
+
     implementation 'javax.el:javax.el-api:3.0.0'
     // TODO:
     // NEW:
     // https://mvnrepository.com/artifact/jakarta.el/jakarta.el-api
     implementation 'jakarta.el:jakarta.el-api:6.0.0-RC1'
-    implementation 'org.freemarker:freemarker:2.3.32'
-    implementation 'com.github.ben-manes.caffeine:caffeine:3.1.8'
+    implementation 'org.freemarker:freemarker:2.3.34' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
 
     //implementation 'javax.mail:javax.mail-api:1.6.2'
     implementation 'jakarta.mail:jakarta.mail-api:2.1.3'
@@ -65,7 +104,6 @@ dependencies {
     implementation 'org.apache.axis2:axis2-transport-http:1.8.2'
 
     //implementation 'commons-lang:commons-lang:2.6'
-    implementation 'com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20240325.1'
     implementation 'commons-validator:commons-validator:1.8.0'
     implementation 'com.googlecode.libphonenumber:libphonenumber:8.13.33'
     implementation 'org.jsoup:jsoup:1.17.2'
@@ -93,8 +131,6 @@ dependencies {
     implementation 'xerces:xercesImpl:2.12.2'
     implementation 'net.sourceforge.nekohtml:nekohtml:1.9.22'
     implementation 'commons-net:commons-net:3.10.0'
-    implementation 'com.google.zxing:core:3.5.3'
-    implementation 'com.google.zxing:javase:3.5.3'
     implementation 'org.apache.pdfbox:pdfbox:3.0.2'
     //implementation 'com.lowagie:itext:4.2.2'
     implementation 'org.apache.ant:ant:1.10.14'
@@ -139,9 +175,6 @@ dependencies {
     //implementation 'com.paypal:rest-api-sdk:1.14.1'
 
     implementation "io.quarkus:quarkus-resteasy-reactive-qute"
-
-    // https://mvnrepository.com/artifact/com.googlecode.ez-vcard/ez-vcard
-    implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk18on
     implementation 'org.bouncycastle:bcpkix-jdk18on:1.78.1'
