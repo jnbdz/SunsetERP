@@ -716,19 +716,50 @@ dependencies {
     // https://mvnrepository.com/artifact/org.owasp.esapi/esapi
     implementation 'org.owasp.esapi:esapi:2.6.0.0'
 
+    // The org.cyberneko:html library is part of the NekoHTML project, which is an HTML parser for Java. It is
+    // primarily used to parse malformed or non-standards-compliant HTML into a well-formed DOM (Document Object Model).
+    // This can be particularly useful when dealing with HTML content that is not fully valid or when working with web
+    // scraping, web crawling, or similar tasks that require handling of HTML documents that may not strictly conform
+    // to W3C standards.
     //
+    // NOTE: NekoHTML relies on reflection, which is common in libraries that work with DOM or require dynamic class
+    //       loading.
     //
+    // GraalVM Compatibility:
     //
+    //    GraalVM is designed to compile JVM-based applications into native images for faster startup times and reduced
+    //    memory consumption. However, NekoHTML relies on reflection, which is common in libraries that work with DOM
+    //    or require dynamic class loading.
+    //
+    //    Reflection and Native Image: Since NekoHTML might use reflection (e.g., dynamically processing HTML elements
+    //    or attributes), it could require explicit reflection configuration when used in native images with GraalVM.
+    //
+    //        Reflection Configuration: To ensure compatibility with GraalVM’s native image compilation, you would need
+    //        to provide a reflection configuration file to explicitly tell GraalVM which classes and methods need to
+    //        be included in the native image.
+    //
+    //        If you're using GraalVM native image and facing issues, you'd likely need to use GraalVM’s
+    //        `native-image-agent` to gather the necessary reflection configuration.
+    //
+    // TODO: Check for reflections for GraalVM
+    // https://mvnrepository.com/artifact/org.cyberneko/html
     implementation 'org.cyberneko:html:1.9.8'
 
+    // Spring Test supports the unit testing and integration testing of Spring components with JUnit or TestNG. It
+    // provides consistent loading and caching of Spring ApplicationContexts and provides mock objects that you can use
+    // to test your code in isolation.
     //
+    // TODO: Why?
+    // NOTE: 6.1.4 does not compile
     //
-    //
-    implementation 'org.springframework:spring-test:5.3.29' //  6.1.4 does not compile
+    // TODO: New version --> 6.2.3 / 7.0.0-M2
+    // TODO: What is this M* thing in the version?
+    // https://mvnrepository.com/artifact/org.springframework/spring-test
+    implementation 'org.springframework:spring-test:5.3.29'
 
+    // General data-binding functionality for Jackson: works on core streaming API
     //
-    //
-    //
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
 
     //
