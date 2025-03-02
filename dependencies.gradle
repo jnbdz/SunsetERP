@@ -161,9 +161,17 @@ dependencies {
     //
     // https://mvnrepository.com/artifact/jakarta.transaction/jakarta.transaction-api
     implementation 'jakarta.transaction:jakarta.transaction-api:2.0.1'
+
     // TODO: javax impl. removed because we need to switch to Jakarta/Narayana
     //   Keeping it just in case.
     //implementation 'javax.transaction:javax.transaction-api:1.3'
+
+    // The javax.transaction package. It is appropriate for inclusion in a classpath, and may be added to a Java 2
+    // installation.
+    //
+    // TODO: Removed because it is replaced with Jakarta
+    // https://mvnrepository.com/artifact/javax.transaction/jta
+    //implementation 'javax.transaction:jta:1.1'
 
     // A Java library for reading and writing iCalendar (*.ics) files
     //
@@ -201,8 +209,45 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
     implementation 'org.apache.commons:commons-csv:1.12.0'
 
+    // The Apache Commons Object Pooling Library.
+    //
+    // Apache Commons Pool2 is a general-purpose object pooling library. It is designed to manage a pool of objects
+    // (such as database connections, threads, or other reusable resources) and is typically used in multi-threaded or
+    // resource-intensive applications to efficiently reuse objects and reduce the overhead of object creation.
+    //
+    //
+    // TODO: It seems the more recent version of OFBiz doesn't use commons-pool2 anymore.
+    // TODO: It is now using: `org.apache.commons:commons-dbcp2:2.13.0`
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-pool2
+    //implementation 'org.apache.commons:commons-pool2:2.12.1'
+
     // Apache Commons DBCP software implements Database Connection Pooling
     //
+    // Quarkus does not have native object pooling capabilities built into the framework, but it can use
+    // general-purpose pooling libraries like Commons Pool2 to manage resources. Quarkus is fully compatible with
+    // libraries that follow standard Java conventions, and since Commons Pool2 is based on standard Java APIs, it
+    // can easily be used within Quarkus.
+    //
+    // Alternative:
+    //
+    //    For general-purpose object pooling (e.g., for custom objects or resources), Commons Pool2 is still a good
+    //    choice, but Quarkus' dependency injection and native connection pooling (like HikariCP) should be the first
+    //    choice for most use cases. These are native to Quarkus and integrate more seamlessly, reducing the need for
+    //    external libraries.
+    //
+    //    If you’re working with database connections, Quarkus HikariCP integration is the preferred and most efficient
+    //    solution for JDBC pooling.
+    //
+    //    For reactive applications or event-driven architectures, using Vert.x or MicroProfile Reactive Messaging for
+    //    pooling would be more appropriate and native to Quarkus.
+    //
+    // In summary, Quarkus has its own optimized tools and extensions for handling resource management and pooling,
+    // which are tightly integrated into its ecosystem. Using Quarkus' built-in features for resource pooling will
+    // likely offer better performance and easier maintenance than relying on third-party libraries.
+    //
+    // TODO: Switch to the Quarkus pooling system
+    // TODO: Does it cause changes to the transitions stuff?
+    // TODO: Could it affect something in OFBiz?
     // https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2
     implementation 'org.apache.commons:commons-dbcp2:2.13.0'
 
@@ -401,11 +446,18 @@ dependencies {
     // TODO: Review code where it is being used. It gets into conflicts with other libraries (Quarkus).
     //implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:4.0.4'
 
+    // Jakarta XML Binding API
+    //
+    // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
+    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
+
     // Tomcat High Availability Implementation
+    //
+    // NOTE: Remember to change the version number (9 now) in javadoc block if needed.
     //
     // TODO: This is removed because Quarkus uses its own HTTP server
     // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina-ha
-    //implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.97' // Remember to change the version number (9 now) in javadoc block if needed.
+    //implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.97'
 
     // Tomcats JSP Parser
     //
@@ -938,21 +990,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
     implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
 
-    // TODO:
-    // Old:
-    implementation 'javax.xml.bind:jaxb-api:2.3.1'
-    // NEW:
-    // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
-    implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
-
-    // TODO:
-    // Old:
-    implementation 'javax.transaction:jta:1.1'
-
-    implementation 'oro:oro:2.0.8'
-
-    implementation 'wsdl4j:wsdl4j:1.6.3'
-    implementation 'org.apache.commons:commons-pool2:2.12.0'
+    // JAXB provides an API and tools that automate the mapping between XML documents and Java objects.
+    //
+    // TODO: Removed because it is replaced with Jakarta
+    // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+    //implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
     implementation 'javax.el:javax.el-api:3.0.0'
     // TODO:
@@ -994,7 +1036,6 @@ dependencies {
 
     implementation 'org.jdom:jdom2:2.0.6.1'
 
-    implementation 'org.apache.poi:poi:5.2.5'
     implementation 'org.apache.poi:poi-ooxml:5.2.5'
 
     // TODO Maybe remove the support for this or change the code for com.cybersource:cybersource-sdk-java since it is
