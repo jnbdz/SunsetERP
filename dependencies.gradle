@@ -261,6 +261,16 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.commons/commons-imaging
     implementation 'org.apache.commons:commons-imaging:1.0-alpha3'
 
+    // Apache Commons Lang, a package of Java utility classes for the classes that are in java.lang's hierarchy, or are
+    // considered to be so standard as to justify existence in java.lang. The code is tested using the latest revision
+    // of the JDK for supported LTS releases: 8, 11, 17 and 21 currently. See
+    // https://github.com/apache/commons-lang/blob/master/.github/workflows/maven.yml
+    // Please ensure your build environment is up-to-date and kindly report any build issues.
+    //
+    // TODO: OFBiz seems to be using `commons-text`
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+    //implementation 'org.apache.commons:commons-lang3:3.14.0'
+
     // The Commons Text library provides additions to the standard JDK text handling. It includes algorithms for string
     // similarity and for calculating the distance between strings.
     //
@@ -1001,16 +1011,12 @@ dependencies {
     // NEW:
     // https://mvnrepository.com/artifact/jakarta.el/jakarta.el-api
     implementation 'jakarta.el:jakarta.el-api:6.0.0-RC1'
-    implementation 'org.freemarker:freemarker:2.3.34' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
 
-    implementation 'org.apache.commons:commons-lang3:3.14.0'
-    implementation 'org.clojure:clojure:1.11.2'
     //implementation 'org.clojure:java.api:0.4.0'
     implementation 'org.apache.axis2:axis2-adb:1.8.2'
     implementation 'org.apache.axis2:axis2-java2wsdl:1.8.2'
     implementation 'org.apache.axis2:axis2-transport-http:1.8.2'
 
-    //implementation 'commons-lang:commons-lang:2.6'
     implementation 'org.jsoup:jsoup:1.17.2'
     implementation 'org.owasp.esapi:esapi:2.5.3.1'
 
@@ -1020,9 +1026,7 @@ dependencies {
     implementation 'de.odysseus.juel:juel:2.1.3'
     implementation 'xerces:xercesImpl:2.12.2'
     implementation 'net.sourceforge.nekohtml:nekohtml:1.9.22'
-    implementation 'org.apache.pdfbox:pdfbox:3.0.2'
     implementation 'org.apache.ant:ant:1.10.14'
-    implementation 'com.auth0:java-jwt:4.4.0'
     implementation 'io.quarkus:quarkus-mailer:3.9.1'
 
     //implementation 'org.apache.sshd:sshd-client:2.10.0'  // Use the latest available version
