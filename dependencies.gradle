@@ -17,9 +17,9 @@
  * under the License.
  */
 dependencies {
-    //
-    // OFBiz dependencies
-    //
+    // 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
+    // 🎯 OFBiz dependencies 🎯
+    // 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
 
     // A high performance caching library for Java
     // TODO: There is a medium new version: 3.2.0
@@ -600,9 +600,11 @@ dependencies {
     // dynamic features carefully. However, if you're working with Groovy in JVM mode, GraalVM is a suitable and
     // powerful environment for running Groovy alongside other languages.
     //
+    // TODO: Can this be replace with: Quarkus Groovy Core Runtime
+    //       (https://mvnrepository.com/artifact/io.quarkiverse.groovy/quarkus-groovy)?
     // TODO: New version --> 5.0.0-alpha-12
     // https://mvnrepository.com/artifact/org.apache.groovy/groovy-all
-    implementation 'org.apache.groovy:groovy-all:5.0.0-alpha-11'
+    //implementation 'org.apache.groovy:groovy-all:5.0.0-alpha-11'
 
     // FreeMarker is a "template engine"; a generic tool to generate text output based on templates.
     //
@@ -759,83 +761,181 @@ dependencies {
 
     // General data-binding functionality for Jackson: works on core streaming API
     //
+    // TODO: It supposed to come with Quarkus this is why it is commented out.
+    // TODO: It might use reflection
+    // TODO: New version --> 2.18.3
     // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    //implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
 
+    // Oro is an older Java library that provides support for regular expressions, string manipulation, and text
+    // processing. The library was used in the past for regular expression operations, such as pattern matching and
+    // replacement, and for various other utilities related to string processing.
     //
+    // NOTE: Quarkus comes with its own set of tools for regular expressions and string processing (like the built-in
+    //       Java regular expressions), so Oro might not be needed
     //
+    // NOTE: Quarkus, using Java's own built-in regular expression handling (through `java.util.regex`) would be the
+    //       preferred approach because it is more efficient and modern.
     //
+    // TODO: Uses reflection
+    //
+    // TODO: Switch to the `java.util.regex` library
+    // https://mvnrepository.com/artifact/oro/oro
     implementation 'oro:oro:2.0.8'
 
+    // Java stub generator for WSDL
     //
+    // GraalVM Compatibility:
     //
+    //    wsdl4j should generally work with GraalVM in JVM mode since it is a Java library. However, when targeting
+    //    GraalVM native image for native compilation, there could be some issues:
     //
+    //        Reflection: SOAP-based frameworks like wsdl4j often use reflection and dynamic features (such as
+    //        generating Java code from XML and WSDL). GraalVM native images need explicit configuration for
+    //        reflection, which means you would need to provide reflection configuration for classes and methods that
+    //        are used dynamically by wsdl4j.
+    //
+    //        Dynamic Code Generation: If the wsdl4j library generates dynamic code or uses dynamic proxies, GraalVM
+    //        might require additional configuration to ensure that all the necessary resources and classes are
+    //        included during the native image compilation process.
+    //
+    // https://mvnrepository.com/artifact/wsdl4j/wsdl4j
     implementation 'wsdl4j:wsdl4j:1.6.3'
 
+    // Java client library for the Auth0 platform
     //
-    //
-    //
+    // TODO: New version --> 4.5.0
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
     implementation 'com.auth0:java-jwt:4.4.0'
 
+    // A complete, Java-based solution for accessing, manipulating, and outputting XML data
     //
-    //
-    //
+    // https://mvnrepository.com/artifact/org.jdom/jdom2
     implementation 'org.jdom:jdom2:2.0.6.1'
 
+    // Linear time regular expressions for Java
     //
-    //
-    //
+    // TODO: New version --> 1.8
+    // https://mvnrepository.com/artifact/com.google.re2j/re2j
     implementation 'com.google.re2j:re2j:1.7'
 
+    // Xerces2 provides high performance, fully compliant XML parsers in the Apache Xerces family. This new version of
+    // Xerces continues to build upon the Xerces Native Interface (XNI), a complete framework for building parser
+    // components and configurations that is extremely modular and easy to program. The Apache Xerces2 parser is the
+    // reference implementation of XNI but other parser components, configurations, and parsers can be written using
+    // the Xerces Native Interface. For complete design and ...
     //
-    //
-    //
+    // https://mvnrepository.com/artifact/xerces/xercesImpl
     implementation 'xerces:xercesImpl:2.12.2'
 
+    // Library to Write, Read and Validate E Invoices (Factur X, ZUGFeRD, Order X, XRechnung/CII)
     //
+    // FOSS Java library to read, write and validate european electronic invoices and orders in the UN/CEFACT Cross
+    // Industry Invoice based formats Factur-X/ZUGFeRD, XRechnung and Order-X in your invoice PDFs.
     //
+    // NOTE: 2.10.0 did not work, cf. OFBIZ-12920 (https://github.com/apache/ofbiz-framework/pull/712#issuecomment-1968960963)
     //
-    implementation('org.mustangproject:library:2.8.0') { // 2.10.0 did not work, cf. OFBIZ-12920 (https://github.com/apache/ofbiz-framework/pull/712#issuecomment-1968960963)
+    // https://mvnrepository.com/artifact/org.mustangproject/library
+    implementation('org.mustangproject:library:2.8.0') {
       exclude group: 'pull-parser', module: 'pull-parser'
       exclude group: 'xpp3', module: 'xpp3'
     }
 
+    // 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
+    // 🎯 Other dependencies 🎯
+    // 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
 
-
-
-
-
-    // TODO: Old:
-    //implementation 'javax.mail:javax.mail-api:1.6.2'
+    // Jakarta Mail API 2.1 Specification API
+    //
+    // TODO: Is this still needed?
+    // OLD: implementation 'javax.mail:javax.mail-api:1.6.2'
+    //
+    // https://mvnrepository.com/artifact/jakarta.mail/jakarta.mail-api
     implementation 'jakarta.mail:jakarta.mail-api:2.1.3'
 
-
-
-
-
+    // Java SE-specific extensions to core ZXing library
+    //
+    // TODO: Is this still needed? Try by commenting out and see what breaks
     // TODO: Check if still needed since it is not in the OFBiz dependencies.gradle
+    // https://mvnrepository.com/artifact/com.google.zxing/javase
     implementation 'com.google.zxing:javase:3.5.3'
 
-    //
-    // Quarkus dependencies
-    //
-    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    implementation 'io.quarkus:quarkus-rest-jackson:3.10.0'
-    implementation 'io.quarkus:quarkus-smallrye-openapi:3.10.0'
-    implementation 'io.quarkus:quarkus-rest:3.10.0'
-    implementation 'io.quarkus:quarkus-rest-links:3.10.0'
-    //implementation 'io.quarkus:quarkus-resteasy-reactive-jsonb'
-    implementation 'io.quarkus:quarkus-arc:3.10.0'
-    implementation 'io.quarkus:quarkus-oidc:3.10.0'
-    implementation 'io.quarkus:quarkus-keycloak-authorization:3.10.0'
-    implementation 'io.quarkus:quarkus-elytron-security-properties-file:3.10.0'
-    implementation 'io.quarkiverse.groovy:quarkus-groovy:3.10.0'
-    implementation 'io.quarkus:quarkus-smallrye-health:3.10.0'
+    // 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
+    // 🎯 Quarkus dependencies 🎯
+    // 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
 
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-rest-jackson
+    implementation 'io.quarkus:quarkus-rest:3.19.1'
+
+    // TODO: Is this needed if we already use: `io.quarkus:quarkus-rest`?
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-rest-jackson
+    implementation 'io.quarkus:quarkus-rest-jackson:3.19.1'
+
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-smallrye-openapi
+    implementation 'io.quarkus:quarkus-smallrye-openapi:3.19.1'
+
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-rest-links
+    implementation 'io.quarkus:quarkus-rest-links:3.19.1'
+
+    // RESTEasy Reactive JSONB Support Runtime
+    //
+    // TODO: Since it is not reactive we might not need it
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-rest-jsonb
+    //implementation 'io.quarkus:quarkus-rest-jsonb:3.19.1'
+    //
+    // https://mvnrepository.com/artifact/io.quarkus.resteasy.reactive/resteasy-reactive-jsonb
+    //implementation 'io.quarkus:quarkus-resteasy-reactive-jsonb'
+
+    // ArC Runtime
+    //
+    // https://mvnrepository.com/artifact/io.quarkus.arc/arc
+    implementation 'io.quarkus:quarkus-arc:3.19.1'
+
+    // Verify Bearer access tokens and authenticate users with Authorization Code Flow
+    //
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-oidc
+    implementation 'io.quarkus:quarkus-oidc:3.19.1'
+
+    // Policy enforcer using Keycloak-managed permissions to control access to protected resources
+    //
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-keycloak-authorization
+    implementation 'io.quarkus:quarkus-keycloak-authorization:3.19.1'
+
+    // Secure your applications using properties files
+    //
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-elytron-security-properties-file
+    implementation 'io.quarkus:quarkus-elytron-security-properties-file:3.19.1'
+
+    // Write your services in Groovy
+    //
+    // https://mvnrepository.com/artifact/io.quarkiverse.groovy/quarkus-groovy
+    implementation 'io.quarkiverse.groovy:quarkus-groovy:3.19.1'
+
+    // Monitor service health
+    //
+    // https://mvnrepository.com/artifact/io.quarkus/quarkus-smallrye-health
+    implementation 'io.quarkus:quarkus-smallrye-health:3.19.1'
+
+    // Write the server code of your integration tests with JUnit in Groovy
+    //
     // TODO: Should it not be in test? There might be other dep for none test code.
+    // https://mvnrepository.com/artifact/io.quarkiverse.groovy/quarkus-groovy-junit5
     implementation 'io.quarkiverse.groovy:quarkus-groovy-junit5:3.10.0'
 
-
+    // JAXB (JSR 222) Reference Implementation
+    //
+    // This library is part of the Java Architecture for XML Binding (JAXB), which is a framework for converting Java
+    // objects to and from XML. JAXB is used to bind XML schemas to Java representations, making it easier to work with
+    // XML data in Java applications. The jaxb-runtime library specifically provides the runtime environment for JAXB
+    // operations, enabling XML serialization and deserialization.
+    //
+    // TODO: Where is this been used? It doesn't seem to be in OFBiz...?
+    // TODO: Maybe this was added to support Quarkus... Unclear
+    // TODO: I think it was added to covert the OFBiz XML configuration into Java Class's 📝
+    // NOTE: It does work well with Quarkus and GraalVM
+    // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
     implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
 
     // TODO:
