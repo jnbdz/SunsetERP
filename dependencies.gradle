@@ -489,6 +489,12 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.axis2/axis2-kernel
     //implementation 'org.apache.axis2:axis2-kernel:1.8.2'
 
+    // This was used before
+    // TODO: Remove it after tests
+    //implementation 'org.apache.axis2:axis2-adb:1.8.2'
+    //implementation 'org.apache.axis2:axis2-java2wsdl:1.8.2'
+    //implementation 'org.apache.axis2:axis2-transport-http:1.8.2'
+
     // Batik animation engine
     //
     // Batik-anim is great for SVG animation in Java desktop applications but is not typically used in cloud-native
@@ -1006,25 +1012,32 @@ dependencies {
     // https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
     //implementation 'javax.xml.bind:jaxb-api:2.3.1'
 
-    implementation 'javax.el:javax.el-api:3.0.0'
-    // TODO:
-    // NEW:
+    // Expression Language API (2.1 Maintenance Release)
+    //
+    // It was replaced: https://mvnrepository.com/artifact/javax.el/javax.el-api
+    // It was also replaced by: https://mvnrepository.com/artifact/jakarta.el/jakarta.el-api
+    //
+    // TODO: It was by OFBiz by: `de.odysseus.juel:juel-impl`
+    // TODO: Removed this after test pass
+    // https://mvnrepository.com/artifact/javax.el/el-api
+    //implementation 'javax.el:javax.el-api:3.0.0'
+    // Removed since it was changed to another library: `de.odysseus.juel:juel-impl`
     // https://mvnrepository.com/artifact/jakarta.el/jakarta.el-api
-    implementation 'jakarta.el:jakarta.el-api:6.0.0-RC1'
+    //implementation 'jakarta.el:jakarta.el-api:6.0.0-RC1'
 
+    // TODO: It seems it is not being used but other libraries are used
     //implementation 'org.clojure:java.api:0.4.0'
-    implementation 'org.apache.axis2:axis2-adb:1.8.2'
-    implementation 'org.apache.axis2:axis2-java2wsdl:1.8.2'
-    implementation 'org.apache.axis2:axis2-transport-http:1.8.2'
 
-    implementation 'org.jsoup:jsoup:1.17.2'
-    implementation 'org.owasp.esapi:esapi:2.5.3.1'
 
-    implementation 'com.google.re2j:re2j:1.7'
-    // 2.1.3
-    // TODO: ???
-    implementation 'de.odysseus.juel:juel:2.1.3'
-    implementation 'xerces:xercesImpl:2.12.2'
+    // jsoup is a Java library that simplifies working with real-world HTML and XML. It offers an easy-to-use API for
+    // URL fetching, data parsing, extraction, and manipulation using DOM API methods, CSS, and xpath selectors. jsoup
+    // implements the WHATWG HTML5 specification, and parses HTML to the same DOM as modern browsers.
+    //
+    // TODO: Not sure why this was added since it does not seem it was ever used by OFBiz
+    //
+    // https://mvnrepository.com/artifact/org.jsoup/jsoup
+    //implementation 'org.jsoup:jsoup:1.17.2'
+
     implementation 'net.sourceforge.nekohtml:nekohtml:1.9.22'
     implementation 'org.apache.ant:ant:1.10.14'
     implementation 'io.quarkus:quarkus-mailer:3.9.1'
@@ -1037,8 +1050,6 @@ dependencies {
     implementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
 
     implementation 'org.springframework:spring-test:6.1.5'
-
-    implementation 'org.jdom:jdom2:2.0.6.1'
 
     implementation 'org.apache.poi:poi-ooxml:5.2.5'
 
