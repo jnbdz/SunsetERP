@@ -363,79 +363,357 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.sshd/sshd-sftp
     implementation 'org.apache.sshd:sshd-sftp:2.14.0'
 
+    // This is the core Apache Tika™ toolkit library from which all other modules inherit functionality. It also
+    // includes the core facades for the Tika API.
     //
+    // Note: To be compatible with tika-parser-pdf-module below
     //
-    //
-    implementation 'org.apache.tika:tika-core:2.9.2'     // To be compatible with tika-parser-pdf-module below
+    // TODO: New version --> 2.9.3 / 3.1.0
+    // https://mvnrepository.com/artifact/org.apache.tika/tika-core
+    implementation 'org.apache.tika:tika-core:2.9.2'
 
+    // Apache Tika Parser Modules
     //
+    // Note: To be compatible with tika-parser-pdf-module below
     //
-    //
-    implementation 'org.apache.tika:tika-parsers:2.9.2' // To be compatible with tika-parser-pdf-module below
+    // TODO: New version --> 2.9.3 / 3.1.0
+    // https://mvnrepository.com/artifact/org.apache.tika/tika-parsers
+    implementation 'org.apache.tika:tika-parsers:2.9.2'
 
+    // Apache Tika PDF Parser Module
     //
+    // TODO: What does that mean?
+    // TODO: Why?
+    // Note: > 2.9.2 does not compile, see OFBIZ-13155
     //
-    //
-    implementation 'org.apache.tika:tika-parser-pdf-module:2.9.2' // > 2.9.2 does not compile, see OFBIZ-13155
+    // TODO: New version --> 2.9.3 / 3.1.0
+    // https://mvnrepository.com/artifact/org.apache.tika/tika-parser-pdf-module
+    implementation 'org.apache.tika:tika-parser-pdf-module:2.9.2'
 
+    // Apache CXF Runtime JAX-RS Frontend
     //
+    // Note: 4.x+ requires javax.xml.bind -> jakarta.xml.bind namespace change
     //
-    //
-    implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.4' // 4.x+ requires javax.xml.bind -> jakarta.xml.bind namespace change
+    // TODO: New version --> 4.1.0
+    // https://mvnrepository.com/artifact/org.apache.cxf/cxf-rt-frontend-jaxrs
+    //implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:3.6.4'
+    // Note: This is what we had before:
+    // TODO: Review code where it is being used. It gets into conflicts with other libraries (Quarkus).
+    //implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:4.0.4'
 
+    // Tomcat High Availability Implementation
     //
-    //
-    //
-    implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.97' // Remember to change the version number (9 now) in javadoc block if needed.
+    // TODO: This is removed because Quarkus uses its own HTTP server
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina-ha
+    //implementation 'org.apache.tomcat:tomcat-catalina-ha:9.0.97' // Remember to change the version number (9 now) in javadoc block if needed.
 
+    // Tomcats JSP Parser
     //
-    //
-    //
-    implementation 'org.apache.tomcat:tomcat-jasper:9.0.97'
+    // TODO: There is JSP files in the code of OFBiz... What should be done? Just replace with Qute template engine?
+    // TODO: This is removed because Quarkus uses its own HTTP server
+    // https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jasper
+    //implementation 'org.apache.tomcat:tomcat-jasper:9.0.97'
 
+    // Core Parts of Axis2. This includes Axis2 engine, Client API, Addressing support, etc.,
     //
+    // Axis2 is a comprehensive framework for building SOAP services, but Quarkus is optimized for RESTful services.
+    // While it's possible to integrate Apache Axis2 with Quarkus, it is not the default or recommended approach for
+    // Quarkus-based applications.
     //
+    // TODO: Maybe use Quarkus JAX-WS extension (quarkus-webservices)?
+    // Note: to work with SOAP-based web services, consider using Quarkus JAX-WS extension (quarkus-webservices), which
+    //       is designed for SOAP support and integrates better with Quarkus.
     //
-    implementation 'org.apache.axis2:axis2-kernel:1.8.2'
+    // https://mvnrepository.com/artifact/org.apache.axis2/axis2-kernel
+    //implementation 'org.apache.axis2:axis2-kernel:1.8.2'
 
+    // Batik animation engine
     //
+    // Batik-anim is great for SVG animation in Java desktop applications but is not typically used in cloud-native
+    // or Quarkus applications.
     //
+    // - For Quarkus, if you need to generate or serve SVG files with animations, you can use Batik server-side for
+    //   generation, but the client-side animation itself would usually be handled by JavaScript or CSS.
     //
+    // - For a pure client-side solution, you are better off using web technologies like JavaScript and CSS for SVG
+    //   animation, which would integrate more seamlessly into modern web applications, including those built with
+    //   Quarkus.
+    //
+    // TODO: Maybe only small parts to manipulate images are used from this artifact.
+    // TODO: Do some testing
+    // https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-anim
     implementation 'org.apache.xmlgraphics:batik-anim:1.18'
 
+    // Batik utility library
     //
-    //
-    //
+    // TODO: Maybe only small parts to manipulate images are used from this artifact.
+    // TODO: Do some testing
+    // https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-util
     implementation 'org.apache.xmlgraphics:batik-util:1.18'
 
+    // Batik bridge
     //
-    //
-    //
+    // TODO: Not sure what it is exactly (it is related to images... SVG maybe...)
+    // TODO: Maybe only small parts to manipulate images are used from this artifact.
+    // TODO: Do some testing
+    // https://mvnrepository.com/artifact/org.apache.xmlgraphics/batik-bridge
     implementation 'org.apache.xmlgraphics:batik-bridge:1.18'
 
+    // XML Graphics Format Object Processor All-In-One
     //
+    // Apache™ FOP (Formatting Objects Processor) is a print formatter driven by XSL formatting objects (XSL-FO) and an
+    // output independent formatter. It is a Java application that reads a formatting object (FO) tree and renders the
+    // resulting pages to a specified output. Output formats currently supported include PDF, PS, PCL, AFP, XML
+    // (area tree representation), Print, AWT and PNG, and to a lesser extent, RTF and TXT. The primary output target
+    // is PDF.
     //
+    // TODO: What does that mean that the "dependencies are messed up"? Maybe the deps of FOP itself...
+    // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
     //
-    implementation 'org.apache.xmlgraphics:fop:2.3' // NOTE: since 2.4 dependencies are messed up. See https://github.com/moqui/moqui-fop/blob/master/build.gradle
+    // TODO: New version --> 2.10.0
+    // Website: https://xmlgraphics.apache.org/fop/
+    // https://mvnrepository.com/artifact/org.apache.xmlgraphics/fop
+    implementation 'org.apache.xmlgraphics:fop:2.3'
+    // TODO: In the past:
+    //implementation 'org.apache.xmlgraphics:fop:2.9'
 
+    // Clojure core environment and runtime library.
     //
+    // Yes, Clojure can work with GraalVM, but there are some important considerations and limitations.
+    // 1. Clojure and GraalVM Compatibility:
     //
+    //    Clojure is a JVM-based language, and GraalVM is a polyglot VM that supports JVM languages, including Java,
+    //    Scala, and Clojure.
     //
+    //    Clojure on GraalVM should work for running Clojure code on the JVM as part of the GraalVM runtime, but you
+    //    won't get the full benefits of GraalVM’s native image features out of the box, because Clojure relies heavily
+    //    on dynamic features like reflection and runtime code evaluation.
+    //
+    // 2. Challenges with Native Image:
+    //
+    //    One of the key features of GraalVM is its ability to compile JVM applications into native images, which are
+    //    optimized for faster startup times and reduced memory consumption. However, Clojure’s dynamic nature
+    //    (e.g., reflection, macros, and runtime code evaluation) can cause issues with native image generation.
+    //
+    //    GraalVM's Native Image requires you to explicitly configure which parts of the application need to be
+    //    included in the native image, and dynamic languages like Clojure often require additional reflection
+    //    configuration to work properly.
+    //
+    // 3. Possible Setup:
+    //
+    //    You can still run Clojure on GraalVM in the JVM mode without the native image benefits. This will give you
+    //    the ability to run Clojure code in the GraalVM environment.
+    //
+    //    If you're aiming for a native image (e.g., reduced memory footprint and fast startup), you'll need to handle
+    //    Clojure’s dynamic features carefully. This might involve:
+    //        Configuration for Reflection: Using GraalVM's reflection configuration to tell GraalVM which classes and
+    //        methods should be included in the native image.
+    //
+    //        Workarounds for Dynamic Features: Clojure’s dynamic nature means you may need to provide additional
+    //        hints for GraalVM to handle code that’s evaluated at runtime.
+    //
+    // 4. Recent Developments:
+    //
+    //    The GraalVM community has been working on improving native image support for dynamic languages, but Clojure
+    //    is still not as well-supported as Java or other static languages when it comes to native images. Some tools
+    //    and frameworks around Clojure may not work seamlessly with GraalVM native images without additional work.
+    //
+    // Conclusion:
+    //
+    //    Yes, Clojure can work with GraalVM, but native image support is more complicated due to Clojure's dynamic
+    //    nature. You will likely need to configure GraalVM to handle reflection and other dynamic behaviors for native
+    //    image generation. For JVM execution, Clojure should work fine within the GraalVM environment.
+    //
+    // https://mvnrepository.com/artifact/org.clojure/clojure
     implementation 'org.clojure:clojure:1.12.0'
 
+    // Groovy: A powerful multi-faceted language for the JVM
     //
+    // Groovy can work with GraalVM, but there are some considerations regarding its integration with GraalVM native
+    // images.
     //
+    // 1. Groovy and GraalVM Compatibility:
     //
+    //    Groovy is a JVM-based language and, as such, it can run on the JVM provided by GraalVM without issues. Groovy
+    //    can be executed in JVM mode on GraalVM as part of the JVM runtime environment.
+    //
+    //    Groovy on GraalVM Native Image: Similar to Clojure, Groovy's dynamic nature (e.g., dynamic typing, runtime
+    //    method calls, metaprogramming, etc.) poses challenges when it comes to native image compilation. GraalVM’s
+    //    native image feature works best with static languages and languages with predictable class structures.
+    //    Groovy's dynamic features, such as reflection and runtime code generation, require careful configuration to
+    //    work well with GraalVM's native image generation.
+    //
+    // 2. Challenges with Native Image:
+    //
+    //    Dynamic Features: Groovy relies heavily on runtime reflection and metaprogramming (e.g., dynamic method
+    //    invocation, runtime class creation, etc.). These features make it difficult for GraalVM to statically analyze
+    //    the code, which is necessary for native image generation.
+    //
+    //    Reflection Configuration: In order to generate a native image of a Groovy application with GraalVM, you need
+    //    to manually configure which parts of the Groovy runtime and application code should be included in the native
+    //    image. This usually involves specifying which classes and methods are accessed via reflection, because
+    //    GraalVM needs explicit configuration to include these classes at compile-time.
+    //
+    //    GraalVM Support for Groovy: Groovy itself is not natively supported by GraalVM's native image feature as well
+    //    as languages like Java. However, with proper configuration, it is possible to create native images for Groovy
+    //    applications, but the process may require more effort than using a static language like Java.
+    //
+    // 3. Working with Groovy in GraalVM:
+    //
+    //    JVM Mode: Groovy will work out of the box with GraalVM in JVM mode. This means you can run Groovy code using
+    //    GraalVM's JVM runtime, which offers benefits such as polyglot support and the ability to run multiple
+    //    languages like Java, JavaScript, Python, and Groovy in the same environment.
+    //
+    //    Native Image Mode: For native image generation, Groovy may require additional configuration. Specifically,
+    //    you will need to:
+    //        Provide Reflection Configuration: You need to specify in configuration files which methods and classes
+    //        need to be accessible at runtime via reflection. This can be a complex task, especially if Groovy uses
+    //        many dynamic features in the application.
+    //
+    //        Use GraalVM's SubstrateVM: Groovy needs to be compatible with SubstrateVM, which is the part of
+    //        GraalVM responsible for native image generation. It may require additional dependencies or workarounds to
+    //        fully support Groovy’s dynamic features.
+    //
+    // 4. Groovy 5.x (Alpha Version):
+    //
+    //    Groovy 5.0 is in alpha and introduces significant changes to the language. It may come with updates that
+    //    improve its compatibility with GraalVM, but as of now, native image support for Groovy remains challenging
+    //    due to the dynamic nature of the language.
+    //
+    // 5. Alternative Approaches:
+    //
+    //    Static Groovy Compilation: For Groovy, it's possible to use static compilation to reduce the reliance on
+    //    dynamic features. This may make it easier to work with GraalVM's native image. Static Groovy compilation can
+    //    help with some of the reflection and metaprogramming challenges, but it might not completely eliminate them.
+    //
+    // Conclusion:
+    //
+    //    Groovy will work on GraalVM in JVM mode without issues, and you can run Groovy code within the GraalVM
+    //    environment as part of the JVM-based runtime.
+    //
+    //    For native image generation, you can create a native image for Groovy applications, but it requires manual
+    //    configuration to handle dynamic features like reflection and metaprogramming.
+    //        The process is more complicated compared to static languages like Java, and may require specifying
+    //        reflection configuration and other adjustments to ensure proper functionality in a native image.
+    //
+    // If your goal is to use GraalVM native images, Groovy might require extra work, and you may need to manage its
+    // dynamic features carefully. However, if you're working with Groovy in JVM mode, GraalVM is a suitable and
+    // powerful environment for running Groovy alongside other languages.
+    //
+    // TODO: New version --> 5.0.0-alpha-12
+    // https://mvnrepository.com/artifact/org.apache.groovy/groovy-all
     implementation 'org.apache.groovy:groovy-all:5.0.0-alpha-11'
 
+    // FreeMarker is a "template engine"; a generic tool to generate text output based on templates.
     //
+    // ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+    // Note: Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+    // ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
     //
-    //
-    implementation 'org.freemarker:freemarker:2.3.34' // Remember to change the version number in FreeMarkerWorker class when upgrading. See OFBIZ-10019 if >= 2.4
+    // TODO: Using the Quarkus version
+    // https://mvnrepository.com/artifact/org.freemarker/freemarker
+    //implementation 'org.freemarker:freemarker:2.3.34'
 
+    // Freemarker templating engine
     //
+    // FreeMarker with GraalVM (Native Image):
     //
+    //    FreeMarker is fully compatible with GraalVM in JVM mode. However, if you're trying to compile your Quarkus
+    //    application with FreeMarker into a GraalVM native image, there are some considerations to be aware of.
     //
+    //    Challenges with Native Image:
+    //        Reflection: FreeMarker may rely on reflection in some cases, particularly when dealing with Java Beans or
+    //        objects with dynamic fields. GraalVM’s native image compilation requires explicit configuration for
+    //        reflection, so you may need to provide a reflection configuration file to ensure FreeMarker works
+    //        properly in native image mode.
+    //
+    //        Template Loading: FreeMarker loads templates at runtime. This dynamic behavior might require explicit
+    //        configuration or inclusion of templates in the native image resources.
+    //
+    // Enabling FreeMarker in Native Image Mode:
+    //
+    //    To ensure FreeMarker works properly in a native image built with GraalVM, you may need to:
+    //        Configure reflection explicitly using GraalVM’s reflection configuration.
+    //        Ensure that any template files (e.g., .ftl templates) are correctly included in the native image resource
+    //        configuration.
+    //
+    //        Use GraalVM’s native-image tool with the necessary flags to include the required classes, resources, and
+    //        reflection configuration.
+    //
+    // TODO: Quarkus implementation --> Needs testing
+    // TODO: Might need to do some big changes in the code...
+    // ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+    // TODO: Note that the version seems to be hardcoded in the code
+    // ⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+    // Website: https://quarkus.io/extensions/io.quarkiverse.freemarker/quarkus-freemarker/
+    // Docs: https://docs.quarkiverse.io/quarkus-freemarker/dev/index.html
+    // https://mvnrepository.com/artifact/io.quarkiverse.freemarker/quarkus-freemarker
+    implementation 'io.quarkus:quarkus-freemarker:1.2.0'
+
+    // The Enterprise Security API (ESAPI) project is an OWASP project to create simple strong security controls for
+    // every web platform. Security controls are not simple to build. You can read about the hundreds of pitfalls for
+    // unwary developers on the OWASP web site. By providing developers with a set of strong controls, we aim to
+    // eliminate some of the complexity of creating secure web applications. This can result in significant cost
+    // savings across the SDLC.
+    //
+    // ESAPI with GraalVM:
+    //
+    //    GraalVM provides the ability to compile JVM-based applications into native images, which gives them faster
+    //    startup times and reduced memory usage. However, ESAPI uses ⚠️several reflection and dynamic features⚠️, which
+    //    can pose challenges when creating native images.
+    //
+    //    Challenges with ESAPI and GraalVM Native Image:
+    //        ⚠️Reflection and Dynamic Code⚠️: ESAPI uses reflection for many of its features, including dynamic class
+    //        loading, which requires configuration in GraalVM for native images.
+    //
+    //        Native Image Configuration: To ensure ESAPI works correctly in a GraalVM native image, you will need to
+    //        provide reflection configuration to tell GraalVM which classes and methods are accessed via reflection at
+    //        runtime.
+    //
+    // Enabling ESAPI in GraalVM Native Image:
+    //
+    //    Reflection Configuration: You will need to configure GraalVM to handle reflection and dynamic code loading by
+    //    specifying the required reflection configuration in your native image setup.
+    //
+    //        GraalVM typically requires explicit configuration of reflection, dynamic proxies, and other resources.
+    //        This can be done by generating a reflection configuration file or using GraalVM's native-image-agent to
+    //        automatically capture the necessary configurations.
+    //
+    //    Example reflection configuration might look like:
+    //
+    //    [
+    //      {
+    //        "name": "org.owasp.esapi.ESAPI",
+    //        "methods": [{"name": "validator", "parameterTypes": []}],
+    //        "fields": []
+    //      },
+    //      {
+    //        "name": "org.owasp.esapi.ESAPIValidator",
+    //        "methods": [{"name": "isValidInput", "parameterTypes": ["java.lang.String", "java.lang.String", "java.lang.String", "int"]}],
+    //        "fields": []
+    //      }
+    //    ]
+    //
+    //    Resource Inclusion: Some ESAPI features might also need resource inclusion to be manually configured,
+    //    particularly if any resources (e.g., configuration files) are dynamically loaded.
+    //
+    // Conclusion:
+    //
+    //    ESAPI with Quarkus: ESAPI can be integrated into Quarkus applications to help with security controls,
+    //    including input validation, cryptography, and more. It works with Quarkus just like any other Java dependency.
+    //
+    //    ESAPI with GraalVM: ESAPI can also work with GraalVM, but native image compilation requires careful
+    //    configuration, especially due to ESAPI's use of reflection and dynamic code. You will need to manually
+    //    provide reflection configurations and handle any other dynamic features to ensure the application works in a
+    //    native image.
+    //
+    // In general, if you're targeting GraalVM native images, you will need to account for ESAPI's dynamic features and
+    // configure GraalVM to handle reflection properly. However, if you’re working in JVM mode, ESAPI should integrate
+    // seamlessly with Quarkus without additional setup.
+    //
+    // TODO: A lot of testing.
+    // TODO: Investigate where it is being used and if this could be transferred to Keycloak
+    // https://mvnrepository.com/artifact/org.owasp.esapi/esapi
     implementation 'org.owasp.esapi:esapi:2.6.0.0'
 
     //
@@ -555,19 +833,13 @@ dependencies {
     implementation 'org.apache.commons:commons-lang3:3.14.0'
     implementation 'org.clojure:clojure:1.11.2'
     //implementation 'org.clojure:java.api:0.4.0'
-    implementation 'org.apache.axis2:axis2-kernel:1.8.2'
     implementation 'org.apache.axis2:axis2-adb:1.8.2'
     implementation 'org.apache.axis2:axis2-java2wsdl:1.8.2'
     implementation 'org.apache.axis2:axis2-transport-http:1.8.2'
 
     //implementation 'commons-lang:commons-lang:2.6'
     implementation 'org.jsoup:jsoup:1.17.2'
-    implementation 'org.apache.tika:tika-core:2.9.1'
-    implementation 'org.apache.tika:tika-parsers:2.9.1'
     implementation 'org.owasp.esapi:esapi:2.5.3.1'
-    // TODO: Review code where it is being used. It gets into conflicts with other libraries (Quarkus).
-    //implementation 'org.apache.cxf:cxf-rt-frontend-jaxrs:4.0.4'
-    implementation 'org.apache.xmlgraphics:fop:2.9'
 
     implementation 'com.google.re2j:re2j:1.7'
     // 2.1.3
