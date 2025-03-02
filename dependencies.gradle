@@ -239,54 +239,128 @@ dependencies {
     // https://mvnrepository.com/artifact/io.quarkus/quarkus-narayana-jta
     implementation 'io.quarkus:quarkus-narayana-jta:3.19.1'
 
+    // JMS 1.1
     //
-    //
-    //
-    implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
+    // TODO: How do I switch from Apache Geronimo Transaction Manager to quarkus-narayana-jta?
+    // https://mvnrepository.com/artifact/org.apache.geronimo.specs/geronimo-jms_1.1_spec
+    //implementation 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
+    // TODO: There seems to be another one:
+    //implementation 'javax.jms:javax.jms-api:2.0.1'
 
+    // Jakarta Messaging describes a means for Java applications to create, send, and receive messages via loosely
+    // coupled, reliable asynchronous communication services.
     //
+    // https://mvnrepository.com/artifact/jakarta.jms/jakarta.jms-api
+    implementation 'jakarta.jms:jakarta.jms-api:3.1.0'
+
+    // Apache HttpComponents HttpClient - Cache
     //
+    // TODO: Switch it to Quarkus caching support.
+    //  - Investigate
+    //  - Artifact: io.quarkus:quarkus-cache and io.quarkus:quarkus-rest-client
+    // TODO: The artifacts might be named differently
     //
+    // Code example:
+    //
+    //  @RegisterRestClient
+    //  @CacheResult(cacheName = "http-cache")
+    //  public interface MyRestClient {
+    //
+    //     @GET
+    //     @Path("/data")
+    //     Response getData();
+    //  }
+    //
+    // Conf:
+    //  quarkus.cache.enabled=true
+    //  quarkus.cache."http-cache".max-entries=100
+    //  quarkus.cache."http-cache".expire-after-write=30M
+    //
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient-cache
     implementation 'org.apache.httpcomponents:httpclient-cache:4.5.14'
 
+    // API for Apache Log4J, a highly configurable logging tool that focuses on performance and low garbage generation.
+    // It has a plugin architecture that makes it extensible and supports asynchronous logging based on LMAX Disruptor.
     //
+    // Note: the API of log4j 2
     //
+    // - Quarkus uses JUL (Java Util Logging) or JBoss Logging by default for logging, but it does provide support for
+    //   Log4j 2 through an extension.
+    // - To use Log4j 2 with Quarkus, you would need to manually add the required dependencies and configure it.
+    // - Quarkus has its own logging system based on JUL, Jboss Logging, and SLF4J (Simple Logging Facade for Java)
+    // - with a default logging backend that is optimized for Quarkus
+    // - Quarkus provides a logging system that works well out of the box
+    // - It can integrate with other logging frameworks like Log4j 2 or Logback
     //
-    implementation 'org.apache.logging.log4j:log4j-api:2.24.2' // the API of log4j 2
+    // - To deactivate the default logging in Quarkus: quarkus.log.console.enabled=false
+    // - Log4j 2 requires configurations in XML
+    //
+    // Quarkus vs Log4j 2:
+    // - Integrating Log4j 2 with asynchronous logging in Quarkus could indeed provide a performance boost
+    // - Asynchronous logging: The logging happens without blocking the other processes
+    //
+    // - For a simplified and native OpenTelemetry experience, stick with Quarkus' default logging system, as it
+    //   integrates directly with OpenTelemetry and offers ease of setup and cloud-native optimizations.
+    // - If you need advanced logging features (e.g., asynchronous logging, complex configurations), Log4j 2 can still
+    //   be used, but integrating it with OpenTelemetry requires additional effort and configuration.
+    //
+    // TODO: New version --> 3.0.0-beta2
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+    implementation 'org.apache.logging.log4j:log4j-api:2.24.2'
 
+    // Implementation for Apache Log4J, a highly configurable logging tool that focuses on performance and low garbage
+    // generation. It has a plugin architecture that makes it extensible and supports asynchronous logging based on
+    // LMAX Disruptor.
     //
+    // Note: Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
     //
-    //
-    implementation 'org.apache.logging.log4j:log4j-core:2.24.2' // Somehow needed by Buildbot to compile OFBizDynamicThresholdFilter.java
+    // TODO: New versions --> 2.24.3 / 3.0.0-beta3
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation 'org.apache.logging.log4j:log4j-core:2.24.2'
 
+    // Apache POI - Java API To Access Microsoft Format Files
     //
-    //
-    //
+    // TODO: New version --> 5.4.0
+    // https://mvnrepository.com/artifact/org.apache.poi/poi
     implementation 'org.apache.poi:poi:5.3.0'
 
+    // The Apache PDFBox library is an open source Java tool for working with PDF documents.
     //
+    // Note: 3.0.1 does not compile
     //
-    //
-    implementation 'org.apache.pdfbox:pdfbox:2.0.33' // 3.0.1 does not compile
+    // TODO: New version --> 3.0.4
+    // https://mvnrepository.com/artifact/org.apache.pdfbox/pdfbox
+    implementation 'org.apache.pdfbox:pdfbox:2.0.33'
 
+    // Apache Shiro is a powerful and flexible open-source security framework that cleanly handles authentication,
+    // authorization, enterprise session management, single sign-on and cryptography services.
     //
+    // Is a security framework that performs authentication, authorization, cryptography and session management.
     //
+    // Note: Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with the
+    //       given algorithm: argon2" with 2.0.2 in integration tests
     //
-    implementation 'org.apache.shiro:shiro-core:1.13.0' // Got "Exception in thread "main" java.lang.UnsupportedOperationException: Cannot create a hash with the given algorithm: argon2" with 2.0.2 in integration tests
+    // TODO: New version --> 2.0.2
+    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-core
+    implementation 'org.apache.shiro:shiro-core:1.13.0'
 
+    // Apache Shiro is a powerful and flexible open-source security framework that cleanly handles authentication,
+    // authorization, enterprise session management, single sign-on and cryptography services.
     //
-    //
-    //
+    // https://mvnrepository.com/artifact/org.apache.shiro/shiro-crypto-cipher
     implementation 'org.apache.shiro:shiro-crypto-cipher:2.0.2'
 
+    // Apache Mina SSHD :: Core
     //
-    //
-    //
+    // TODO: What is this for in OFBiz
+    // TODO: New version --> 2.15.0
+    // https://mvnrepository.com/artifact/org.apache.sshd/sshd-core
     implementation 'org.apache.sshd:sshd-core:2.14.0'
 
+    // Apache Mina SSHD :: SFTP
     //
-    //
-    //
+    // TODO: New version --> 2.15.0
+    // https://mvnrepository.com/artifact/org.apache.sshd/sshd-sftp
     implementation 'org.apache.sshd:sshd-sftp:2.14.0'
 
     //
@@ -452,9 +526,6 @@ dependencies {
     // TODO: Should it not be in test? There might be other dep for none test code.
     implementation 'io.quarkiverse.groovy:quarkus-groovy-junit5:3.10.0'
 
-    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
-
-
 
     implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.5'
 
@@ -465,21 +536,11 @@ dependencies {
     // https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.2'
 
-    // Is a security framework that performs authentication, authorization, cryptography and session management
-    implementation 'org.apache.shiro:shiro-core:2.0.0'
-
     // TODO:
     // Old:
     implementation 'javax.transaction:jta:1.1'
 
     implementation 'oro:oro:2.0.8'
-
-    // TODO:
-    // Old:
-    implementation 'javax.jms:javax.jms-api:2.0.1'
-    // NEW:
-    // https://mvnrepository.com/artifact/jakarta.jms/jakarta.jms-api
-    implementation 'jakarta.jms:jakarta.jms-api:3.1.0'
 
     implementation 'wsdl4j:wsdl4j:1.6.3'
     implementation 'org.apache.commons:commons-pool2:2.12.0'
@@ -519,10 +580,7 @@ dependencies {
     implementation 'com.auth0:java-jwt:4.4.0'
     implementation 'io.quarkus:quarkus-mailer:3.9.1'
 
-    implementation 'org.apache.sshd:sshd-core:2.12.1'  // Use the latest available version
     //implementation 'org.apache.sshd:sshd-client:2.10.0'  // Use the latest available version
-
-    implementation 'org.apache.sshd:sshd-sftp:2.12.1'  // Use the latest available version
 
     // TODO: This needs to be changed to org.junit.jupiter:junit-jupiter-api:5.10.0
     implementation 'junit:junit:4.13.2'
