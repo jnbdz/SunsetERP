@@ -18,6 +18,14 @@
  */
 package org.sitenetsoft.sunseterp.framework.entity;
 
+import java.net.URL;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.sitenetsoft.sunseterp.framework.entity.cache.Cache;
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
 import org.sitenetsoft.sunseterp.framework.entity.datasource.GenericHelper;
@@ -28,13 +36,6 @@ import org.sitenetsoft.sunseterp.framework.entity.util.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.net.URL;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 public interface Delegator {
 
@@ -184,6 +185,34 @@ public interface Delegator {
      * @return GenericValue instance containing the new instance
      */
     GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException;
+
+    /**
+     * <p>Create the Entities from the List GenericValue instances to the persistent
+     * store.</p>
+     * <p>This is different than the normal create method, because all creation
+     * will be done with one unique insert to go fast.</p>
+     * <p>For this reason eca can't be raised, so it's useful for process
+     * with huge data to inject into database</p>
+     * @param values
+     *            List of GenericValue instances containing the entities to create
+     */
+    void createAllByBatchProcess(List<GenericValue> values) throws GenericEntityException;
+
+    /**
+     * <p>Create the Entities from the List GenericValue instances to the persistent
+     * store.</p>
+     * <p>This is different than the normal create method, because all creation
+     * will be done with one unique insert to go fast.</p>
+     * <p>For this reason eca can't be raised, so it's useful for process
+     * with huge data to inject on database.</p>
+     * <p>As this is a huge process, we can specify whether we want to alert the ofbiz cluster
+     * if we need to clean their cache or just wait the normal expiration</p>
+     * @param values
+     *            List of GenericValue instances containing the entities to create
+     * @param distribute
+     *            set to true if we want to clean cache entity for ofbiz cluster
+     */
+    void createAllByBatchProcess(List<GenericValue> values, boolean distribute) throws GenericEntityException;
 
     Object decryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, String encValue) throws EntityCryptoException;
 

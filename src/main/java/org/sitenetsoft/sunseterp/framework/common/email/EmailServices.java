@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.common.email;
 
+// TODO: Use the Quarkus email libraries
 /*
 import com.sun.mail.smtp.SMTPAddressFailedException;
 import freemarker.template.TemplateException;
@@ -53,6 +54,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 import java.io.*;
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
  */
@@ -182,8 +185,7 @@ public class EmailServices {}
                 socketFactoryFallback = EntityUtilProperties.getPropertyValue("general", "mail.smtp.socketFactory.fallback", "false", delegator);
             }
             if (sendPartial == null) {
-                sendPartial = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.sendpartial", "true", delegator)
-                        ? true : false;
+                sendPartial = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.sendpartial", "true", delegator);
             }
             if (isStartTLSEnabled == null) {
                 isStartTLSEnabled = EntityUtilProperties.propertyValueEqualsIgnoreCase("general", "mail.smtp.starttls.enable", "true", delegator);
@@ -377,10 +379,11 @@ public class EmailServices {}
         LocalDispatcher dispatcher = ctx.getDispatcher();
 
         URL url = null;
-
+        URI uri;
         try {
-            url = new URL(bodyUrl);
-        } catch (MalformedURLException e) {
+            uri = new URI(bodyUrl);
+            url = uri.toURL();
+        } catch (IllegalArgumentException | URISyntaxException | MalformedURLException e) {
             Debug.logWarning(e, MODULE);
             return ServiceUtil.returnError(UtilProperties.getMessage(RESOURCE, "CommonEmailSendMalformedUrl", UtilMisc.toMap("bodyUrl",
                     bodyUrl, "errorString", e.toString()), locale));

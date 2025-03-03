@@ -18,7 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.common.email;
 
-import freemarker.template.TemplateException;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Locale;
+import java.util.Map;
+
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig.WebappInfo;
 import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
@@ -30,13 +37,7 @@ import org.sitenetsoft.sunseterp.framework.service.*;
 import org.sitenetsoft.sunseterp.framework.webapp.OfbizUrlBuilder;
 import org.sitenetsoft.sunseterp.framework.webapp.WebAppUtil;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.net.URL;
-import java.util.LinkedHashMap;
-import java.util.Locale;
-import java.util.Map;
+import freemarker.template.TemplateException;
 
 /**
  * Provides generic services related to preparing and delivering notifications
@@ -113,7 +114,7 @@ public class NotificationServices {
      * the sevice
      * @return A Map with the service response messages in it
      */
-    private static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
+    public static Map<String, Object> sendNotification(DispatchContext ctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
@@ -188,6 +189,8 @@ public class NotificationServices {
         if (templateData == null) {
             templateData = new LinkedHashMap<>();
         }
+        templateData.put("delegator", delegator);
+        templateData.put("dispatcher", ctx.getDispatcher());
 
         try {
             // ensure the baseURl is defined

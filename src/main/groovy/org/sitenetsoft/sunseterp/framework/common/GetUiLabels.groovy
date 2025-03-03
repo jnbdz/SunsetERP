@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -18,18 +18,4 @@
 */
 package org.sitenetsoft.sunseterp.framework.common
 
-import org.sitenetsoft.sunseterp.framework.service.ServiceUtil
-
-Map setTimeZoneFromBrowser() {
-    if (parameters?.userLogin?.userLoginId) {
-        userLogin = from('UserLogin').where('userLoginId', parameters.userLogin.userLoginId).queryFirst()
-        if (userLogin) {
-            if (!userLogin.lastTimeZone || userLogin.lastTimeZone == 'null') {
-                userLogin.lastTimeZone = parameters.localeName
-                userLogin.store()
-                return ServiceUtil.returnSuccess()
-            }
-        }
-    }
-    // Do nothing if no userLogin to prevents to uselessly clutter the logs up with very common SetTimeZoneFromBrowser errors
-}
+context.requiredLabels = new groovy.json.JsonSlurper().parseText(parameters.requiredLabels)

@@ -18,6 +18,22 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.common;
 
+import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.net.URL;
+import java.util.List;
+import java.util.*;
+
+import javax.imageio.ImageIO;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
 import org.sitenetsoft.sunseterp.framework.base.lang.JSON;
@@ -35,21 +51,6 @@ import org.sitenetsoft.sunseterp.framework.widget.model.ScriptLinkHelper;
 import org.sitenetsoft.sunseterp.framework.widget.model.ThemeFactory;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.VisualTheme;
 
-import javax.imageio.ImageIO;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.URL;
-import java.util.List;
-import java.util.*;
-
 /**
  * Common Services
  */
@@ -65,6 +66,7 @@ public class CommonEvents {
         "jakarta.servlet.request.ssl_session",
         "jakarta.servlet.request.ssl_session_id",
         "multiPartMap",
+            // TODO: I believe there is no more servlet
         "jakarta.servlet.request.cipher_suite",
         "targetRequestUri",
         "_SERVER_ROOT_URL_",
@@ -180,7 +182,7 @@ public class CommonEvents {
         try {
 
             // set the JS content type
-            response.setContentType("application/javascript");
+            response.setContentType("text/javascript");
             // script.length is not reliable for unicode characters
             response.setContentLength(script.getBytes("UTF8").length);
             // return 404 if script is empty
@@ -250,69 +252,6 @@ public class CommonEvents {
         } catch (IOException e) {
             Debug.logError(e, MODULE);
         }
-    }
-
-    public static String getJSONuiLabelArray(HttpServletRequest request, HttpServletResponse response)
-            throws UnsupportedEncodingException, IOException {
-        // Format - {resource1 : [key1, key2 ...], resource2 : [key1, key2, ...], ...}
-        String jsonString = request.getParameter("requiredLabels");
-        Map<String, List<String>> uiLabelObject = null;
-        if (UtilValidate.isNotEmpty(jsonString)) {
-            JSON json = JSON.from(jsonString);
-            uiLabelObject = UtilGenerics.cast(json.toObject(Map.class));
-        }
-        if (UtilValidate.isEmpty(uiLabelObject)) {
-            Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
-            return "error";
-        }
-        Locale locale = UtilHttp.getLocale(request);
-        Map<String, List<String>> uiLabelMap = new HashMap<>();
-        Set<Map.Entry<String, List<String>>> entrySet = uiLabelObject.entrySet();
-        for (Map.Entry<String, List<String>> entry : entrySet) {
-            String resource = entry.getKey();
-            List<String> resourceKeys = entry.getValue();
-            if (resourceKeys != null) {
-                List<String> labels = new ArrayList<>(resourceKeys.size());
-                for (String resourceKey : resourceKeys) {
-                    String label = UtilProperties.getMessage(resource, resourceKey, locale);
-                    labels.add(label);
-                }
-                uiLabelMap.put(resource, labels);
-            }
-        }
-        writeJSONtoResponse(JSON.from(uiLabelMap), request, response);
-        return "success";
-    }
-
-    public static String getJSONuiLabel(HttpServletRequest request, HttpServletResponse response)
-            throws UnsupportedEncodingException, IOException {
-        // Format - {resource : key}
-        String jsonString = request.getParameter("requiredLabel");
-        Map<String, String> uiLabelObject = null;
-        if (UtilValidate.isNotEmpty(jsonString)) {
-            JSON json = JSON.from(jsonString);
-            uiLabelObject = UtilGenerics.cast(json.toObject(Map.class));
-        }
-        if (UtilValidate.isEmpty(uiLabelObject)) {
-            Debug.logError("No resource and labels found in JSON string: " + jsonString, MODULE);
-            return "error";
-        } else if (uiLabelObject.size() > 1) {
-            Debug.logError("More than one resource found, please use the method: getJSONuiLabelArray", MODULE);
-            return "error";
-        }
-        Locale locale = UtilHttp.getLocale(request);
-        Map<String, String> uiLabelMap = new HashMap<>();
-        Set<Map.Entry<String, String>> entrySet = uiLabelObject.entrySet();
-        for (Map.Entry<String, String> entry : entrySet) {
-            String resource = entry.getKey();
-            String resourceKey = entry.getValue();
-            if (resourceKey != null) {
-                String label = UtilProperties.getMessage(resource, resourceKey, locale);
-                uiLabelMap.put(resource, label);
-            }
-        }
-        writeJSONtoResponse(JSON.from(uiLabelMap), request, response);
-        return "success";
     }
 
     public static String getCaptcha(HttpServletRequest request, HttpServletResponse response) {

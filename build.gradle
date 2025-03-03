@@ -15,8 +15,11 @@ plugins {
     id 'java'
     id 'checkstyle'
     id 'codenarc'
-    //id 'maven-publish'
+    // TODO: It was used later
+    id 'maven-publish'
     id 'io.quarkus'
+
+    // TODO:
     //id 'org.asciidoctor.jvm.convert' version '3.3.2' // 4.0.2 does not compile
     //id 'org.asciidoctor.jvm.pdf' version '3.3.2'     // 4.0.2 does not compile
     //id 'org.owasp.dependencycheck' version '9.0.9' apply false //Not tested after 7.4.4
@@ -105,13 +108,8 @@ useLatestVersions {
 
 apply from: 'common.gradle'
 apply from: 'dependencies.gradle'
-apply plugin: 'maven-publish'
-
-// TODO: This is not how OFBiz work (it is in the `allprojects` grouping)
-repositories {
-    mavenCentral()
-    mavenLocal()
-}
+// TODO: Trying it out in the plugins block
+//apply plugin: 'maven-publish'
 
 // global properties
 ext.os = System.getProperty('os.name').toLowerCase()
@@ -134,7 +132,7 @@ ext.pluginsDir = "${rootDir}/plugins" as GStringImpl
                '-Djdk.serialFilter=maxarray=100000;maxdepth=20;maxrefs=1000;maxbytes=500000', // OFBIZ-12592 and OFBIZ-12716
 //            '--add-exports=java.base/sun.util.calendar=ALL-UNNAMED', // OFBIZ-12721
                '--add-opens=java.base/java.util=ALL-UNNAMED' // OFBIZ-12726
-    ]
+            ]
 }*/
 
 // TODO: It might be how it gets the absolute paths
@@ -151,46 +149,38 @@ javadoc {
     options {
         source '17'
         encoding 'UTF-8'
-
         // TODO: Is it not being used?
         charSet 'UTF-8'
         // Those external Javadoc links should correspond to the actual
         // versions declared in the 'dependencies' block.
         links(
-                'https://docs.oracle.com/javase/17/docs/api',
-                'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
-                'http://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
-                // TODO: This is the previous version (keeping it in case the new version breaks with Quarkus):
-                //'http://docs.groovy-lang.org/docs/groovy-3.0.20/html/api',
-                'https://commons.apache.org/proper/commons-cli/apidocs'
+            'https://docs.oracle.com/javase/17/docs/api',
+            'https://tomcat.apache.org/tomcat-9.0-doc/servletapi/',
+            'http://docs.groovy-lang.org/docs/groovy-4.0.22/html/api',
+            // TODO: This is the previous version (keeping it in case the new version breaks with Quarkus):
+            //'http://docs.groovy-lang.org/docs/groovy-3.0.20/html/api',
+            'https://commons.apache.org/proper/commons-cli/apidocs'
         )
     }
 }
 
-// TODO: Try it out
-// TODO: Why have it in multiple places? Maybe use a var instead of copy/paste
-/*java {
+group 'org.sitenetsoft'
+version '1.0.0-SNAPSHOT'
+
+java {
     sourceCompatibility(JavaVersion.VERSION_17)
     targetCompatibility(JavaVersion.VERSION_17)
 }
 
 // TODO: Try it out
 // Java compile options, syntax gradlew -PXlint:none build
-tasks.withType(JavaCompile) {
+/*tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     if (!project.hasProperty('Xlint:none')) {
         options.compilerArgs << '-Xlint:all'
         // Exclude varargs warnings which are not silenced by @SafeVarargs.
         options.compilerArgs << '-Xlint:-varargs'
     }
-}*/
-
-// TODO: Is this still needed?
-/*task downloadTikaParsers(type: Copy) {
-    from configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.find {
-        it.moduleVersion.id.group == 'org.apache.tika' && it.moduleVersion.id.name == 'tika-parsers'
-    }.file
-    into "${buildDir}/tmp/dependencyDownload"
 }*/
 
 // Only used for release branches
@@ -210,11 +200,18 @@ static def getCurrentGitBranch() {
 defaultTasks 'jar', 'test'
 */
 
+// TODO: This is not how OFBiz work (it is in the `allprojects` grouping)
+/*repositories {
+    mavenCentral()
+    mavenLocal()
+}*/
+
 // TODO: I think I had issues in the past using this.
 // TODO: Does it work with Quarkus dependencies? Maybe I can add others.
-/*allprojects {
+allprojects {
     repositories {
         mavenCentral()
+        mavenLocal()
         // the switch from jCenter to mavenCentral needs some additional repositories to be configured here
         // this should be checked frequently to remove obsolete configurations if the artifacts are available
         // on mavenCentral directly
@@ -249,7 +246,7 @@ defaultTasks 'jar', 'test'
         }
 
     }
-}*/
+}
 
 // TODO: Concerned about if some of libs that it loads are compatible with Quarkus
 /*subprojects {
@@ -330,7 +327,7 @@ sourceSets {
         java {
             // TODO: This might have something to do with the path management
             // 📌
-            //srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
+            srcDirs = getDirectoryInActiveComponentsIfExists('src/main/java')
             exclude excludedJavaSources
         }
         groovy {
@@ -399,9 +396,9 @@ checkstyle {
 
 // TODO: I think it was causing issues in the pass. Maybe there was issues with Quarkus.
 // TODO: Maybe there was an issue because the code wasn't added.
-//gitHooks {
-    //hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
-//}
+/*gitHooks {
+    hooks = ['pre-push': 'checkstyleMain codenarcMain codenarcTest']
+}*/
 
 // Checks OFBiz Groovy coding conventions.
 codenarc {
@@ -475,6 +472,27 @@ task testIntegration(group: ofbizServer) {
 }
  */
 
+// TODO: Is it needed?
+/*task terminateOfbiz(group: ofbizServer,
+    description: 'Force termination of any running OFBiz servers, only use if \"--shutdown\" command fails') {
+    doLast {
+        if (os.contains('windows')) {
+            Runtime.getRuntime().exec("wmic process where \"CommandLine Like \'%org.apache.ofbiz.base.start.Start%\'\" Call Terminate")
+        } else {
+            def processOutput = new ByteArrayOutputStream()
+            exec {
+                commandLine 'ps', 'ax'
+                standardOutput = processOutput
+            }
+            processOutput.toString().split(System.lineSeparator()).each { line ->
+                if (line ==~ /.*org\.apache\.ofbiz\.base\.start\.Start.*//*) {
+                    exec { commandLine 'kill', '-9', line.tokenize().first() }
+                }
+            }
+        }
+    }
+}*/
+
 // TODO: The next one (tasks.) is the one used
 // 📌
 /*tasks.register('SunsetERP', JavaExec) {
@@ -533,7 +551,7 @@ task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
 }
  */
 
-// TODO:
+// TODO: Create and add Tenant
 /*
 
 task createTenant(group: ofbizServer, description: 'Create a new tenant in your environment') {
@@ -625,6 +643,7 @@ doLast {
 }
  */
 
+// Entry point
 // 📌
 tasks.register('SunsetERP', JavaExec) {
     classpath = sourceSets.main.runtimeClasspath
@@ -1304,14 +1323,6 @@ tasks.register('cleanAll') {
     description 'Execute all cleaning tasks.'
 }
 
-group 'org.sitenetsoft'
-version '1.0.0-SNAPSHOT'
-
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
-}
-
 test {
     systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
 }
@@ -1356,3 +1367,14 @@ tasks.withType(CreateStartScripts).configureEach {
         )
     }
 }
+
+//
+// Other
+//
+// TODO: Is this still needed?
+/*task downloadTikaParsers(type: Copy) {
+    from configurations.compileClasspath.resolvedConfiguration.resolvedArtifacts.find {
+        it.moduleVersion.id.group == 'org.apache.tika' && it.moduleVersion.id.name == 'tika-parsers'
+    }.file
+    into "${buildDir}/tmp/dependencyDownload"
+}*/
