@@ -18,6 +18,20 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.entity.test;
 
+import java.math.BigDecimal;
+import java.sql.Blob;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.Future;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.sql.rowset.serial.SerialBlob;
+
 import org.sitenetsoft.sunseterp.framework.base.concurrent.ExecutionPool;
 import org.sitenetsoft.sunseterp.framework.base.util.Observable;
 import org.sitenetsoft.sunseterp.framework.base.util.Observer;
@@ -36,19 +50,6 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityListIterator;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntitySaxReader;
 import org.sitenetsoft.sunseterp.framework.entity.util.SequenceUtil;
-
-import javax.sql.rowset.serial.SerialBlob;
-import java.math.BigDecimal;
-import java.sql.Blob;
-import java.sql.Date;
-import java.sql.Time;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.Future;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class EntityTestSuite extends EntityTestCase {
 
@@ -169,6 +170,25 @@ public class EntityTestSuite extends EntityTestCase {
         }
         testValue = EntityQuery.use(getDelegator()).from("TestingType").where("testingTypeId", "TEST-REMOVE-1").queryOne();
         assertEquals("Finding removed value returns null", null, testValue);
+    }
+
+    /**
+     * Test to load huge entity
+     * @throws Exception the exception
+     */
+    public void testCreateAllValues() throws Exception {
+        List<GenericValue> testValues = new ArrayList<>(100);
+        for (int i = 0; i < 100; i++) {
+            testValues.add(getDelegator().makeValue("TestingType",
+                    "testingTypeId", "TEST_CREATE_ALL" + i,
+                    "description", "Testing Type #CreateAll" + i));
+            testValues.add(getDelegator().makeValue("Testing", "testingId", "TEST_CREATE_DIST" + i));
+        }
+        getDelegator().createAllByBatchProcess(testValues);
+        assertEquals("create all insert 100 elements", 100, getDelegator().findCountByCondition("TestingType",
+                EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST_CREATE_ALL%"), null, null));
+        assertEquals("create all insert 100 elements", 100, getDelegator().findCountByCondition("Testing",
+                EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "TEST_CREATE_DIST%"), null, null));
     }
 
     /**

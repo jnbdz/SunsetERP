@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.entity.datasource;
 
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -29,8 +31,6 @@ import org.sitenetsoft.sunseterp.framework.entity.model.ModelField;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelRelation;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityFindOptions;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityListIterator;
-
-import java.util.*;
 
 /**
  * Generic Entity Helper Class
@@ -66,6 +66,20 @@ public class GenericHelperDAO implements GenericHelper {
             Debug.logVerbose("Insert Return Value : " + retVal, MODULE);
         }
         return value;
+    }
+
+    /** Insert a given list of GenericValue to the database
+     *@return List of GenericValue instance created
+     */
+    public List<GenericValue> createAll(List<GenericValue> values) throws GenericEntityException {
+        if (values.isEmpty()) {
+            return null;
+        }
+        int retVal = genericDAO.insertAll(values);
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("Insert Return Value : " + retVal, MODULE);
+        }
+        return values;
     }
 
     /** Find a Generic Entity by its Primary Key

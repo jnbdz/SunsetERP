@@ -18,6 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.service.job;
 
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.sitenetsoft.sunseterp.framework.base.config.GenericConfigException;
 import org.sitenetsoft.sunseterp.framework.start.Start;
 import org.sitenetsoft.sunseterp.framework.base.util.Assert;
@@ -26,10 +30,6 @@ import org.sitenetsoft.sunseterp.framework.service.config.ServiceConfigListener;
 import org.sitenetsoft.sunseterp.framework.service.config.ServiceConfigUtil;
 import org.sitenetsoft.sunseterp.framework.service.config.model.ServiceConfig;
 import org.sitenetsoft.sunseterp.framework.service.config.model.ThreadPool;
-
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Job poller. Queues and runs jobs.
@@ -226,7 +226,7 @@ public final class JobPoller implements ServiceConfigListener {
         Debug.logInfo("JobPoller shutdown completed.", MODULE);
     }
 
-    private static class JobInvokerThreadFactory implements ThreadFactory {
+    private static final class JobInvokerThreadFactory implements ThreadFactory {
 
         @Override
         public Thread newThread(Runnable runnable) {
@@ -235,7 +235,7 @@ public final class JobPoller implements ServiceConfigListener {
     }
 
     // Polls all registered JobManagers for jobs to queue.
-    private class JobManagerPoller implements Runnable {
+    private final class JobManagerPoller implements Runnable {
 
         // Do not check for interrupts in this method. The design requires the
         // thread to complete the job manager poll uninterrupted.

@@ -73,16 +73,18 @@ dependencies {
 
     // iText, a free Java-PDF library
     //
+    // Used here: src/main/java/org/sitenetsoft/sunseterp/framework/security/SecuredUpload.java
+    //
     // TODO: This is a newer version: 4.2.2
     // TODO: The package moved to -> com.itextpdf:itextpdf
     // TODO: And it has a more recent version: 5.5.13.4
     // TODO: It seems the version wasn't upgraded because of licenses issues: OFBIZ-10455
     // https://mvnrepository.com/artifact/com.lowagie/itext
-    /*implementation ('com.lowagie:itext:2.1.7') { // Don't update due to license change in newer versions, see OFBIZ-10455
+    implementation ('com.lowagie:itext:2.1.7') { // Don't update due to license change in newer versions, see OFBIZ-10455
         exclude  group: 'bouncycastle', module: 'bcmail-jdk14'
         exclude  group: 'bouncycastle', module: 'bcprov-jdk14'
         exclude  group: 'bouncycastle', module: 'bctsp-jdk14'
-    }*/
+    }
 
     // A Free Java-PDF library
     //
@@ -903,11 +905,25 @@ dependencies {
     //
     // NOTE: 2.10.0 did not work, cf. OFBIZ-12920 (https://github.com/apache/ofbiz-framework/pull/712#issuecomment-1968960963)
     //
+    // Used here: src/main/java/org/sitenetsoft/sunseterp/framework/security/SecuredUpload.java
+    //
+    // TODO: New version --> 2.16.2
     // https://mvnrepository.com/artifact/org.mustangproject/library
     implementation('org.mustangproject:library:2.8.0') {
       exclude group: 'pull-parser', module: 'pull-parser'
       exclude group: 'xpp3', module: 'xpp3'
     }
+
+    // The Mustang project is a java library to read and write ZUGFeRD meta data inside your invoice PDFs
+    //
+    // Used here: src/main/java/org/sitenetsoft/sunseterp/framework/security/SecuredUpload.java
+    //
+    // Security issues:
+    // - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-31573
+    // - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2020-15250
+    //
+    // https://mvnrepository.com/artifact/org.mustangproject.ZUGFeRD/mustang
+    implementation 'org.mustangproject.ZUGFeRD:mustang:1.7.8'
 
     // 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
     // 🎯 Other dependencies 🎯

@@ -18,6 +18,14 @@
  */
 package org.sitenetsoft.sunseterp.framework.entity.util;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
 import org.apache.commons.codec.binary.Base64;
 import org.sitenetsoft.sunseterp.framework.base.crypto.DesCrypt;
 import org.sitenetsoft.sunseterp.framework.base.crypto.HashCrypt;
@@ -34,14 +42,6 @@ import org.apache.shiro.crypto.cipher.PaddingScheme;
 import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.apache.shiro.crypto.hash.HashRequest;
 import org.apache.shiro.crypto.hash.HashService;
-
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 
 public final class EntityCrypto {
 
@@ -125,7 +125,7 @@ public final class EntityCrypto {
         } catch (Exception e) {
             /*
             When the field is encrypted with the old algorithm (3-DES), the new Shiro code will fail to decrypt it (using AES) and then it will
-            throw an org.apache.shiro.crypto.CryptoException that is a RuntimeException.
+            throw an org.apache.shiro.crypto.cipher.CryptoException that is a RuntimeException.
             For backward compatibility we want instead to catch the exception and decrypt the code using the old algorithm.
              */
             Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", MODULE);

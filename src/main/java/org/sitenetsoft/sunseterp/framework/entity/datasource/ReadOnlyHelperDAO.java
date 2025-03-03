@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.entity.datasource;
 
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
 import org.sitenetsoft.sunseterp.framework.entity.GenericPK;
@@ -28,8 +30,6 @@ import org.sitenetsoft.sunseterp.framework.entity.model.ModelField;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelRelation;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityFindOptions;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityListIterator;
-
-import java.util.*;
 
 /**
  * Read Only Entity Helper Class
@@ -57,6 +57,14 @@ public class ReadOnlyHelperDAO implements GenericHelper {
      */
     @Override
     public GenericValue create(GenericValue value) throws GenericEntityException {
+        return null;
+    }
+
+    /** Read only, no creation realize on the database
+     *@return null
+     */
+    @Override
+    public List<GenericValue> createAll(List<GenericValue> value) throws GenericEntityException {
         return null;
     }
 

@@ -19,6 +19,13 @@
 
 package org.sitenetsoft.sunseterp.framework.entity.util;
 
+import static java.util.stream.Collectors.toList;
+
+import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.stream.Stream;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.collections.PagedList;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
@@ -30,13 +37,6 @@ import org.sitenetsoft.sunseterp.framework.entity.condition.EntityDateFilterCond
 import org.sitenetsoft.sunseterp.framework.entity.condition.OrderByList;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelEntity;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelField;
-
-import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.stream.Stream;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * Helper methods when dealing with Entities, especially ones that follow certain conventions
@@ -123,14 +123,14 @@ public final class EntityUtil {
     }
 
     public static EntityCondition getFilterByDateExpr(java.util.Date moment) {
-        return EntityDateFilterCondition.makeCondition(new Timestamp(moment.getTime()), "fromDate", "thruDate");
+        return EntityDateFilterCondition.makeCondition(new java.sql.Timestamp(moment.getTime()), "fromDate", "thruDate");
     }
 
-    public static EntityCondition getFilterByDateExpr(Timestamp moment) {
+    public static EntityCondition getFilterByDateExpr(java.sql.Timestamp moment) {
         return EntityDateFilterCondition.makeCondition(moment, "fromDate", "thruDate");
     }
 
-    public static EntityCondition getFilterByDateExpr(Timestamp moment, String fromDateName, String thruDateName) {
+    public static EntityCondition getFilterByDateExpr(java.sql.Timestamp moment, String fromDateName, String thruDateName) {
         return EntityDateFilterCondition.makeCondition(moment, fromDateName, thruDateName);
     }
 
@@ -161,7 +161,7 @@ public final class EntityUtil {
      * @return List of GenericValue's that are active at the moment
      */
     public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, java.util.Date moment) {
-        return filterByDate(datedValues, new Timestamp(moment.getTime()), null, null, true);
+        return filterByDate(datedValues, new java.sql.Timestamp(moment.getTime()), null, null, true);
     }
 
     /**
@@ -170,7 +170,7 @@ public final class EntityUtil {
      * @param moment      the moment in question
      * @return List of GenericValue's that are active at the moment
      */
-    public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, Timestamp moment) {
+    public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, java.sql.Timestamp moment) {
         return filterByDate(datedValues, moment, null, null, true);
     }
 
@@ -182,7 +182,7 @@ public final class EntityUtil {
      *                    only have to see if the from and thru date fields are valid once
      * @return List of GenericValue's that are active at the moment
      */
-    public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, Timestamp moment, String fromDateName,
+    public static <T extends GenericEntity> List<T> filterByDate(List<T> datedValues, java.sql.Timestamp moment, String fromDateName,
                                                                  String thruDateName, boolean allAreSame) {
         if (datedValues == null) return null;
         if (moment == null) return datedValues;
@@ -208,8 +208,8 @@ public final class EntityUtil {
                     throw new IllegalArgumentException("\"" + thruDateName + "\" is not a field of " + datedValue.getEntityName());
                 }
 
-                Timestamp fromDate = (Timestamp) datedValue.dangerousGetNoCheckButFast(fromDateField);
-                Timestamp thruDate = (Timestamp) datedValue.dangerousGetNoCheckButFast(thruDateField);
+                java.sql.Timestamp fromDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(fromDateField);
+                java.sql.Timestamp thruDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(thruDateField);
 
                 if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
                     result.add(datedValue);
@@ -217,8 +217,8 @@ public final class EntityUtil {
             }
             while (iter.hasNext()) {
                 T datedValue = iter.next();
-                Timestamp fromDate = (Timestamp) datedValue.dangerousGetNoCheckButFast(fromDateField);
-                Timestamp thruDate = (Timestamp) datedValue.dangerousGetNoCheckButFast(thruDateField);
+                java.sql.Timestamp fromDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(fromDateField);
+                java.sql.Timestamp thruDate = (java.sql.Timestamp) datedValue.dangerousGetNoCheckButFast(thruDateField);
 
                 if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
                     result.add(datedValue);
@@ -228,8 +228,8 @@ public final class EntityUtil {
             // if not all values are known to be of the same entity, must check each one...
             while (iter.hasNext()) {
                 T datedValue = iter.next();
-                Timestamp fromDate = datedValue.getTimestamp(fromDateName);
-                Timestamp thruDate = datedValue.getTimestamp(thruDateName);
+                java.sql.Timestamp fromDate = datedValue.getTimestamp(fromDateName);
+                java.sql.Timestamp thruDate = datedValue.getTimestamp(thruDateName);
 
                 if ((thruDate == null || thruDate.after(moment)) && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment))) {
                     result.add(datedValue);
@@ -240,13 +240,13 @@ public final class EntityUtil {
         return result;
     }
 
-    public static boolean isValueActive(GenericValue datedValue, Timestamp moment) {
+    public static boolean isValueActive(GenericValue datedValue, java.sql.Timestamp moment) {
         return isValueActive(datedValue, moment, "fromDate", "thruDate");
     }
 
-    public static boolean isValueActive(GenericValue datedValue, Timestamp moment, String fromDateName, String thruDateName) {
-        Timestamp fromDate = datedValue.getTimestamp(fromDateName);
-        Timestamp thruDate = datedValue.getTimestamp(thruDateName);
+    public static boolean isValueActive(GenericValue datedValue, java.sql.Timestamp moment, String fromDateName, String thruDateName) {
+        java.sql.Timestamp fromDate = datedValue.getTimestamp(fromDateName);
+        java.sql.Timestamp thruDate = datedValue.getTimestamp(thruDateName);
         return (thruDate == null || thruDate.after(moment))
                 && (fromDate == null || fromDate.before(moment) || fromDate.equals(moment));
     }
@@ -495,6 +495,21 @@ public final class EntityUtil {
         }
 
         return fieldList;
+    }
+
+    /**
+     * returns the values with the matching selected fields
+     * @param delegator
+     * @param values List of GenericValues
+     * @param selected  the lit of selected fields
+     * @return List of GenericValue's with only selected fields
+     */
+    public static List<GenericValue> getSelectedFieldValueListFromEntityList(Delegator delegator, List<GenericValue> values, Set<String> selected) {
+        if (values == null || UtilValidate.isEmpty(selected)) {
+            return values;
+        }
+        return values.stream()
+                .map(value -> delegator.makeValidValue(value.getEntityName(), value.getFields(selected))).collect(toList());
     }
 
     /**

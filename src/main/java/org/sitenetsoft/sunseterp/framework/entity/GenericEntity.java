@@ -18,6 +18,14 @@
  */
 package org.sitenetsoft.sunseterp.framework.entity;
 
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
+import java.sql.Blob;
+import java.sql.SQLException;
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.crypto.HashCrypt;
 import org.sitenetsoft.sunseterp.framework.base.util.Observable;
 import org.sitenetsoft.sunseterp.framework.base.util.Observer;
@@ -30,14 +38,6 @@ import org.sitenetsoft.sunseterp.framework.entity.model.*;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelViewEntity.ModelAlias;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
-import java.sql.Blob;
-import java.sql.SQLException;
-import java.util.*;
 
 /**
  * Generic Entity Value Object - Handles persistence for any defined entity.
@@ -1169,7 +1169,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
             return;
         }
         // this could be implement with Map.putAll, but we'll leave it like this for the extra features it has
-        for (Entry<? extends String, ? extends Object> anEntry: keyValuePairs.entrySet()) {
+        for (Map.Entry<? extends String, ? extends Object> anEntry: keyValuePairs.entrySet()) {
             this.set(anEntry.getKey(), anEntry.getValue(), true);
         }
     }
@@ -1186,7 +1186,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         if (UtilValidate.isEmpty(keyValuePairs)) {
             return true;
         }
-        for (Entry<String, ? extends Object> anEntry: keyValuePairs.entrySet()) {
+        for (Map.Entry<String, ? extends Object> anEntry: keyValuePairs.entrySet()) {
             if (!Objects.equals(anEntry.getValue(), this.fields.get(anEntry.getKey()))) {
                 return false;
             }
@@ -1420,7 +1420,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         } else {
             writer.println('>');
 
-            for (Entry<String, String> entry: cdataMap.entrySet()) {
+            for (Map.Entry<String, String> entry: cdataMap.entrySet()) {
                 writer.print(indentString);
                 writer.print(indentString);
                 writer.print('<');
@@ -1624,7 +1624,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     @Override
-    public java.util.Set<Entry<String, Object>> entrySet() {
+    public java.util.Set<Map.Entry<String, Object>> entrySet() {
         return Collections.unmodifiableMap(this.fields).entrySet();
     }
 
@@ -1634,7 +1634,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     @Override
-    public void putAll(Map<? extends String, ? extends Object> map) {
+    public void putAll(java.util.Map<? extends String, ? extends Object> map) {
         this.setFields(map);
     }
 
@@ -1659,7 +1659,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     @Override
-    public Collection<Object> values() {
+    public java.util.Collection<Object> values() {
         return Collections.unmodifiableMap(this.fields).values();
     }
 
@@ -1747,7 +1747,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      * @return the boolean
      */
     public boolean originalDbValuesAvailable() {
-        return this.originalDbValues != null ? true : false;
+        return this.originalDbValues != null;
     }
 
     /**

@@ -18,9 +18,11 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.testtools;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
 import org.apache.commons.lang.RandomStringUtils;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
@@ -33,10 +35,9 @@ import org.sitenetsoft.sunseterp.framework.service.ServiceContainer;
 import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase;
 import org.w3c.dom.Element;
 
-import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 /**
  * Use this class in a JUnit test runner to bootstrap the Test Suite runner.
@@ -97,14 +98,6 @@ public class ModelTestSuite {
             } catch (Exception e) {
                 String errMsg = "Unable to load test suite class : " + className;
                 Debug.logError(e, errMsg, MODULE);
-            }
-        } else if ("groovy-test-suite".equals(nodeName)) {
-            try {
-                Class<? extends TestCase> testClass =
-                        UtilGenerics.cast(GroovyUtil.getScriptClassFromLocation(testElement.getAttribute("location")));
-                this.testList.add(new TestSuite(testClass, testElement.getAttribute("name")));
-            } catch (GeneralException e) {
-                Debug.logError(e, MODULE);
             }
         } else if ("service-test".equals(nodeName)) {
             this.testList.add(new ServiceTest(caseName, testElement));
@@ -197,12 +190,12 @@ public class ModelTestSuite {
                 ((OFBizTestCase) test).setDispatcher(dispatcher);
             }
             // CHECKSTYLE_ON: ALMOST_ALL
-        } else if (test instanceof GroovyScriptTestCase) {
-            prepareGroovyScriptTestCase((GroovyScriptTestCase) test);
+        } else if (test instanceof GroovyScriptAssert) {
+            prepareGroovyScriptAssert((GroovyScriptAssert) test);
         }
     }
 
-    private void prepareGroovyScriptTestCase(GroovyScriptTestCase test) {
+    private void prepareGroovyScriptAssert(GroovyScriptAssert test) {
         test.setDelegator(delegator);
         test.setDispatcher(dispatcher);
         test.setSecurity(dispatcher.getSecurity());

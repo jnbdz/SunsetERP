@@ -18,18 +18,19 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.security;
 
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
-import org.sitenetsoft.sunseterp.framework.base.util.*;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
+import org.sitenetsoft.sunseterp.framework.base.util.*;
 
 public class SecuredFreemarker {
     private static final String MODULE = SecuredFreemarker.class.getName();

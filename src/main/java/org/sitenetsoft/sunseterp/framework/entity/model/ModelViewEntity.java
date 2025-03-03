@@ -18,15 +18,16 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.entity.model;
 
+import java.io.Serializable;
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.condition.*;
 import org.sitenetsoft.sunseterp.framework.entity.jdbc.SqlJdbcUtil;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
-import java.io.Serializable;
-import java.util.*;
 
 /**
  * This class extends ModelEntity and provides additional information appropriate to view entities
@@ -106,13 +107,13 @@ public class ModelViewEntity extends ModelEntity {
         // when reading aliases and alias-alls, just read them into the alias list, there will be a pass
         // after loading all entities to go back and fill in all of the ModelField entries
         for (Element aliasElement: UtilXml.childElementList(entityElement, "alias-all")) {
-            ModelAliasAll aliasAll = new ModelAliasAll(aliasElement);
+            ModelViewEntity.ModelAliasAll aliasAll = new ModelAliasAll(aliasElement);
             this.aliasAlls.add(aliasAll);
         }
 
         if (utilTimer != null) utilTimer.timerString("  createModelViewEntity: before aliases");
         for (Element aliasElement: UtilXml.childElementList(entityElement, "alias")) {
-            ModelAlias alias = new ModelAlias(aliasElement);
+            ModelViewEntity.ModelAlias alias = new ModelAlias(aliasElement);
             this.aliases.add(alias);
         }
 
@@ -231,7 +232,7 @@ public class ModelViewEntity extends ModelEntity {
     public String getColNameOrAlias(String fieldName) {
         ModelField modelField = this.getField(fieldName);
         String fieldString = modelField.getColName();
-        ModelAlias alias = getAlias(fieldName);
+        ModelViewEntity.ModelAlias alias = getAlias(fieldName);
         if (alias != null) {
             fieldString = alias.getColAlias();
         }
@@ -646,7 +647,7 @@ public class ModelViewEntity extends ModelEntity {
         Map<String, List<String>> containedModelFields = new HashMap<>();
         Iterator<ModelAlias> it = getAliasesIterator();
         while (it.hasNext()) {
-            ModelAlias alias = it.next();
+            ModelViewEntity.ModelAlias alias = it.next();
             if (alias.isComplexAlias()) {
                 // TODO: conversion for complex-alias needs to be implemented for cache and in-memory eval stuff to work correctly
                 Debug.logWarning("[" + this.getEntityName() + "]: Conversion for complex-alias needs to be implemented for cache and "
@@ -666,7 +667,7 @@ public class ModelViewEntity extends ModelEntity {
 
         Iterator<ModelViewLink> it2 = getViewLinksIterator();
         while (it2.hasNext()) {
-            ModelViewLink link = it2.next();
+            ModelViewEntity.ModelViewLink link = it2.next();
 
             String leftAlias = link.getEntityAlias();
             String rightAlias = link.getRelEntityAlias();
@@ -1448,6 +1449,71 @@ public class ModelViewEntity extends ModelEntity {
             } else {
                 return null;
             }
+        }
+
+        public static Element makeViewEntityCondition(Element child) {
+            return makeViewEntityCondition(List.of(child));
+        }
+
+        public static Element makeViewEntityCondition(List<Element> children) {
+            Document doc = children.get(0).getOwnerDocument();
+            Element entityConditionElement = doc.createElement("entity-condition");
+            for (Element child : children) {
+                if (child.getOwnerDocument() != doc) {
+                    child = (Element) doc.importNode(child, true);
+                }
+                entityConditionElement.appendChild(child);
+            }
+            return entityConditionElement;
+        }
+
+        public static Element makeViewEntityConditionList(String combine, List<Element> children) {
+            Document doc = children.get(0).getOwnerDocument();
+            Element conditionListElement = doc.createElement("condition-list");
+            if (UtilValidate.isNotEmpty(combine)) {
+                conditionListElement.setAttribute("combine", combine);
+            }
+            for (Element child : children) {
+                if (child.getOwnerDocument() != doc) {
+                    child = (Element) doc.importNode(child, true);
+                }
+                conditionListElement.appendChild(child);
+            }
+            return conditionListElement;
+        }
+
+        public static Element makeViewEntityConditionExpr(String entityAlias, String fieldName, String operator, String value) {
+            return makeViewEntityConditionExpr(entityAlias, fieldName, operator, value, null, null);
+        }
+
+        public static Element makeViewEntityConditionExpr(String entityAlias, String fieldName, String operator,
+                String relEntityAlias, String relFieldName) {
+            return makeViewEntityConditionExpr(entityAlias, fieldName, operator, null, relEntityAlias, relFieldName);
+        }
+
+        public static Element makeViewEntityConditionExpr(String entityAlias, String fieldName, String operator,
+                String value, String relEntityAlias, String relFieldName) {
+            Document doc = UtilXml.makeEmptyXmlDocument();
+            Element conditionExprElement = doc.createElement("condition-expr");
+            if (UtilValidate.isNotEmpty(entityAlias)) {
+                conditionExprElement.setAttribute("entity-alias", entityAlias);
+            }
+            if (UtilValidate.isNotEmpty(fieldName)) {
+                conditionExprElement.setAttribute("field-name", fieldName);
+            }
+            if (UtilValidate.isNotEmpty(operator)) {
+                conditionExprElement.setAttribute("operator", operator);
+            }
+            if (UtilValidate.isNotEmpty(value)) {
+                conditionExprElement.setAttribute("value", value);
+            }
+            if (UtilValidate.isNotEmpty(relEntityAlias)) {
+                conditionExprElement.setAttribute("rel-entity-alias", relEntityAlias);
+            }
+            if (UtilValidate.isNotEmpty(relFieldName)) {
+                conditionExprElement.setAttribute("rel-field-name", relFieldName);
+            }
+            return conditionExprElement;
         }
     }
 

@@ -18,6 +18,15 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.entity.jdbc;
 
+import java.io.Serializable;
+import java.lang.reflect.Method;
+import java.sql.*;
+import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import org.sitenetsoft.sunseterp.framework.base.concurrent.ExecutionPool;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.StringUtil;
@@ -30,15 +39,6 @@ import org.sitenetsoft.sunseterp.framework.entity.datasource.GenericHelperInfo;
 import org.sitenetsoft.sunseterp.framework.entity.model.*;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionFactoryLoader;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
-
-import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.sql.*;
-import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 /**
  * Utilities for Entity Database Maintenance
@@ -1068,7 +1068,9 @@ public class DatabaseUtil {
             if (messages != null) messages.add(message);
         } finally {
             try {
-                tableSet.close();
+                if (tableSet != null) {
+                    tableSet.close();
+                }
             } catch (SQLException e) {
                 String message = "Unable to close ResultSet for table list, continuing anyway... Error was:" + e.toString();
                 Debug.logError(message, MODULE);

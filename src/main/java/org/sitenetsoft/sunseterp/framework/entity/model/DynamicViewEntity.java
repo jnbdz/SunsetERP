@@ -18,6 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.entity.model;
 
+import java.io.IOException;
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
@@ -25,8 +28,6 @@ import org.sitenetsoft.sunseterp.framework.entity.model.ModelViewEntity.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import java.io.IOException;
-import java.util.*;
 /**
  * This class is used for declaring Dynamic View Entities, to be used and thrown away.
  * A special method exists on the Delegator to accept a DynamicViewEntity instead
@@ -342,8 +343,76 @@ public class DynamicViewEntity {
      * @param modelKeyMaps   the model key maps
      */
     public void addViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, List<ModelKeyMap> modelKeyMaps) {
-        ModelViewLink modelViewLink = new ModelViewLink(entityAlias, relEntityAlias, relOptional, null, modelKeyMaps);
+        addViewLink(entityAlias, relEntityAlias, relOptional, modelKeyMaps, null);
+    }
+
+    /**
+     * Add view link.
+     * @param entityAlias    the entity alias
+     * @param relEntityAlias the rel entity alias
+     * @param relOptional    the rel optional
+     * @param viewCond       the condition of the view link
+     */
+    public void addViewLink(String entityAlias, String relEntityAlias, Boolean relOptional, ViewEntityCondition viewCond) {
+        addViewLink(entityAlias, relEntityAlias, relOptional, new ArrayList<ModelKeyMap>(), viewCond);
+    }
+
+    /**
+     * Add view link.
+     * @param entityAlias    the entity alias
+     * @param relEntityAlias the rel entity alias
+     * @param relOptional    the rel optional
+     * @param modelKeyMaps   the model key maps
+     * @param viewCond       the condition of the view link
+     */
+    public void addViewLink(String entityAlias, String relEntityAlias, Boolean relOptional,
+            List<ModelKeyMap> modelKeyMaps, ViewEntityCondition viewCond) {
+        ModelViewLink modelViewLink = new ModelViewLink(entityAlias, relEntityAlias, relOptional, viewCond, modelKeyMaps);
         this.viewLinks.add(modelViewLink);
+    }
+
+    /**
+     * Prepare a ViewEntityCondition to use in view link
+     * @param delegator
+     * @param entityAlias
+     * @param fieldName
+     * @param operator
+     * @param value
+     * @return
+     */
+    public ViewEntityCondition makeViewEntityCondition(Delegator delegator, String entityAlias, String fieldName, String operator, String value) {
+        Element entityConditionExpr = ViewEntityCondition.makeViewEntityConditionExpr(entityAlias, fieldName, operator, value, "", "");
+        return makeViewEntityCondition(delegator, entityConditionExpr);
+    }
+
+    /**
+     * Prepare a ViewEntityCondition to use in view link
+     * @param delegator
+     * @param entityAlias
+     * @param fieldName
+     * @param operator
+     * @param relEntityAlias
+     * @param relFieldName
+     * @return
+     */
+    public ViewEntityCondition makeViewEntityCondition(Delegator delegator, String entityAlias, String fieldName, String operator,
+            String relEntityAlias, String relFieldName) {
+        Element entityConditionExpr = ViewEntityCondition
+                .makeViewEntityConditionExpr(entityAlias, fieldName, operator, "", relEntityAlias, relFieldName);
+        return makeViewEntityCondition(delegator, entityConditionExpr);
+    }
+
+    /**
+     * Prepare a ViewEntityCondition to use in view link
+     * @param delegator
+     * @param entityConditionElement
+     * @return
+     */
+    public ViewEntityCondition makeViewEntityCondition(Delegator delegator, Element entityConditionElement) {
+        if (!"entity-condition".equals(entityConditionElement.getNodeName())) {
+            entityConditionElement = ViewEntityCondition.makeViewEntityCondition(entityConditionElement);
+        }
+        return new ViewEntityCondition(this.makeModelViewEntity(delegator), null, entityConditionElement);
     }
 
     /**

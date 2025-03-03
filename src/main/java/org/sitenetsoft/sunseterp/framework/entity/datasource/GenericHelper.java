@@ -19,6 +19,10 @@
 
 package org.sitenetsoft.sunseterp.framework.entity.datasource;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -30,11 +34,6 @@ import org.sitenetsoft.sunseterp.framework.entity.model.ModelField;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelRelation;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityFindOptions;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityListIterator;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 
 /**
@@ -52,6 +51,13 @@ public interface GenericHelper {
      *@return GenericValue instance containing the new instance
      */
     GenericValue create(GenericValue value) throws GenericEntityException;
+
+    /**
+     * Insert a given list of GenericValue to the database
+     * @param values
+     * @return The list of GenericValue created
+     */
+    List<GenericValue> createAll(List<GenericValue> values) throws GenericEntityException;
 
     /** Find a Generic Entity by its Primary Key
      *@param primaryKey The primary key to find by.

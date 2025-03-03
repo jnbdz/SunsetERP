@@ -19,6 +19,12 @@
 
 package org.sitenetsoft.sunseterp.framework.entity.util;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.GeneralRuntimeException;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
@@ -32,12 +38,6 @@ import org.sitenetsoft.sunseterp.framework.entity.jdbc.SqlJdbcUtil;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelEntity;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelField;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelFieldTypeReader;
-
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ListIterator;
 
 /**
  * Generic Entity Cursor List Iterator for Handling Cursored DB Results
@@ -273,8 +273,10 @@ public class EntityListIterator implements AutoCloseable, ListIterator<GenericVa
      * It is much better to just use next() until it returns null
      * For example, you could use the following to iterate through the results in an EntityListIterator:
      * GenericValue nextValue = null;
-     * while ((nextValue = (GenericValue)
-     * this.next()) != null) { ... }
+     * while ((nextValue = (GenericValue) this.next()) != null) { ... }
+     * Remember to not use next 2 times, in a while loop for instance...
+     * For Groovy you can use something like while (instance = Iterator.next())
+     * but you need to surround it with codenarc disable/enable comments because of the AssignmentInConditional rule
      */
     @Override
     public boolean hasNext() {

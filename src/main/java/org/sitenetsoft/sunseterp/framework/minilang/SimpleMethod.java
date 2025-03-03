@@ -18,6 +18,13 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.minilang;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
+
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+
 import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
@@ -33,12 +40,6 @@ import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
 import org.sitenetsoft.sunseterp.framework.service.ModelService;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
 
 /**
  * Implements the &lt;simple-method&gt; element.
@@ -65,14 +66,8 @@ public final class SimpleMethod extends MiniLangElement {
 
     private static final String MODULE = SimpleMethod.class.getName();
     private static final String ERR_RESOURCE = "MiniLangErrorUiLabels";
-    private static final String[] DEPRECATED_ATTRIBUTES = {
-            "parameter-map-name",
-            "locale-name",
-            "delegator-name",
-            "security-name",
-            "dispatcher-name",
-            "user-login-name"
-    };
+    private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name",
+            "dispatcher-name", "user-login-name"};
     private static final Map<String, MethodOperation.Factory<MethodOperation>> METHOD_OPER_FACTORIES;
     private static final UtilCache<String, Map<String, SimpleMethod>> SIMPLE_METHOD_DIRECT_CACHE =
             UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
@@ -447,6 +442,7 @@ public final class SimpleMethod extends MiniLangElement {
             methodContext.putEnv(getUserLoginEnvName(), userLogin);
         }
         methodContext.putEnv("nullField", GenericEntity.NULL_FIELD);
+        // TODO: Why?
         // @TODO: Quarkus
         /*methodContext.putEnv(getDelegatorEnvName(), methodContext.getDelegator());
         methodContext.putEnv(getSecurityEnvName(), methodContext.getSecurity());
@@ -460,8 +456,8 @@ public final class SimpleMethod extends MiniLangElement {
             methodContext.putEnv(eventResponseName, methodContext.getResponse());*/
         }
         methodContext.putEnv("simpleMethod", this);
-        methodContext.putEnv("methodName", this.getMethodName());
-        methodContext.putEnv("methodShortDescription", this.getShortDescription());
+        methodContext.putEnv("methodName", getMethodName());
+        methodContext.putEnv("methodShortDescription", getShortDescription());
         // if using transaction, try to start here
         boolean beganTransaction = false;
         if (useTransaction) {
@@ -620,8 +616,7 @@ public final class SimpleMethod extends MiniLangElement {
             }
             // rollback here passing beganTransaction to either rollback, or set rollback only
             try {
-                TransactionUtil.rollback(beganTransaction, "Error in simple-method [" + this.getShortDescription() + "]: "
-                        + summaryErrorStringBuffer, null);
+                TransactionUtil.rollback(beganTransaction, summaryErrorStringBuffer.toString(), null);
             } catch (GenericTransactionException e) {
                 String errMsg = "Error trying to rollback transaction, could not process method: " + e.getMessage();
                 if (methodContext.isTraceOn()) {
@@ -638,7 +633,7 @@ public final class SimpleMethod extends MiniLangElement {
 
     @Override
     public void gatherArtifactInfo(ArtifactInfoContext aic) {
-        for (MethodOperation methodOp : this.methodOperations) {
+        for (MethodOperation methodOp : methodOperations) {
             methodOp.gatherArtifactInfo(aic);
         }
     }
@@ -658,93 +653,94 @@ public final class SimpleMethod extends MiniLangElement {
     }
 
     public String getDefaultErrorCode() {
-        return this.defaultErrorCode;
+        return defaultErrorCode;
     }
 
     public String getDefaultSuccessCode() {
-        return this.defaultSuccessCode;
+        return defaultSuccessCode;
     }
 
     public String getEventErrorMessageListName() {
-        return this.eventErrorMessageListName;
+        return eventErrorMessageListName;
     }
 
     public String getEventErrorMessageName() {
-        return this.eventErrorMessageName;
+        return eventErrorMessageName;
     }
 
     public String getEventEventMessageListName() {
-        return this.eventEventMessageListName;
+        return eventEventMessageListName;
     }
 
     public String getEventEventMessageName() {
-        return this.eventEventMessageName;
+        return eventEventMessageName;
     }
 
     // event fields
     public String getEventRequestName() {
-        return this.eventRequestName;
+        return eventRequestName;
     }
 
     public String getEventResponseCodeName() {
-        return this.eventResponseCodeName;
+        return eventResponseCodeName;
     }
 
     public String getEventSessionName() {
-        return this.eventSessionName;
+        return eventSessionName;
     }
 
     public String getFileName() {
-        return this.fromLocation.substring(this.fromLocation.lastIndexOf("/") + 1);
+        return fromLocation.substring(fromLocation.lastIndexOf("/") + 1);
     }
 
     public String getFromLocation() {
-        return this.fromLocation;
+        return fromLocation;
     }
 
     public String getLocationAndName() {
-        return this.fromLocation + "#" + this.methodName;
+        return fromLocation + "#" + methodName;
     }
 
     public boolean getLoginRequired() {
-        return this.loginRequired;
+        return loginRequired;
     }
 
     public String getMethodName() {
-        return this.methodName;
+        return methodName;
     }
 
     public List<MethodOperation> getMethodOperations() {
-        return this.methodOperations;
+        return methodOperations;
     }
 
     public String getServiceErrorMessageListName() {
-        return this.serviceErrorMessageListName;
+        return serviceErrorMessageListName;
     }
 
     public String getServiceErrorMessageMapName() {
-        return this.serviceErrorMessageMapName;
+        return serviceErrorMessageMapName;
     }
 
     public String getServiceErrorMessageName() {
-        return this.serviceErrorMessageName;
+        return serviceErrorMessageName;
     }
 
     public String getServiceResponseMessageName() {
-        return this.serviceResponseMessageName;
+        return serviceResponseMessageName;
     }
 
     public String getServiceSuccessMessageListName() {
-        return this.serviceSuccessMessageListName;
+        return serviceSuccessMessageListName;
     }
 
     public String getServiceSuccessMessageName() {
-        return this.serviceSuccessMessageName;
+        return serviceSuccessMessageName;
     }
 
     public String getShortDescription() {
-        return this.shortDescription + " [" + this.fromLocation + "#" + this.methodName + "]";
+        return shortDescription + " [" + getFileName() + "#" + methodName + "]";
     }
+
 
     @Override
     public SimpleMethod getSimpleMethod() {
@@ -752,7 +748,7 @@ public final class SimpleMethod extends MiniLangElement {
     }
 
     public boolean getUseTransaction() {
-        return this.useTransaction;
+        return useTransaction;
     }
 
     private String returnError(MethodContext methodContext, String errorMsg) {

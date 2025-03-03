@@ -21,6 +21,7 @@ package org.sitenetsoft.sunseterp.framework.service.engine
 import org.sitenetsoft.sunseterp.framework.base.util.Debug
 import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue
+import org.sitenetsoft.sunseterp.framework.entity.model.DynamicViewEntity
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery
 import org.sitenetsoft.sunseterp.framework.service.DispatchContext
 import org.sitenetsoft.sunseterp.framework.service.ExecutionServiceException
@@ -49,27 +50,6 @@ abstract class GroovyBaseScript extends Script {
         inputMap.locale = inputMap.locale ?: this.binding.hasVariable('locale')
                 ? this.binding.getVariable('locale')
                 : this.binding.getVariable('parameters').locale
-        if (serviceName == 'createAnonFile') {
-            String fileName = inputMap.get('dataResourceName')
-            String fileNameAndPath = inputMap.get('objectInfo')
-            File file = new File(fileNameAndPath)
-            if (!fileName.isEmpty()) {
-                // Check the file name
-                if (!org.sitenetsoft.sunseterp.framework.security.SecuredUpload.isValidFileName(fileName, delegator)) {
-                    String errorMessage = UtilProperties.getMessage('SecurityUiLabels', 'SupportedFileFormatsIncludingSvg', inputMap.locale)
-                    throw new ExecutionServiceException(errorMessage)
-                }
-                // TODO we could verify the file type (here "All") with dataResourceTypeId. Anyway it's done with isValidFile()
-                // We would just have a better error message
-                if (file.exists()) {
-                    // Check if a webshell is not uploaded
-                    if (!org.sitenetsoft.sunseterp.framework.security.SecuredUpload.isValidFile(fileNameAndPath, 'All', delegator)) {
-                        String errorMessage = UtilProperties.getMessage('SecurityUiLabels', 'SupportedFileFormatsIncludingSvg', inputMap.locale)
-                        throw new ExecutionServiceException(errorMessage)
-                    }
-                }
-            }
-        }
         Map serviceContext = dctx.makeValidContext(serviceName, ModelService.IN_PARAM, inputMap)
         Map result = dispatcher.runSync(serviceName, serviceContext)
         if (ServiceUtil.isError(result)) {
@@ -90,8 +70,12 @@ abstract class GroovyBaseScript extends Script {
         return binding.getVariable('delegator').makeValidValue(entityName, inputMap)
     }
 
-    EntityQuery from(String entity) {
-        return EntityQuery.use(binding.getVariable('delegator')).from(entity)
+    EntityQuery from(String entityName) {
+        return EntityQuery.use(binding.getVariable('delegator')).from(entityName)
+    }
+
+    EntityQuery from(DynamicViewEntity dynamicViewEntity) {
+        return EntityQuery.use(binding.getVariable('delegator')).from(dynamicViewEntity)
     }
 
     EntityQuery select(String... fields) {
@@ -108,16 +92,10 @@ abstract class GroovyBaseScript extends Script {
     }
 
     /* codenarc-disable NoDef, MethodReturnTypeRequired */
-    def success() {
-        return success(null, null)
-    }
-    def success(String message) {
-        return success(message, null)
-    }
     def success(Map returnValues) {
         return success(null, returnValues)
     }
-    def success(String message, Map returnValues) {
+    def success(String message = '', Map returnValues = [:]) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
         if (this.binding.hasVariable('request')) {
             // the script is invoked as an "event"
@@ -139,12 +117,15 @@ abstract class GroovyBaseScript extends Script {
         return result
     }
     /* codenarc-enable */
-    Map failure(String message) {
+    Map failure(String message, Map returnValues = [:]) {
         // TODO: implement some clever i18n mechanism based on the userLogin and locale in the binding
-        if (message) {
-            return ServiceUtil.returnFailure(message)
+        Map result = message
+                ? ServiceUtil.returnFailure(message)
+                : ServiceUtil.returnFailure()
+        if (returnValues) {
+            result.putAll(returnValues)
         }
-        return ServiceUtil.returnFailure()
+        return result
     }
     /* codenarc-disable NoDef, MethodReturnTypeRequired */
     def error(String message) {

@@ -19,8 +19,13 @@
 package org.sitenetsoft.sunseterp.framework.webapp.control;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,12 +38,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.validator.routines.UrlValidator;
 import org.apache.logging.log4j.ThreadContext;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.security.SecurityUtil;
-
+import org.sitenetsoft.sunseterp.framework.security.SecuredUpload;
 
 /**
  * @TODO: Adapt for Quarkus
@@ -83,6 +89,8 @@ public class ControlFilter extends HttpFilter {
     private int errorCode;
     /** The list of all path prefixes that are allowed. */
     private Set<String> allowedPaths;
+    private static final List<String> ALLOWEDTOKENS = getAllowedTokens();
+
 
     @Override
     public void init(FilterConfig conf) throws ServletException {

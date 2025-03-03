@@ -18,8 +18,21 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.service.job;
 
-import com.ibm.icu.util.Calendar;
-import com.ibm.icu.util.TimeZone;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.SignStyle;
+import java.time.temporal.ChronoField;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.lang.StringUtils;
 import org.sitenetsoft.sunseterp.framework.base.config.GenericConfigException;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
@@ -42,12 +55,8 @@ import org.sitenetsoft.sunseterp.framework.service.calendar.TemporalExpressionWo
 import org.sitenetsoft.sunseterp.framework.service.config.ServiceConfigUtil;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import com.ibm.icu.util.Calendar;
+import com.ibm.icu.util.TimeZone;
 
 /**
  * A {@link Job} that is backed by the entity engine. Job data is stored
@@ -59,6 +68,13 @@ import java.util.Map;
 public class PersistedServiceJob extends GenericServiceJob {
 
     private static final String MODULE = PersistedServiceJob.class.getName();
+    private static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
+            .append(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+            .appendOptional(
+                    new DateTimeFormatterBuilder()
+                            .appendLiteral('.')
+                            .appendValue(ChronoField.MICRO_OF_SECOND, 1, 3, SignStyle.NOT_NEGATIVE).toFormatter())
+            .toFormatter().withZone(ZonedDateTime.now().getZone());
 
     private final transient Delegator delegator;
     private long nextRecurrence = -1;
@@ -77,8 +93,14 @@ public class PersistedServiceJob extends GenericServiceJob {
         super(dctx, jobValue.getString("jobId"), jobValue.getString("jobName"), null, null, req);
         this.delegator = dctx.getDelegator();
         this.jobValue = jobValue;
-        Timestamp storedDate = jobValue.getTimestamp("runTime");
-        this.startTime = storedDate.getTime();
+        /*
+        This solution ensures that the system uses a consistent,
+         UTC-based time for scheduling and rescheduling recurring jobs, even when DST changes affect the local time.
+         */
+        ZonedDateTime startTimeZD = ZonedDateTime.parse(
+                jobValue.getString("runTime"), FORMATTER).withZoneSameInstant(ZoneId.of("UTC"));
+        this.startTime = UtilValidate.isNotEmpty(jobValue.get("runTimeEpoch"))
+                ? jobValue.getLong("runTimeEpoch") : startTimeZD.toInstant().toEpochMilli();
         this.maxRetry = jobValue.get("maxRetry") != null ? jobValue.getLong("maxRetry") : 0;
         Long retryCount = jobValue.getLong("currentRetryCount");
         if (retryCount != null) {
@@ -194,7 +216,12 @@ public class PersistedServiceJob extends GenericServiceJob {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Next runtime returned: " + next, MODULE);
         }
-        if (next > startTime) {
+        /*
+        This solution ensures that the system uses a consistent,
+        UTC-based time for scheduling and rescheduling recurring jobs, even when DST changes affect the local time.
+        */
+        ZonedDateTime nextRunTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(next), ZoneId.of("UTC"));
+        if (nextRunTime.toInstant().toEpochMilli() > startTime) {
             String pJobId = jobValue.getString("parentJobId");
             if (pJobId == null) {
                 pJobId = jobValue.getString("jobId");
@@ -206,7 +233,8 @@ public class PersistedServiceJob extends GenericServiceJob {
             newJob.set("statusId", "SERVICE_PENDING");
             newJob.set("startDateTime", null);
             newJob.set("runByInstanceId", null);
-            newJob.set("runTime", new Timestamp(next));
+            newJob.set("runTime", Timestamp.from(nextRunTime.toInstant()));
+            newJob.set("runTimeEpoch", nextRunTime.toInstant().toEpochMilli());
             if (isRetryOnFailure) {
                 newJob.set("currentRetryCount", currentRetryCount + 1);
             } else {

@@ -18,8 +18,11 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.service;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
+
+import javax.transaction.Transaction;
+
 import org.sitenetsoft.sunseterp.framework.base.config.GenericConfigException;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.*;
@@ -41,9 +44,8 @@ import org.sitenetsoft.sunseterp.framework.service.job.JobManager;
 import org.sitenetsoft.sunseterp.framework.service.job.JobManagerException;
 import org.sitenetsoft.sunseterp.framework.service.semaphore.ServiceSemaphore;
 
-import javax.transaction.Transaction;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
+import com.github.benmanes.caffeine.cache.Cache;
+import com.github.benmanes.caffeine.cache.Caffeine;
 
 
 
@@ -363,7 +365,8 @@ public final class ServiceDispatcher {
                     context = checkAuth(localName, context, modelService);
                     GenericValue userLogin = (GenericValue) context.get("userLogin");
 
-                    if (modelService.isAuth() && userLogin == null) {
+
+                    if (modelService.isAuth() && userLogin == null && !modelService.getName().equals("SetTimeZoneFromBrowser")) {
                         rs.setEndStamp();
                         throw new ServiceAuthException("User authorization is required for this service: " + modelService.getName()
                                 + modelService.debugInfo());
@@ -388,7 +391,7 @@ public final class ServiceDispatcher {
                         try {
                             // FIXME without this line all simple test failed
                             context = ctx.makeValidContext(modelService.getName(), ModelService.IN_PARAM, context);
-                            modelService.validate(context, ModelService.IN_PARAM, locale);
+                            modelService.validate(getLocalDispatcher(localName), context, ModelService.IN_PARAM, locale);
                         } catch (ServiceValidationException e) {
                             Debug.logError(e, "Incoming context (in runSync : " + modelService.getName()
                                     + ") does not match expected requirements", MODULE);
@@ -503,7 +506,7 @@ public final class ServiceDispatcher {
                     }
                     try {
                         result = ctx.makeValidContext(modelService.getName(), ModelService.OUT_PARAM, result);
-                        modelService.validate(result, ModelService.OUT_PARAM, locale);
+                        modelService.validate(getLocalDispatcher(localName), result, ModelService.OUT_PARAM, locale);
                     } catch (ServiceValidationException e) {
                         rs.setEndStamp();
                         throw new GenericServiceException("Outgoing result (in runSync : " + modelService.getName()
@@ -722,7 +725,7 @@ public final class ServiceDispatcher {
                 context = checkAuth(localName, context, service);
                 Object userLogin = context.get("userLogin");
 
-                if (service.isAuth() && userLogin == null) {
+                if (service.isAuth() && userLogin == null && !service.getName().equals("SetTimeZoneFromBrowser")) {
                     throw new ServiceAuthException("User authorization is required for this service: " + service.getName() + service.debugInfo());
                 }
 
@@ -738,7 +741,7 @@ public final class ServiceDispatcher {
                 // validate the context
                 if (service.isValidate() && !isError && !isFailure) {
                     try {
-                        service.validate(context, ModelService.IN_PARAM, locale);
+                        service.validate(getLocalDispatcher(localName), context, ModelService.IN_PARAM, locale);
                     } catch (ServiceValidationException e) {
                         Debug.logError(e, "Incoming service context (in runAsync: " + service.getName()
                                 + ") does not match expected requirements", MODULE);

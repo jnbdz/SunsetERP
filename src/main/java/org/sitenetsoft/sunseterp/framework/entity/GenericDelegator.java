@@ -19,7 +19,18 @@
  */
 package org.sitenetsoft.sunseterp.framework.entity;
 
+import java.io.IOException;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
+
+import java.util.stream.Collectors;
+import javax.xml.parsers.ParserConfigurationException;
 import jakarta.enterprise.context.ApplicationScoped;
+
 import org.sitenetsoft.sunseterp.framework.base.concurrent.ConstantFuture;
 import org.sitenetsoft.sunseterp.framework.base.concurrent.ExecutionPool;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
@@ -42,15 +53,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 /**
  * The default implementation of the <code>Delegator</code> interface.
@@ -292,7 +294,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public synchronized void initEntityEcaHandler() {
-        // Nothing to do if already assigned: the class loader has already been called, the class instantiated and cast to EntityEcaHandler
+        // Nothing to do if already assigned: the class loader has already been called, the class instantiated and casted to EntityEcaHandler
         if (this.entityEcaHandler.get() != null || this.warnNoEcaHandler) {
             return;
         }
@@ -300,7 +302,7 @@ public class GenericDelegator implements Delegator {
         Callable<EntityEcaHandler<?>> creator = this::createEntityEcaHandler;
         FutureTask<EntityEcaHandler<?>> futureTask = new FutureTask<>(creator);
         if (this.entityEcaHandler.compareAndSet(null, futureTask)) {
-            // This needs to use BATCH, as the service engine might add its own items into a thread pool.
+            // This needs to use BATCH, as the service engine might add it's own items into a thread pool.
             ExecutionPool.GLOBAL_BATCH.submit(futureTask);
         }
     }
@@ -888,7 +890,58 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
-     * @see org.sitenetsoft.sunseterp.framework.entity.Delegator#createOrStore(org.sitenetsoft.sunseterp.framework.entity.GenericValue)
+     * @see org.sitenetsoft.sunseterp.framework.entity.Delegator#createAllByBatchProcess(org.apache.ofbiz.entity.Delegator)
+     */
+    @Override
+    public void createAllByBatchProcess(List<GenericValue> values, boolean distribute) throws GenericEntityException {
+        boolean beganTransaction = ALWAYS_USE_TRANS
+                ? TransactionUtil.begin()
+                : false;
+
+        if (UtilValidate.isEmpty(values)) {
+            throw new GenericEntityException("No value to store");
+        }
+        Map<String, List<GenericValue>> sortedValuesByEntityName = values.stream()
+                .collect(Collectors.groupingBy(GenericValue::getEntityName));
+        for (Map.Entry<String, List<GenericValue>> entry : sortedValuesByEntityName.entrySet()) {
+            List<GenericValue> entityValues = entry.getValue();
+            String entityName = entry.getKey();
+            try {
+                GenericHelper helper = getEntityHelper(entityName);
+
+                helper.createAll(entityValues);
+
+                if (testMode) {
+                    entityValues.forEach(v ->
+                            storeForTestRollback(new TestOperation(OperationType.INSERT, v)));
+                }
+                if (distribute) {
+                    this.clearCacheLine(entityName);
+                }
+
+                TransactionUtil.commit(beganTransaction);
+            } catch (IllegalStateException | GenericEntityException e) {
+                String errMsg = String.format(
+                        "Failure in create operation for list of entity on %s"
+                                + " for %s elements with error : %s. Rolling back transaction.",
+                        entityName, entityValues.size(), e);
+                Debug.logError(errMsg, MODULE);
+                TransactionUtil.rollback(beganTransaction, errMsg, e);
+                throw new GenericEntityException(e);
+            }
+        }
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.ofbiz.entity.Delegator#createAllByBatchProcess(org.apache.ofbiz.entity.Delegator)
+     */
+    @Override
+    public void createAllByBatchProcess(List<GenericValue> values) throws GenericEntityException {
+        createAllByBatchProcess(values, true);
+    }
+
+    /* (non-Javadoc)
+     * @see org.apache.ofbiz.entity.Delegator#createOrStore(org.apache.ofbiz.entity.GenericValue)
      */
     @Override
     public GenericValue createOrStore(GenericValue value) throws GenericEntityException {
@@ -1513,7 +1566,7 @@ public class GenericDelegator implements Delegator {
 
     /** Finds all Generic entities
      *@param entityName The Name of the Entity as defined in the entity XML file
-     * @see org.sitenetsoft.sunseterp.framework.entity.Delegator#findAll(String, boolean)
+     * @see org.sitenetsoft.sunseterp.framework.entity.Delegator#findAll(java.lang.String, boolean)
      */
     @Override
     public List<GenericValue> findAll(String entityName, boolean useCache) throws GenericEntityException {
@@ -1614,7 +1667,7 @@ public class GenericDelegator implements Delegator {
                 list = eli.getCompleteList();
             }
 
-            if (useCache) {
+            if (useCache && UtilValidate.isEmpty(fieldsToSelect)) {
                 ecaRunner.evalRules(EntityEcaHandler.EV_CACHE_PUT, EntityEcaHandler.OP_FIND, dummyValue, false);
                 this.cache.put(entityName, entityCondition, orderBy, list);
             }
@@ -2133,7 +2186,7 @@ public class GenericDelegator implements Delegator {
      * @see org.sitenetsoft.sunseterp.framework.entity.Delegator#readXmlDocument(java.net.URL)
      */
     @Override
-    public List<GenericValue> readXmlDocument(URL url) throws SAXException, ParserConfigurationException, IOException {
+    public List<GenericValue> readXmlDocument(URL url) throws SAXException, ParserConfigurationException, java.io.IOException {
         if (url == null) {
             return null;
         }
@@ -2157,7 +2210,7 @@ public class GenericDelegator implements Delegator {
         }
         if (!"entity-engine-xml".equals(docElement.getTagName())) {
             Debug.logError("[GenericDelegator.makeValues] Root node was not <entity-engine-xml>", MODULE);
-            throw new IllegalArgumentException("Root node was not <entity-engine-xml>");
+            throw new java.lang.IllegalArgumentException("Root node was not <entity-engine-xml>");
         }
         docElement.normalize();
         Node curChild = docElement.getFirstChild();
@@ -2650,7 +2703,9 @@ public class GenericDelegator implements Delegator {
         if (!this.testMode || this.testRollbackInProgress) {
             throw new IllegalStateException("An attempt was made to store a TestOperation during rollback or outside of test mode");
         }
-        this.testOperations.add(testOperation);
+        if (testOperation.getValue().isMutable()) {
+            this.testOperations.add(testOperation);
+        }
     }
 
     /* (non-Javadoc)
@@ -2672,12 +2727,18 @@ public class GenericDelegator implements Delegator {
                 break;
             }
             try {
-                if (testOperation.getOperation().equals(OperationType.INSERT)) {
-                    this.removeValue(testOperation.getValue());
-                } else if (testOperation.getOperation().equals(OperationType.UPDATE)) {
-                    this.store(testOperation.getValue());
-                } else if (testOperation.getOperation().equals(OperationType.DELETE)) {
-                    this.create(testOperation.getValue());
+                GenericValue gv = testOperation.getValue();
+                gv = gv.isMutable()
+                        ? gv
+                        : GenericValue.create(gv);
+                switch (testOperation.getOperation()) {
+                case INSERT -> this.removeValue(gv);
+                case UPDATE -> this.store(gv);
+                case DELETE -> {
+                    if (this.findOne(gv.getEntityName(), gv.getPrimaryKey().getAllFields(), false) == null) {
+                        this.create(gv);
+                    }
+                }
                 }
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), MODULE);

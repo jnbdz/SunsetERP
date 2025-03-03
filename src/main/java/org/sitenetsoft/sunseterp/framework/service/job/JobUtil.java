@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.service.job;
 
+import javax.transaction.Transaction;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransactionException;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
-
-import javax.transaction.Transaction;
-import java.util.List;
+import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 
 public final class JobUtil {
 
@@ -44,16 +44,18 @@ public final class JobUtil {
             jobValue.remove();
             GenericValue relatedValue = jobValue.getRelatedOne("RecurrenceInfo", false);
             if (relatedValue != null) {
-                List<GenericValue> valueList = relatedValue.getRelated("JobSandbox", null, null, false);
-                if (valueList.isEmpty()) {
+                if (EntityQuery.use(jobValue.getDelegator()).from("JobSandbox")
+                        .where("recurrenceInfoId", relatedValue.get("recurrenceInfoId"))
+                        .queryCount() == 0) {
                     relatedValue.remove();
                     relatedValue.removeRelated("RecurrenceRule");
                 }
             }
             relatedValue = jobValue.getRelatedOne("RuntimeData", false);
             if (relatedValue != null) {
-                List<GenericValue> valueList = relatedValue.getRelated("JobSandbox", null, null, false);
-                if (valueList.isEmpty()) {
+                if (EntityQuery.use(jobValue.getDelegator()).from("JobSandbox")
+                        .where("runtimeDataId", relatedValue.get("runtimeDataId"))
+                        .queryCount() == 0) {
                     relatedValue.remove();
                 }
             }
