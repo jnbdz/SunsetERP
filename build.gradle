@@ -312,15 +312,15 @@ dependencies {
 // excludedJavaSources
 // These are libraries to handle different external services
 def excludedJavaSources = [
-        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/cybersource/IcsPaymentServices.java',
-        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/orbital/OrbitalPaymentServices.java',
-        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/paypal/PayPalServices.java',
-        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/securepay/SecurePayPaymentServices.java',
-        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/securepay/SecurePayServiceTest.java',
-        'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/verisign/PayflowPro.java',
-        'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareException.java',
-        'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareServices.java',
-        'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareUTL.java'
+    'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/cybersource/IcsPaymentServices.java',
+    'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/orbital/OrbitalPaymentServices.java',
+    'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/paypal/PayPalServices.java',
+    'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/securepay/SecurePayPaymentServices.java',
+    'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/securepay/SecurePayServiceTest.java',
+    'org/sitenetsoft/sunseterp/applications/accounting/thirdparty/verisign/PayflowPro.java',
+    'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareException.java',
+    'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareServices.java',
+    'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareUTL.java'
 ]
 
 sourceSets {
@@ -462,6 +462,19 @@ def sysadminGroup = 'System Administration'
 
 // ========== ERP Elements Command tasks ==========
 
+// TODO: There might be another tasks for this
+/*task loadAll(group: ofbizServer) {
+    dependsOn 'ofbiz --load-data'
+    description 'Load default data; meant for OFBiz development, testing, and demo purposes'
+}*/
+
+/*
+task testIntegration(group: ofbizServer) {
+    dependsOn 'ofbiz --test'
+    description 'Run OFBiz integration tests; You must run loadAll before running this task'
+}
+ */
+
 // TODO: The next one (tasks.) is the one used
 // 📌
 /*tasks.register('SunsetERP', JavaExec) {
@@ -473,6 +486,144 @@ def sysadminGroup = 'System Administration'
         args = ['help'] // Default to help if no args are provided
     }
 }*/
+
+// TODO:
+/*
+task loadAdminUserLogin(group: ofbizServer) {
+    description 'Create admin user with temporary password equal to ofbiz. You must provide userLoginId'
+    createOfbizCommandTask('executeLoadAdminUser',
+        ['--load-data', 'file=/runtime/tmp/AdminUserLoginData.xml'])
+    executeLoadAdminUser.doFirst {
+        copy {
+            from ("${rootDir}/framework/resources/templates/AdminUserLoginData.xml") {
+                filter(ReplaceTokens, tokens: [userLoginId: userLoginId])
+            }
+            into "${rootDir}/runtime/tmp/"
+        }
+    }
+    dependsOn executeLoadAdminUser
+    doLast {
+        delete("${rootDir}/runtime/tmp/AdminUserLoginData.xml")
+    }
+}
+ */
+
+// TODO:
+/*
+task loadTenant(group: ofbizServer, description: 'Load data using tenantId') {
+
+    createOfbizCommandTask('executeLoadTenant', [])
+
+    if (project.hasProperty('tenantId')) {
+        executeLoadTenant.args '--load-data', "delegator=default#${tenantId}"
+    }
+    if (project.hasProperty('tenantReaders')) {
+        executeLoadTenant.args '--load-data', "readers=${tenantReaders}"
+    }
+    if (project.hasProperty('tenantComponent')) {
+        executeLoadTenant.args '--load-data', "component=${tenantComponent}"
+    }
+
+    executeLoadTenant.doFirst {
+        if (!project.hasProperty('tenantId')) {
+            throw new GradleException('Missing project property tenantId')
+        }
+    }
+    dependsOn executeLoadTenant
+}
+ */
+
+// TODO:
+/*
+
+task createTenant(group: ofbizServer, description: 'Create a new tenant in your environment') {
+
+    def databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
+
+    task prepareAndValidateTenantArguments {
+        doLast {
+            if (!project.hasProperty('tenantId')) {
+                throw new GradleException('Project property tenantId is missing')
+            }
+            // dbPlatform values: D(Derby), M(MySQL), O(Oracle), P(PostgreSQL) (default D)
+            if (project.hasProperty('dbPlatform')) {
+                if (dbPlatform == 'D') {
+                    databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Derby.xml"
+                } else if (dbPlatform == 'M') {
+                    databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-MySQL.xml"
+                } else if (dbPlatform == 'O') {
+                    databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-Oracle.xml"
+                } else if (dbPlatform == 'P') {
+                    databaseTemplateFile = "${rootDir}/framework/resources/templates/AdminNewTenantData-PostgreSQL.xml"
+                } else {
+                    throw new GradleException('Invalid value for property dbPlatform: ' + "${dbPlatform}")
+                }
+            }
+        }
+    }
+
+    task generateDatabaseTemplateFile(dependsOn: prepareAndValidateTenantArguments) {
+        doLast {
+            def filterTokens = ['tenantId': tenantId,
+                'tenantName': project.hasProperty('tenantName') ? tenantName : tenantId,
+                'domainName': project.hasProperty('domainName') ? domainName : 'org.apache.ofbiz',
+                'db-IP': project.hasProperty('dbIp') ? dbIp : '',
+                'db-User': project.hasProperty('dbUser') ? dbUser : '',
+                'db-Password': project.hasProperty('dbPassword') ? dbPassword : '']
+
+            generateFileFromTemplate(databaseTemplateFile, 'runtime/tmp',
+                filterTokens, 'tmpFilteredTenantData.xml')
+        }
+    }
+
+    task generateAdminUserTemplateFile(dependsOn: prepareAndValidateTenantArguments) {
+        doLast {
+            generateFileFromTemplate(
+                "${rootDir}/framework/resources/templates/AdminUserLoginData.xml",
+                'runtime/tmp',
+                ['userLoginId': "${tenantId}-admin".toString()],
+                'tmpFilteredUserLogin.xml')
+        }
+    }
+
+    // Load the tenants master database
+    createOfbizCommandTask('loadTenantOnMasterTenantDb',
+        ['--load-data', 'file=/runtime/tmp/tmpFilteredTenantData.xml',
+         '--load-data', 'readers=tenant'])
+    loadTenantOnMasterTenantDb.dependsOn(generateDatabaseTemplateFile, generateAdminUserTemplateFile)
+
+    // Load the actual tenant data
+    createOfbizCommandTask('loadTenantData', [])
+    loadTenantData.dependsOn(loadTenantOnMasterTenantDb)
+
+    // Load the tenant admin user account
+    createOfbizCommandTask('loadTenantAdminUserLogin', [])
+    loadTenantAdminUserLogin.dependsOn(loadTenantData)
+
+    /* pass arguments to tasks, must be done this way
+     * because we are in the configuration phase. We cannot
+     * set the parameters at the execution phase. */
+// TODO: (Remove the beginning of the comment... if need be)
+/*if (project.hasProperty('tenantId')) {
+    loadTenantData.args '--load-data', "delegator=default#${tenantId}"
+    loadTenantAdminUserLogin.args(
+            '--load-data', "delegator=default#${tenantId}",
+            '--load-data', "file=${rootDir}/runtime/tmp/tmpFilteredUserLogin.xml"
+    )
+}
+if (project.hasProperty('tenantReaders')) {
+    loadTenantData.args '--load-data', "readers=${tenantReaders}"
+}
+
+dependsOn(loadTenantAdminUserLogin)
+
+// cleanup
+doLast {
+    delete("${rootDir}/runtime/tmp/tmpFilteredTenantData.xml")
+    delete("${rootDir}/runtime/tmp/tmpFilteredUserLogin.xml")
+}
+}
+ */
 
 // 📌
 tasks.register('SunsetERP', JavaExec) {
@@ -612,27 +763,27 @@ tasks.register('generatePluginDocumentation') {
     dependsOn deletePluginDocumentation
     description 'Generate plugin documentation. Expects pluginId flag'
     activeComponents()
-            .findAll { project.hasProperty('pluginId') && it.name == pluginId }
-            .each { component ->
-                def pluginAsciidoc = task "${component.name}Documentation"(type: AsciidoctorTask) {
-                    def asciidocFolder = new File("${component}/src/docs/asciidoc")
-                    if (asciidocFolder.exists()) {
-                        copy {
-                            from "${rootDir}/docs/asciidoc/images/OFBiz-Logo.svg"
-                            into "${component}/src/docs/asciidoc/images"
-                        }
-                        sourceDir file("${component}/src/docs/asciidoc")
-                        outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
-                        doLast { println "Documentation generated for plugin ${component.name}" }
-                    } else {
-                        println "No documentation found for plugin ${component.name}"
+        .findAll { project.hasProperty('pluginId') && it.name == pluginId }
+        .each { component ->
+            def pluginAsciidoc = task "${component.name}Documentation" (type: AsciidoctorTask) {
+                def asciidocFolder = new File("${component}/src/docs/asciidoc")
+                if (asciidocFolder.exists()) {
+                    copy {
+                        from "${rootDir}/docs/asciidoc/images/OFBiz-Logo.svg"
+                        into "${component}/src/docs/asciidoc/images"
                     }
-                    doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
-                    mustRunAfter deletePluginDocumentation
+                    sourceDir file("${component}/src/docs/asciidoc")
+                    outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
+                    doLast { println "Documentation generated for plugin ${component.name}" }
+                } else {
+                    println "No documentation found for plugin ${component.name}"
                 }
-                dependsOn pluginAsciidoc
                 doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
+                mustRunAfter deletePluginDocumentation
             }
+            dependsOn pluginAsciidoc
+            doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
+        }
 }
 
 tasks.register('generateAllPluginsDocumentation') {
@@ -644,7 +795,7 @@ tasks.register('generateAllPluginsDocumentation') {
                 if (subprojectExists(":plugins:${plugin.name}")) {
                     // Note: the "-" between "component.name" and "Documentation" allows to differentiate from
                     // the other inner task temporary created by the generatePluginDocumentation task
-                    def pluginAsciidoc = task "${component.name}-Documentation"(type: AsciidoctorTask) {
+                    def pluginAsciidoc = task "${component.name}-Documentation" (type: AsciidoctorTask) {
                         def asciidocFolder = new File("${component}/src/docs/asciidoc")
                         doFirst {
                             if (asciidocFolder.exists()) {
@@ -659,8 +810,8 @@ tasks.register('generateAllPluginsDocumentation') {
                             outputDir file("${buildDir}/asciidoc/plugins/${component.name}")
                             doLast { println "Documentation generated for plugin ${component.name}" }
                         }
-                        mustRunAfter deleteAllPluginsDocumentation
-                        doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
+                    mustRunAfter deleteAllPluginsDocumentation
+                    doLast { delete "${component}/src/docs/asciidoc/images/OFBiz-Logo.svg" }
                     }
                     dependsOn pluginAsciidoc
                 }
@@ -668,6 +819,57 @@ tasks.register('generateAllPluginsDocumentation') {
         }
     }
 }
+
+// TODO:
+
+// ========== System Administration tasks ==========
+/*task createTestReports(group: sysadminGroup, description: 'Generate HTML reports from junit XML output') {
+    doLast {
+        ant.taskdef(name: 'junitreport',
+                classname: 'org.apache.tools.ant.taskdefs.optional.junit.XMLResultAggregator',
+                classpath: configurations.junitReport.asPath)
+        ant.junitreport(todir: './runtime/logs/test-results') {
+            fileset(dir: './runtime/logs/test-results') {
+                include(name: '*.xml')
+            }
+            report(format:'frames', todir:'./runtime/logs/test-results/html')
+        }
+    }
+}
+
+task gitInfoFooter(group: sysadminGroup, description: 'Update the Git Branch-revision info in the footer if Git is used') {
+    doLast {
+        def branch
+        def revision
+        def timestamp = new Date().format 'yyyy-MM-dd HH:mm:ss'
+        def gitFolder = rootProject.file('.git')
+
+        if (!gitFolder.exists()) {
+            println ('Git is not used')
+            return
+        }
+
+        def branchOutput = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', '--abbrev-ref', 'HEAD'
+            standardOutput = branchOutput
+        }
+        branch = branchOutput.toString()
+        def revisionOutput = new ByteArrayOutputStream()
+        exec {
+            commandLine 'git', 'rev-parse', 'HEAD'
+            standardOutput = revisionOutput
+        }
+        revision = revisionOutput.toString()
+        gitFooterFile.delete()
+        gitFooterFile.createNewFile()
+        gitFooterFile <<  System.lineSeparator()
+        gitFooterFile << '${uiLabelMap.CommonBranch} : ' + "${branch}" + System.lineSeparator()
+        gitFooterFile << '${uiLabelMap.CommonRevision} : ' + "${revision}" + System.lineSeparator()
+        gitFooterFile << '${uiLabelMap.CommonBuiltOn} : ' + "${timestamp}" + System.lineSeparator()
+        gitFooterFile << '${uiLabelMap.CommonJavaVersion} : ' + "${org.gradle.internal.jvm.Jvm.current()}"
+    }
+}*/
 
 // ========== OFBiz Plugin Management ==========
 tasks.register('createPlugin') {
@@ -738,15 +940,15 @@ tasks.register('installPlugin') {
 
     if (project.hasProperty('pluginId')) {
         activeComponents()
-                .findAll { it.name == pluginId }
-                .each { component ->
-                    if (taskExistsInproject(":plugins:${pluginId}", 'install')) {
-                        dependsOn ":plugins:${pluginId}:install"
-                        doLast { println "installed plugin ${pluginId}" }
-                    } else {
-                        doLast { println "No install task defined for plugin ${pluginId}, nothing to do" }
-                    }
+            .findAll { it.name == pluginId }
+            .each { component ->
+                if (taskExistsInproject(":plugins:${pluginId}", 'install')) {
+                    dependsOn ":plugins:${pluginId}:install"
+                    doLast { println "installed plugin ${pluginId}" }
+                } else {
+                    doLast { println "No install task defined for plugin ${pluginId}, nothing to do" }
                 }
+            }
     }
 }
 
