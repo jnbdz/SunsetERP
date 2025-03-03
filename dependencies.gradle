@@ -1075,13 +1075,16 @@ dependencies {
     //implementation 'com.paypal:heap-dump-tool:1.1.6'
     //implementation 'com.paypal:rest-api-sdk:1.14.1'
 
+    // TODO: Might stick with freemaker so this might get removed
     implementation "io.quarkus:quarkus-resteasy-reactive-qute"
 
     // https://mvnrepository.com/artifact/org.bouncycastle/bcpkix-jdk18on
     implementation 'org.bouncycastle:bcpkix-jdk18on:1.78.1'
 
+    // Used for the command line (CLI)
     implementation "io.quarkus:quarkus-picocli"
 
+    // Used for OpeTelemetry support logging
     // https://mvnrepository.com/artifact/io.quarkus/quarkus-opentelemetry
     implementation 'io.quarkus:quarkus-opentelemetry:3.10.0'
 
@@ -1117,26 +1120,123 @@ dependencies {
     // 🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯🎯
 
     // TODO: Does Quarkus & GraalVM support this runtime thing?
-    runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
-    runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
-    runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
-    runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
-    runtimeOnly 'org.apache.axis2:axis2-transport-http:1.8.2'
-    runtimeOnly 'org.apache.axis2:axis2-transport-local:1.8.2'
-    runtimeOnly 'org.apache.derby:derby:10.16.1.1' // 10.17.x.x requires Java 21
-    runtimeOnly 'org.apache.derby:derbytools:10.16.1.1' // 10.17.x.x requires Java 21
-    runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:2.1'
-    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.24.2' // for external jars using the old log4j1.2: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.24.2' // for external jars using the java.util.logging: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.24.2' // for external jars using slf4j: routes logging to log4j 2
-    runtimeOnly 'org.apache.logging.log4j:log4j-web:2.24.2' //???
-    runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.24.2' // need to constrain to version to avoid classpath conflict (ReflectionUtil)
 
-    // specify last codenarc version for java 17 compliance
+    // SAAJ API
+    //
+    // https://mvnrepository.com/artifact/javax.xml.soap/javax.xml.soap-api
+    //runtimeOnly 'javax.xml.soap:javax.xml.soap-api:1.4.0'
+
+    // Provides the API for creating and building SOAP messages.
+    //
+    // https://mvnrepository.com/artifact/jakarta.xml.soap/jakarta.xml.soap-api
+    // https://mvnrepository.com/artifact/jakarta.xml.soap/jakarta.xml.soap-api
+    implementation 'jakarta.xml.soap:jakarta.xml.soap-api:3.0.2'
+
+    // Java Unified Expression Language Service Provider
+    //
+    // https://mvnrepository.com/artifact/de.odysseus.juel/juel-spi
+    runtimeOnly 'de.odysseus.juel:juel-spi:2.2.7'
+
+    //
+    //
+    //
+    runtimeOnly 'net.sf.barcode4j:barcode4j-fop-ext:2.1'
+
+    //
+    //
+    //
+    runtimeOnly 'net.sf.barcode4j:barcode4j:2.1'
+
+    //
+    //
+    //
+    runtimeOnly 'org.apache.axis2:axis2-transport-http:1.8.2'
+
+    //
+    //
+    //
+    runtimeOnly 'org.apache.axis2:axis2-transport-local:1.8.2'
+
+    // Contains the core Apache Derby database engine, which also includes the embedded JDBC driver.
+    //
+    // NOTE: 10.17.x.x requires Java 21
+    //
+    // https://mvnrepository.com/artifact/org.apache.derby/derby
+    runtimeOnly 'org.apache.derby:derby:10.16.1.1'
+
+    // Contains Apache Derby tools like ij, sysinfo, and dblook.
+    //
+    // NOTE: 10.17.x.x requires Java 21
+    //
+    // https://mvnrepository.com/artifact/org.apache.derby/derbytools
+    runtimeOnly 'org.apache.derby:derbytools:10.16.1.1'
+
+    // Java API for XML Remote Procedure Call 1.1 API
+    //
+    // https://mvnrepository.com/artifact/org.apache.geronimo.specs/geronimo-jaxrpc_1.1_spec
+    runtimeOnly 'org.apache.geronimo.specs:geronimo-jaxrpc_1.1_spec:2.1'
+
+    // The Apache Log4j 1.x Compatibility API
+    //
+    // NOTE: for external jars using the old log4j1.2: routes logging to log4j 2
+    //
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-1.2-api
+    runtimeOnly 'org.apache.logging.log4j:log4j-1.2-api:2.24.2'
+
+    // The Apache Log4j 1.x Compatibility API
+    //
+    // NOTE: for external jars using the java.util.logging: routes logging to log4j 2
+    //
+    // TODO: New version --> 2.24.3 / 3.0.0-beta2
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-1.2-api
+    runtimeOnly 'org.apache.logging.log4j:log4j-jul:2.24.2'
+
+    // The Apache Log4j SLF4J API binding to Log4j 2 Core
+    //
+    // NOTE: for external jars using slf4j: routes logging to log4j 2
+    //
+    // TODO: Switch to what Quarkus has.
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl
+    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j-impl:2.24.2'
+
+    // The Apache Log4j SLF4J 2.0 API binding to Log4j 2 Core
+    //
+    // TODO: This seems to be recommended over `org.apache.logging.log4j:log4j-slf4j-impl`
+    // TODO: Switch to what Quarkus has.
+    // TODO: New version --> 3.0.0-beta2
+    // TODO: For some reason when copy/pasting this it gave `testImplementation` -- Is it the right one?
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j2-impl
+    //testImplementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.24.3'
+
+    // The Apache Log4j support for web servlet containers
+    //
+    // NOTE: ???
+    //
+    // TODO: Not sure if needed or just use the Quarkus logging
+    // TODO: I don't think we are still using servlet containers
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-web
+    runtimeOnly 'org.apache.logging.log4j:log4j-web:2.24.2'
+
+    // The Apache Log4j Commons Logging Adapter
+    //
+    // NOTE: need to constrain to version to avoid classpath conflict (ReflectionUtil)
+    //
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-jcl
+    runtimeOnly 'org.apache.logging.log4j:log4j-jcl:2.24.2'
+
+    // The CodeNarc project provides a static analysis tool for Groovy code.
+    //
+    // NOTE: specify last codenarc version for java 17 compliance
+    //
+    // https://mvnrepository.com/artifact/org.codenarc/CodeNarc
     codenarc('org.codenarc:CodeNarc:3.5.0')
 
     // use constraints to update transitive dependencies
     constraints {
+        // Apache James :: Mime4j :: Core
+        //
+        // TODO: New version --> 0.8.12
+        // https://mvnrepository.com/artifact/org.apache.james/apache-mime4j-core
         implementation('org.apache.james:apache-mime4j-core:0.8.10') {
             because 'CVE-2024-21742'
         }
