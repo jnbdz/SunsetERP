@@ -18,22 +18,29 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.ftl;
 
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
-import org.sitenetsoft.sunseterp.framework.base.util.collections.MapStack;
-import org.sitenetsoft.sunseterp.framework.base.util.template.FreeMarkerWorker;
-import org.sitenetsoft.sunseterp.framework.webapp.view.AbstractViewHandler;
-import org.sitenetsoft.sunseterp.framework.webapp.view.ViewHandlerException;
+import java.io.IOException;
+import java.util.Map;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.Map;
+
+import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.base.util.collections.MapStack;
+import org.sitenetsoft.sunseterp.framework.base.util.template.FreeMarkerWorker;
+import org.sitenetsoft.sunseterp.framework.security.SecuredFreemarker;
+import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader;
+import org.sitenetsoft.sunseterp.framework.webapp.view.AbstractViewHandler;
+import org.sitenetsoft.sunseterp.framework.webapp.view.ViewHandlerException;
+
+import freemarker.ext.jsp.TaglibFactory;
+import freemarker.ext.servlet.HttpRequestHashModel;
+import freemarker.ext.servlet.HttpSessionHashModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 
 /** FreemarkerViewHandler - Freemarker Template Engine View Handler.
  */
@@ -48,36 +55,10 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
     }
 
     @Override
-    public void render(String name, String page, String info, String contentType, String encoding,
-            HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
-        if (UtilValidate.isEmpty(page)) {
-            throw new ViewHandlerException("Invalid template source");
-        }
-
-        // make the root context (data model) for freemarker
-        MapStack<String> context = MapStack.create();
-        prepOfbizRoot(context, request, response);
-
-        // process the template & flush the output
-        try {
-            if (page.startsWith("component://")) {
-                FreeMarkerWorker.renderTemplate(page, context, response.getWriter());
-            } else {
-                // backwards compatibility
-                Template template = config.getTemplate(page);
-                FreeMarkerWorker.renderTemplate(template, context, response.getWriter());
-            }
-            response.flushBuffer();
-        } catch (TemplateException te) {
-            throw new ViewHandlerException("Problems processing Freemarker template", te);
-        } catch (IOException ie) {
-            throw new ViewHandlerException("Problems writing to output stream", ie);
-        }
-    }
-
-    public static void prepOfbizRoot(Map<String, Object> root, HttpServletRequest request, HttpServletResponse response) {
+    public Map<String, Object> prepareViewContext(HttpServletRequest request, HttpServletResponse response, ConfigXMLReader.ViewMap viewMap) {
         ServletContext servletContext = request.getServletContext();
         HttpSession session = request.getSession();
+        MapStack<String> root = MapStack.create();
 
         // add in the OFBiz objects
         root.put("delegator", request.getAttribute("delegator"));
@@ -105,11 +86,38 @@ public class FreeMarkerViewHandler extends AbstractViewHandler {
 
         // add the request parameters -- this now uses a Map from UtilHttp
         Map<String, Object> requestParameters = UtilHttp.getParameterMap(request);
+        if (viewMap.isSecureContext()) {
+            requestParameters = SecuredFreemarker.sanitizeParameterMap(requestParameters);
+        }
         root.put("requestParameters", requestParameters);
 
         // add the TabLibFactory
         //TaglibFactory jspTaglibs = new TaglibFactory(servletContext);
         //root.put("JspTaglibs", jspTaglibs);
+        return root;
+    }
 
+    @Override
+    public void render(String name, String page, String info, String contentType, String encoding,
+                       HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws ViewHandlerException {
+        if (UtilValidate.isEmpty(page)) {
+            throw new ViewHandlerException("Invalid template source");
+        }
+
+        // process the template & flush the output
+        try {
+            if (page.startsWith("component://")) {
+                FreeMarkerWorker.renderTemplate(page, context, response.getWriter());
+            } else {
+                // backwards compatibility
+                Template template = config.getTemplate(page);
+                FreeMarkerWorker.renderTemplate(template, context, response.getWriter());
+            }
+            response.flushBuffer();
+        } catch (TemplateException te) {
+            throw new ViewHandlerException("Problems processing Freemarker template", te);
+        } catch (IOException ie) {
+            throw new ViewHandlerException("Problems writing to output stream", ie);
+        }
     }
 }

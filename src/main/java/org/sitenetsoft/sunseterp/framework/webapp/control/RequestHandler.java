@@ -18,6 +18,29 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.control;
 
+import static org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics.checkMap;
+
+import java.io.IOException;
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.cert.X509Certificate;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+//import jakarta.servlet.ServletContext;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpSession;
+//import javax.ws.rs.core.MultivaluedHashMap;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.ws.rs.core.MultivaluedHashMap;
+//import javax.ws.rs.core.MultivaluedHashMap;
+
 //import org.apache.cxf.jaxrs.model.URITemplate;
 import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
@@ -42,28 +65,6 @@ import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteProperties;
 import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
 import org.sitenetsoft.sunseterp.framework.widget.model.ThemeFactory;
 
-//import jakarta.servlet.ServletContext;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import jakarta.servlet.http.HttpSession;
-//import javax.ws.rs.core.MultivaluedHashMap;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.ws.rs.core.MultivaluedHashMap;
-//import javax.ws.rs.core.MultivaluedHashMap;
-import java.io.IOException;
-import java.io.Serializable;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.security.cert.X509Certificate;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
-
-import static org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics.checkMap;
-
 /**
  * RequestHandler - Request Processor Object
  */
@@ -75,7 +76,7 @@ public final class RequestHandler {
     private final URL controllerConfigURL;
     private final boolean trackServerHit;
     private final boolean trackVisit;
-    private final List<String> hostHeadersAllowed;
+    private static final List<String> HOSTHEADERSALLOWED = UtilMisc.getHostHeadersAllowed();
     private ControllerConfig ccfg;
 
     private RequestHandler(ServletContext context) {
@@ -92,8 +93,6 @@ public final class RequestHandler {
 
         this.trackServerHit = !"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"));
         this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
-        hostHeadersAllowed = UtilMisc.getHostHeadersAllowed();
-
     }
 
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
@@ -163,7 +162,7 @@ public final class RequestHandler {
     /**
      * Finds the request maps matching a segmented path.
      * <p>A segmented path can match request maps where the {@code uri} attribute
-     * contains an URI template like in the {@code foo/bar/{baz}} example.
+     * contains a URI template like in the {@code foo/bar/{baz}} example.
      * @param rMapMap the map associating URIs to a list of request maps corresponding to different HTTP methods
      * @param request the HTTP request to match
      * @return a collection of request maps which might be empty but not {@code null}
@@ -348,7 +347,7 @@ public final class RequestHandler {
     public void doRequest(HttpServletRequest request, HttpServletResponse response, String chain,
                           GenericValue userLogin, Delegator delegator) throws RequestHandlerException, RequestHandlerExceptionAllowExternalRequests {
 
-        if (!hostHeadersAllowed.contains(request.getServerName())) {
+        if (!HOSTHEADERSALLOWED.contains(request.getServerName())) {
             Debug.logError("Domain " + request.getServerName() + " not accepted to prevent host header injection."
                     + " You need to set host-headers-allowed property in security.properties file.", MODULE);
             throw new RequestHandlerException("Domain " + request.getServerName() + " not accepted to prevent host header injection."
@@ -384,7 +383,7 @@ public final class RequestHandler {
         Collection<RequestMap> rmaps = resolveURI(ccfg, request);
         if (rmaps.isEmpty()) {
             if (throwRequestHandlerExceptionOnMissingLocalRequest) {
-                if (path.contains("/checkLogin/") || path.contains("/sendconfirmationmail/")) {
+                if (path.contains("/checkLogin/") || path.contains("/sendconfirmationmail/") || path.contains("/getUiLabels")) {
                     // Nested requests related with checkLogin and sendconfirmationmail are OK.
                     // There is nothing to worry about, better remove these wrong errors messages.
                     return;
@@ -715,7 +714,9 @@ public final class RequestHandler {
 
             // If error, then display more error messages:
             if ("error".equals(eventReturnBasedRequestResponse.getName())) {
-                if (Debug.errorOn()) {
+                String uri = requestMap.getUri();
+                if (Debug.errorOn()
+                        && !uri.equals("SetTimeZoneFromBrowser")) { // Prevents to uselessly clutter the logs up with SetTimeZoneFromBrowser errors
                     String errorMessageHeader = "Request " + requestMap.getUri() + " caused an error with the following message: ";
                     if (request.getAttribute("_ERROR_MESSAGE_") != null) {
                         Debug.logError(errorMessageHeader + request.getAttribute("_ERROR_MESSAGE_"), MODULE);
@@ -888,6 +889,18 @@ public final class RequestHandler {
                 }
                 String url = nextRequestResponse.getValue().startsWith("/") ? nextRequestResponse.getValue() : "/" + nextRequestResponse.getValue();
                 callRedirect(url + this.makeQueryString(request, nextRequestResponse), response, request, redirectSC);
+            } else if ("shortener".equals(nextRequestResponse.getType())) {
+                // check for a shortener
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("[RequestHandler.doRequest]: Response is a shortener redirect." + showSessionId(request), MODULE);
+                }
+                String url = null;
+                try {
+                    url = OfbizPathShortener.restoreOriginalPath(delegator, (String) request.getAttribute("shortener"));
+                } catch (GenericEntityException e) {
+                    throw new RuntimeException(e);
+                }
+                callRedirect(url, response, request, redirectSC);
             } else if ("request-redirect".equals(nextRequestResponse.getType())) {
                 if (Debug.verboseOn()) {
                     Debug.logVerbose("[RequestHandler.doRequest]: Response is a Request redirect." + showSessionId(request), MODULE);
@@ -1182,6 +1195,22 @@ public final class RequestHandler {
             throw new RequestHandlerException("No definition found for view with name [" + view + "]");
         }
 
+        // Perform security check.
+        if (viewMap.isSecurityAuth() && UtilValidate.isEmpty(userLogin)) {
+            ConfigXMLReader.Event checkLoginEvent = ccfg.getRequestMapMap().get("checkLogin").getEvent();
+            String checkLoginReturnString = null;
+
+            try {
+                checkLoginReturnString = this.runEvent(req, resp, checkLoginEvent, null, "security-auth");
+            } catch (EventHandlerException e) {
+                throw new RequestHandlerException(e.getMessage(), e);
+            }
+
+            if (!"success".equalsIgnoreCase(checkLoginReturnString)) {
+                throw new RequestHandlerException("An active login is required for view with name [" + view + "]");
+            }
+        }
+
         String nextPage;
 
         if (viewMap.getPage() == null) {
@@ -1243,7 +1272,8 @@ public final class RequestHandler {
                 Debug.logVerbose("Rendering view [" + nextPage + "] of type [" + viewMap.getType() + "]", MODULE);
             }
             ViewHandler vh = viewFactory.getViewHandler(viewMap.getType());
-            vh.render(view, nextPage, viewMap.getInfo(), contentType, charset, req, resp);
+            Map<String, Object> context = vh.prepareViewContext(req, resp, viewMap);
+            vh.render(view, nextPage, viewMap.getInfo(), contentType, charset, req, resp, context);
         } catch (ViewHandlerException e) {
             Throwable throwable = e.getNested() != null ? e.getNested() : e;
             throw new RequestHandlerException(e.getNonNestedMessage(), throwable);
@@ -1252,7 +1282,7 @@ public final class RequestHandler {
         // before getting the view generation time flush the response output to get more consistent results
         try {
             resp.flushBuffer();
-        } catch (IOException e) {
+        } catch (java.io.IOException e) {
             /* If any request gets aborted before completing, i.e if a user requests a page and cancels that request before the page is rendered
             and returned
                or if request is an ajax request and user calls abort() method for on ajax request then its showing broken pipe exception on console,
@@ -1330,6 +1360,10 @@ public final class RequestHandler {
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode,
                            String targetControlPath) {
+        return makeLink(request, response, url, fullPath, secure, encode, "", false);
+    }
+    public String makeLink(HttpServletRequest request, HttpServletResponse response, String url, boolean fullPath, boolean secure, boolean encode,
+                           String targetControlPath, boolean pathShortener) {
         WebSiteProperties webSiteProps = null;
         try {
             webSiteProps = WebSiteProperties.from(request);
@@ -1429,8 +1463,19 @@ public final class RequestHandler {
         }
 
         // now add the actual passed url, but if it doesn't start with a / add one first
-        if (url != null && !url.startsWith("/")) {
-            newURL.append("/");
+        if (url != null) {
+            if (!url.startsWith("/")) {
+                newURL.append("/");
+            }
+            if (pathShortener) {
+                try {
+                    url = OfbizPathShortener.shortenPath(delegator, url);
+                } catch (GenericEntityException e) {
+                    // If the entity engine is throwing exceptions, then there is no point in continuing.
+                    Debug.logError(e, "Exception thrown while getting the path shortener: ", MODULE);
+                    return null;
+                }
+            }
         }
         newURL.append(url == null ? "" : url);
 

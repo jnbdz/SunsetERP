@@ -18,15 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.view;
 
+import java.io.IOException;
+
+import java.util.Map;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.HttpClient;
 import org.sitenetsoft.sunseterp.framework.base.util.HttpClientException;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
-
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader;
 
 /**
  * ViewHandlerException - View Handler Exception
@@ -40,8 +43,13 @@ public class HttpViewHandler extends AbstractViewHandler {
     }
 
     @Override
+    public Map<String, Object> prepareViewContext(HttpServletRequest request, HttpServletResponse response, ConfigXMLReader.ViewMap viewMap) {
+        return Map.of();
+    }
+
+    @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse
-            response) throws ViewHandlerException {
+            response, Map<String, Object> context) throws ViewHandlerException {
         // some containers call filters on EVERY request, even forwarded ones,
         // so let it know that it came from the control servlet
 

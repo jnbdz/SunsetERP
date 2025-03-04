@@ -18,10 +18,12 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.model;
 
-import freemarker.ext.beans.BeansWrapper;
-import freemarker.ext.beans.CollectionModel;
-import freemarker.ext.beans.StringModel;
-import freemarker.template.*;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.*;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
 import org.sitenetsoft.sunseterp.framework.base.util.collections.MapStack;
@@ -36,10 +38,15 @@ import org.jsoup.parser.ParseError;
 import org.jsoup.select.Elements;
 import org.w3c.dom.Element;
 
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.*;
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.CollectionModel;
+import freemarker.ext.beans.GenericObjectModel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import freemarker.template.TemplateModel;
+import freemarker.template.TemplateModelException;
+import freemarker.template.Version;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -76,7 +83,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    public static class StringHtmlWrapperForFtl extends StringModel {
+    public static class StringHtmlWrapperForFtl extends GenericObjectModel {
         public StringHtmlWrapperForFtl(String str, BeansWrapper wrapper) {
             super(str, wrapper);
         }
@@ -296,7 +303,7 @@ public class HtmlWidget extends ModelScreenWidget {
                         String type = script.attr("type");
                         String src = script.attr("src");
                         if (UtilValidate.isEmpty(src)) {
-                            if (UtilValidate.isEmpty(type) || "application/javascript".equals(type)) {
+                            if (UtilValidate.isEmpty(type) || "text/javascript".equals(type)) {
                                 scripts.append(script.data());
                                 script.remove();
                             }

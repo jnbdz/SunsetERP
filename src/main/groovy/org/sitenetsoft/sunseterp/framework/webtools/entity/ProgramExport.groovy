@@ -19,7 +19,6 @@
 package org.sitenetsoft.sunseterp.framework.webtools.entity
 
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue
-import org.sitenetsoft.sunseterp.framework.security.SecuredUpload
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.MultipleCompilationErrorsException
 import org.codehaus.groovy.control.customizers.ImportCustomizer
@@ -80,12 +79,6 @@ GroovyShell shell = new GroovyShell(loader, binding, configuration)
 /* codenarc-disable ReturnNullFromCatchBlock */
 if (groovyProgram) {
     try {
-        // Check if a webshell is not uploaded but allow "import"
-        if (!SecuredUpload.isValidText(groovyProgram, ['import'])) {
-            logError('================== Not executed for security reason ==================')
-            request.setAttribute('_ERROR_MESSAGE_', 'Not executed for security reason')
-            return
-        }
         shell.parse(groovyProgram)
         shell.evaluate(groovyProgram)
         recordValues = shell.getVariable('recordValues')

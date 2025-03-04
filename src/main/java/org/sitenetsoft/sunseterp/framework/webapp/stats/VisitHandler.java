@@ -18,6 +18,21 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.stats;
 
+import java.net.InetAddress;
+import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.stream.Collectors;
+
+//import jakarta.servlet.http.Cookie;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
@@ -28,19 +43,6 @@ import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelEntity;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
-
-//import jakarta.servlet.http.Cookie;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.net.InetAddress;
-import java.sql.Timestamp;
-import java.util.Arrays;
-import java.util.Locale;
 
 /**
  * Handles saving and maintaining visit information
@@ -238,7 +240,9 @@ public class VisitHandler {
                             Cookie[] cookies = request.getCookies();
                             if (cookies != null) {
                                 if (Debug.verboseOn()) {
-                                    Debug.logVerbose("Cookies:" + String.join(",", Arrays.stream(cookies).toArray(String[]::new)), MODULE);
+                                    Debug.logVerbose("Cookies:" + String.join(",", Arrays.stream(cookies)
+                                            .map(cookie -> cookie.getName() + "=" + cookie.getValue())
+                                            .collect(Collectors.joining(", "))), MODULE);
                                 }
                                 for (int i = 0; i < cookies.length; i++) {
                                     if (cookies[i].getName().equals(VISITOR_COOKIE_NAME)) {

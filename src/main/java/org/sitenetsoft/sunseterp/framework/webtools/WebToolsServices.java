@@ -18,6 +18,17 @@
  */
 package org.sitenetsoft.sunseterp.framework.webtools;
 
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.sql.Timestamp;
+import java.text.NumberFormat;
+import java.util.*;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
@@ -44,16 +55,6 @@ import org.sitenetsoft.sunseterp.framework.webtools.artifactinfo.ServiceArtifact
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.Timestamp;
-import java.text.NumberFormat;
-import java.util.*;
 
 /**
  * WebTools Services
@@ -105,7 +106,7 @@ public class WebToolsServices {
         // #############################
         // FM Template
         // #############################
-        if (UtilValidate.urlInString(fulltext)
+        if (UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(fulltext)
                 && !"true".equals(EntityUtilProperties.getPropertyValue("security", "security.datafile.loadurls.enable", "false", delegator))) {
             Debug.logError("For security reason HTTP URLs are not accepted, see OFBIZ-12304", MODULE);
             Debug.logInfo("Rather load your data from a file or set SystemProperty security.datafile.loadurls.enable = true", MODULE);
@@ -118,11 +119,24 @@ public class WebToolsServices {
                         UtilMisc.toMap("filename", fmfilename, "errorString", "Template file not found."), locale));
             }
             try {
-                DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                factory.setValidating(true);
+                factory.setNamespaceAware(true);
+
+                factory.setAttribute("http://xml.org/sax/features/validation", true);
+                factory.setAttribute("http://apache.org/xml/features/validation/schema", true);
+
+                factory.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                factory.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+                factory.setXIncludeAware(false);
+                factory.setExpandEntityReferences(false);
+
+                DocumentBuilder builder = factory.newDocumentBuilder();
                 InputSource ins = url != null ? new InputSource(url.openStream()) : new InputSource(new StringReader(fulltext));
                 Document doc;
                 try {
-                    doc = documentBuilder.parse(ins);
+                    doc = builder.parse(ins);
                 } finally {
                     if (ins.getByteStream() != null) {
                         ins.getByteStream().close();

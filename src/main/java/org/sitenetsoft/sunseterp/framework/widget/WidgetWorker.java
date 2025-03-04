@@ -18,8 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget;
 
+import java.util.Map;
+
+//import jakarta.servlet.ServletContext;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.apache.http.client.utils.URIBuilder;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.StringUtil;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
@@ -29,6 +39,7 @@ import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader;
 import org.sitenetsoft.sunseterp.framework.webapp.control.RequestHandler;
 import org.sitenetsoft.sunseterp.framework.webapp.taglib.ContentUrlTag;
+import org.sitenetsoft.sunseterp.framework.widget.model.CommonWidgetModels;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelForm;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelFormField;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.ScreenRenderer;
@@ -37,16 +48,9 @@ import org.jsoup.nodes.FormElement;
 import org.jsoup.parser.Parser;
 import org.jsoup.parser.Tag;
 
-//import jakarta.servlet.ServletContext;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
-import java.util.Map;
 
 import static org.sitenetsoft.sunseterp.framework.base.util.UtilValidate.isNotEmpty;
 
@@ -101,17 +105,18 @@ public final class WidgetWorker {
             throw new RuntimeException(msg, e);
         }
 
-        final String tokenValue = CsrfUtil.generateTokenForNonAjax(request, target);
-        if (isNotEmpty(tokenValue)) {
-            additionalParameters.put(CsrfUtil.getTokenNameNonAjax(), tokenValue);
+        if (!"plain".equals(targetType)) {
+            final String tokenValue = CsrfUtil.generateTokenForNonAjax(request, target);
+            if (isNotEmpty(tokenValue)) {
+                additionalParameters.put(CsrfUtil.getTokenNameNonAjax(), tokenValue);
+            }
+
+            if (UtilValidate.isNotEmpty(parameterMap)) {
+                parameterMap.forEach(uriBuilder::addParameter);
+            }
+
+            additionalParameters.forEach(uriBuilder::addParameter);
         }
-
-        if (UtilValidate.isNotEmpty(parameterMap)) {
-            parameterMap.forEach(uriBuilder::addParameter);
-        }
-
-        additionalParameters.forEach(uriBuilder::addParameter);
-
         try {
             return uriBuilder.build();
         } catch (URISyntaxException e) {
@@ -158,7 +163,7 @@ public final class WidgetWorker {
             // if description is truncated, always use description as title
             if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
                 title = description;
-                description = description.substring(0, size) + "…";
+                description = StringUtil.truncateEncodedStringToLength(description, size);
             }
 
             if (isNotEmpty(title)) {
@@ -284,6 +289,19 @@ public final class WidgetWorker {
             context.put("screenStack", new ScreenRenderer.ScreenStack());
         }
         return (ScreenRenderer.ScreenStack) context.get("screenStack");
+    }
+
+    /**
+     * Returns the jwt callback id if present on the context.
+     * @param context
+     * @return
+     */
+    public static String getJwtCallback(Map<String, Object> context) {
+        String jwtCallback = (String) context.get(CommonWidgetModels.JWT_CALLBACK);
+        if (UtilValidate.isEmpty(jwtCallback) && context.containsKey("parameters")) {
+            jwtCallback = (String) ((Map) context.get("parameters")).get(CommonWidgetModels.JWT_CALLBACK);
+        }
+        return jwtCallback;
     }
 
     public static int getPaginatorNumber(Map<String, Object> context) {

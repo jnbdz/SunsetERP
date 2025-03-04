@@ -18,13 +18,29 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.control;
 
+import static org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics.checkMap;
+
+import java.math.BigInteger;
+import java.security.cert.X509Certificate;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.function.Predicate;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.jsp.PageContext;
+import jakarta.transaction.Transaction;
+
 import org.apache.http.HttpStatus;
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig.WebappInfo;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.*;
-
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityCondition;
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityConditionList;
 import org.sitenetsoft.sunseterp.framework.entity.condition.EntityOperator;
@@ -38,12 +54,10 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtil;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.sunseterp.framework.security.Security;
-
 import org.sitenetsoft.sunseterp.framework.security.SecurityConfigurationException;
 import org.sitenetsoft.sunseterp.framework.security.SecurityFactory;
 import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
-
 import org.sitenetsoft.sunseterp.framework.service.ModelService;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.WebAppCache;
@@ -66,17 +80,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Cookie;
-
-import javax.transaction.Transaction;
-import java.math.BigInteger;
-import java.security.cert.X509Certificate;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import static org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics.checkMap;
 
 /**
  * Common Workers
@@ -322,13 +325,13 @@ public final class LoginWorker {
             password = request.getParameter("PASSWORD");
             token = request.getParameter("TOKEN");
             // check session attributes
-            if (username == null) username = (String) session.getAttribute("USERNAME");
-            if (password == null) password = (String) session.getAttribute("PASSWORD");
-            if (token == null) token = (String) session.getAttribute("TOKEN");
+            if (UtilValidate.isEmpty(username)) username = (String) session.getAttribute("USERNAME");
+            if (UtilValidate.isEmpty(password)) password = (String) session.getAttribute("PASSWORD");
+            if (UtilValidate.isEmpty(token)) token = (String) session.getAttribute("TOKEN");
 
             // in this condition log them in if not already; if not logged in or can't log in, save parameters and return error
-            if (username == null
-                    || (password == null && token == null)
+            if (UtilValidate.isEmpty(username)
+                    || (UtilValidate.isEmpty(password) && UtilValidate.isEmpty(token))
                     || "error".equals(login(request, response))) {
 
                 // make sure this attribute is not in the request; this avoids infinite recursion when a login by less stringent criteria
@@ -406,9 +409,9 @@ public final class LoginWorker {
             }
         }
 
-        if (username == null) username = (String) session.getAttribute("USERNAME");
-        if (password == null) password = (String) session.getAttribute("PASSWORD");
-        if (token == null) token = (String) session.getAttribute("TOKEN");
+        if (UtilValidate.isEmpty(username)) username = (String) session.getAttribute("USERNAME");
+        if (UtilValidate.isEmpty(password)) password = (String) session.getAttribute("PASSWORD");
+        if (UtilValidate.isEmpty(token)) token = (String) session.getAttribute("TOKEN");
 
         // allow a username and/or password in a request attribute to override the request parameter or the session attribute;
         // this way a preprocessor can play with these a bit...
@@ -599,7 +602,7 @@ public final class LoginWorker {
             String errMsg = UtilProperties.getMessage(RESOURCE, "loginevents.following_error_occurred_during_login",
                     messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
-            return requirePasswordChange ? "requirePasswordChange" : "error";
+            return "error";
         }
     }
 

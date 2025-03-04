@@ -684,7 +684,7 @@ dependencies {
     //
     // TODO: Using the Quarkus version
     // https://mvnrepository.com/artifact/org.freemarker/freemarker
-    //implementation 'org.freemarker:freemarker:2.3.34'
+    implementation 'org.freemarker:freemarker:2.3.34'
 
     // Freemarker templating engine
     //

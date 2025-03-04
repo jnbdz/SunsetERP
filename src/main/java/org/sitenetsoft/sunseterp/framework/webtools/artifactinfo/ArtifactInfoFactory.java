@@ -18,11 +18,23 @@
  */
 package org.sitenetsoft.sunseterp.framework.webtools.artifactinfo;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.*;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.Future;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;
 import org.sitenetsoft.sunseterp.framework.base.concurrent.ExecutionPool;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.FileUtil;
 import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilURL;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -39,16 +51,6 @@ import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader.Contro
 import org.sitenetsoft.sunseterp.framework.webapp.control.WebAppConfigurationException;
 import org.sitenetsoft.sunseterp.framework.widget.model.*;
 import org.xml.sax.SAXException;
-
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.*;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Future;
 
 /**
  * The type Artifact info factory.
@@ -592,11 +594,11 @@ public class ArtifactInfoFactory {
             } else if ("screen".equals(type)) {
                 return this.getScreenWidgetArtifactInfo(artifactName, artifactLocation);
             } else if ("request".equals(type)) {
-                return this.getControllerRequestArtifactInfo(new URL(artifactLocation), artifactName);
+                return this.getControllerRequestArtifactInfo(UtilURL.fromUrlString(artifactLocation), artifactName);
             } else if ("view".equals(type)) {
-                return this.getControllerViewArtifactInfo(new URL(artifactLocation), artifactName);
+                return this.getControllerViewArtifactInfo(UtilURL.fromUrlString(artifactLocation), artifactName);
             }
-        } catch (GeneralException | MalformedURLException e) {
+        } catch (GeneralException e) {
             Debug.logError(e, "Error getting artifact info: " + e.toString(), MODULE);
         }
         return null;

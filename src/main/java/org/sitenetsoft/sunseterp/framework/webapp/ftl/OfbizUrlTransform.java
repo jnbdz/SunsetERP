@@ -18,11 +18,14 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.ftl;
 
-import freemarker.core.Environment;
-import freemarker.template.SimpleScalar;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateScalarModel;
-import freemarker.template.TemplateTransformModel;
+import java.io.IOException;
+import java.io.Writer;
+import java.net.URLEncoder;
+import java.util.Map;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig.WebappInfo;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.template.FreeMarkerWorker;
@@ -31,12 +34,11 @@ import org.sitenetsoft.sunseterp.framework.webapp.OfbizUrlBuilder;
 import org.sitenetsoft.sunseterp.framework.webapp.WebAppUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.control.RequestHandler;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.Writer;
-import java.net.URLEncoder;
-import java.util.Map;
+import freemarker.core.Environment;
+import freemarker.template.SimpleScalar;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateScalarModel;
+import freemarker.template.TemplateTransformModel;
 
 /**
  * Freemarker Transform for creating OFBiz URLs (links).
@@ -45,8 +47,9 @@ import java.util.Map;
  * <li><b>fullPath</b> (true/false) - generate a full URL including scheme and host, defaults to false.</li>
  * <li><b>secure</b> (true/false) - generate a secure (https) URL, defaults to false. Server settings will
  * override this argument.</li>
+ * <li><b>pathShortener</b> (true/false) - generate a shortened URL. Defaults to false.</li>
  * <li><b>encode</b> (true/false) - encode the URL, defaults to true. Encoding is UTF-8.</li>
- * <li><b>webSiteId</b> - generate a full URL using the web site settings found in the WebSite entity.</li>
+ * <li><b>webSiteId</b> - generate a full URL using the website settings found in the WebSite entity.</li>
  * <li><b>controlPath</b> - override the default control path.</li>
  * </ul>
  * <p>In addition, this transform accepts an environment variable - <b>urlPrefix</b>. If the variable
@@ -94,6 +97,7 @@ public class OfbizUrlTransform implements TemplateTransformModel {
         final StringBuilder buf = new StringBuilder();
         final boolean fullPath = checkBooleanArg(args, "fullPath", false);
         final boolean secure = checkBooleanArg(args, "secure", false);
+        final boolean pathShortener = checkBooleanArg(args, "pathShortener", false);
         final boolean encode = checkBooleanArg(args, "encode", true);
         final String webSiteId = convertToString(args.get("webSiteId"));
         final String controlPath = convertToString(args.get("controlPath"));
@@ -131,7 +135,7 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         WebappInfo webAppInfo = WebAppUtil.getWebappInfoFromWebsiteId(webSiteId);
                         StringBuilder newUrlBuff = new StringBuilder(250);
                         OfbizUrlBuilder builder = OfbizUrlBuilder.from(webAppInfo, delegator);
-                        builder.buildFullUrl(newUrlBuff, buf.toString(), secure);
+                        builder.buildFullUrl(newUrlBuff, buf.toString(), secure, pathShortener);
                         String newUrl = newUrlBuff.toString();
                         if (encode) {
                             newUrl = URLEncoder.encode(newUrl, "UTF-8");
@@ -143,7 +147,7 @@ public class OfbizUrlTransform implements TemplateTransformModel {
                         HttpServletResponse response = FreeMarkerWorker.unwrap(env.getVariable("response"));
                         String requestUrl = buf.toString();
                         RequestHandler rh = RequestHandler.from(request);
-                        String link = (rh.makeLink(request, response, requestUrl, fullPath, secure, encode, controlPath));
+                        String link = (rh.makeLink(request, response, requestUrl, fullPath, secure, encode, controlPath, pathShortener));
                         out.write(link);
                     } else {
                         out.write(buf.toString());

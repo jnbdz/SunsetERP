@@ -18,17 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.ftl;
 
-import freemarker.core.Environment;
-import freemarker.ext.beans.BeanModel;
-import freemarker.template.TemplateModelException;
-import freemarker.template.TemplateTransformModel;
-import org.sitenetsoft.sunseterp.framework.widget.model.ScriptLinkHelper;
-
-import jakarta.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 import java.util.Set;
+import jakarta.servlet.http.HttpServletRequest;
+
+import org.sitenetsoft.sunseterp.framework.widget.model.ScriptLinkHelper;
+
+import freemarker.core.Environment;
+import freemarker.ext.beans.BeanModel;
+import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateTransformModel;
 
 /**
  * Render the externalized script tags collected from the "html-template" tag where multi-block = true
@@ -54,7 +55,7 @@ public class ScriptTagsFooterTransform implements TemplateTransformModel {
                         if (scriptSrcSet != null) {
                             String srcList = "";
                             for (String scriptSrc : scriptSrcSet) {
-                                srcList += ("<script src=\"" + scriptSrc + "\" type=\"application/javascript\"></script>\n");
+                                srcList += ("<script src=\"" + scriptSrc + "\" type=\"text/javascript\"></script>\n");
                             }
                             out.write(srcList);
                         }

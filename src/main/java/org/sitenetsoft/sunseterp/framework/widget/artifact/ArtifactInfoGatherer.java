@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.artifact;
 
+import java.util.Set;
+
 import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader;
@@ -34,8 +36,8 @@ import org.sitenetsoft.sunseterp.framework.widget.model.ModelFormField.*;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelScreenWidget.*;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelTree.ModelNode;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelTree.ModelNode.ModelSubNode;
-
-import java.util.Set;
+import org.sitenetsoft.sunseterp.framework.widget.model.ModelTreeAction;
+import org.sitenetsoft.sunseterp.framework.widget.model.ModelWidgetVisitor;
 
 /**
  * An object that gathers artifact information from screen widgets.
@@ -311,7 +313,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     public void visit(Tree tree) throws Exception {
     }
 
-    private class FieldInfoGatherer implements ModelFieldVisitor {
+    private final class FieldInfoGatherer implements ModelFieldVisitor {
 
         private void addRequestLocations(String target, String urlMode) {
             try {
@@ -511,8 +513,8 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
             if (UtilValidate.isNotEmpty(modelFormField.getEntityName())) {
                 infoContext.addEntityName(modelFormField.getEntityName());
             }
-            if (modelFormField.getFieldInfo() instanceof DisplayEntityField) {
-                infoContext.addEntityName(((DisplayEntityField) modelFormField.getFieldInfo()).getEntityName());
+            if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
+                infoContext.addEntityName(((ModelFormField.DisplayEntityField) modelFormField.getFieldInfo()).getEntityName());
             }
             if (modelFormField.getFieldInfo() instanceof FieldInfoWithOptions) {
                 for (ModelFormField.OptionSource optionSource : ((FieldInfoWithOptions) modelFormField

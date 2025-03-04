@@ -18,6 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.model;
 
+import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.collections.FlexibleMapAccessor;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
@@ -29,12 +33,9 @@ import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ModelParam;
 import org.sitenetsoft.sunseterp.framework.service.ModelService;
+import org.sitenetsoft.sunseterp.framework.widget.WidgetWorker;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.util.*;
 
 /**
  * A collection of shared/reused widget models.
@@ -378,14 +379,20 @@ public final class CommonWidgetModels {
             }
             Element autoFormParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-form");
             if (autoFormParamsElement != null) {
-                Node formElement = autoFormParamsElement;
-                while (formElement != null
-                        && formElement.getLocalName() != "form") {
-                    formElement = formElement.getParentNode();
+                String formName = null;
+                if (autoFormParamsElement.hasAttribute("form-name") && autoFormParamsElement.getAttribute("form-name") != null) {
+                    formName = autoFormParamsElement.getAttribute("form-name");
+                } else {
+                    Node formElement = autoFormParamsElement;
+                    while (formElement != null
+                            && formElement.getLocalName() != "form") {
+                        formElement = formElement.getParentNode();
+                    }
+                    if (formElement != null && formElement.getLocalName() != null) {
+                        formName = ((Element) formElement).getAttribute("name");
+                    }
                 }
-                if (formElement.getLocalName() != null) {
-                    parameterList.add(new Parameter("_FORM_NAME_", ((Element) formElement).getAttribute("name") + "_AS_PARAM_", false));
-                }
+                parameterList.add(new Parameter("_FORM_NAME_", formName + "_AS_PARAM_", false));
             }
             this.parameterList = Collections.unmodifiableList(parameterList);
             Element autoServiceParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-service");
@@ -559,24 +566,8 @@ public final class CommonWidgetModels {
             if (autoEntityParameters != null) {
                 fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, defaultEntityName));
             }
-            propagateCallbackInParameterMap(context, propagateMyCallback, fullParameterMap);
+            fullParameterMap.putAll(UtilGenerics.cast(propagateCallbackInParameterMap(context, propagateMyCallback, getCallback())));
             return fullParameterMap;
-        }
-
-        // If a call back is present on link or present on context, adding it to the parameters list
-        private void propagateCallbackInParameterMap(Map<String, Object> context, boolean propagateMyCallback, Map<String, String> fullParameterMap) {
-            if (getCallback() != null && propagateMyCallback) {
-                fullParameterMap.put(JWT_CALLBACK, getCallback().toJwtToken(context));
-            } else if (context.containsKey(JWT_CALLBACK)) {
-                fullParameterMap.put(JWT_CALLBACK, (String) context.get(JWT_CALLBACK));
-            } else {
-                if (context.containsKey("parameters")) {
-                    Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
-                    if (parameters.containsKey(JWT_CALLBACK)) {
-                        fullParameterMap.put(JWT_CALLBACK, (String) parameters.get(JWT_CALLBACK));
-                    }
-                }
-            }
         }
 
         public Map<String, String> getParameterMap(Map<String, Object> context) {
@@ -774,11 +765,29 @@ public final class CommonWidgetModels {
          */
         public static Parameter create(Map.Entry<String, Object> entry) {
             try {
-                return new Parameter(entry.getKey(),
+                return new CommonWidgetModels.Parameter(entry.getKey(),
                         (String) ObjectType.simpleTypeOrObjectConvert(entry.getValue(), "String", null, null), false);
             } catch (GeneralException e) {
                 throw new RuntimeException(e);
             }
         }
     }
+
+    // If a call back is present on link or present on context, adding it to the parameters list
+    public static Map<String, Object> propagateCallbackInParameterMap(Map<String, Object> context, boolean propagateMyCallback,
+            ModelForm.UpdateArea callBack) {
+        Map<String, Object> fullParameterMap = new HashMap<String, Object>();
+
+        // If the parameter contains the map, the call back will be automatically manage by the form
+        if (fullParameterMap.containsKey("_FORM_NAME_")) return fullParameterMap;
+
+        String currentJwtCallback = WidgetWorker.getJwtCallback(context);
+        if (callBack != null && propagateMyCallback) {
+            fullParameterMap.put(JWT_CALLBACK, callBack.toJwtToken(context));
+        } else if (UtilValidate.isNotEmpty(currentJwtCallback)) {
+            fullParameterMap.put(JWT_CALLBACK, currentJwtCallback);
+        }
+        return fullParameterMap;
+    }
+
 }

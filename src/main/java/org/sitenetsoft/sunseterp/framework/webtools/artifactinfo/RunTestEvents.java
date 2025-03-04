@@ -18,6 +18,20 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webtools.artifactinfo;
 
+/*
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.ofbiz.base.container.ContainerException;
+import org.apache.ofbiz.base.start.StartupCommand;
+import org.apache.ofbiz.base.util.UtilMisc;
+import org.apache.ofbiz.testtools.TestRunContainer;
+ */
+
 /**
  * Event used to run a Junit test
  */
@@ -32,7 +46,7 @@ public class RunTestEvents {}
 
         List<StartupCommand> ofbizCommands = new ArrayList<>();
         Map<String, String> cmdArgs = UtilMisc.toMap("component", component, "suitename", suiteName);
-        if (caseName == null) {
+        if (caseName != null) {
             cmdArgs.put("case", caseName);
         }
         ofbizCommands.add(new StartupCommand.Builder("test").properties(cmdArgs).build());
