@@ -18,6 +18,21 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.renderer.macro;
 
+import java.io.StringWriter;
+import java.net.URI;
+import java.sql.Timestamp;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import com.ibm.icu.util.Calendar;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
@@ -33,24 +48,12 @@ import org.sitenetsoft.sunseterp.framework.widget.model.ModelTheme;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.FormRenderer;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.Paginator;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.VisualTheme;
+import org.sitenetsoft.sunseterp.framework.widget.renderer.macro.model.GroupOption;
+import org.sitenetsoft.sunseterp.framework.widget.renderer.macro.model.Option;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.macro.renderable.*;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.macro.renderable.RenderableFtlMacroCall.RenderableFtlMacroCallBuilder;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.macro.renderable.RenderableFtlString.RenderableFtlStringBuilder;
 import org.jsoup.nodes.Element;
-
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import jakarta.servlet.http.HttpSession;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.StringWriter;
-import java.net.URI;
-import java.sql.Timestamp;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Creates RenderableFtl objects used to render the various elements of a form.
@@ -64,6 +67,8 @@ public final class RenderableFtlFormElementsBuilder {
 
     private final StaticContentUrlProvider staticContentUrlProvider;
 
+    private final UtilCodec.SimpleEncoder internalEncoder;
+
     public RenderableFtlFormElementsBuilder(final VisualTheme visualTheme, final RequestHandler requestHandler,
                                             final HttpServletRequest request, final HttpServletResponse response,
                                             final StaticContentUrlProvider staticContentUrlProvider) {
@@ -72,6 +77,7 @@ public final class RenderableFtlFormElementsBuilder {
         this.request = request;
         this.response = response;
         this.staticContentUrlProvider = staticContentUrlProvider;
+        this.internalEncoder = UtilCodec.getEncoder("string");
     }
 
     public RenderableFtl tooltip(final Map<String, Object> context, final ModelFormField modelFormField) {
@@ -85,16 +91,13 @@ public final class RenderableFtlFormElementsBuilder {
 
     public RenderableFtl asterisks(final Map<String, Object> context, final ModelFormField modelFormField) {
         String requiredField = "false";
-        String requiredStyle = "";
         if (modelFormField.getRequiredField()) {
             requiredField = "true";
-            requiredStyle = modelFormField.getRequiredFieldStyle();
         }
 
         return RenderableFtlMacroCall.builder()
                 .name("renderAsterisks")
                 .stringParameter("requiredField", requiredField)
-                .stringParameter("requiredStyle", requiredStyle)
                 .build();
     }
 
@@ -133,7 +136,7 @@ public final class RenderableFtlFormElementsBuilder {
         boolean ajaxEnabled = inPlaceEditor != null && javaScriptEnabled;
         if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
             title = description;
-            description = description.substring(0, size - 8) + "..." + description.substring(description.length() - 5);
+            description = StringUtil.truncateEncodedStringToLength(description, size);
         }
 
         final RenderableFtlMacroCallBuilder builder = RenderableFtlMacroCall.builder()
@@ -230,12 +233,20 @@ public final class RenderableFtlFormElementsBuilder {
                                    final boolean javaScriptEnabled) {
         ModelFormField modelFormField = textField.getModelFormField();
         String name = modelFormField.getParameterName(context);
-        String className = "";
+        String type = textField.getType();
+        if (UtilValidate.isEmpty(type)) {
+            type = "text";
+        }
+        String pattern = "";
+        if (List.of("text", "email", "url", "tel").contains(type)) {
+            pattern = textField.getPattern();
+        }
+        List<String> classes = new ArrayList<>();
         String alert = "false";
         String mask = "";
         String placeholder = textField.getPlaceholder(context);
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
-            className = modelFormField.getWidgetStyle();
+            classes.add(modelFormField.getWidgetStyle());
             if (modelFormField.shouldBeRed(context)) {
                 alert = "true";
             }
@@ -252,14 +263,13 @@ public final class RenderableFtlFormElementsBuilder {
         String clientAutocomplete = "false";
         //check for required field style on single forms
         if ("single".equals(modelFormField.getModelForm().getType()) && modelFormField.getRequiredField()) {
+            // kept for backward compatibility with existing CSS/JS
+            // maybe unused if jQuery Validation is no longer used
+            // for styling we should rely on "required" attribute
+            classes.add("required");
             String requiredStyle = modelFormField.getRequiredFieldStyle();
-            if (UtilValidate.isEmpty(requiredStyle)) {
-                requiredStyle = "required";
-            }
-            if (UtilValidate.isEmpty(className)) {
-                className = requiredStyle;
-            } else {
-                className = requiredStyle + " " + className;
+            if (UtilValidate.isNotEmpty(requiredStyle)) {
+                classes.add(requiredStyle);
             }
         }
         List<ModelForm.UpdateArea> updateAreas = modelFormField.getOnChangeUpdateAreas();
@@ -278,7 +288,9 @@ public final class RenderableFtlFormElementsBuilder {
         return RenderableFtlMacroCall.builder()
                 .name("renderTextField")
                 .stringParameter("name", name)
-                .stringParameter("className", className)
+                .stringParameter("className", String.join(" ", classes))
+                .stringParameter("type", type)
+                .stringParameter("pattern", pattern)
                 .stringParameter("alert", alert)
                 .stringParameter("value", value)
                 .stringParameter("textSize", textSize)
@@ -288,6 +300,7 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("action", action != null ? action : "")
                 .booleanParameter("disabled", disabled)
                 .booleanParameter("readonly", readonly)
+                .booleanParameter("required", modelFormField.getRequiredField())
                 .stringParameter("clientAutocomplete", clientAutocomplete)
                 .stringParameter("ajaxUrl", ajaxUrl)
                 .booleanParameter("ajaxEnabled", ajaxEnabled)
@@ -352,6 +365,8 @@ public final class RenderableFtlFormElementsBuilder {
         if (textareaField.getMaxlength() != null) {
             builder.intParameter("maxlength", textareaField.getMaxlength());
         }
+
+        builder.stringParameter("placeholder", textareaField.getPlaceholder(context));
 
         builder.stringParameter("tabindex", modelFormField.getTabindex());
 
@@ -570,7 +585,8 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("tabindex", modelFormField.getTabindex())
                 .stringParameter("conditionGroup", modelFormField.getConditionGroup())
                 .stringParameter("defaultOptionFrom", dateFindField.getDefaultOptionFrom(context))
-                .stringParameter("defaultOptionThru", dateFindField.getDefaultOptionThru(context));
+                .stringParameter("defaultOptionThru", dateFindField.getDefaultOptionThru(context))
+                .stringParameter("language", locale.getLanguage());
 
         macroCallBuilder.booleanParameter("alert", false);
         if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
@@ -610,7 +626,7 @@ public final class RenderableFtlFormElementsBuilder {
         }
 
         macroCallBuilder.stringParameter("value",
-                modelFormField.getEntry(context, dateFindField.getDefaultValue(context)))
+                        modelFormField.getEntry(context, dateFindField.getDefaultValue(context)))
                 .stringParameter("value2", modelFormField.getEntry(context));
 
         if (context.containsKey("parameters")) {
@@ -772,7 +788,7 @@ public final class RenderableFtlFormElementsBuilder {
             }
             if (UtilValidate.isNotEmpty(description) && size > 0 && description.length() > size) {
                 title = description;
-                description = description.substring(0, size) + "…";
+                description = StringUtil.truncateEncodedStringToLength(description, size);
             } else if (UtilValidate.isNotEmpty(request.getAttribute("title"))) {
                 title = request.getAttribute("title").toString();
             }
@@ -863,6 +879,139 @@ public final class RenderableFtlFormElementsBuilder {
                 .stringParameter("style", fieldGroup.getStyle());
 
         return macroCallBuilder.build();
+    }
+
+    public RenderableFtl dropDownField(final Map<String, Object> context,
+                                       final ModelFormField.DropDownField dropDownField,
+                                       final boolean javaScriptEnabled) {
+
+        final var builder = RenderableFtlMacroCall.builder().name("renderDropDownField");
+
+        final ModelFormField modelFormField = dropDownField.getModelFormField();
+        final ModelForm modelForm = modelFormField.getModelForm();
+        final var currentValue = modelFormField.getEntry(context);
+        final var autoComplete = dropDownField.getAutoComplete();
+        final var textSizeOptional = dropDownField.getTextSize();
+
+        applyCommonStyling(modelFormField, context, builder);
+
+        builder
+                .stringParameter("name", modelFormField.getParameterName(context))
+                .stringParameter("id", modelFormField.getCurrentContainerId(context))
+                .stringParameter("formName", modelForm.getName())
+                .stringParameter("size", dropDownField.getSize())
+                .booleanParameter("multiple", dropDownField.getAllowMultiple())
+                .stringParameter("currentValue", currentValue)
+                .stringParameter("conditionGroup", modelFormField.getConditionGroup())
+                .booleanParameter("disabled", modelFormField.getDisabled(context))
+                .booleanParameter("ajaxEnabled", autoComplete != null && javaScriptEnabled)
+                .stringParameter("noCurrentSelectedKey", dropDownField.getNoCurrentSelectedKey(context))
+                .stringParameter("tabindex", modelFormField.getTabindex())
+                .booleanParameter("allowEmpty", dropDownField.getAllowEmpty())
+                .stringParameter("dDFCurrent", dropDownField.getCurrent())
+                .booleanParameter("placeCurrentValueAsFirstOption",
+                        "first-in-list".equals(dropDownField.getCurrent()));
+
+        final var event = modelFormField.getEvent();
+        final var action = modelFormField.getAction(context);
+        if (event != null && action != null) {
+            builder.stringParameter("event", event).stringParameter("action", action);
+        }
+
+        final var allOptionValues = dropDownField.getAllOptionValues(context, WidgetWorker.getDelegator(context));
+        final var allGroupValues = dropDownField.getGroupOptions();
+        final var explicitDescription =
+                // Populate explicitDescription with the description from the option associated with the current value.
+                allOptionValues.stream()
+                .filter(optionValue -> optionValue.getKey().equals(currentValue))
+                .map(ModelFormField.OptionValue::getDescription)
+                .findFirst()
+
+                // If no matching option is found, use the current description from the field.
+                .or(() -> Optional.ofNullable(dropDownField.getCurrentDescription(context)))
+                .filter(UtilValidate::isNotEmpty)
+
+                // If no description has been found, fall back to the description determined by the ModelFormField.
+                .or(() -> Optional.of(ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue,
+                        allOptionValues)))
+
+                // Truncate and encode the description as needed.
+                .map(description -> encode(truncate(description, textSizeOptional), modelFormField, context));
+
+        builder.stringParameter("explicitDescription", explicitDescription.orElse(""));
+
+        // Take the field's current value and convert it to a list containing a single item.
+        // If the field allows multiple values, the current value is expected to be a string encoded list of values
+        // which it will be converted to a list of strings.
+        final List<String> currentValuesList = (UtilValidate.isNotEmpty(currentValue) && dropDownField.getAllowMultiple())
+                        ? (currentValue.startsWith("[")
+                            ? StringUtil.toList(currentValue)
+                            : UtilMisc.toList(currentValue))
+                        : Collections.emptyList();
+
+        var optionsList = new ArrayList<>();
+        if (UtilValidate.isNotEmpty(allGroupValues)) {
+            optionsList.addAll(populateGroupAndOptions(context, allGroupValues, modelFormField, textSizeOptional, currentValuesList));
+        }
+        optionsList.addAll(populateOptions(context, allOptionValues, modelFormField, textSizeOptional, currentValuesList));
+
+        builder.objectParameter("options", optionsList);
+
+        int otherFieldSize = dropDownField.getOtherFieldSize();
+        if (otherFieldSize > 0) {
+            var otherFieldName = dropDownField.getParameterNameOther(context);
+
+            var dataMap = modelFormField.getMap(context);
+            if (dataMap == null) {
+                dataMap = context;
+            }
+            var otherValueObj = dataMap.get(otherFieldName);
+            var otherValue = (otherValueObj == null) ? "" : otherValueObj.toString();
+
+            builder
+                    .stringParameter("otherFieldName", otherFieldName)
+                    .stringParameter("otherValue", otherValue)
+                    .intParameter("otherFieldSize", otherFieldSize);
+        }
+
+        return builder.build();
+    }
+
+    private List<Object> populateGroupAndOptions(Map<String, Object> context, List<ModelFormField.GroupOptions> allGroupOptions,
+                                         ModelFormField modelFormField, Optional<Integer> textSizeOptional, List<String> currentValuesList) {
+        if (UtilValidate.isEmpty(allGroupOptions)) {
+            return new ArrayList<>();
+        }
+        return UtilGenerics.cast(allGroupOptions.stream()
+                .map(groupOptions -> {
+                    var groupOptionId = groupOptions.getId(context);
+                    var truncatedDescription = truncate(groupOptions.getDescription(context), textSizeOptional);
+                    var widgetStyle = groupOptions.getWidgetStyle(context);
+                    List<Object> optionsInGroupList = new ArrayList<>();
+                    optionsInGroupList.addAll(populateGroupAndOptions(context,
+                            groupOptions.getGroupOptions(),
+                            modelFormField, textSizeOptional, currentValuesList));
+                    optionsInGroupList.addAll(populateOptions(context,
+                            groupOptions.getAllOptionValues(context, WidgetWorker.getDelegator(context)),
+                            modelFormField, textSizeOptional, currentValuesList));
+                    return new GroupOption(groupOptionId, truncatedDescription, widgetStyle, optionsInGroupList);
+                })
+        .toList());
+    }
+    private List<Object> populateOptions(Map<String, Object> context, List<ModelFormField.OptionValue> allOptionValues,
+                                         ModelFormField modelFormField, Optional<Integer> textSizeOptional, List<String> currentValuesList) {
+        if (UtilValidate.isEmpty(allOptionValues)) {
+            return new ArrayList<>();
+        }
+        return UtilGenerics.cast(allOptionValues.stream()
+                .map(optionValue -> {
+                    var encodedKey = encode(optionValue.getKey(), modelFormField, context);
+                    var truncatedDescription = truncate(optionValue.getDescription(), textSizeOptional);
+                    var selected = currentValuesList.contains(optionValue.getKey());
+
+                    return new Option(encodedKey, truncatedDescription, selected);
+                })
+        .toList());
     }
 
     /**
@@ -963,7 +1112,7 @@ public final class RenderableFtlFormElementsBuilder {
         return wholeFormContext;
     }
 
-    private boolean shouldApplyRequiredField(ModelFormField modelFormField) {
+    private static boolean shouldApplyRequiredField(ModelFormField modelFormField) {
         return ("single".equals(modelFormField.getModelForm().getType())
                 || "upload".equals(modelFormField.getModelForm().getType()))
                 && modelFormField.getRequiredField();
@@ -986,5 +1135,52 @@ public final class RenderableFtlFormElementsBuilder {
 
     private String pathAsContentUrl(final String path) {
         return staticContentUrlProvider.pathAsContentUrlString(path);
+    }
+
+    private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
+        if (UtilValidate.isEmpty(value)) {
+            return value;
+        }
+        UtilCodec.SimpleEncoder encoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+        if (modelFormField.getEncodeOutput() && encoder != null) {
+            value = encoder.encode(value);
+        } else {
+            value = internalEncoder.encode(value);
+        }
+        return value;
+    }
+
+    private String truncate(String value, int maxCharacterLength) {
+        if (maxCharacterLength > 8 && value.length() > maxCharacterLength) {
+            return StringUtil.truncateEncodedStringToLength(value, maxCharacterLength);
+        }
+        return value;
+    }
+
+    private String truncate(String value, Optional<Integer> maxCharacterLengthOptional) {
+        return maxCharacterLengthOptional
+                .map(maxCharacterLength -> truncate(value, maxCharacterLength))
+                .orElse(value);
+    }
+
+    private static void applyCommonStyling(final ModelFormField modelFormField, final Map<String, Object> context,
+                                           final RenderableFtlMacroCallBuilder builder) {
+        final var classNames = new ArrayList<String>();
+        if (UtilValidate.isNotEmpty(modelFormField.getWidgetStyle())) {
+            classNames.add(modelFormField.getWidgetStyle());
+            if (modelFormField.shouldBeRed(context)) {
+                builder.stringParameter("alert", "true");
+            }
+        }
+
+        if (shouldApplyRequiredField(modelFormField)) {
+            var requiredStyle = modelFormField.getRequiredFieldStyle();
+            if (UtilValidate.isEmpty(requiredStyle)) {
+                requiredStyle = "required";
+            }
+            classNames.add(requiredStyle);
+        }
+
+        builder.stringParameter("className", String.join(" ", classNames));
     }
 }

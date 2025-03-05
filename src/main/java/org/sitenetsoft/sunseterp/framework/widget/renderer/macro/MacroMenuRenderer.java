@@ -18,9 +18,21 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.renderer.macro;
 
-import freemarker.core.Environment;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.math.BigDecimal;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
 import org.sitenetsoft.sunseterp.framework.base.util.template.FreeMarkerWorker;
@@ -35,21 +47,11 @@ import org.sitenetsoft.sunseterp.framework.widget.model.ModelWidget;
 import org.sitenetsoft.sunseterp.framework.widget.model.ThemeFactory;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.MenuStringRenderer;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.VisualTheme;
-import org.sitenetsoft.sunseterp.framework.widget.renderer.html.HtmlWidgetRenderer;
 
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.math.BigDecimal;
-import java.net.URI;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import freemarker.core.Environment;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import org.sitenetsoft.sunseterp.framework.widget.renderer.html.HtmlWidgetRenderer;
 
 public class MacroMenuRenderer implements MenuStringRenderer {
 
@@ -263,7 +265,12 @@ public class MacroMenuRenderer implements MenuStringRenderer {
                 targetParameters.append(parameter.getKey());
                 targetParameters.append("'");
                 targetParameters.append(",'value':'");
-                targetParameters.append(parameter.getValue());
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    targetParameters.append(simpleEncoder.encode(parameter.getValue()));
+                } else {
+                    targetParameters.append(parameter.getValue());
+                }
                 targetParameters.append("'}");
             }
             targetParameters.append("]");

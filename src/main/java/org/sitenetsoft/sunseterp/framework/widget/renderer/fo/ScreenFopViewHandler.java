@@ -18,13 +18,23 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.renderer.fo;
 
-import freemarker.template.TemplateException;
+import java.io.*;
+
+import java.util.Map;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.stream.StreamSource;
+
 import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.pdf.PDFEncryptionParams;
 import org.apache.fop.render.pdf.PDFEncryptionOption;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.base.util.collections.MapStack;
+import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader;
 import org.sitenetsoft.sunseterp.framework.webapp.view.AbstractViewHandler;
 import org.sitenetsoft.sunseterp.framework.webapp.view.ApacheFopWorker;
 import org.sitenetsoft.sunseterp.framework.webapp.view.ViewHandlerException;
@@ -37,12 +47,7 @@ import org.sitenetsoft.sunseterp.framework.widget.renderer.macro.MacroFormRender
 import org.sitenetsoft.sunseterp.framework.widget.renderer.macro.MacroScreenRenderer;
 import org.xml.sax.SAXException;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.stream.StreamSource;
-import java.io.*;
+import freemarker.template.TemplateException;
 
 /**
  * Uses XSL-FO formatted templates to generate PDF, PCL, POSTSCRIPT etc.  views
@@ -61,14 +66,21 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         this.servletContext = context;
     }
 
+
+    @Override
+    public Map<String, Object> prepareViewContext(HttpServletRequest request, HttpServletResponse response, ConfigXMLReader.ViewMap viewMap) {
+        MapStack<String> context = MapStack.create();
+        ScreenRenderer.populateContextForRequest(context, null, request, response, servletContext, viewMap.isSecureContext());
+        return context;
+    }
+
     /**
-     * @see org.sitenetsoft.sunseterp.framework.webapp.view.ViewHandler#render(String, String, String, String, String,
-     * jakarta.servlet.http.HttpServletRequest, jakarta.servlet.http.HttpServletResponse)
+     * @see org.sitenetsoft.sunseterp.framework.webapp.view.ViewHandler#render(String, String, String, String, String, HttpServletRequest, HttpServletResponse, Map)
      */
     @SuppressWarnings("unchecked")
     @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request,
-                       HttpServletResponse response) throws ViewHandlerException {
+                       HttpServletResponse response, Map<String, Object> context) throws ViewHandlerException {
         VisualTheme visualTheme = UtilHttp.getVisualTheme(request);
         ModelTheme modelTheme = visualTheme.getModelTheme();
 
@@ -81,15 +93,15 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             // TODO: uncomment these lines when the renderers are implemented
             //TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(modelTheme.getTreeRendererLocation(getName()), writer);
             //MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(modelTheme.getMenuRendererLocation(getName()), writer);
-            ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
-            screens.populateContextForRequest(request, response, servletContext);
+            ScreenRenderer screens = new ScreenRenderer(writer, UtilGenerics.cast(context), screenStringRenderer);
 
             // this is the object used to render forms from their definitions
             screens.getContext().put("formStringRenderer", formStringRenderer);
             screens.getContext().put("simpleEncoder", UtilCodec.getEncoder(modelTheme.getEncoder(getName())));
+            screens.getContext().put("screens", screens);
             screens.render(page);
         } catch (IOException | GeneralException | SAXException | ParserConfigurationException | TemplateException e) {
-            renderError("Problems with the response writer/output stream", e, "[Not Yet Rendered]", request, response);
+            renderError("Problems with the response writer/output stream", e, "[Not Yet Rendered]", request, response, context);
             return;
         }
 
@@ -107,21 +119,21 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
         }
         // get encryption related parameters
         FOUserAgent foUserAgent = null;
-        String userPassword = request.getParameter("userPassword");
-        String ownerPassword = request.getParameter("ownerPassword");
-        boolean allowPrint = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowPrint"))
-                ? ApacheFopWorker.getAllowPrintDefault() : request.getParameter("allowPrint"));
-        boolean allowCopyContent = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowCopyContent"))
-                ? ApacheFopWorker.getAllowCopyContentDefault() : request.getParameter("allowCopyContent"));
-        boolean allowEditContent = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowEditContent"))
-                ? ApacheFopWorker.getAllowEditContentDefault() : request.getParameter("allowEditContent"));
-        boolean allowEditAnnotations = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowEditAnnotations"))
-                ? ApacheFopWorker.getAllowEditAnnotationsDefault() : request.getParameter("allowEditAnnotations"));
+        String userPassword = (String) context.get("userPassword");
+        String ownerPassword = (String) context.get("ownerPassword");
+        boolean allowPrint = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("allowPrint"))
+                ? ApacheFopWorker.getAllowPrintDefault() : (String) context.get("allowPrint"));
+        boolean allowCopyContent = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("allowCopyContent"))
+                ? ApacheFopWorker.getAllowCopyContentDefault() : (String) context.get("allowCopyContent"));
+        boolean allowEditContent = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("allowEditContent"))
+                ? ApacheFopWorker.getAllowEditContentDefault() : (String) context.get("allowEditContent"));
+        boolean allowEditAnnotations = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("allowEditAnnotations"))
+                ? ApacheFopWorker.getAllowEditAnnotationsDefault() : (String) context.get("allowEditAnnotations"));
         if (UtilValidate.isNotEmpty(userPassword) || UtilValidate.isNotEmpty(ownerPassword) || !allowPrint || !allowCopyContent || allowEditContent
                 || !allowEditAnnotations) {
             int encryptionLength = 128;
             try {
-                encryptionLength = Integer.parseInt(request.getParameter("encryption-length"));
+                encryptionLength = Integer.parseInt((String) context.get("encryption-length"));
             } catch (NumberFormatException e) {
                 try {
                     encryptionLength = Integer.parseInt(ApacheFopWorker.getEncryptionLengthDefault());
@@ -130,16 +142,16 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
                 }
             }
 
-            boolean encryptMetadata = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("encrypt-metadata"))
-                    ? ApacheFopWorker.getEncryptMetadataDefault() : request.getParameter("encrypt-metadata"));
-            boolean allowFillInForms = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowFillInForms"))
-                    ? ApacheFopWorker.getAllowFillInFormsDefault() : request.getParameter("allowFillInForms"));
-            boolean allowAccessContent = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowAccessContent"))
-                    ? ApacheFopWorker.getAllowAccessContentDefault() : request.getParameter("allowAccessContent"));
-            boolean allowAssembleDocument = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowAssembleDocument"))
-                    ? ApacheFopWorker.getAllowAssembleDocumentDefault() : request.getParameter("allowAssembleDocument"));
-            boolean allowPrintHq = Boolean.parseBoolean(UtilValidate.isEmpty(request.getParameter("allowPrintHq"))
-                    ? ApacheFopWorker.getAllowPrintHqDefault() : request.getParameter("allowPrintHq"));
+            boolean encryptMetadata = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("encrypt-metadata"))
+                    ? ApacheFopWorker.getEncryptMetadataDefault() : (String) context.get("encrypt-metadata"));
+            boolean allowFillInForms = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("allowFillInForms"))
+                    ? ApacheFopWorker.getAllowFillInFormsDefault() : (String) context.get("allowFillInForms"));
+            boolean allowAccessContent = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("allowAccessContent"))
+                    ? ApacheFopWorker.getAllowAccessContentDefault() : (String) context.get("allowAccessContent"));
+            boolean allowAssembleDocument = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("allowAssembleDocument"))
+                    ? ApacheFopWorker.getAllowAssembleDocumentDefault() : (String) context.get("allowAssembleDocument"));
+            boolean allowPrintHq = Boolean.parseBoolean(UtilValidate.isEmpty(context.get("allowPrintHq"))
+                    ? ApacheFopWorker.getAllowPrintHqDefault() : (String) context.get("allowPrintHq"));
             FopFactory fopFactory = ApacheFopWorker.getFactoryInstance();
             foUserAgent = fopFactory.newFOUserAgent();
             PDFEncryptionParams pdfEncryptionParams = new PDFEncryptionParams(userPassword, ownerPassword, allowPrint, allowCopyContent,
@@ -168,7 +180,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             Fop fop = ApacheFopWorker.createFopInstance(out, contentType, foUserAgent);
             ApacheFopWorker.transform(src, null, fop);
         } catch (Exception e) {
-            renderError("Unable to transform FO file", e, screenOutString, request, response);
+            renderError("Unable to transform FO file", e, screenOutString, request, response, context);
             return;
         }
         // set the content type and length
@@ -180,7 +192,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             out.writeTo(response.getOutputStream());
             response.getOutputStream().flush();
         } catch (IOException e) {
-            renderError("Unable to write to OutputStream", e, screenOutString, request, response);
+            renderError("Unable to write to OutputStream", e, screenOutString, request, response, context);
         }
     }
 
@@ -193,7 +205,9 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
      * @param response        the response
      * @throws ViewHandlerException the view handler exception
      */
-    protected void renderError(String msg, Exception e, String screenOutString, HttpServletRequest request, HttpServletResponse response)
+    protected void renderError(String msg, Exception e, String screenOutString,
+                               HttpServletRequest request, HttpServletResponse response,
+                               Map<String, Object> context)
             throws ViewHandlerException {
         Debug.logError(msg + ": " + e + "; Screen XSL:FO text was:\n" + screenOutString, MODULE);
         try {
@@ -203,8 +217,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
             ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(modelTheme.getType("screen"),
                     modelTheme.getScreenRendererLocation("screen"));
 
-            ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
-            screens.populateContextForRequest(request, response, servletContext);
+            ScreenRenderer screens = new ScreenRenderer(writer, UtilGenerics.cast(context), screenStringRenderer);
             screens.getContext().put("errorMessage", msg + ": " + e);
             screens.render(DEFAULT_ERROR_TEMPLATE);
             response.setContentType("text/html");

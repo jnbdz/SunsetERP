@@ -18,13 +18,27 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.renderer;
 
-import freemarker.ext.servlet.ServletContextHashModel;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.*;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpSession;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.collections.MapStack;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntity;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
+import org.sitenetsoft.sunseterp.framework.security.SecuredFreemarker;
 import org.sitenetsoft.sunseterp.framework.security.Security;
 import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
 import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
@@ -41,18 +55,10 @@ import org.sitenetsoft.sunseterp.framework.widget.model.ScriptLinkHelper;
 import org.sitenetsoft.sunseterp.framework.widget.model.ThemeFactory;
 import org.xml.sax.SAXException;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import jakarta.servlet.http.HttpSession;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.*;
+import freemarker.ext.jsp.TaglibFactory;
+import freemarker.ext.servlet.HttpRequestHashModel;
+import freemarker.ext.servlet.HttpSessionHashModel;
+import freemarker.ext.servlet.ServletContextHashModel;
 
 /**
  * Widget Library - Screen model class
@@ -171,7 +177,7 @@ public class ScreenRenderer {
         context.put("screens", screens);
 
         // include an object to follow the screen stack during the screen rendering process
-        context.put("screenStack", new ScreenStack());
+        context.put("screenStack", new ScreenRenderer.ScreenStack());
 
         // make a reference for high level variables, a global context
         context.put("globalContext", context.standAloneStack());
@@ -203,12 +209,13 @@ public class ScreenRenderer {
      * @param response
      * @param servletContext
      */
-    public void populateContextForRequest(HttpServletRequest request, HttpServletResponse response, ServletContext servletContext) {
-        populateContextForRequest(context, this, request, response, servletContext);
+    public void populateContextForRequest(HttpServletRequest request, HttpServletResponse response,
+                                          ServletContext servletContext, boolean secureParameters) {
+        populateContextForRequest(context, this, request, response, servletContext, secureParameters);
     }
 
     public static void populateContextForRequest(MapStack<String> context, ScreenRenderer screens, HttpServletRequest request,
-                                                 HttpServletResponse response, ServletContext servletContext) {
+                                                 HttpServletResponse response, ServletContext servletContext, boolean secureParameters) {
         HttpSession session = request.getSession();
 
         // attribute names to skip for session and application attributes; these are all handled as special cases,
@@ -216,6 +223,9 @@ public class ScreenRenderer {
         Set<String> attrNamesToSkip = UtilMisc.toSet("delegator", "dispatcher", "security", "webSiteId",
                 "org.apache.catalina.jsp_classpath");
         Map<String, Object> parameterMap = UtilHttp.getCombinedMap(request, attrNamesToSkip);
+        if (secureParameters) {
+            parameterMap = SecuredFreemarker.sanitizeParameterMap(parameterMap);
+        }
 
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
 
@@ -268,12 +278,12 @@ public class ScreenRenderer {
         context.put("javaScriptEnabled", UtilHttp.isJavaScriptEnabled(request));
 
         // these ones are FreeMarker specific and will only work in FTL templates, mainly here for backward compatibility
-        //@TODO: Quarkus - Switch to REST no Freemaker
-        /*context.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));
-        context.put("requestAttributes", new HttpRequestHashModel(request, FreeMarkerWorker.getDefaultOfbizWrapper()));
-        TaglibFactory jspTaglibs = new TaglibFactory(servletContext);
-        context.put("JspTaglibs", jspTaglibs);*/
-        context.put("requestParameters", UtilHttp.getParameterMap(request));
+        // TODO:
+        //context.put("sessionAttributes", new HttpSessionHashModel(session, FreeMarkerWorker.getDefaultOfbizWrapper()));
+        //context.put("requestAttributes", new HttpRequestHashModel(request, FreeMarkerWorker.getDefaultOfbizWrapper()));
+        //TaglibFactory jspTaglibs = new TaglibFactory(servletContext);
+        //context.put("JspTaglibs", jspTaglibs);
+        context.put("requestParameters", SecuredFreemarker.sanitizeParameterMap(UtilHttp.getParameterMap(request)));
 
         ServletContextHashModel ftlServletContext = (ServletContextHashModel) request.getAttribute("ftlServletContext");
         context.put("Application", ftlServletContext);

@@ -18,12 +18,12 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.model;
 
+import java.util.Map;
+
 import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
 import org.sitenetsoft.sunseterp.framework.widget.model.AbstractModelCondition.DefaultConditionFactory;
 import org.w3c.dom.Element;
-
-import java.util.Map;
 
 /**
  * Models the &lt;condition&gt; element.
@@ -75,7 +75,7 @@ public final class ModelScreenCondition {
         }
     }
 
-    private static class ScreenConditionFactory extends DefaultConditionFactory {
+    private static final class ScreenConditionFactory extends DefaultConditionFactory {
 
         @Override
         public ModelCondition newInstance(ModelWidget modelWidget, Element conditionElement) {

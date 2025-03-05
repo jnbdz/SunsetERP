@@ -18,17 +18,19 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.model;
 
+import java.util.List;
+
+import java.util.Map;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelReader;
 import org.sitenetsoft.sunseterp.framework.service.DispatchContext;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.VisualTheme;
 import org.w3c.dom.Element;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * Models the &lt;grid&gt; element.
@@ -82,13 +84,33 @@ public class ModelGrid extends ModelForm {
                     Debug.logError(e, "Failed to load parent grid definition '" + parentGrid
                             + "' at resource '" + parentResource + "'", MODULE);
                 }
+                if (parentModel == null) {
+                    // Backwards compatibility - look for form definitions
+                    try {
+                        parentModel = FormFactory.getFormFromLocation(parentResource, parentGrid, entityModelReader,
+                                visualTheme, dispatchContext);
+                    } catch (Exception e) {
+                        Debug.logError(e, "Failed to load parent grid definition '" + parentGrid
+                                + "' at resource '" + parentResource + "'", MODULE);
+                    }
+                }
+
             } else if (!parentGrid.equals(gridElement.getAttribute("name"))) {
                 // try to find a grid definition in the same file
                 Element rootElement = gridElement.getOwnerDocument().getDocumentElement();
                 List<? extends Element> gridElements = UtilXml.childElementList(rootElement, "grid");
-                if (gridElements.isEmpty()) {
+                if (gridElements.stream()
+                        .noneMatch(grid -> grid.getAttribute("name").equals(parentGrid))) {
                     // Backwards compatibility - look for form definitions
                     gridElements = UtilXml.childElementList(rootElement, "form");
+                    Element parentElement = gridElements.stream()
+                            .filter(form -> form.getAttribute("name").equals(parentGrid))
+                            .findFirst().orElseGet(null);
+                    if (UtilValidate.isNotEmpty(parentElement)) {
+                        parentModel = FormFactory.createModelForm(parentElement, entityModelReader, visualTheme,
+                                dispatchContext, parentResource, parentGrid);
+                        return parentModel;
+                    }
                 }
                 for (Element parentElement : gridElements) {
                     if (parentElement.getAttribute("name").equals(parentGrid)) {

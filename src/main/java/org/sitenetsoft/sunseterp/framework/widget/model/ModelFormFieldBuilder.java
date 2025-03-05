@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.model;
 
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.collections.FlexibleMapAccessor;
 import org.sitenetsoft.sunseterp.framework.base.util.string.FlexibleStringExpander;
@@ -32,8 +34,6 @@ import org.sitenetsoft.sunseterp.framework.service.ModelService;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelForm.UpdateArea;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelFormField.*;
 import org.w3c.dom.Element;
-
-import java.util.*;
 
 /**
  * A <code>ModelFormField</code> builder.
@@ -770,10 +770,10 @@ public class ModelFormFieldBuilder {
                 this.setFieldInfo(textareaField);
             } else if (TEXT_FIELD_TYPES.contains(fieldType)) {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY,
-                        TEXT_SIZE_BY_FIELD_TYPES.get(fieldType), TEXT_MAX_SIZE_BY_FIELD_TYPES.get(fieldType), null);
+                        TEXT_SIZE_BY_FIELD_TYPES.get(fieldType), TEXT_MAX_SIZE_BY_FIELD_TYPES.get(fieldType), "text", null);
                 this.setFieldInfo(textField);
             } else if (NUMERIC_FIELD_TYPES.contains(fieldType)) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6, null, null);
+                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, 6, null, "number", null);
                 this.setFieldInfo(textField);
             } else if (DATA_FIELD_TYPES.contains(fieldType)) {
                 String type = fieldType;
@@ -847,7 +847,7 @@ public class ModelFormFieldBuilder {
             if ("text".equals(modelParamFieldType)) {
                 fieldInfo = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, null);
             } else if ("numeric".equals(modelParamFieldType)) {
-                fieldInfo = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, 6, null, null);
+                fieldInfo = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, 6, null, "number", null);
             } else if ("timestamp".equals(modelParamFieldType)) {
                 fieldInfo = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE, "timestamp");
             } else if ("date".equals(modelParamFieldType)) {
@@ -1014,6 +1014,7 @@ public class ModelFormFieldBuilder {
         this.encodeOutput = builder.getEncodeOutput();
         this.position = builder.getPosition();
         this.requiredField = builder.getRequiredField();
+        this.requiredFieldStyle = builder.getRequiredFieldStyle();
         this.separateColumn = builder.getSeparateColumn();
         this.disabled = builder.getDisabledSpec();
     }

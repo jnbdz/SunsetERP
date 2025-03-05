@@ -18,6 +18,16 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.model;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
@@ -25,15 +35,6 @@ import org.sitenetsoft.sunseterp.framework.widget.renderer.ScreenStringRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
-
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -116,7 +117,7 @@ public class ScreenFactory {
                     long startTime = System.currentTimeMillis();
                     URL screenFileUrl = null;
                     screenFileUrl = FlexibleLocation.resolveLocation(resourceName);
-                    if (screenFileUrl == null) {
+                    if (screenFileUrl == null || UtilValidate.isUrlInStringAndDoesNotStartByComponentProtocol(screenFileUrl.toString())) {
                         throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
                     }
                     Document screenFileDoc = UtilXml.readXmlDocument(screenFileUrl, true, true);

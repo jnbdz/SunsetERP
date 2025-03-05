@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.model;
 
+import java.util.Collection;
+
 import org.sitenetsoft.sunseterp.framework.widget.model.CommonWidgetModels.Link;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelFormField.*;
-
-import java.util.Collection;
 
 /**
  * An object that generates XML from widget models.
@@ -103,7 +103,12 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
         visitAttribute("current-description", dropDownField.getCurrentDescription());
         visitAttribute("other-field-size", dropDownField.getOtherFieldSize());
         visitAttribute("size", dropDownField.getSize());
-        visitAttribute("text-size", dropDownField.getTextSize());
+
+        var textSizeOptional = dropDownField.getTextSize();
+        if (textSizeOptional.isPresent()) {
+            visitAttribute("text-size", textSizeOptional.get());
+        }
+
         visitFieldInfoWithOptions(dropDownField);
         visitAutoComplete(dropDownField.getAutoComplete());
         visitSubHyperlink(dropDownField.getSubHyperlink());
@@ -284,6 +289,7 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
         visitAttribute("rows", textareaField.getRows());
         visitAttribute("visual-editor-buttons", textareaField.getVisualEditorButtons());
         visitAttribute("visual-editor-enable", textareaField.getVisualEditorEnable());
+        visitAttribute("placeholder", textareaField.getPlaceholder());
         writer.append("/></field>");
     }
 
