@@ -30,6 +30,6 @@ under the License.
         <simple-method-test location="component://order/minilang/test/CustRequestTests.xml"/>
     </test-case>
     <test-case case-name="test-cust-request-permission-check">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.order.test.CustRequestPermissionCheckTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.order.CustRequestPermissionCheckTests"/>
     </test-case>
 </test-suite>

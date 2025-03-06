@@ -18,6 +18,13 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.renderer.fo;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Map;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.sitenetsoft.sunseterp.framework.base.util.UtilFormatOut;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.widget.WidgetWorker;
@@ -29,12 +36,6 @@ import org.sitenetsoft.sunseterp.framework.widget.model.ModelWidget;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.FormStringRenderer;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.html.HtmlWidgetRenderer;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.macro.MacroScreenRenderer;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -103,6 +104,14 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
     public void renderDateTimeField(Appendable writer, Map<String, Object> context, DateTimeField dateTimeField) throws IOException {
         ModelFormField modelFormField = dateTimeField.getModelFormField();
         makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateTimeField.getDefaultValue(context)));
+        appendWhitespace(writer);
+    }
+
+    @Override
+    public void renderDateRangePickerField(Appendable writer, Map<String, Object> context, ModelFormField.DateRangePickerField dateRangePickerField)
+            throws IOException {
+        ModelFormField modelFormField = dateRangePickerField.getModelFormField();
+        makeBlockString(writer, modelFormField.getWidgetStyle(), modelFormField.getEntry(context, dateRangePickerField.getDefaultValue(context)));
         appendWhitespace(writer);
     }
 

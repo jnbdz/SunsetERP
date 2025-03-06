@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.model;
 
+import java.io.IOException;
+import java.util.*;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.FormStringRenderer;
 import org.w3c.dom.Element;
-
-import java.io.IOException;
-import java.util.*;
 
 /**
  * Form field abstract class.
@@ -58,6 +58,7 @@ public abstract class FieldInfo {
     public static final int FORM = 23;
     public static final int GRID = 24;
     public static final int SCREEN = 25;
+    public static final int DATE_RANGE_PICKER = 26;
     // the numbering here represents the priority of the source;
     //when setting a new fieldInfo on a modelFormField it will only set
     //the new one if the fieldSource is less than or equal to the existing
@@ -95,6 +96,7 @@ public abstract class FieldInfo {
         fieldTypeByName.put("include-form", 23);
         fieldTypeByName.put("include-grid", 24);
         fieldTypeByName.put("include-screen", 25);
+        fieldTypeByName.put("date-range-picker", 26);
         return Collections.unmodifiableMap(fieldTypeByName);
     }
 

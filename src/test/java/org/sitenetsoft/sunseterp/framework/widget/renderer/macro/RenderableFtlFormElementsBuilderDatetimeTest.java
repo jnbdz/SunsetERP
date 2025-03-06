@@ -30,9 +30,9 @@ import org.sitenetsoft.sunseterp.framework.widget.renderer.VisualTheme;
 import org.sitenetsoft.sunseterp.framework.widget.renderer.macro.renderable.RenderableFtl;
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.HashMap;
 
 import static org.hamcrest.MatcherAssert.assertThat;

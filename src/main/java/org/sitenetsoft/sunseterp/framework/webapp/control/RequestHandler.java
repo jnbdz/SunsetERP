@@ -51,6 +51,7 @@ import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 import org.sitenetsoft.sunseterp.framework.security.CsrfUtil;
+import org.sitenetsoft.sunseterp.framework.webapp.OfbizPathShortener;
 import org.sitenetsoft.sunseterp.framework.webapp.OfbizUrlBuilder;
 import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.sitenetsoft.sunseterp.framework.webapp.control.ConfigXMLReader.RequestMap;

@@ -18,9 +18,9 @@ under the License.
 -->
 
 <#assign isSecure = request.isSecure()/>
-<#assign clientCerts = request.getAttribute("javax.servlet.request.X509Certificate")!/>
+<#assign clientCerts = request.getAttribute("jakarta.servlet.request.X509Certificate")!/>
 <#if (!clientCerts?has_content)>
-    <#assign clientCerts = request.getAttribute("javax.net.ssl.peer_certificates")!/>
+    <#assign clientCerts = request.getAttribute("jakarta.net.ssl.peer_certificates")!/>
 </#if>
 
 <div class="screenlet">

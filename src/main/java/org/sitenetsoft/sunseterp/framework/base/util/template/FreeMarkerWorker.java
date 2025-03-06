@@ -55,7 +55,7 @@ public final class FreeMarkerWorker {
     //public static final Version VERSION = Configuration.VERSION_2_3_32;
     //public static final Version VERSION = Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS;
     //public static final Version VERSION = Configuration.VERSION_2_3_31; // 2_3_33 is not available in the current version of Freemarker
-    public static final Version VERSION = Configuration.VERSION_2_3_34;
+    public static final Version VERSION = Configuration.VERSION_2_3_33;
 
     private FreeMarkerWorker() { }
 

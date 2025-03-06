@@ -18,7 +18,7 @@
  */
 package org.sitenetsoft.sunseterp.applications.accounting.accounting
 
-import javax.servlet.http.HttpSession
+import jakarta.servlet.http.HttpSession
 
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue
 import org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutEvents

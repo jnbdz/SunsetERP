@@ -227,6 +227,8 @@ public class ModelFormFieldBuilder {
             this.fieldInfo = new DateFindField(childElement, null);
         } else if ("range-find".equals(this.fieldType)) {
             this.fieldInfo = new RangeFindField(childElement, null);
+        } else if ("date-range-picker".equals(this.fieldType)) {
+            this.fieldInfo = new DateRangePickerField(childElement, null);
         } else if ("lookup".equals(this.fieldType)) {
             this.fieldInfo = new LookupField(childElement, null);
         } else if ("include-menu".equals(this.fieldType)) {

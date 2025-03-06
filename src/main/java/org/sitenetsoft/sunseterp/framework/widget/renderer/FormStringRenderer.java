@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.renderer;
 
-import org.sitenetsoft.sunseterp.framework.widget.model.ModelForm;
-import org.sitenetsoft.sunseterp.framework.widget.model.ModelFormField;
-
 import java.io.IOException;
 import java.util.Map;
+
+import org.sitenetsoft.sunseterp.framework.widget.model.ModelForm;
+import org.sitenetsoft.sunseterp.framework.widget.model.ModelFormField;
 
 /**
  * Widget Library - Form/Grid renderer.
@@ -98,6 +98,7 @@ public interface FormStringRenderer {
     void renderTextFindField(Appendable writer, Map<String, Object> context, ModelFormField.TextFindField textField) throws IOException;
     void renderDateFindField(Appendable writer, Map<String, Object> context, ModelFormField.DateFindField textField) throws IOException;
     void renderRangeFindField(Appendable writer, Map<String, Object> context, ModelFormField.RangeFindField textField) throws IOException;
+    void renderDateRangePickerField(Appendable writer, Map<String, Object> context, ModelFormField.DateRangePickerField textField) throws IOException;
     void renderLookupField(Appendable writer, Map<String, Object> context, ModelFormField.LookupField textField) throws IOException;
     void renderFileField(Appendable writer, Map<String, Object> context, ModelFormField.FileField textField) throws IOException;
     void renderPasswordField(Appendable writer, Map<String, Object> context, ModelFormField.PasswordField textField) throws IOException;

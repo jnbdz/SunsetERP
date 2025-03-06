@@ -16,14 +16,14 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.sitenetsoft.sunseterp.applications.product.product.test
+package org.sitenetsoft.sunseterp.applications.product.product
 
 import java.sql.Timestamp
-import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart
-import org.apache.ofbiz.service.testtools.OFBizTestCase
-import org.apache.ofbiz.service.ServiceUtil
+import org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart
+import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil
 
 class ProductPromoCondTests extends OFBizTestCase {
 

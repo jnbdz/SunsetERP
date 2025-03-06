@@ -16,16 +16,16 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-package org.sitenetsoft.sunseterp.applications.product.product.test
+package org.sitenetsoft.sunseterp.applications.product.product
 
-import org.apache.ofbiz.base.util.UtilDateTime
-import org.apache.ofbiz.entity.GenericValue
-import org.apache.ofbiz.order.shoppingcart.CheckOutHelper
-import org.apache.ofbiz.order.shoppingcart.ShoppingCart
-import org.apache.ofbiz.order.shoppingcart.ShoppingCartItem
-import org.apache.ofbiz.service.testtools.OFBizTestCase
-import org.apache.ofbiz.order.shoppingcart.product.ProductPromoWorker.ActionResultInfo
-import org.apache.ofbiz.service.ServiceUtil
+import org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.CheckOutHelper
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCart
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.ShoppingCartItem
+import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase
+import org.sitenetsoft.sunseterp.applications.order.shoppingcart.product.ProductPromoWorker.ActionResultInfo
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil
 
 class ProductPromoActionTests extends OFBizTestCase {
 

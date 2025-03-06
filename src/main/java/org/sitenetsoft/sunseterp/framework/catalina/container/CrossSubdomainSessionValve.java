@@ -29,8 +29,8 @@ import org.sitenetsoft.sunseterp.framework.entity.util.EntityUtilProperties;
 /*import org.apache.tomcat.util.buf.MessageBytes;
 import org.apache.tomcat.util.http.MimeHeaders;*/
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import java.io.IOException;
 
 public class CrossSubdomainSessionValve {}

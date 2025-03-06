@@ -16,24 +16,29 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.sitenetsoft.sunseterp.applications.order.order.test
+package org.sitenetsoft.sunseterp.applications.product.product
 
-import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil
+import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase
 
-class CustRequestPermissionCheckTests extends OFBizTestCase {
+class ProductFeatureTypeTests extends OFBizTestCase {
 
-    CustRequestPermissionCheckTests(String name) {
+    ProductFeatureTypeTests(String name) {
         super(name)
     }
 
-    void testCustRequestPermission() {
+    void testCreateProductFeatureType() {
         Map serviceCtx = [:]
-        serviceCtx.fromPartyId = 'Company'
-        serviceCtx.mainAction = 'TEST'
+        serviceCtx.productFeatureTypeId = 'testProdFeat'
+        serviceCtx.description = 'Test Description'
+        serviceCtx.hasTable = 'N'
         serviceCtx.userLogin = userLogin
-        Map result = dispatcher.runSync('custRequestPermissionCheck', serviceCtx)
+        Map result = dispatcher.runSync('createProductFeatureType', serviceCtx)
         assert ServiceUtil.isSuccess(result)
+
+        GenericValue productFeatureType = from('ProductFeatureType').where('productFeatureTypeId', 'testProdFeat').queryOne()
+        assert productFeatureType.productFeatureTypeId == 'testProdFeat'
     }
 
 }

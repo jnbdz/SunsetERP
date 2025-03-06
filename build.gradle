@@ -29,11 +29,11 @@ plugins {
     id "org.asciidoctor.jvm.pdf" version "latest.release"
     id "org.owasp.dependencycheck" version "latest.release" apply false
     //id 'se.patrikerdes.use-latest-versions' version '0.2.18' apply false
-    id "se.patrikerdes.use-latest-versions"  version "latest.release" apply false
-    id "com.github.ben-manes.versions" version "latest.release" apply false
-    id "com.github.ManifestClasspath" version "latest.release"
-    id "com.github.jakemarsden.git-hooks" version "latest.release"
-    id "com.github.node-gradle.node" version "latest.release" apply false
+    //id "se.patrikerdes.use-latest-versions"  version "latest.release" apply false
+    //id "com.github.ben-manes.versions" version "latest.release" apply false
+    //id "com.github.ManifestClasspath" version "latest.release"
+    //id "com.github.jakemarsden.git-hooks" version "latest.release"
+    //id "com.github.node-gradle.node" version "latest.release" apply false
 }
 
 /* OWASP plugin
@@ -164,12 +164,12 @@ javadoc {
     }
 }
 
-group 'org.sitenetsoft'
-version '1.0.0-SNAPSHOT'
+group = 'org.sitenetsoft'
+version = '1.0.0-SNAPSHOT'
 
 java {
-    sourceCompatibility(JavaVersion.VERSION_17)
-    targetCompatibility(JavaVersion.VERSION_17)
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 // TODO: Try it out
@@ -217,32 +217,32 @@ allprojects {
         // on mavenCentral directly
         maven {
             // org.restlet and org.restlet.ext.servlet
-            url 'https://maven.restlet.talend.com'
+            url = 'https://maven.restlet.talend.com'
         }
         maven {
             // net.fortuna.ical4j:ical4j:1.0-rc3-atlassian-11
-            url 'https://packages.atlassian.com/maven-3rdparty/'
+            url = 'https://packages.atlassian.com/maven-3rdparty/'
         }
         maven {
             // org/milyn/flute/1.3/flute-1.3.jar
             // need artifact only because of wrong pom metadata in maven central
             // Required by: plugins:birt > org.eclipse.birt.runtime:viewservlets:4.5.0 > org.eclipse.birt.runtime:org.eclipse.birt.runtime:4.4.1
             // TODO Maybe this will no longer needed wheh upgrading viewservlets to 4.9.0
-            url "https://repo1.maven.org/maven2"
+            url = "https://repo1.maven.org/maven2"
             metadataSources {
                 artifact()
             }
         }
         maven {
-            url 'https://clojars.org/repo'
+            url = 'https://clojars.org/repo'
         }
         maven {
             // org.cyberneko.html.parsers (used by UELFunctions, was in esapi before 2.3)
-            url "https://repository.ow2.org/nexus/content/repositories/public/"
+            url = "https://repository.ow2.org/nexus/content/repositories/public/"
         }
         maven {
             // To test not released FreeMarker versions
-            url "https://repository.apache.org/content/repositories/snapshots/"
+            url = "https://repository.apache.org/content/repositories/snapshots/"
         }
 
     }
@@ -286,23 +286,23 @@ allprojects {
 
 // TODO: !WARNING! This was kept uncommented because it is hard to comment out
 // TODO: It might not cause issue outside of testing.
-dependencies {
-    // Dependencies defined by the plugins
-    subprojects.each { subProject ->
-        implementation project(path: subProject.path, configuration: 'pluginLibsCompile')
-        runtimeOnly project(path: subProject.path, configuration: 'pluginLibsRuntime')
-        compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
-    }
-
-    junitReport 'junit:junit:4.13.2'
-    junitReport 'org.apache.ant:ant-junit:1.10.15'
+//dependencies {
+//    // Dependencies defined by the plugins
+//    subprojects.each { subProject ->
+//        implementation project(path: subProject.path, configuration: 'pluginLibsCompile')
+//        runtimeOnly project(path: subProject.path, configuration: 'pluginLibsRuntime')
+//        compileOnly project(path: subProject.path, configuration: 'pluginLibsCompileOnly')
+//    }
+//
+//    junitReport 'junit:junit:4.13.2'
+//    junitReport 'org.apache.ant:ant-junit:1.10.15'
 
     // Libraries downloaded manually
-    implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
-    getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
-        implementation fileTree(dir: libDir, include: '**/*.jar')
-    }
-}
+//    implementation fileTree(dir: file("${rootDir}/lib"), include: '**/*.jar')
+//    getDirectoryInActiveComponentsIfExists('lib').each { libDir ->
+//        implementation fileTree(dir: libDir, include: '**/*.jar')
+//    }
+//}
 
 // TODO: End of try out!
 
@@ -320,6 +320,26 @@ def excludedJavaSources = [
     'org/sitenetsoft/sunseterp/applications/order/thirdparty/taxware/TaxwareUTL.java'
 ]
 
+sourceSets {
+    main {
+        java {
+            exclude excludedJavaSources
+        }
+    }
+}
+
+/*sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy', 'src/main/java']
+        }
+        java {
+            srcDirs = ['src/main/java', 'src/main/groovy']
+        }
+    }
+}*/
+
+/*
 sourceSets {
     // TODO: What is this comment about?
     // This is for integration tests (DB access)
@@ -358,13 +378,13 @@ sourceSets {
             include 'org/apache/ofbiz/base/util/FileUtilTests.groovy'
             include 'org/apache/ofbiz/service/test/ServicePurgeTest.groovy'
             include 'org.apache.ofbiz.base.test.SimpleTests.groovy'*/
-        }
+        /*}
         resources {
             // 📌
             //srcDirs = getDirectoryInActiveComponentsIfExists('src/test/resources')
         }
     }
-}
+}*/
 
 // TODO: Check
 jar.manifest.attributes(
@@ -415,12 +435,12 @@ codenarc {
 
 // TODO: !WARNING! This might not cause any issues since it seems to be only used with Eclipse IDE.
 // Eclipse plugin settings
-eclipse.classpath.file.whenMerged { classpath ->
+//eclipse.classpath.file.whenMerged { classpath ->
     /* The code inside this block removes unnecessary entries
      * in the .classpath file which are generated automatically
      * due to the settings in the sourceSets block
      */
-    def fileSep = System.getProperty('file.separator')
+    /*def fileSep = System.getProperty('file.separator')
 
     activeComponents().each { component ->
         def componentName = component.toString() - rootDir.toString() - fileSep
@@ -428,16 +448,16 @@ eclipse.classpath.file.whenMerged { classpath ->
 
         classpath.entries.removeAll { entry ->
             // remove any "src" entries in .classpath of the form /componentName
-            entry.kind == 'src' && (
-            entry.path ==~ '.*/+(' + componentName.tokenize(fileSep).last() + ')$' ||
-            entry.path ==~ /(\/+framework)$/ ||
+            entry.kind == 'src' && (*/
+            //entry.path ==~ '.*/+(' + componentName.tokenize(fileSep).last() + ')$' ||
+            /*entry.path ==~ /(\/+framework)$/ ||
             entry.path ==~ /(\/+applications)$/ ||
             entry.path ==~ /(\/+plugins)$/ ||
             entry.path ==~ /(\/+themes)$/ )
         }
     }
 }
-tasks.eclipse.dependsOn(cleanEclipse)
+tasks.eclipse.dependsOn(cleanEclipse)*/
 
 // TODO: I am worried since not all the tests were added that this might break things.
 //  So after tests are added maybe try it out
@@ -666,7 +686,8 @@ tasks.register('SunsetERP', JavaExec) {
 }*/
 
 // ========== Documentation tasks ==========
-tasks.withType(AsciidoctorTask) { task ->
+// TODO:
+/*tasks.withType(AsciidoctorTask) { task ->
     inProcess = JAVA_EXEC
     forkOptions {
         jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
@@ -689,7 +710,7 @@ tasks.withType(AsciidoctorTask) { task ->
         'chapter-label': '',
         'toc': 'left@',
         'toclevels': '3'
-}
+}*/
 
 /*tasks.withType(AsciidoctorTask) { task ->
     inProcess = JAVA_EXEC
@@ -738,19 +759,19 @@ tasks.register('deleteAllPluginsDocumentation') {
 tasks.register('generateReadmeFiles', AsciidoctorTask) {
     group = docsGroup
     doFirst { delete "${buildDir}/asciidoc/readme" }
-    description 'Generate OFBiz README files'
+    description = 'Generate OFBiz README files'
     sourceDir "${rootDir}"
     // CHANGELOG.adoc should be only present in the current stable version
     sources {
         include 'README.adoc', 'CHANGELOG.adoc', 'CONTRIBUTING.adoc', 'DOCKER.adoc'
     }
-    outputDir file("${buildDir}/asciidoc/readme/")
+    outputDir = file("${buildDir}/asciidoc/readme/")
 }
 
 tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
     group = docsGroup
     dependsOn deleteOfbizDocumentation
-    description 'Generate OFBiz documentation manuals'
+    description = 'Generate OFBiz documentation manuals'
 
     activeComponents().each { component ->
         // Define the base path to remove
@@ -769,7 +790,7 @@ tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
         }
     }
     sourceDir "${rootDir}/docs/asciidoc"
-    outputDir file("${buildDir}/asciidoc/ofbiz")
+    outputDir = file("${buildDir}/asciidoc/ofbiz")
     doLast {
         activeComponents().each { component ->
             delete "${rootDir}/docs/asciidoc/images/${component.name}"
@@ -780,7 +801,7 @@ tasks.register('generateOfbizDocumentation', AsciidoctorTask) {
 tasks.register('generatePluginDocumentation') {
     group = docsGroup
     dependsOn deletePluginDocumentation
-    description 'Generate plugin documentation. Expects pluginId flag'
+    description = 'Generate plugin documentation. Expects pluginId flag'
     activeComponents()
         .findAll { project.hasProperty('pluginId') && it.name == pluginId }
         .each { component ->
@@ -1320,7 +1341,7 @@ def taskExistsInproject(fullyQualifiedProject, taskName) {
 def cleanTasks = tasks.findAll { it.name ==~ /^clean.+/ }
 tasks.register('cleanAll') {
     dependsOn cleanTasks + clean
-    description 'Execute all cleaning tasks.'
+    description = 'Execute all cleaning tasks.'
 }
 
 test {

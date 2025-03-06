@@ -28,11 +28,11 @@ under the License.
         <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.test.InventoryItemTransferTest"/>
     </test-case>
     <test-case case-name="inventory-tests">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.test.InventoryTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.InventoryTests"/>
     </test-case>
 
     <test-case case-name="shipment-tests">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.test.ShipmentTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.ShipmentTests"/>
     </test-case>
 
     <test-group case-name="shipmentcost-tests">

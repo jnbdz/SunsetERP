@@ -13,7 +13,8 @@ import io.quarkus.qute.TemplateInstance;
 
 import java.io.IOException;
 
-public class QuteViewHandler extends AbstractViewHandler {
+// TODO:
+/*public class QuteViewHandler extends AbstractViewHandler {
 
     private static final String MODULE = QuteViewHandler.class.getName();
     private ServletContext context;
@@ -57,4 +58,4 @@ public class QuteViewHandler extends AbstractViewHandler {
             throw new ViewHandlerException("IO Error in view", ie);
         }
     }
-}
+}*/

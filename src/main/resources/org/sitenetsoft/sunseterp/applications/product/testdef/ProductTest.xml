@@ -27,13 +27,13 @@ under the License.
     </test-case>
 
     <test-case case-name="producttest">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.test.ProductTest"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.ProductTest"/>
     </test-case>
 
     <test-case case-name="product-tests">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.test.ProductTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.ProductTests"/>
     </test-case>
     <test-case case-name="testCreateProductFeatureType">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.test.ProductFeatureTypeTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.product.product.ProductFeatureTypeTests"/>
     </test-case>
 </test-suite>

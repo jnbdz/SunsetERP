@@ -18,15 +18,32 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util.string;
 
+import java.math.BigDecimal;
+import java.util.*;
+
+import javax.el.ArrayELResolver;
+import javax.el.BeanELResolver;
+import javax.el.CompositeELResolver;
+import javax.el.ELContext;
+import javax.el.ELResolver;
+import javax.el.ExpressionFactory;
+import javax.el.FunctionMapper;
+import javax.el.ListELResolver;
+import javax.el.MapELResolver;
+import javax.el.PropertyNotFoundException;
+import javax.el.PropertyNotWritableException;
+import javax.el.ResourceBundleELResolver;
+import javax.el.ValueExpression;
+import javax.el.VariableMapper;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.StringUtil;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
 import org.sitenetsoft.sunseterp.framework.base.util.collections.LocalizedMap;
 
-import javax.el.*;
-import java.math.BigDecimal;
-import java.util.*;
+// TODO: This was added manually when in OFBiz it is not added at all.
+//import org.sitenetsoft.sunseterp.framework.base.util.string.JuelConnector;
 
 /** Implements the Unified Expression Language (JSR-245). */
 public final class UelUtil {

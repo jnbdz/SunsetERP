@@ -18,11 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget.renderer.macro;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import freemarker.core.Environment;
-import freemarker.template.Template;
-import mockit.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+
 import org.sitenetsoft.sunseterp.framework.base.util.UtilCodec.SimpleEncoder;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilHttp;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties;
@@ -38,16 +45,12 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import freemarker.core.Environment;
+import freemarker.template.Template;
+import mockit.*;
 
 public class MacroFormRendererTest {
 
@@ -230,6 +233,21 @@ public class MacroFormRendererTest {
 
         macroFormRenderer.renderDateTimeField(appendable, ImmutableMap.of(), dateTimeField);
 
+        genericSingleMacroRenderedVerification();
+        genericTooltipRenderedVerification();
+    }
+
+    @Test
+    public void dateRangePickerFieldMacroRendered(@Mocked ModelFormField.DateRangePickerField dateRangePickerField) throws IOException {
+        new Expectations() {
+            {
+                renderableFtlFormElementsBuilder.dateRangePicker(withNotNull(), dateRangePickerField);
+                result = genericMacroCall;
+            }
+        };
+
+        genericTooltipRenderedExpectation(dateRangePickerField);
+        macroFormRenderer.renderDateRangePickerField(appendable, ImmutableMap.of(), dateRangePickerField);
         genericSingleMacroRenderedVerification();
         genericTooltipRenderedVerification();
     }

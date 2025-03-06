@@ -34,12 +34,12 @@ under the License.
         <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.test.SalesOrderTest"/>
     </test-case>
     <test-case case-name="order-tests-xml">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.order.test.OrderTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.order.OrderTests"/>
     </test-case>
     <test-case case-name="order-return-tests">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.order.test.OrderReturnTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.order.OrderReturnTests"/>
     </test-case>
     <test-case case-name="order-requirement-tests">
-        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.order.test.OrderRequirementTests"/>
+        <junit-test-suite class-name="org.sitenetsoft.sunseterp.applications.order.order.OrderRequirementTests"/>
     </test-case>
 </test-suite>

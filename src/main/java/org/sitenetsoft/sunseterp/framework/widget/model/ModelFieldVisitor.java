@@ -33,6 +33,8 @@ public interface ModelFieldVisitor {
 
     void visit(DateTimeField dateTimeField) throws Exception;
 
+    void visit(DateRangePickerField dateRangePickerField) throws Exception;
+
     void visit(DisplayEntityField displayEntityField) throws Exception;
 
     void visit(DisplayField displayField) throws Exception;

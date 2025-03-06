@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.sitenetsoft.sunseterp.applications.order.order.test
+package org.sitenetsoft.sunseterp.applications.order.order
 
-import org.apache.ofbiz.service.ServiceUtil
-import org.apache.ofbiz.service.testtools.OFBizTestCase
+import org.sitenetsoft.sunseterp.framework.service.ServiceUtil
+import org.sitenetsoft.sunseterp.framework.service.testtools.OFBizTestCase
 
 class OrderTests extends OFBizTestCase {
 

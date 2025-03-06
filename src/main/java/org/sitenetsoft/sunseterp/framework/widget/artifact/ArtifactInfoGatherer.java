@@ -346,6 +346,10 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         }
 
         @Override
+        public void visit(DateRangePickerField dateRangePickerField) {
+        }
+
+        @Override
         public void visit(DisplayEntityField displayField) {
             if (displayField.getSubHyperlink() != null) {
                 String target = displayField.getSubHyperlink().getTarget(null);
