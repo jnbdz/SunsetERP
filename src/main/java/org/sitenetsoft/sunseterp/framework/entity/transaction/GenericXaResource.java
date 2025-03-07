@@ -20,7 +20,7 @@ package org.sitenetsoft.sunseterp.framework.entity.transaction;
 
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 
-import javax.transaction.*;
+import jakarta.transaction.*;
 import javax.transaction.xa.XAException;
 import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;

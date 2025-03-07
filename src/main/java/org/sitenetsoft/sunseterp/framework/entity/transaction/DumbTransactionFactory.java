@@ -26,7 +26,7 @@ import org.sitenetsoft.sunseterp.framework.entity.config.model.EntityConfig;
 import org.sitenetsoft.sunseterp.framework.entity.datasource.GenericHelperInfo;
 import org.sitenetsoft.sunseterp.framework.entity.jdbc.ConnectionFactoryLoader;
 
-import javax.transaction.*;
+import jakarta.transaction.*;
 import java.sql.Connection;
 import java.sql.SQLException;
 

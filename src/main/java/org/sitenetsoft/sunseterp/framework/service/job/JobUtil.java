@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.service.job;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;

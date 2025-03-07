@@ -21,7 +21,7 @@ package org.sitenetsoft.sunseterp.framework.service;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.sitenetsoft.sunseterp.framework.base.config.GenericConfigException;
 import org.sitenetsoft.sunseterp.framework.base.util.*;

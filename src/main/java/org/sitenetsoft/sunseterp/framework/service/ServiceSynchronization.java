@@ -23,7 +23,7 @@ import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransaction
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionFactoryLoader;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
 
-import javax.transaction.*;
+import jakarta.transaction.*;
 import java.util.*;
 
 /**

@@ -37,7 +37,7 @@ import javax.naming.Context;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.util.Map;
 import java.util.Properties;
 */

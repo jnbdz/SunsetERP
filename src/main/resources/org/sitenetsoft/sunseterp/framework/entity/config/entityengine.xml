@@ -47,7 +47,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     -->
 
     <!-- the connection factory class to use, one is needed for obtaining connections/pools for defined resources -->
-    <connection-factory class="org.sitenetsoft.sunseterp.framework.entity.connection.DBCPConnectionFactory"/>
+    <connection-factory class="org.sitenetsoft.sunseterp.framework.entity.connection.QuarkusTransactionFactory"/>
 
     <debug-xa-resources value="false" />  <!-- see https://issues.apache.org/jira/browse/OFBIZ-4282 for more -->
     

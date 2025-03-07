@@ -21,8 +21,8 @@ package org.sitenetsoft.sunseterp.framework.entity.transaction;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
 import org.sitenetsoft.sunseterp.framework.entity.datasource.GenericHelperInfo;
 
-import javax.transaction.TransactionManager;
-import javax.transaction.UserTransaction;
+import jakarta.transaction.TransactionManager;
+import jakarta.transaction.UserTransaction;
 import java.sql.Connection;
 import java.sql.SQLException;
 

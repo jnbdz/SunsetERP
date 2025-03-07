@@ -34,7 +34,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 //import jakarta.servlet.jsp.PageContext;
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 
 import org.apache.http.HttpStatus;
 import org.sitenetsoft.sunseterp.framework.base.component.ComponentConfig;

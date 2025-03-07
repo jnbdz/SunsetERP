@@ -1197,6 +1197,11 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.groovy/groovy-json
     implementation 'org.apache.groovy:groovy-json:4.0.26'
 
+    // TODO: Maybe keep:
+    //implementation enforcedPlatform("io.quarkus:quarkus-bom:${quarkusVersion}")
+    //implementation "io.quarkus:quarkus-jta"
+    implementation 'io.quarkus:quarkus-narayana-jta'
+
     // Contains the core Apache Derby database engine, which also includes the embedded JDBC driver.
     //
     // NOTE: 10.17.x.x requires Java 21

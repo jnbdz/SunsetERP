@@ -29,7 +29,7 @@ import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransaction
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
 import org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.util.Map;
 
 public class OfbizPathShortener {
