@@ -20,6 +20,10 @@ import org.sitenetsoft.sunseterp.framework.entity.jdbc.ConnectionFactoryLoader;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * This Transaction Factory was for testing different solutions.
+ * For the moment it is kept as reference.
+ */
 @ApplicationScoped
 public class QuarkusTransactionFactory implements TransactionFactory {
 

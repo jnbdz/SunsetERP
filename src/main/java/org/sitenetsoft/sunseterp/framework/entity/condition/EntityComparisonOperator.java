@@ -19,6 +19,11 @@
 
 package org.sitenetsoft.sunseterp.framework.entity.condition;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.PatternFactory;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
@@ -28,16 +33,12 @@ import org.sitenetsoft.sunseterp.framework.entity.GenericModelException;
 import org.sitenetsoft.sunseterp.framework.entity.config.model.Datasource;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelEntity;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelField;
+
 import org.apache.oro.text.perl.Perl5Util;
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.PatternMatcher;
 import org.apache.oro.text.regex.Perl5Matcher;
-
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 /**
  * Base class for comparisons.

@@ -21,7 +21,7 @@ version: "2.4"
 
 services:
   db:
-    image: postgres:13
+    image: postgres:17
     mem_limit: 300M
     memswap_limit: 300M
     cpu_shares: 200

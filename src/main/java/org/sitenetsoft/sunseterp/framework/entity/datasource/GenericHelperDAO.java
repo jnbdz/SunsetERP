@@ -53,7 +53,7 @@ public class GenericHelperDAO implements GenericHelper {
         return this.helperInfo.getHelperFullName();
     }
 
-    /** Creates a Entity in the form of a GenericValue and write it to the database
+    /** Creates an Entity in the form of a GenericValue and write it to the database
      *@return GenericValue instance containing the new instance
      */
     @Override
