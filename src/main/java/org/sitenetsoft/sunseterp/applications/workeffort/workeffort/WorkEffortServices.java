@@ -1,25 +1,19 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
-
 package org.sitenetsoft.sunseterp.applications.workeffort.workeffort;
 
-import com.ibm.icu.util.Calendar;
+import java.sql.Timestamp;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TimeZone;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -35,8 +29,7 @@ import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.sitenetsoft.sunseterp.framework.service.calendar.TemporalExpression;
 import org.sitenetsoft.sunseterp.framework.service.calendar.TemporalExpressionWorker;
 
-import java.sql.Timestamp;
-import java.util.*;
+import com.ibm.icu.util.Calendar;
 
 /**
  * WorkEffortServices - WorkEffort related Services
@@ -437,7 +430,7 @@ public class WorkEffortServices {
      * Get Work Efforts by period.
      * <p>
      * This method takes the following parameters:
-     * </p>
+     *
      * <ul>
      *   <li>start - TimeStamp (Period start date/time)</li>
      *   <li>numPeriods - Integer</li>
@@ -455,11 +448,11 @@ public class WorkEffortServices {
      * <b>periods</b> - one List element per period. It also returns a
      * <b>maxConcurrentEntries</b> Integer - which indicates the maximum number of
      * Work Efforts found in one period.
-     * </p>
+     *
      * <p>
      * Each <b>periods</b> list element is a Map containing the following
      * key/value pairs:
-     * </p>
+     *
      * <ul>
      *   <li>start - TimeStamp (Period start date/time)</li>
      *   <li>end - TimeStamp (Period end date/time)</li>

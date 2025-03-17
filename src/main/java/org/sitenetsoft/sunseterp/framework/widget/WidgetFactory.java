@@ -1,22 +1,12 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.widget;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.ServiceLoader;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.sitenetsoft.sunseterp.framework.base.util.Assert;
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
@@ -26,14 +16,6 @@ import org.sitenetsoft.sunseterp.framework.widget.model.IterateSectionWidget;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelScreen;
 import org.sitenetsoft.sunseterp.framework.widget.model.ModelScreenWidget;
 import org.w3c.dom.Element;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.ServiceLoader;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Screen widget factory.<p>Applications can add their own widget implementations
@@ -117,7 +99,8 @@ public final class WidgetFactory {
      * Registers a screen sub-widget with the factory. If a tag name is already
      * registered, the new widget replaces the existing one.<p>The class supplied
      * to the method must have a public two-argument constructor that takes a
-     * <code>ModelScreen</code> instance and an <code>Element</code> instance.</p>
+     * <code>ModelScreen</code> instance and an <code>Element</code> instance.
+     *
      * @param tagName The XML element tag name for this widget
      * @param widgetClass The class that implements the widget element
      * @throws SecurityException

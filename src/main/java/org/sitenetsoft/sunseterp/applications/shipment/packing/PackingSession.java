@@ -18,6 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.applications.shipment.packing;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.AbstractMap;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.DelegatorFactory;
@@ -33,10 +45,6 @@ import org.sitenetsoft.sunseterp.framework.service.GenericServiceException;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.service.ServiceContainer;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.*;
 
 @SuppressWarnings("serial")
 public class PackingSession implements java.io.Serializable {
@@ -472,7 +480,8 @@ public class PackingSession implements java.io.Serializable {
     }
 
     /**
-     * <p>Delivers all the packing lines grouped by package.</p>
+     * <p>Delivers all the packing lines grouped by package.
+     *
      * Output map:
      * <ul>
      * <li>packageMap - a Map of type {@code Map<Integer, List<PackingSessionLine>>}

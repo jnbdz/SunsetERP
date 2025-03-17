@@ -18,16 +18,16 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.conversion;
 
-import org.sitenetsoft.sunseterp.framework.base.lang.SourceMonitored;
-import org.sitenetsoft.sunseterp.framework.base.util.Debug;
-import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
-
 import java.lang.reflect.Modifier;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ServiceLoader;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import org.sitenetsoft.sunseterp.framework.base.lang.SourceMonitored;
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilGenerics;
 
 /** A <code>Converter</code> factory and repository. */
 @SourceMonitored
@@ -61,7 +61,8 @@ public final class Converters {
      * <p>This method is intended to be used when the source or
      * target <code>Object</code> types are unknown at compile time.
      * If the source and target <code>Object</code> types are known
-     * at compile time, then one of the "ready made" converters should be used.</p>
+     * at compile time, then one of the "ready made" converters should be used.
+     *
      * @param sourceClass The object class to convert from
      * @param targetClass The object class to convert to
      * @return A matching <code>Converter</code> instance

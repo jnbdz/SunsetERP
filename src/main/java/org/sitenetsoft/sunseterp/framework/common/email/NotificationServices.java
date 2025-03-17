@@ -1,21 +1,3 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.common.email;
 
 import java.io.IOException;
@@ -48,16 +30,16 @@ import freemarker.template.TemplateException;
  * <a href="http://freemarker.sourceforge.net/docs/dgui_quickstart_template.html">
  * Freemarker Template</a> mapping the required fields of the template to the
  * required attributes of the service.
- * </p>
+ *
  * <p>
  * This service definition should extend the <code>sendNotificationInterface</code>
  * or the <code>prepareNotificationInterface</code> service interface
  * and simply invoke the associated method defined in this class.
- * </p>
+ *
  * <pre>
  * {@code
  * <service name="sendPoPickupNotification" engine="java"
- *         location="org.sitenetsoft.sunseterp.framework.content.email.NotificationServices"
+ *         location="org.sitenetsoft.sunseterp.applications.content.email.NotificationServices"
  *         invoke="sendNotification">
  *     <description>Sends notification based on a message template</description>
  *     <implements service="sendNotificationInterface"/>
@@ -71,7 +53,7 @@ import freemarker.template.TemplateException;
  * invoked or let the <code>NotificationService</code> attempt to resolve it
  * as best it can, see {@link #setBaseUrl(Delegator, String, Map) setBaseUrl(Map)}
  * for details on how this is achieved.
- * </p>
+ *
  * The following example shows what a simple notification message template,
  * associated with the above service, might contain:
  * <blockquote>
@@ -84,7 +66,7 @@ import freemarker.template.TemplateException;
  * The template file must be found on the classpath at runtime and
  * match the "templateName" field passed to the service when it
  * is invoked.
- * </p>
+ *
  * <p>
  * For complex messages with a large number of dynamic fields, it may be wise
  * to implement a custom service that takes one or two parameters that can
@@ -92,7 +74,7 @@ import freemarker.template.TemplateException;
  * the {@link #prepareNotification(DispatchContext, Map) prepareNotification(DispatchContext, Map)}
  * or {@link #sendNotification(DispatchContext, Map) sendNotification(DispatchContext, Map)}
  * methods directly to generate or generate and send the notification respectively.
- * </p>
+ *
  */
 public class NotificationServices {
 

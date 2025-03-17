@@ -1,34 +1,5 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.entity.serialize;
 
-import org.sitenetsoft.sunseterp.framework.base.util.*;
-import org.sitenetsoft.sunseterp.framework.entity.Delegator;
-import org.sitenetsoft.sunseterp.framework.entity.GenericPK;
-import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
-
-import javax.xml.bind.DatatypeConverter;
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
@@ -38,7 +9,34 @@ import java.math.RoundingMode;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Stack;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.Vector;
+import java.util.WeakHashMap;
+
+import javax.xml.bind.DatatypeConverter;
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.sitenetsoft.sunseterp.framework.base.util.*;
+import org.sitenetsoft.sunseterp.framework.entity.Delegator;
+import org.sitenetsoft.sunseterp.framework.entity.GenericPK;
+import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
 /**
  * XmlSerializer class. This class is deprecated - new code should use the
@@ -60,7 +58,8 @@ public class XmlSerializer {
 
     /** Deserialize a Java object from an XML string. <p>This method should be used with caution.
      * If the XML string contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
-     * then it is possible to unintentionally corrupt the database.</p>
+     * then it is possible to unintentionally corrupt the database.
+     *
      * @param content the content
      * @param delegator the delegator
      * @return return a deserialized object from XML string
@@ -86,7 +85,8 @@ public class XmlSerializer {
     /** Deserialize a Java object from a DOM <code>Document</code>.
      * <p>This method should be used with caution. If the DOM <code>Document</code>
      * contains a serialized <code>GenericValue</code> or <code>GenericPK</code>
-     * then it is possible to unintentionally corrupt the database.</p>
+     * then it is possible to unintentionally corrupt the database.
+     *
      * @param document the document
      * @param delegator the delegator
      * @return returns a deserialized object from a DOM document

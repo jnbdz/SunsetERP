@@ -26,7 +26,21 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.InvalidPropertiesFormatException;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.MissingResourceException;
+import java.util.Properties;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 import org.sitenetsoft.sunseterp.framework.base.location.FlexibleLocation;
 import org.sitenetsoft.sunseterp.framework.base.util.cache.UtilCache;
@@ -279,7 +293,8 @@ public final class UtilProperties implements Serializable {
     /**
      * Returns a new <code>Properties</code> instance created from <code>fileName</code>.
      * <p>This method is intended for low-level framework classes that need to read
-     * properties files before OFBiz has been fully initialized.</p>
+     * properties files before OFBiz has been fully initialized.
+     *
      * @param fileName The full name of the properties file ("foo.properties")
      * @return A new <code>Properties</code> instance created from <code>fileName</code>, or
      * <code>null</code> if the file was not found
@@ -674,7 +689,8 @@ public final class UtilProperties implements Serializable {
      * if you need <a href="http://www.w3.org/International/">I18n</a> properties, then use
      * <a href="#getResourceBundle(java.lang.String,%20java.util.Locale)">
      * getResourceBundle(String resource, Locale locale)</a>. This method is
-     * intended to be used primarily by the UtilProperties class.</p>
+     * intended to be used primarily by the UtilProperties class.
+     *
      * @param resource The name of the resource - can be a file, class, or URL
      * @param locale The desired locale
      * @return The Properties instance, or null if no matching properties are found

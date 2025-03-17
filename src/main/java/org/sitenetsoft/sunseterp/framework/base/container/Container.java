@@ -18,9 +18,9 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.container;
 
-import org.sitenetsoft.sunseterp.framework.start.StartupCommand;
-
 import java.util.List;
+
+import org.sitenetsoft.sunseterp.framework.start.StartupCommand;
 
 /**
  * An OFBiz container. A container can be thought of as a background process.
@@ -34,9 +34,9 @@ import java.util.List;
  * separate shutdown thread will call the <code>stop</code> method of each container.
  * Implementations should anticipate asynchronous calls to the methods by different
  * threads.
- * </p>
  *
- * <p>Containers might be loaded more than once (have more than one instance).<p>
+ *
+ * <p>Containers might be loaded more than once (have more than one instance).
  */
 public interface Container {
 

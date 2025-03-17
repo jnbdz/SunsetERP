@@ -1,26 +1,18 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.minilang;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.ServiceLoader;
+import java.util.Set;
 
 //import jakarta.servlet.http.HttpServletRequest;
 //import jakarta.servlet.http.HttpServletResponse;
@@ -49,7 +41,7 @@ import org.w3c.dom.Element;
  * design pattern. Mini-language XML files are parsed twice - first into a W3C DOM
  * tree, then the DOM tree is parsed into element model objects. Each XML element
  * has a model class, and each model class has its own factory.
- * </p>
+ *
  * <p>
  * Mini-language can be extended by:</p>
  * <ul>
@@ -263,7 +255,8 @@ public final class SimpleMethod extends MiniLangElement {
      * Returns a List of <code>SimpleMethod</code> objects compiled from <code>xmlResource</code>.
      * The ordering in the List is the same as the XML file.
      * <p>This method is used by unit test framework to run tests in the order they appear in the XML file.
-     * Method caching is bypassed since the methods are executed only once.</p>
+     * Method caching is bypassed since the methods are executed only once.
+     *
      * @param xmlResource
      * @param loader
      * @return

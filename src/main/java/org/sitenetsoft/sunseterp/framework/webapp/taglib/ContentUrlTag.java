@@ -1,22 +1,9 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.webapp.taglib;
+
+import java.io.IOException;
+
+//import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
@@ -24,10 +11,6 @@ import org.sitenetsoft.sunseterp.framework.base.util.UtilProperties;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
 import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
-
-//import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 /**
  * ContentUrlTag - Creates a URL string prepending the content prefix from url.properties
@@ -46,10 +29,14 @@ public class ContentUrlTag {
 
     public static void appendContentPrefix(HttpServletRequest request, Appendable urlBuffer) throws IOException {
         if (request == null) {
-            Debug.logWarning("Request was null in appendContentPrefix; this probably means this was used where it shouldn't be, like using "
-                    + "ofbizContentUrl in a screen rendered through a service; using best-bet behavior: standard prefix from url.properties (no "
-                    + "WebSite or security setting known)", MODULE);
+            Debug.logWarning("Request was null in appendContentPrefix; this probably means this was used where it shouldn't be, like using"
+                    + " ofbizContentUrl in a screen rendered through a service; using best-bet behavior: standard prefix from url.properties"
+                    + " or secure prefix if no.http is Y  (no WebSite or security setting known)", MODULE);
             String prefix = UtilProperties.getPropertyValue("url", "content.url.prefix.standard");
+            String noHttp = UtilProperties.getPropertyValue("url", "no.http");
+            if (noHttp != null && "Y".equals(noHttp)) {
+                prefix = UtilProperties.getPropertyValue("url", "content.url.prefix.secure");
+            }
             if (prefix != null) {
                 urlBuffer.append(prefix.trim());
             }

@@ -19,11 +19,19 @@
 package org.sitenetsoft.sunseterp.framework.widget.renderer.macro;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.startsWith;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,7 +58,13 @@ import com.google.common.collect.ImmutableMap;
 
 import freemarker.core.Environment;
 import freemarker.template.Template;
-import mockit.*;
+import mockit.Expectations;
+import mockit.Injectable;
+import mockit.Mock;
+import mockit.MockUp;
+import mockit.Mocked;
+import mockit.Tested;
+import mockit.Verifications;
 
 public class MacroFormRendererTest {
 

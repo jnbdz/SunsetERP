@@ -1,30 +1,20 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 package org.sitenetsoft.sunseterp.framework.webapp.control;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.JWTCreator;
-import com.auth0.jwt.JWTVerifier;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.auth0.jwt.interfaces.Claim;
-import com.auth0.jwt.interfaces.DecodedJWT;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
+//import jakarta.servlet.ServletContext;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
+//import javax.ws.rs.core.HttpHeaders;
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.core.HttpHeaders;
+
+
 import org.sitenetsoft.sunseterp.framework.base.util.*;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.DelegatorFactory;
@@ -38,18 +28,13 @@ import org.sitenetsoft.sunseterp.framework.service.ModelService;
 import org.sitenetsoft.sunseterp.framework.service.ServiceUtil;
 import org.sitenetsoft.sunseterp.framework.webapp.WebAppUtil;
 
-//import jakarta.servlet.ServletContext;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import javax.ws.rs.core.HttpHeaders;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.ws.rs.core.HttpHeaders;
-import java.sql.Timestamp;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTCreator;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 
 /**
@@ -233,7 +218,7 @@ public class JWTManager {
      * @param key the server side key to verify the signature
      * @return Map of the claims contained in the token or an error
      */
-     public static Map<String, Object> validateToken(String jwtToken, String key) {
+    public static Map<String, Object> validateToken(String jwtToken, String key) {
         Map<String, Object> result = new HashMap<>();
         if (UtilValidate.isEmpty(jwtToken) || UtilValidate.isEmpty(key)) {
             String msg = "JWT token or key can not be empty.";
@@ -402,5 +387,19 @@ public class JWTManager {
             Debug.logWarning("There was a problem with the JWT token, no single sign on user login possible.", MODULE);
         }
         return result;
+    }
+
+    public static String createRefreshToken(Delegator delegator, String userLoginId) {
+        int refreshTokenExpireTime = Integer.parseInt(EntityUtilProperties.getPropertyValue("security",
+                "security.jwt.refresh.token.expireTime", "86400", delegator));
+        return createJwt(delegator, UtilMisc.toMap("userLoginId", userLoginId, "type", "refresh"), refreshTokenExpireTime);
+    }
+
+    public static Map<String, Object> validateRefreshToken(String refreshToken, String key) {
+        Map<String, Object> claims = validateToken(refreshToken, key);
+        if (!claims.containsKey("type") || !"refresh".equals(claims.get("type"))) {
+            return ServiceUtil.returnError("Invalid refresh token.");
+        }
+        return claims;
     }
 }

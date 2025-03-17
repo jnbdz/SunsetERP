@@ -1,21 +1,3 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.common.preferences;
 
 import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
@@ -77,7 +59,8 @@ public final class PreferenceWorker {
      * is granted.
      * <p>Users can copy from any set of preferences to their own preferences.
      * Copying to another user's preferences requires <a href="#ADMIN_PERMISSION">ADMIN_PERMISSION</a>
-     * permission.</p>
+     * permission.
+     *
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input arguments.
      * @return Map with the result of the service, the output parameters.
@@ -103,7 +86,8 @@ public final class PreferenceWorker {
     /**
      * Checks preference get/set permissions. Returns hasPermission=true if
      * permission is granted.
-     * <p>This method is a simple wrapper around the isValidxxxId methods.</p>
+     * <p>This method is a simple wrapper around the isValidxxxId methods.
+     *
      * @param ctx The DispatchContext that this service is operating in.
      * @param context Map containing the input arguments.
      * @return Map with the result of the service, the output parameters.
@@ -158,7 +142,8 @@ public final class PreferenceWorker {
      * <p>This method searches the context Map for a userPrefLoginId key. If none is
      * found, the method attempts to get the current user's userLoginId. If the user
      * isn't logged in, then the method returns <a href="#DEFAULT_UID">DEFAULT_UID</a>
-     * if returnDefault is set to true, otherwise the method returns a null or empty string.</p>
+     * if returnDefault is set to true, otherwise the method returns a null or empty string.
+     *
      * @param context Map containing the input arguments.
      * @param returnDefault return <a href="#DEFAULT_UID">DEFAULT_UID</a> if no userLoginId is found.
      * @return userLoginId String

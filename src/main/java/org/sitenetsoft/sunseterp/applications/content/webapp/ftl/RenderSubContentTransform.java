@@ -1,25 +1,16 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
-package org.sitenetsoft.sunseterp.applications.content.ftl;
+package org.sitenetsoft.sunseterp.applications.content.webapp.ftl;
 
-import freemarker.core.Environment;
-import freemarker.template.TemplateTransformModel;
+import java.io.IOException;
+import java.io.Writer;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import jakarta.servlet.ServletContext;
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
 import org.sitenetsoft.sunseterp.framework.base.util.UtilDateTime;
@@ -31,15 +22,8 @@ import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.service.LocalDispatcher;
 import org.sitenetsoft.sunseterp.framework.webapp.website.WebSiteWorker;
 
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.Writer;
-import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import freemarker.core.Environment;
+import freemarker.template.TemplateTransformModel;
 
 /**
  * RenderSubContentTransform - Freemarker Transform for Content rendering
@@ -53,10 +37,12 @@ public class RenderSubContentTransform implements TemplateTransformModel {
      * @deprecated use FreeMarkerWorker.getArg()
      * <p>Does a conditional search to return a value for a parameter with the passed name. Looks first to see if it was
      * passed as an argument to the transform.
-     * Secondly, it looks to see if it is passed as a parameter in the template context object.</p>
+     * Secondly, it looks to see if it is passed as a parameter in the template context object.
+     *
      * <p>Note that this is different from the getArg method of EditRenderDataResourceTransform, which checks the request object
      * instead of the template context
-     * object.</p>
+     * object.
+     *
      */
     @Deprecated
     public static String getArg(Map<String, Object> args, String key, Environment env) {

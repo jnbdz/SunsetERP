@@ -18,7 +18,31 @@
  */
 package org.sitenetsoft.sunseterp.framework.entity.model;
 
-import org.sitenetsoft.sunseterp.framework.base.util.*;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
+import java.util.TimeZone;
+import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
+import org.sitenetsoft.sunseterp.framework.base.util.GeneralException;
+import org.sitenetsoft.sunseterp.framework.base.util.ObjectType;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilMisc;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilPlist;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilTimer;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilValidate;
+import org.sitenetsoft.sunseterp.framework.base.util.UtilXml;
 import org.sitenetsoft.sunseterp.framework.entity.Delegator;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntity;
 import org.sitenetsoft.sunseterp.framework.entity.GenericEntityException;
@@ -29,11 +53,6 @@ import org.sitenetsoft.sunseterp.framework.entity.jdbc.DatabaseUtil;
 import org.sitenetsoft.sunseterp.framework.entity.model.ModelIndex.Field;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.util.*;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * An object that models the <code>&lt;entity&gt;</code> element.

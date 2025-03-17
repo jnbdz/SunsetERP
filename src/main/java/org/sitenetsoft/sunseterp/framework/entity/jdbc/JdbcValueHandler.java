@@ -1,31 +1,24 @@
-/*******************************************************************************
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.entity.jdbc;
 
-import org.sitenetsoft.sunseterp.framework.base.util.Debug;
-
-import javax.sql.rowset.serial.SerialBlob;
-import java.io.*;
-import java.sql.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Reader;
+import java.sql.Blob;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import javax.sql.rowset.serial.SerialBlob;
+
+import org.sitenetsoft.sunseterp.framework.base.util.Debug;
 
 /**
  * An object that handles getting/setting column values in JDBC
@@ -733,34 +726,35 @@ public abstract class JdbcValueHandler<T> {
      * don't support sub-second precision. If the date-time field type
      * is a <code>CHAR(30)</code> SQL type, <code>java.sql.Timestamp</code>s
      * will be stored as JDBC timestamp escape format strings
-     * (<code>yyyy-mm-dd hh:mm:ss.fffffffff</code>), referenced to UTC.</p>
+     * (<code>yyyy-mm-dd hh:mm:ss.fffffffff</code>), referenced to UTC.
+     *
      */
-    protected static class TimestampJdbcValueHandler extends JdbcValueHandler<Timestamp> {
+    protected static class TimestampJdbcValueHandler extends JdbcValueHandler<java.sql.Timestamp> {
         protected TimestampJdbcValueHandler(int jdbcType) {
             super(jdbcType);
         }
         @Override
-        public Class<Timestamp> getJavaClass() {
-            return Timestamp.class;
+        public Class<java.sql.Timestamp> getJavaClass() {
+            return java.sql.Timestamp.class;
         }
         @Override
-        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Timestamp obj) throws SQLException {
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.sql.Timestamp obj) throws SQLException {
             ps.setTimestamp(parameterIndex, obj);
         }
         @Override
-        public Timestamp getValue(ResultSet rs, int columnIndex) throws SQLException {
+        public java.sql.Timestamp getValue(ResultSet rs, int columnIndex) throws SQLException {
             return rs.getTimestamp(columnIndex);
         }
         @Override
-        protected JdbcValueHandler<Timestamp> newInstance(int sqlType) {
+        protected JdbcValueHandler<java.sql.Timestamp> newInstance(int sqlType) {
             if (sqlType == Types.CHAR) {
                 return new TimestampJdbcValueHandler(sqlType) {
                     @Override
-                    protected void castAndSetValue(PreparedStatement ps, int parameterIndex, Timestamp obj) throws SQLException {
+                    protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.sql.Timestamp obj) throws SQLException {
                         ps.setString(parameterIndex, obj.toString());
                     }
                     @Override
-                    public Timestamp getValue(ResultSet rs, int columnIndex) throws SQLException {
+                    public java.sql.Timestamp getValue(ResultSet rs, int columnIndex) throws SQLException {
                         String str = rs.getString(columnIndex);
                         if (str == null) {
                             return null;
