@@ -18,39 +18,6 @@ under the License.
 -->
 <h1>Connection Pool Status</h1>
 
-<#assign groups = delegator.getModelGroupReader().getGroupNames(delegator.getDelegatorName())!/>
-<table class="basic-table light-grid hover-bar">
-    <tr class="header-row">
-        <td>Helper Name</td>
-        <td>Num Active</td>
-        <td>Num Idle</td>
-        <td>Num Total</td>
-        <td>Max Active</td>
-        <td>Max Idle</td>
-        <td>Min Idle</td>
-        <td>Min Evictable Idle Time</td>
-        <td>Max Wait</td>
-    </tr>
-    <#assign alt_row = false>
-    <#if (groups?has_content)>
-        <#list groups as group>
-            <#assign helper = delegator.getGroupHelperName(group)!/>
-            <#if (helper?has_content)>
-                <#assign dataSourceInfo = Static["org.apache.ofbiz.entity.connection.DBCPConnectionFactory"].getDataSourceInfo(helper)!/>
-                <#if (dataSourceInfo?has_content)>
-                    <tr>
-                        <td>${helper}</td>
-                        <td>${dataSourceInfo.poolNumActive!}</td>
-                        <td>${dataSourceInfo.poolNumIdle!}</td>
-                        <td>${dataSourceInfo.poolNumTotal!}</td>
-                        <td>${dataSourceInfo.poolMaxActive!}</td>
-                        <td>${dataSourceInfo.poolMaxIdle!}</td>
-                        <td>${dataSourceInfo.poolMinIdle!}</td>
-                        <td>${dataSourceInfo.poolMinEvictableIdleTimeMillis!}</td>
-                        <td>${dataSourceInfo.poolMaxWait!}</td>
-                    </tr>
-                </#if>
-            </#if>
-        </#list>
-    </#if>
-</table>
+<p>Connection pooling is managed by Quarkus (Agroal). Pool metrics are exposed via the Quarkus
+metrics/health endpoints (for example <code>/q/metrics</code> and <code>/q/health</code>) rather than
+through the entity engine. The legacy DBCP-based pool status table is no longer available.</p>

@@ -247,11 +247,9 @@ dependencies {
     // which are tightly integrated into its ecosystem. Using Quarkus' built-in features for resource pooling will
     // likely offer better performance and easier maintenance than relying on third-party libraries.
     //
-    // TODO: Switch to the Quarkus pooling system
-    // TODO: Does it cause changes to the transitions stuff?
-    // TODO: Could it affect something in OFBiz?
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-dbcp2
-    implementation 'org.apache.commons:commons-dbcp2:2.13.0'
+    // commons-dbcp2 removed: connection pooling is now handled by Quarkus/Agroal via
+    // AgroalTransactionFactory. DBCP2 (2.x) targets javax.transaction and is incompatible with
+    // the jakarta.transaction TransactionManager used after the transaction-manager switch.
 
     // Apache Commons Imaging (previously Sanselan) is a pure-Java image library.
     //

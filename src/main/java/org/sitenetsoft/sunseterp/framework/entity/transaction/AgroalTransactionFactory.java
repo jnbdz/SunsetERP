@@ -31,7 +31,6 @@ import java.sql.SQLException;
  *     <transaction-factory class="org.sitenetsoft.sunseterp.framework.entity.transaction.AgroalTransactionFactory"/>
  *     }</pre>
  *   </li>
- *   <li>Remove references to DBCPConnectionFactory if you're no longer using it.</li>
  *   <li>Configure your database via Quarkus properties in <em>application.properties</em>, e.g.:
  *     <pre>{@code
  *     quarkus.datasource.db-kind=postgresql

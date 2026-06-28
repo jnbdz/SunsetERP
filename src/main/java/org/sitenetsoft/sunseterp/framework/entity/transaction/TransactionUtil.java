@@ -474,8 +474,7 @@ public final class TransactionUtil implements Status {
 
     public static String getTransactionStateString(int state) {
         /*
-         * TODO: Is it the same for jakarta?
-         * javax.transaction.Status
+         * jakarta.transaction.Status (constant values are unchanged from javax.transaction.Status)
          * STATUS_ACTIVE           0
          * STATUS_MARKED_ROLLBACK  1
          * STATUS_PREPARED         2
