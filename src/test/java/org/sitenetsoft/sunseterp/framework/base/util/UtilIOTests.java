@@ -27,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.sitenetsoft.sunseterp.framework.base.util.UtilIO.readString;
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 
 public class UtilIOTests {
     private static final byte[] TRADEMARK_BYTES = new byte[] {

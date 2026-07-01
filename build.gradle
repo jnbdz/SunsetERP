@@ -1377,7 +1377,7 @@ tasks.withType(CreateStartScripts).configureEach {
         // Update the Unix start script
         unixScript.text = unixScript.text.replace(
                 'CLASSPATH=$APP_HOME/lib',
-                "CLASSPATH=${customClassPaths}:$APP_HOME/../../../resources/org/sitenetsoft/sunseterp/framework/base/config/:$APP_HOME/config/:$APP_HOME/lib-extra/*:$APP_HOME/lib"
+                "CLASSPATH=${customClassPaths}:\$APP_HOME/../../../resources/org/sitenetsoft/sunseterp/framework/base/config/:\$APP_HOME/config/:\$APP_HOME/lib-extra/*:\$APP_HOME/lib"
         )
 
         // Update the Windows start script
