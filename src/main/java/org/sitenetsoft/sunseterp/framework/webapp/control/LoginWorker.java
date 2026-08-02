@@ -67,7 +67,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Cookie;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.math.BigInteger;
 import java.security.cert.X509Certificate;
 import java.sql.Timestamp;

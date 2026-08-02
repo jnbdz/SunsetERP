@@ -74,6 +74,10 @@ public final class MainResourceHandler implements ResourceHandler {
 
     @Override
     public InputStream getStream() throws GenericConfigException {
+        System.out.println("MainResourceHandler.getStream");
+        System.out.println("xmlFilename: " + xmlFilename);
+        System.out.println("location: " + location);
+        System.out.println("loaderName: " + loaderName);
         return ResourceLoader.loadResource(this.xmlFilename, this.location, this.loaderName);
     }
 

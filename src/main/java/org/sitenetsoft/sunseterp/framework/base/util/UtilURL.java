@@ -103,10 +103,13 @@ public final class UtilURL {
             }
         }
 
+        //System.out.println("=======================URL fromResource==============================");
+
         // TODO: Have someone review why the CLASSPATH is not working as expected
         url = loader.getResource(resourceName);
         if (url != null) {
             URL_MAP.put(resourceName, url);
+            System.out.println("URL found: " + url);
             return url;
         }
         url = fromResourcesPath(resourceName);
@@ -176,6 +179,11 @@ public final class UtilURL {
         }
     }*/
 
+    /**
+     * TODO!!!
+     * @param filename
+     * @return
+     */
     public static URL fromFilename(String filename) {
         if (filename == null) {
             return null;
@@ -207,7 +215,7 @@ public final class UtilURL {
 
     public static URL fromOfbizHomePath(String filename) {
         String ofbizHome = System.getProperty("ofbiz.home");
-        System.out.println("ofbizHome: " + ofbizHome);
+        //System.out.println("ofbizHome: " + ofbizHome);
         if (ofbizHome == null) {
             Debug.logWarning("No ofbiz.home property set in environment", MODULE);
             return null;
@@ -267,14 +275,14 @@ public final class UtilURL {
 
     public static URL fromResourcesPath(String filename) {
         String ofbizHome = System.getProperty("ofbiz.home");
-        System.out.println("-----------------------");
+        /*System.out.println("-----------------------");
         System.out.println("-----------------------");
         System.out.println("-----------------------");
         System.out.println("ofbizHome: " + ofbizHome);
         System.out.println("user.dir: " + System.getProperty("user.dir"));
         System.out.println("-----------------------");
         System.out.println("-----------------------");
-        System.out.println("-----------------------");
+        System.out.println("-----------------------");*/
 
 
         if (ofbizHome == null) {
@@ -288,7 +296,7 @@ public final class UtilURL {
         // Iterate over root directories and search in all subdirectories
         for (String rootDir : rootDirs) {
             Path basePath = Paths.get(
-                    ofbizHome, "..", "..", "..", "resources", "main", "org", "sitenetsoft", "sunseterp", rootDir);
+                    ofbizHome, "resources", "main", "org", "sitenetsoft", "sunseterp", rootDir);
 
             try {
                 Optional<URL> foundUrl = Files.walk(basePath, 1) // Use 1 to limit depth to immediate subdirectories
@@ -306,7 +314,7 @@ public final class UtilURL {
                         .filter(Files::exists)
                         .map(filePath -> {
                             try {
-                                System.out.println("Found URL: " + filePath.toUri().toURL());
+                                //System.out.println("Found URL: " + filePath.toUri().toURL());
                                 return filePath.toUri().toURL();
                             } catch (MalformedURLException e) {
                                 Debug.logError(e, "Failed to convert file path to URL", MODULE);

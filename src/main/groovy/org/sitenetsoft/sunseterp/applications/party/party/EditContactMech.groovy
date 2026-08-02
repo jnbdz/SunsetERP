@@ -18,7 +18,7 @@
 */
 package org.sitenetsoft.sunseterp.applications.party.party
 
-import org.sitenetsoft.sunseterp.framework.party.contact.ContactMechWorker
+import org.sitenetsoft.sunseterp.applications.party.contact.ContactMechWorker
 
 partyId = parameters.partyId
 context.partyId = partyId

@@ -28,7 +28,7 @@ import org.sitenetsoft.sunseterp.framework.service.jms.JmsListenerFactory;
 import org.sitenetsoft.sunseterp.framework.service.job.JobManager;
 import org.sitenetsoft.sunseterp.framework.service.job.JobManagerException;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.util.Date;
 import java.util.Map;
 

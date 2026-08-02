@@ -78,7 +78,7 @@ public final class FreeMarkerWorker {
         TemplateHashModel staticModels = wrapper.getStaticModels();
         newConfig.setSharedVariable("Static", staticModels);
         try {
-            newConfig.setSharedVariable("EntityQuery", staticModels.get("org.apache.ofbiz.entity.util.EntityQuery"));
+            newConfig.setSharedVariable("EntityQuery", staticModels.get("org.sitenetsoft.sunseterp.framework.entity.util.EntityQuery"));
         } catch (TemplateModelException e) {
             Debug.logError(e, MODULE);
         }

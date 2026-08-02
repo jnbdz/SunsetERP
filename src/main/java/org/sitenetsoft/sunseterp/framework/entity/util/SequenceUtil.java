@@ -27,7 +27,7 @@ import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransaction
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionFactoryLoader;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

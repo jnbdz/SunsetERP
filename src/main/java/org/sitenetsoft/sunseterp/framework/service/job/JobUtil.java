@@ -24,7 +24,7 @@ import org.sitenetsoft.sunseterp.framework.entity.GenericValue;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.GenericTransactionException;
 import org.sitenetsoft.sunseterp.framework.entity.transaction.TransactionUtil;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.util.List;
 
 public final class JobUtil {

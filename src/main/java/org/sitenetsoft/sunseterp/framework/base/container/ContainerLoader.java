@@ -104,18 +104,18 @@ public class ContainerLoader {
      */
     private static List<Container> loadContainersFromConfigurations(Collection<String> loaders,
                                                                     List<StartupCommand> ofbizCommands) throws StartupException {
-        System.out.println("loadContainersFromConfigurations");
-        System.out.println("loaders: " + loaders);
+        //System.out.println("loadContainersFromConfigurations");
+        //System.out.println("loaders: " + loaders);
         List<Container> loadContainers = new ArrayList<>();
         for (ContainerConfig.Configuration containerCfg : ComponentConfig.getAllConfigurations()) {
-            System.out.println("containerCfg: " + containerCfg);
+            //System.out.println("containerCfg: " + containerCfg);
             if (intersects(containerCfg.loaders(), loaders)) {
                 Debug.logInfo("Loading container: " + containerCfg.name(), MODULE);
-                System.out.println("Loading container: " + containerCfg.name());
+                //System.out.println("Loading container: " + containerCfg.name());
                 Container tmpContainer = loadContainer(containerCfg, ofbizCommands);
-                System.out.println("Pass loadContainer");
+                //System.out.println("Pass loadContainer");
                 loadContainers.add(tmpContainer);
-                System.out.println("Loaded container: " + containerCfg.name());
+                //System.out.println("Loaded container: " + containerCfg.name());
                 Debug.logInfo("Loaded container: " + containerCfg.name(), MODULE);
             }
         }
@@ -125,12 +125,12 @@ public class ContainerLoader {
     // TODO: Removed the System.out.println();
     private static Container loadContainer(ContainerConfig.Configuration containerCfg, List<StartupCommand> ofbizCommands)
             throws StartupException {
-        System.out.println("loadContainer");
+        //System.out.println("loadContainer");
         // load the container class
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Class<?> containerClass;
         try {
-            System.out.println("containerCfg.className(): " + containerCfg.className());
+            //System.out.println("containerCfg.className(): " + containerCfg.className());
             containerClass = loader.loadClass(containerCfg.className());
         } catch (ClassNotFoundException e) {
             throw new StartupException("Cannot locate container class", e);
@@ -139,14 +139,14 @@ public class ContainerLoader {
             throw new StartupException("Component container class not loaded");
         }
 
-        System.out.println("containerClass: " + containerClass);
+        //System.out.println("containerClass: " + containerClass);
 
         // create a new instance of the container object
         Container containerObj;
         try {
-            System.out.println("containerClass.getDeclaredConstructor().newInstance()");
+            //System.out.println("containerClass.getDeclaredConstructor().newInstance()");
             containerObj = (Container) containerClass.getDeclaredConstructor().newInstance();
-            System.out.println("containerObj: " + containerObj);
+            //System.out.println("containerObj: " + containerObj);
         } catch (ReflectiveOperationException e) {
             throw new StartupException("Cannot create " + containerCfg.name(), e);
         }
@@ -156,7 +156,7 @@ public class ContainerLoader {
 
         // initialize the container object
         try {
-            System.out.println("containerObj.init()");
+            //System.out.println("containerObj.init()");
             containerObj.init(ofbizCommands, containerCfg.name(), null);
         } catch (ContainerException e) {
             throw new StartupException("Cannot init() " + containerCfg.name(), e);

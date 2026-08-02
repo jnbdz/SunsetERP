@@ -104,9 +104,9 @@ public final class Config {
 
         // set this class fields
         ofbizHome = getOfbizHome(getProperty(props, "ofbiz.home", "."));
-        resourcesPath = getResourcesPath(getProperty(props, "sunseterp.resources.path", "."));
+        resourcesPath = getResourcesPath(getProperty(props, "sunseterp.resources.path", Paths.get(String.valueOf(ofbizHome), "resources").toString()));
         System.setProperty("sunseterp.resources.path", resourcesPath.toString());
-        ofbizResourcesPath = getOFBizResourcesPath(getProperty(props, "sunseterp.ofbiz.resources.path", "."));
+        ofbizResourcesPath = getOFBizResourcesPath(getProperty(props, "sunseterp.ofbiz.resources.path", Paths.get(String.valueOf(resourcesPath), "main", "org", "sitenetsoft", "sunseterp").toString()));
         adminAddress = getAdminAddress(getProperty(props, "ofbiz.admin.host", "127.0.0.1"));
         adminKey = getProperty(props, "ofbiz.admin.key", "NA");
         portOffset = getPortOffsetValue(ofbizCommands, "0");
@@ -127,6 +127,9 @@ public final class Config {
         // set default locale and timezone
         Locale.setDefault(getDefaultLocale(props, "en"));
         TimeZone.setDefault(getDefaultTimeZone(props));
+
+        //System.out.println("==========================================Properties==========================================");
+        //System.out.println(System.getProperties());
     }
 
     /**
@@ -233,6 +236,7 @@ public final class Config {
         Properties props = new Properties();
 
         try (InputStream propsStream = getClass().getClassLoader().getResourceAsStream(fullyQualifiedFileName)) {
+            System.out.println(propsStream);
             props.load(propsStream);
         } catch (IOException e) {
             throw new StartupException(e);

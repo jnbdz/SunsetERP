@@ -18,17 +18,18 @@
  *******************************************************************************/
 package org.sitenetsoft.sunseterp.framework.base.util;
 
-//import io.opentelemetry.api.GlobalOpenTelemetry;
-//import io.opentelemetry.api.trace.Span;
-//import io.opentelemetry.api.trace.Tracer;
+import java.util.Formatter;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.Tracer;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.*;
 
 /**
  * Configurable Debug logging wrapper class
@@ -107,9 +108,10 @@ public final class Debug {
     }
 
     public static void log(int level, Throwable t, String msg, String module, String callingClass, Object... params) {
-        if (msg == null || msg.isEmpty()) {
+        // TODO: I think it is needed for OpenTelemetry
+        /*if (msg == null || msg.isEmpty()) {
             return; // Skip logging if message is null or empty
-        }
+        }*/
 
         if (isOn(level)) {
             if (msg != null && params.length > 0) {
@@ -122,15 +124,15 @@ public final class Debug {
 
             // Create a span for the log message
             // TODO: OpenTelemetry
-            Tracer tracer = GlobalOpenTelemetry.getTracer("org.sitenetsoft.sunseterp");
-            Span span = tracer.spanBuilder(msg).startSpan();
+            //Tracer tracer = GlobalOpenTelemetry.getTracer("org.sitenetsoft.sunseterp");
+            //Span span = tracer.spanBuilder(msg).startSpan();
 
             try {
                 // log
                 Logger logger = getLogger(module);
                 logger.log(LEVEL_OBJS[level], msg, t);
             } finally {
-                span.end();
+                //span.end();
             }
         }
     }

@@ -44,7 +44,7 @@ import org.sitenetsoft.sunseterp.applications.product.store.ProductStoreWorker;
 import org.sitenetsoft.sunseterp.framework.security.Security;
 import org.sitenetsoft.sunseterp.framework.service.*;
 
-import javax.transaction.Transaction;
+import jakarta.transaction.Transaction;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;

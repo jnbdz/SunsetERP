@@ -32,8 +32,12 @@ public class FileLoader extends ResourceLoader implements java.io.Serializable {
 
     @Override
     public URL getURL(String location) throws GenericConfigException {
+        // This is where it gets the full path to the file
         String fullLocation = fullLocation(location);
         URL fileUrl = null;
+
+        System.out.println("-----------------------------------------------------------------");
+        System.out.println("FileLoader.getURL: fullLocation: " + fullLocation);
 
         fileUrl = UtilURL.fromFilename(fullLocation);
         if (fileUrl == null) {
@@ -44,7 +48,12 @@ public class FileLoader extends ResourceLoader implements java.io.Serializable {
 
     @Override
     public InputStream loadResource(String location) throws GenericConfigException {
+        System.out.println("---------------+++----------------loadResource-----------------+++-----------------");
+        System.out.println("location: " + location);
+
         URL fileUrl = getURL(location);
+        System.out.println("fileUrl: " + fileUrl);
+
         try {
             return fileUrl.openStream();
         } catch (java.io.IOException e) {

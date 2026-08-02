@@ -30,7 +30,7 @@ import org.sitenetsoft.sunseterp.framework.entity.datasource.GenericHelperInfo;
 import org.sitenetsoft.sunseterp.framework.entity.jdbc.CursorConnection;
 
 import javax.sql.XAConnection;
-import javax.transaction.*;
+import jakarta.transaction.*;
 import javax.transaction.xa.XAException;
 import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;

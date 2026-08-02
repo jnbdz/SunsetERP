@@ -166,6 +166,8 @@ public class GenericDelegator implements Delegator {
         this.setDelegatorNames(delegatorFullName);
         this.delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorBaseName);
 
+        //System.out.println("====++++++++++++++++++++++++==== this.delegatorInfo: "+this.delegatorInfo.toString());
+
         if (this.delegatorInfo == null) {
             throw new GenericEntityException("No configuration found for delegator [" + delegatorFullName + "]");
         }
@@ -276,15 +278,23 @@ public class GenericDelegator implements Delegator {
      * @param delegatorFullName the delegator full name
      */
     protected void setDelegatorNames(String delegatorFullName) {
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&----setDelegatorNames----&&&&&&&&&&&&&&&&&&&&&&&&&");
+
+        System.out.println("&&& - delegatorFullName: "+delegatorFullName);
+
         this.delegatorFullName = delegatorFullName;
 
         int hashSymbolIndex = delegatorFullName.indexOf('#');
+
+        System.out.println("&&& - hashSymbolIndex: "+hashSymbolIndex);
+
         if (hashSymbolIndex == -1) {
             this.delegatorBaseName = delegatorFullName;
         } else {
             this.delegatorBaseName = delegatorFullName.substring(0, hashSymbolIndex);
             this.delegatorTenantId = delegatorFullName.substring(hashSymbolIndex + 1);
         }
+        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
     }
 
     /* (non-Javadoc)
@@ -402,6 +412,8 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public String getEntityGroupName(String entityName) {
+        System.out.println("entityName: "+entityName);
+        System.out.println("this.delegatorBaseName: "+this.delegatorBaseName);
         return getModelGroupReader().getEntityGroupName(entityName, this.delegatorBaseName);
     }
 
@@ -460,10 +472,16 @@ public class GenericDelegator implements Delegator {
 
     @Override
     public GenericHelperInfo getGroupHelperInfo(String entityGroupName) {
+        System.out.println("XXXXXXX-------XXXXXXXX-----getGroupHelperInfo-----XXXXXXX-------XXXXXXXX");
+        System.out.println("XXXX - entityGroupName: "+entityGroupName); // VALUE: org.sitenetsoft.sunseterp.framework.tenant
+
         if (entityGroupName == null) {
             return null;
         }
         String helperBaseName = this.getGroupHelperName(entityGroupName);
+
+        System.out.println("XXXX - helperBaseName: "+helperBaseName); // VALUE: localderbytenant
+
         if (helperBaseName == null) {
             return null;
         }
@@ -473,16 +491,28 @@ public class GenericDelegator implements Delegator {
             return null;
         }
 
+        System.out.println("XXXX - this.delegatorTenantId: "+this.delegatorTenantId); // VALUE: null (this might be normal since we don't have tenant by default (tenant == multiple OFBiz)
+
         GenericHelperInfo helperInfo = new GenericHelperInfo(entityGroupName, helperBaseName);
+
+        System.out.println("XXXX - helperInfo: "+helperInfo); // VALUE: org.sitenetsoft.sunseterp.framework.entity.datasource.GenericHelperInfo@396ef8b2
+
         if (UtilValidate.isNotEmpty(this.delegatorTenantId)) {
+            System.out.println("XXXX - UtilValidate.isNotEmpty(this.delegatorTenantId): "+UtilValidate.isNotEmpty(this.delegatorTenantId));
             // get the JDBC parameters from the DB for the entityGroupName and tenantId
             try {
                 // NOTE: instead of caching the GenericHelpInfo object do a cached query here and create a new object each time,
                 // will avoid issues when the database data changes during run time
                 // NOTE: always use the base delegator for this to avoid problems when this is being initialized
                 Delegator baseDelegator = DelegatorFactory.getDelegator(this.delegatorBaseName);
+
+                System.out.println("XXXX - baseDelegator: "+baseDelegator);
+
                 GenericValue tenantDataSource = EntityQuery.use(baseDelegator).from("TenantDataSource").where("tenantId", this.delegatorTenantId,
                         "entityGroupName", entityGroupName).cache(true).queryOne();
+
+                System.out.println("XXXX - tenantDataSource: "+tenantDataSource);
+
                 if (tenantDataSource != null) {
                     helperInfo.setTenantId(this.delegatorTenantId);
                     helperInfo.setOverrideJdbcUri(tenantDataSource.getString("jdbcUri"));
@@ -497,6 +527,8 @@ public class GenericDelegator implements Delegator {
                         + entityGroupName, MODULE);
             }
         }
+        System.out.println("XXXX - helperInfo: "+helperInfo.toString()); // org.sitenetsoft.sunseterp.framework.entity.datasource.GenericHelperInfo@396ef8b2
+        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
         return helperInfo;
     }
 
@@ -506,6 +538,11 @@ public class GenericDelegator implements Delegator {
      * @return the entity helper info
      */
     protected GenericHelperInfo getEntityHelperInfo(String entityName) {
+        System.out.println("---====---====---getEntityHelperInfo---====---====---");
+        System.out.println("entityName: "+entityName);
+        System.out.println("this.getEntityGroupName(entityName): "+this.getEntityGroupName(entityName)); // TODO: Check this part
+        System.out.println("this.getGroupHelperInfo(this.getEntityGroupName(entityName)): "+this.getGroupHelperInfo(this.getEntityGroupName(entityName)));
+        System.out.println("---====---====---====---====---====---====---====---");
         return this.getGroupHelperInfo(this.getEntityGroupName(entityName));
     }
 
@@ -514,7 +551,16 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public String getEntityHelperName(String entityName) {
-        return this.getGroupHelperName(this.getEntityGroupName(entityName));
+        // TODO: this.getEntityGroupName(entityName) what group should it return?
+        /*System.out.println("==============================getEntityHelperName=================================");
+        System.out.println(entityName);
+        System.out.println(this.getEntityGroupName(entityName)); // org.sitenetsoft.sunseterp
+        System.out.println(this.getGroupHelperName(this.getEntityGroupName(entityName))); // `null`
+        // org.sitenetsoft.sunseterp.framework
+        //System.out.println(this.getGroupHelperName("org.sitenetsoft.sunseterp.framework"));
+        System.out.println("=================================================================================");*/
+        //this.getEntityGroupName(entityName)
+        return this.getGroupHelperName("org.sitenetsoft.sunseterp.framework");
     }
 
     /* (non-Javadoc)
@@ -534,6 +580,10 @@ public class GenericDelegator implements Delegator {
     @Override
     public GenericHelper getEntityHelper(String entityName) throws GenericEntityException {
         GenericHelperInfo helperInfo = getEntityHelperInfo(entityName);
+
+        System.out.println("========getEntityHelper=======");
+        System.out.println("entityName: "+entityName);
+        System.out.println("helperInfo: "+helperInfo);
 
         if (helperInfo != null) {
             return GenericHelperFactory.getHelper(helperInfo);
@@ -555,6 +605,10 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public ModelFieldType getEntityFieldType(ModelEntity entity, String type) throws GenericEntityException {
+        /*System.out.println("==============================getEntityFieldType=================================");
+        System.out.println(entity);
+        System.out.println(type);
+        System.out.println("=================================================================================");*/
         return this.getModelFieldTypeReader(entity).getModelFieldType(type);
     }
 
@@ -563,7 +617,10 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public ModelFieldTypeReader getModelFieldTypeReader(ModelEntity entity) {
-        String helperName = getEntityHelperName(entity);
+        String helperName = getEntityHelperName(entity); // TODO: Returns `null`
+        /*System.out.println("==============================getModelFieldTypeReader=================================");
+        System.out.println(helperName); // `null`
+        System.out.println("=================================================================================");*/
         if (UtilValidate.isEmpty(helperName)) {
             return null;
         }

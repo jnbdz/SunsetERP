@@ -24,7 +24,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
 <entity-config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="https://ofbiz.apache.org/dtds/entity-config.xsd">
     <resource-loader name="fieldfile" class="org.sitenetsoft.sunseterp.framework.base.config.FileLoader"
-            prepend-env="ofbiz.home" prefix="/framework/entity/fieldtype/"/>
+            prepend-env="sunseterp.ofbiz.resources.path" prefix="/framework/entity/fieldtype/"/>
 
     <!-- the transaction factory class to use, one is needed for each way of getting JTA interfaces -->
     <!-- Use this one for Geronimo -->

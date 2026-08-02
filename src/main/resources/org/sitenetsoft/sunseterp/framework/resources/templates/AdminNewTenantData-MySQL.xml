@@ -21,7 +21,7 @@ under the License.
 <entity-engine-xml>
     <Tenant tenantId="@tenantId@" tenantName="@tenantName@"/>
     <TenantDomainName tenantId="@tenantId@" domainName="@domainName@" />
-    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.sitenetsoft.sunseterp"
+    <TenantDataSource tenantId="@tenantId@" entityGroupName="org.sitenetsoft.sunseterp.framework"
         jdbcUri="jdbc:mysql://@db-IP@/ofbiz_@tenantId@" jdbcUsername="@db-User@" jdbcPassword="@db-Password@"/>
     <TenantDataSource tenantId="@tenantId@" entityGroupName="org.sitenetsoft.sunseterp.framework.olap"
         jdbcUri="jdbc:mysql://@db-IP@/ofbizolap_@tenantId@" jdbcUsername="@db-User@" jdbcPassword="@db-Password@"/>

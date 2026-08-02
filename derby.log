@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Jun 09 22:59:26 UTC 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018f-ff3a-5a2f-000007388e60 
+on database directory /home/jn/Projects/Personal/SunsetERP/runtime/data/derby/ofbiztenant with class loader com.intellij.database.remote.jdbc.impl.JdbcClassLoader$JdbcClassLoaderImpl@4cdbe50f 
+Loaded from file:/home/jn/.config/JetBrains/IntelliJIdea2024.1/jdbc-drivers/Apache%20Derby/10.16.1.1/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+java.vendor=JetBrains s.r.o.
+java.runtime.version=17.0.11+1-b1207.24
+user.dir=/home/jn/Projects/Personal/SunsetERP
+os.name=Linux
+os.arch=amd64
+os.version=5.15.133.1-microsoft-standard-WSL2
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
